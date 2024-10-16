@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 10:37:06 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/16 10:37:06 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/16 13:35:53 by marvin            #+#    #+#             */
+/*   Updated: 2024/10/16 13:35:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_home.h"
+#ifndef STRUCT_H
+# define STRUCT_H
+# include <stdlib.h>
 
-void	ft_putendl_fd(char *s, int fd)
+typedef struct s_list
 {
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
-}
+	void *content;
+	struct s_list *next;
+} t_list;
+
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+
+#endif

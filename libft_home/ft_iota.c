@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-char *ft_strdup(const char *s);
+#include "libft_home.h"
 
-void	*expand_malloc(char *arr, size_t size, size_t new_size)
+static void	*expand_malloc(char *arr, size_t new_size)
 {
 	char	*tmp_arr;
 	size_t	i;
@@ -28,7 +27,7 @@ void	*expand_malloc(char *arr, size_t size, size_t new_size)
 	return (arr);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	size_t	r_size;
 	char	*result;
@@ -40,14 +39,14 @@ char *ft_itoa(int n)
 	while (n % 10)
 	{
 		result[0] = n % 10;
-		expand_malloc(result, r_size, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
+		expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
 		if (!result)
 			return (NULL);
 		r_size++;
 	}
 	if (n < 0)
 	{
-		expand_malloc(result, r_size, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
+		expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
 		if (!result)
 			return (NULL);
 		result[0] = '-';

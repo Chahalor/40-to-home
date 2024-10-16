@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-unsigned int	ft_strlen(const char s);
+#include "libft_home.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

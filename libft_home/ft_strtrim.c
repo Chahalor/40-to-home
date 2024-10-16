@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-unsigned int	ft_strlen(const char s);
+#include "libft_home.h"
 
 static unsigned int	check_begin(char const *s1, char const *set)
 {
@@ -48,20 +46,24 @@ static unsigned int	check_end(char const *s1, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char			*result;
 	unsigned int	setbegin;
 	unsigned int	setend;
-	unsigned int	i;
 	unsigned int	buffer;
+	char			*result;
+	unsigned int	i;
 
 	setbegin = check_begin(s1, set);
 	setend = check_end(s1, set);
-	buffer = ft_strlen(s1) - setbegin - setend;
+	buffer = ft_strlen(s1) - (setbegin + setend);
+	printf("begin=%d, end=%d, buffer=%d", setbegin, setend, buffer);
 	result = malloc(sizeof(char) * buffer);
 	if (!result)
 		return (NULL);
 	i = setbegin;
-	while (i < buffer)
-		result[i - setbegin] == s1[i];
+	while (i < setbegin + buffer)
+	{
+		result[i - setbegin] = s1[i];
+		i++;
+	}
 	return (result);
 }

@@ -10,9 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft_home.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	write(fd, &n, 4);
+	char	*nba;
+
+	nba = ft_itoa(n);
+	if (!nba)
+		return ;
+	write(fd, nba, ft_strlen(nba));
+	free(nba);
 }

@@ -10,81 +10,80 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft_home.h"
 
-unsigned int	ft_strlen(const char s);
-void 			*ft_calloc(size_t nmemb, size_t size);
-
-typedef struct	t_split_piece
+static unsigned int	find_nb_split(char const *s, char c)
 {
-	unsigned int	size;
-	char			*start;
-	char			*next;
-} split_piece;
-
-static unsigned int	find_split_nbr(char const *s, char c)
-{
-	unsigned int	result;
 	unsigned int	i;
+	unsigned int	r;
 
-	result = 0;
 	i = 0;
+	r = 0;
 	while (s[i])
 		if (s[i++] == c)
-			result++;
-	return (result);
+			r++;
+	return (r);
 }
 
-static	split_piece	 find_next_piece(char const *s, char c, unsigned int start)
+static char	*strdup_from_to(const char *s, unsigned int from, unsigned int to)
 {
-	split_piece		next;
-	unsigned int	i;
-
-	i = start;
-	next.size = 0;
-	next.start = &s[start];
-	while (s[i] && s[i] != c)
-		next.size++;
-	if (s[i + 1])
-		next.next = &s[i + 1];
-	else
-		next.next = NULL;
-	return (next);
-}
-
-static split_piece	*find_split(char const *s, char c)
-{
-	split_piece		*result;
+	char			*result;
 	unsigned int	i;
 	unsigned int	j;
 
-	result = malloc(sizeof(split_piece) * find_split_nbr(s, c));
-	i = 0;
+	result = (char *)malloc(sizeof(char) * (to - from + 1));
+	if (!result)
+		return (NULL);
+	i = from;
 	j = 0;
-	while (s[i])
+	while (i < to)
 	{
-		result[j++] = find_next_piece(s, c, i);
-		i += result[j].size;
+		result[j] = s[i];
+		j++;
+		i++;
 	}
+	result[j] = '\0';
 	return (result);
 }
 
-char **ft_split(char const *s, char c)
+static void	**free_all(char **arr, unsigned int nb_elt)
 {
-	unsigned int	buffer_size;
 	unsigned int	i;
-	char			**arr;
-	split_piece		*list_piece;
 
-	list_piece = find_split(s, c);
 	i = 0;
-	while (list_piece[i++].next)
-		buffer_size++;
-	arr = malloc(sizeof(char *) * buffer_size);
-	if (!arr)
+	while (i < nb_elt)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char			**result;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	count_elt;
+
+	result = (char **)malloc(sizeof(char *) * find_nb_split(s, c));
+	if (!result)
 		return (NULL);
 	i = 0;
-	while (list_piece[i++].next)
-		arr[i] = list_piece[i].start;
-	return (arr);
+	j = 0;
+	count_elt = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+		{
+			result[count_elt++] = strdup_from_to(s, j, i);
+			if (!result[count_elt])
+				return ((char **)free_all(result, count_elt));
+			j = i + 1;
+		}
+		i++;
+	}
+	result[count_elt++] = strdup_from_to(s, j, i);
+	return (result);
 }
