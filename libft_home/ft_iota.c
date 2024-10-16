@@ -18,12 +18,18 @@ static void	*expand_malloc(char *arr, size_t new_size)
 	size_t	i;
 
 	tmp_arr = ft_strdup(arr);
-	arr = malloc(sizeof(char) * new_size);
-	if (!arr || !tmp_arr)
+	free(arr);
+	arr = (char *)malloc(sizeof(char) * (new_size + 1));
+	if (!tmp_arr || !arr)
+	{
+		free(tmp_arr);
 		return (NULL);
-	i = 1;
+	}
+	i = 0;
 	while (i++ < new_size)
-		arr[i] = tmp_arr[i - 1];
+		arr[i + 1] = tmp_arr[i];
+	arr[new_size - 1] = '\0';
+	free(tmp_arr);
 	return (arr);
 }
 
@@ -38,18 +44,30 @@ char	*ft_itoa(int n)
 		return (NULL);
 	while (n % 10)
 	{
-		result[0] = n % 10;
-		expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
+		// printf("result : %s\n", result);
+		result = expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
 		if (!result)
 			return (NULL);
+		result[0] = n % 10;
 		r_size++;
 	}
 	if (n < 0)
 	{
-		expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
+		result = expand_malloc(result, r_size + 1); // ou `result = expand_malloc(result, r_size, r_size + 1);`
 		if (!result)
 			return (NULL);
 		result[0] = '-';
 	}
 	return (result);
 }
+/*
+int main(void)
+{
+		char	*tkt = "MOGUS";
+	tkt = expand_malloc(tkt, 5);
+	tkt[0] = 'A';
+	write(1, tkt, ft_strlen(tkt));
+	return 0;
+}
+
+*/

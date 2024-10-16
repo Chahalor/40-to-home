@@ -56,10 +56,9 @@ char	*ft_strdup(const char *s)
 	}
 	return (dupp);
 }
-
 int main(void)
 {
-	/*
+/*
 	char	*vstrtrim = "AMOGUSAMO";
 	char	*trimr = ft_strtrim(vstrtrim, "");
 	write(1, trimr, ft_strlen(trimr));
@@ -76,7 +75,19 @@ int main(void)
 		i++;
 	}
 	free(splitr);
-	*/
+
+	int		itoaInt = 123;
+	char	*itoar = ft_itoa(itoaInt);
+	write(1, itoar, ft_strlen(itoar));
+
+	char	*tkt = "MOGUS";
+	tkt = expand_malloc(tkt, 5);
+	tkt[0] = 'A';
+	write(1, tkt, ft_strlen(tkt));
+*/
+	char *s1 = "123456789/*-+";
+	char *s2 = ft_strdup(s1);
+	write(1, s2, ft_strlen(s2));
 
 	return (0);
 }
