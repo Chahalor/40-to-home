@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:59:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/17 14:23:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/18 15:20:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	*ft_memcpy(void *dest, const void *src, unsigned long int n)
 {
 	unsigned long int	i;
 
+	if (!dest && !src && n)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
@@ -42,7 +44,7 @@ void	*ft_memchr(const void *s, int c, unsigned long int n)
 	i = 0;
 	while (i < n)
 	{
-		if (((char *)s)[i] == c)
+		if (((unsigned char *)s)[i] == (unsigned char)c)
 			return (&((unsigned char *)s)[i]);
 		i++;
 	}
@@ -65,16 +67,30 @@ int	ft_memcmp(const void *s1, const void *s2, unsigned long int n)
 	return (0);
 }
 
-void	*ft_memmove(void *dest, const void *src, unsigned long int n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned long int	i;
-	void				*tmp_arr;
+	size_t			i;
 
-	tmp_arr = ft_calloc(1, n);
-	if (!tmp_arr)
+	if (!dest && !src)
 		return (NULL);
+	if (((unsigned char *)src) < ((unsigned char *)dest)
+		&& ((unsigned char *)src) < ((unsigned char *)dest) + n)
+	{
+		i = n;
+		while (i-- > 0)
+			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+		return (dest);
+	}
 	i = 0;
-	ft_memcpy(tmp_arr, src, n);
-	ft_memcpy(dest, tmp_arr, n);
+	while (i < n)
+	{
+		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
 	return (dest);
 }
+
+// int main(void)
+// {
+// 	return (0);
+// }

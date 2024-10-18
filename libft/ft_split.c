@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 08:17:06 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/17 12:53:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/18 09:51:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	*strdup_from_to(const char *s, unsigned int from, unsigned int to)
 	unsigned int	i;
 	unsigned int	j;
 
+	if (from == to)
+		return (NULL);
 	result = (char *)malloc(sizeof(char) * (to - from + 1));
 	if (!result)
 		return (NULL);
@@ -46,7 +48,7 @@ static char	*strdup_from_to(const char *s, unsigned int from, unsigned int to)
 	return (result);
 }
 
-static void	**free_all(char **arr, unsigned int nb_elt)
+static char	**free_all(char **arr, unsigned int nb_elt)
 {
 	unsigned int	i;
 
@@ -65,25 +67,24 @@ char	**ft_split(char const *s, char c)
 	char			**result;
 	unsigned int	i;
 	unsigned int	j;
-	unsigned int	count_elt;
+	unsigned int	k;
 
-	result = (char **)malloc(sizeof(char *) * find_nb_split(s, c));
+	result = (char **)malloc(sizeof(char *) * (find_nb_split(s, c) + 2));
 	if (!result)
 		return (NULL);
 	i = 0;
 	j = 0;
-	count_elt = 0;
-	while (s[i])
+	k = 0;
+	while (i < ft_strlen(s))
 	{
-		if (s[i] == c)
+		if (s[i++] == c)
 		{
-			result[count_elt++] = strdup_from_to(s, j, i);
-			if (!result[count_elt])
-				return ((char **)free_all(result, count_elt));
-			j = i + 1;
+			if (strdup_from_to(s, j, i - 1))
+				result[k++] = strdup_from_to(s, j, i - 1);
+			j = i;
 		}
-		i++;
 	}
-	result[count_elt++] = strdup_from_to(s, j, i);
+	result[k] = strdup_from_to(s, j, i);
+	result[k + 1] = NULL;
 	return (result);
 }

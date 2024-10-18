@@ -6,73 +6,74 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 09:14:00 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/17 12:45:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/18 12:35:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_malloc_size(int n)
+static int	nb_len(int n)
 {
-	int	i;
-	int	neg;
+	int	len;
 
-	neg = 0;
+	len = 0;
 	if (n < 0)
-		neg = 1;
-	i = 0;
+		len = 1;
 	while (n)
 	{
 		n /= 10;
-		i++;
+		len++;
 	}
-	return (i + neg);
+	return (len);
 }
 
-static char	*reverse_char(char *s, size_t size)
+char	*exeption(int n)
 {
-	size_t	i;
-	size_t	j;
-	char	buffer;
+	char	*r;
 
-	i = 0;
-	j = size;
-	while (i < size / 2 + 1)
+	if (n == 0)
 	{
-		buffer = s[i];
-		s[i] = s[j];
-		s[j] = buffer;
-		i++;
-		j--;
+		r = (char *)malloc(sizeof(char) * 2);
+		ft_strlcpy(r, "0", 2);
+		return (r);
 	}
-	return (s);
+	r = (char *)malloc(sizeof(char) * 12);
+	ft_strlcpy(r, "-2147483648", 12);
+	return (r);
 }
 
 char	*ft_itoa(int n)
 {
-	int		r_size;
-	char	*result;
-	char	neg;
-	int		i;
+	char			*r;
+	int				len;
+	unsigned int	nb;
 
-	neg = 0;
-	if (n < 0)
-	{
-		neg = 1;
-		n *= -1;
-	}
-	r_size = get_malloc_size(n);
-	result = (char *)malloc(sizeof(char) * r_size);
-	if (!result)
+	if (n == 0 || n == -2147483647 - 1)
+		return (exeption(n));
+	len = nb_len(n);
+	r = (char *)malloc(sizeof(char) * (len + 1));
+	if (!r)
 		return (NULL);
-	result[r_size] = '\0';
-	i = 0;
-	while (n)
+	r[len] = '\0';
+	nb = n;
+	if (n < 0)
+		nb = -n;
+	if (n < 0)
+		r[0] = '-';
+	while (r[--len] != '-' && len >= 0)
 	{
-		result[i++] = (n % 10) + 48;
-		n /= 10;
+		r[len] = nb % 10 + '0';
+		nb /= 10;
 	}
-	if (neg)
-		result[r_size] = '-';
-	return (reverse_char(result, r_size));
+	return (r);
 }
+
+// int	main(void)
+// {
+// 	int	nb = 0;
+// 	char	*r = ft_itoa(nb);
+// 	write(1, r, ft_strlen(r));
+// 	write(1, "\n", 1);
+// 	free(r);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:51:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/17 14:30:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:15:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,17 @@ unsigned long int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	unsigned int	i;
 
+	if (c == '\0')
+		return (&((char *)s)[ft_strlen(s)]);
 	i = 0;
 	while (s[i])
-	{
-		if (s[i] == c)
-		{
-			return (&((char *)s)[i]);
-		}
-		i++;
-	}
-	return ((void *)0);
+		if (s[i++] == (unsigned char)c)
+			return (&((char *)s)[i - 1]);
+	return (NULL);
 }
 
 char	*ft_strrchr(const char *s, int c)
@@ -61,13 +58,16 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t			i;
 	unsigned int	j;
 
-	if (!little)
+	if (!little || little[0] == '\0')
 		return ((char *)big);
+	if (!big)
+		return ("");
 	i = 0;
 	while (i < len && big[i] != '\0')
 	{
 		j = 0;
-		while (big[i + j] == little[j] && little[j] && i + j < len)
+		while (big[i + j] == little[j] && little[j] && i + j < len
+			&& big[i + j])
 			j++;
 		if (ft_strlen(little) == j)
 			return (&((char *)big)[i]);
@@ -75,3 +75,15 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
+
+// #include <strings.h>
+// int main(void)
+// {
+// 	char	*big = "";
+// 	char	*little = "";
+// 	char	*r = ft_strnstr(big, little, -1);
+// 	printf("r : %s\n", r);
+// 	(void)ft_strrchr("", 0);
+// 	(void)ft_strchr("", 0);
+// 	return 0;
+// }
