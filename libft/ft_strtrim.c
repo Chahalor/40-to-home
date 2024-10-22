@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 07:57:46 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/18 16:49:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:17:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,22 @@ static int	in_set(char c, const char *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	unsigned int	i;
 	unsigned int	buffer;
 	char			*r;
 	unsigned int	start;
 	unsigned int	end;
 
-	if (s1[0] == '\0')
-		return ("");
-	i = 0;
-	while (in_set(s1[i], set))
-		i++;
-	start = i;
-	i = ft_strlen(s1) - 1;
-	while (in_set(s1[i], set) && i > 0)
-		i--;
-	end = i;
+	if (!s1 || s1[0] == '\0' || !set)
+		return (malloc(0));
+	if (set[0] == '\0')
+		return (ft_strdup(s1));
+	start = 0;
+	while (in_set(s1[start], set))
+		start++;
+	end = ft_strlen(s1) - 1;
+	while (in_set(s1[end], set) && end > 0)
+		end--;
 	buffer = end - start + 1;
-	if (buffer == 1)
-		return ("");
 	r = ft_substr(s1, start, buffer);
 	if (!r)
 		return (NULL);

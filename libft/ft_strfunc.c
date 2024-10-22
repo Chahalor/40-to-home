@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:51:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/18 16:15:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/21 09:20:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t			i;
 	unsigned int	j;
 
-	if (!little || little[0] == '\0')
+	if (little[0] == '\0')
 		return ((char *)big);
-	if (!big)
-		return ("");
 	i = 0;
 	while (i < len && big[i] != '\0')
 	{
@@ -75,15 +73,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-
-// #include <strings.h>
-// int main(void)
-// {
-// 	char	*big = "";
-// 	char	*little = "";
-// 	char	*r = ft_strnstr(big, little, -1);
-// 	printf("r : %s\n", r);
-// 	(void)ft_strrchr("", 0);
-// 	(void)ft_strchr("", 0);
-// 	return 0;
-// }

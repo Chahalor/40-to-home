@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:59:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/18 15:20:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/21 15:56:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,3 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-
-// int main(void)
-// {
-// 	return (0);
-// }

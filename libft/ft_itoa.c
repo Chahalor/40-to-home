@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 09:14:00 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/18 12:35:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/21 15:56:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,3 @@ char	*ft_itoa(int n)
 	}
 	return (r);
 }
-
-// int	main(void)
-// {
-// 	int	nb = 0;
-// 	char	*r = ft_itoa(nb);
-// 	write(1, r, ft_strlen(r));
-// 	write(1, "\n", 1);
-// 	free(r);
-// 	return (0);
-// }

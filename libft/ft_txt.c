@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:53:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/17 14:46:39 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:03:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,3 @@ int	ft_atoi(const char *nptr)
 	}
 	return (r * neg);
 }
-
-// int main(void)
-// {
-// 	char	*nptr = "n\n\n  -46\b9 \n5d6";
-// 	printf("r : %d\n", ft_atoi(nptr));
-// 	return 0;
-// }

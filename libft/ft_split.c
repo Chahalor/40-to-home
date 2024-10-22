@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 08:17:06 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/18 09:51:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/22 08:49:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,13 @@ static char	**free_all(char **arr, unsigned int nb_elt)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**malloc_logic(char **dest, char const *s, char c)
 {
-	char			**result;
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	k;
+	char			*data;
 
-	result = (char **)malloc(sizeof(char *) * (find_nb_split(s, c) + 2));
-	if (!result)
-		return (NULL);
 	i = 0;
 	j = 0;
 	k = 0;
@@ -79,12 +76,26 @@ char	**ft_split(char const *s, char c)
 	{
 		if (s[i++] == c)
 		{
-			if (strdup_from_to(s, j, i - 1))
-				result[k++] = strdup_from_to(s, j, i - 1);
+			data = strdup_from_to(s, j, i - 1);
+			if (!data)
+				return (free_all(dest, k));
+			dest[k++] = data;
 			j = i;
 		}
 	}
-	result[k] = strdup_from_to(s, j, i);
-	result[k + 1] = NULL;
-	return (result);
+	dest[k] = strdup_from_to(s, j, i);
+	dest[k + 1] = NULL;
+	return (dest);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**result;
+
+	if (!s)
+		return (NULL);
+	result = (char **)malloc(sizeof(char *) * (find_nb_split(s, c) + 2));
+	if (!result)
+		return (NULL);
+	return (malloc_logic(result, s, c));
 }
