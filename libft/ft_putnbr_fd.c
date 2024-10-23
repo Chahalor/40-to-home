@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:38:59 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/21 10:31:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 08:28:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	write_logic(int nb, int fd)
 
 void	ft_putnbr_fd(int nb, int fd)
 {
+	if (fd < 0)
+		return ;
 	if (nb == -2147483648)
 		write(fd, "-2147483648", 11);
 	else if (nb == 0)

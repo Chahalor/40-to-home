@@ -6,16 +6,15 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:33:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/22 15:42:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 14:51:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new;
-	t_list	*tmp;
 	t_list	*next;
 	t_list	*nnext;
 

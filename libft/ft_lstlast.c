@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:47:39 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/22 09:49:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 10:09:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_list	*ft_lstlast(t_list *lst)
 
 	if (!lst)
 		return (NULL);
+	if (!lst->next)
+		return (lst);
 	next = lst->next;
 	while (next->next)
 		next = next->next;

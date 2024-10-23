@@ -1,26 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 10:25:18 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/17 12:53:15 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/23 14:15:11 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/10/23 14:15:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+static int	is_space(int c)
 {
-	unsigned int	i;
+	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
+		|| c == '\v')
+		return (1);
+	return (0);
+}
 
+int	ft_atoi(const char *nptr)
+{
+	int				r;
+	unsigned int	i;
+	int				neg;
+
+	neg = 1;
+	r = 0;
 	i = 0;
-	while (s[i])
+	while (is_space(nptr[i]))
+		i++;
+	if (nptr[i] == '-')
 	{
-		f(i, &s[i]);
+		neg = -1;
 		i++;
 	}
-	return ;
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] && ft_isdigit(nptr[i]))
+	{
+		r = r * 10 + (nptr[i] - 48);
+		i++;
+	}
+	return (r * neg);
 }

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:21:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/22 14:02:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 10:31:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		ft_lstdelone(next, del);
 		next = tmp;
 	}
-	lst = NULL;
+	ft_lstdelone(next, del);
+	(*lst) = NULL;
 }

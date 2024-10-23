@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:40:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/22 14:48:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 13:50:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ char				*ft_strnstr(const char *big, const char *little,
 // strFunc2.c
 unsigned long int	ft_strlcpy(char *dst, const char *src,
 						unsigned long int size);
-unsigned long int	strlcat(char *dst, const char *src,
-						unsigned long int size);
+size_t				ft_strlcat(char *dst, const char *src, size_t size);
 
 // memFunc.c
 void				*ft_memset(void *s, int c, unsigned long int n);
@@ -69,12 +68,12 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 
-// Bonus Part
+// Bonus
 typedef struct s_list
 {
-	void *content;
-	struct s_list *next;
-} t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);
@@ -84,7 +83,7 @@ void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
-t_list 				*ft_lstmap(t_list *lst, void *(*f)(void *),
-					void (*del)(void *));
+t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
+						void (*del)(void *));
 
 #endif

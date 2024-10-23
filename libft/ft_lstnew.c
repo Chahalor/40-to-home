@@ -6,13 +6,13 @@
 /*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 08:52:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/22 09:05:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 10:06:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list *ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content)
 {
 	t_list	*node;
 
