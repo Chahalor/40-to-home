@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-// # define BUFFER_SIZE 1
+# define BUFFER_SIZE 1
 
 size_t	ft_strlen(const char *s);
 char	*custom_strdup(const char *s, int index);

@@ -21,29 +21,8 @@ static char	*quit_all(char *content, int fd)
 
 char	*get_next_line(int fd)
 {
-	char			*content;
-	char			*result;
-	unsigned int	i;
-	int				rout;
+	static int	buffer;
+	int			i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	content = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-	if (!content)
-		return (NULL);
-	rout = read(fd, content, BUFFER_SIZE);
-	if (rout == -1)
-		return (quit_all(content, fd));
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '\n')
-			break ;
-		else if (content[i] == '\\' && content[i + 1] == 'n')
-			break ;
-		i++;
-	}
-	result = custom_strdup(content, i);
-	quit_all(content, fd);
-	return (result);
+	buffer = 0;
 }
