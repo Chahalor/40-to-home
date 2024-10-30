@@ -5,84 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 08:24:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/27 08:24:22 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/30 10:50:55 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/10/30 10:50:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	linelen(char *s, size_t max)
+ssize_t	linelen(char *buffer, ssize_t max)
 {
-	size_t	r;
+	ssize_t	i;
 
-	r = 0;
-	while (s[r] != '\n' && r < max)
-		r++;
-	if (r < max)
-		return (r + 1);
-	return (r);
+	i = 0;
+	while (buffer[i] != '\n' && i < max && buffer[i] != '\0')
+		i++;
+	if (i < max)
+		i++;
+	return (i);
 }
 
-t_data	*new_t_data(int fd, size_t content_size)
+char	*gnl_strdup(const char *buffer, ssize_t size)
 {
-	t_data	*new_one;
+	char	*result;
+	ssize_t	i;
 
-	new_one = (t_data *)malloc(sizeof(t_data));
-	if (!new_one)
+	result = (char *)malloc(sizeof(char) * size);
+	if (!result || !buffer)
 		return (NULL);
-	new_one->fd = fd;
-	new_one->size = content_size;
-	new_one->next = NULL;
-	return (new_one);
-}
-
-size_t	get_buffer_use(t_data *data)
-{
-	size_t	r;
-	t_data	*d;
-
-	if (!data)
-		return (0);
-	d = data;
-	r = 0;
-	while (d)
+	i = 0;
+	while (i < size)
 	{
-		r += d->size;
-		d = d->next;
+		result[i] = buffer[i];
+		i++;
 	}
-	return (r);
-}
-
-void	add_end_lst(t_data **lst, t_data *elt)
-{
-	t_data	*l;
-
-	if (!lst || !(*lst))
-	{
-		(*lst) = elt;
-		return ;
-	}
-	l = (*lst);
-	while (l->next)
-		l = l->next;
-	l->next = elt;
-}
-
-int	is_fd_already_read(int fd, t_data **data)
-{
-	t_data	*d;
-
-	if (!data || !(*data))
-		return (-1);
-	d = (*data);
-	if (d->fd == fd)
-		return (1);
-	while (d->next)
-	{
-		if (d->fd == fd)
-			return (1);
-		d = d->next;
-	}
-	return (0);
+	result[i] = '\0';
+	return (result);
 }

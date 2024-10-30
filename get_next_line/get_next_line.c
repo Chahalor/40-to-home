@@ -11,60 +11,36 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*rd_until_nxt_line(int fd, size_t buffer_use)
-{
-	int			rout;
-	char		rbuffer[BUFFER_SIZE];
-	char		*result;
-	size_t		i;
-	size_t		j;
-
-	rout = read(fd, rbuffer, BUFFER_SIZE - buffer_use);
-	if (rout == -1)
-		return (NULL);
-	i = 0;
-	while (i < linelen(rbuffer, rout) && BUFFER_SIZE >= buffer_use + i)
-		i++;
-	if (BUFFER_SIZE >= buffer_use + i)
-		i++;
-	result = (char *)malloc(sizeof(char) * i);
-	if (!result)
-		return (NULL);
-	j = 0;
-	while (i < j)
-	{
-		result[j] = rbuffer[j];
-		j++;
-	}
-	return (result);
-}
+#include <unistd.h>
 
 char	*get_next_line(int fd)
 {
-	static t_data	*data = NULL;
-	size_t			buffer_use;
-	char			*rbuffer;
-	t_data			*tmp;
+	static void	*lst_fd[LST_FD_SZ];
+	int			b_use;
+	char		buffer[BUFFER_SIZE];
+	ssize_t		rout;
+	char		*result;
 
-	if (!data)
-		data = new_t_data(fd, linelen(rd_until_nxt_line(fd, 0), BUFFER_SIZE));
-	buffer_use = get_buffer_use(data);
-	if (!is_fd_already_read(fd, &data))
+	if (lst_fd[1024] == NULL)
 	{
-		rbuffer = rd_until_nxt_line(fd, buffer_use);
-		if (!rbuffer)
-			return (NULL);
-		add_end_lst(&data, new_t_data(fd, linelen(rbuffer, BUFFER_SIZE)));
-		buffer_use += linelen(rbuffer, BUFFER_SIZE);
-		return (rbuffer);
+		b_use = 0;
+		lst_fd[1024] = &b_use;
 	}
-	tmp = data;
-	while (tmp->fd != fd)
-		tmp = tmp->next;
-	rbuffer = rd_until_nxt_line(fd, buffer_use);
-	if (!rbuffer)
-		return (NULL);
-	tmp->size += linelen(rbuffer, BUFFER_SIZE);
-	return (rbuffer);
+	else 
+		b_use = (int)(*lst_fd)[1024];
+	if (lst_fd[fd] == NULL)
+	{
+		rout = read(fd, buffer, BUFFER_SIZE - b_use);
+		if (rout == -1)
+			return (NULL);
+		result = gnl_strdup(buffer, linelen(buffer, rout));
+		lst_fd[fd] = &buffer[linelen(buffer, rout)];
+		lst_fd[1024] += linelen(lst_fd[fd], BUFFER_SIZE - b_use);
+		return (result);
+	}
+	printf("linelen=%d\n", BUFFER_SIZE - b_use);
+	result = gnl_strdup(lst_fd[fd], linelen(lst_fd[fd], BUFFER_SIZE - b_use));
+	lst_fd[fd] = &lst_fd[fd][linelen(lst_fd[fd], BUFFER_SIZE - b_use)];
+	lst_fd[1024] += linelen(lst_fd[fd], BUFFER_SIZE - b_use);
+	return (result);
 }

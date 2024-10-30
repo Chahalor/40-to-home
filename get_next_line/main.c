@@ -12,23 +12,27 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 int main(void)
 {
-	char	*line = "sus\n";
+	// char	*line = "sus \nhey \nAmOgUs";
+	// printf("linelen('%s') = %zu\n", line, linelen(line, 17));
+	// char	*new = gnl_strdup(line, 5);
+	// printf("new : %s\n", new);
+	// free(new);
 
-	printf("linelen=%d\n", linelen(line, BUFFER_SIZE));
-	t_data	*data = new_t_data(1, 10);
-	add_end_lst(&data, new_t_data(2, 11));
-	add_end_lst(&data, new_t_data(3, 12));
+	int fd = open("tkt.txt", O_RDONLY);
+	if (fd == -1)
+		return (1);
+	printf("fd %d, line 1 : %s", fd, get_next_line(fd));
+	// printf("fd %d, line 2 : %s", fd, get_next_line(fd));
 
-	t_data	*tmp = data;
-	while (tmp)
-	{
-		printf("fd=%d, size=%d, next=%p\n", tmp->fd, tmp->size, tmp->next);
-		tmp = tmp->next;
-	}
-	printf("buffer use=%d\n", get_buffer_use(data));
-	printf("already read ? %d\n", is_fd_already_read(4, &data));
+	close(fd);
+
+	// char	buff[1024];
+	// read(STDIN_FILENO, buff, 1024);
+	// printf("stdin : %s\n", buff);
 	return 0;
 }
