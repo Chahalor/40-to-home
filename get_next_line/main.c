@@ -15,10 +15,20 @@
 
 int main(void)
 {
-	char	*s;
-	
-	s = get_next_line(1);
-	printf("s=%s\n", s);
-	free(s);
+	char	*line = "sus\n";
+
+	printf("linelen=%d\n", linelen(line, BUFFER_SIZE));
+	t_data	*data = new_t_data(1, 10);
+	add_end_lst(&data, new_t_data(2, 11));
+	add_end_lst(&data, new_t_data(3, 12));
+
+	t_data	*tmp = data;
+	while (tmp)
+	{
+		printf("fd=%d, size=%d, next=%p\n", tmp->fd, tmp->size, tmp->next);
+		tmp = tmp->next;
+	}
+	printf("buffer use=%d\n", get_buffer_use(data));
+	printf("already read ? %d\n", is_fd_already_read(4, &data));
 	return 0;
 }
