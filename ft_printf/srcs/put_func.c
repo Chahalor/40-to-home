@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_func.c                                         :+:      :+:    :+:   */
+/*   put_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 08:48:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/25 09:12:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/28 09:52:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 int	writechar(char c)
 {
-	// c = (unsigned char)c;
+	c = (unsigned char)c;
 	return (write(1, &c, 1));
 }
 
 int	writestr(char *s)
 {
+	int	wout;
+
 	if (!s)
 		return (write(1, "(null)", 6));
-	return (write(1, s, ft_strlen(s)));
+	wout = write(1, s, ft_strlen(s));
+	return (wout);
 }
 
 static int	logic_writeptr(size_t nb, char *buffer)

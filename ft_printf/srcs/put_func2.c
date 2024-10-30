@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_func2.c                                        :+:      :+:    :+:   */
+/*   put_func2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 08:55:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/25 09:02:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/28 10:55:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,59 +28,78 @@ int	writeuint(unsigned int uint)
 	return (write(1, &buffer[i + 1], 9 - i));
 }
 
-int	writelhex(int nb)
+static int	neg_writelhex(unsigned int nb, char *buffer)
 {
-	char	buffer[16];
-	int		size_print;
-	__int8_t	i;
-	int			wout;
+	int	i;
 
-	if (nb == -2147483647 - 1)
-		return (write(1, "80000000", 8));
-
-	size_print = 0;
-	if (nb == 0)
-	{
-		if (write(1, "0", 1) == -1)
-			return (-1);
-		return (size_print + 1);
-	}
 	i = 15;
 	while (nb > 0)
 	{
 		buffer[i--] = LHEX_CHAR[nb % 16];
 		nb /= 16;
 	}
-	wout = write(1, &buffer[i + 1], 15 - i);
-	if (wout == -1)
-		return (-1);
-	return (size_print + wout);
+	while (i >= 8)
+	{
+		buffer[i--] = 'f';
+		nb /= 16;
+	}
+	return (write(1, &buffer[i + 1], 15 - i));
 }
 
-int	writeuhex(int nb)
+int	writelhex(int nb)
 {
-	char	buffer[16];
-	int		size_print;
+	char		buffer[16];
 	__int8_t	i;
-	int			wout;
 
 	if (nb == -2147483647 - 1)
 		return (write(1, "80000000", 8));
-	size_print = 0;
 	if (nb == 0)
+		return (write(1, "0", 1));
+	if (nb < 0)
+		return (neg_writelhex((unsigned int)nb, buffer));
+	i = 15;
+	while (nb > 0)
 	{
-		if (write(1, "0", 1) == -1)
-			return (-1);
-		return (size_print + 1);
+		buffer[i--] = LHEX_CHAR[nb % 16];
+		nb /= 16;
 	}
+	return (write(1, &buffer[i + 1], 15 - i));
+}
+
+static int	neg_writeuhex(unsigned int nb, char *buffer)
+{
+	int	i;
+
 	i = 15;
 	while (nb > 0)
 	{
 		buffer[i--] = UHEX_CHAR[nb % 16];
 		nb /= 16;
 	}
-	wout = write(1, &buffer[i + 1], 15 - i);
-	if (wout == -1)
-		return (-1);
-	return (size_print + wout);
+	while (i >= 8)
+	{
+		buffer[i--] = 'F';
+		nb /= 16;
+	}
+	return (write(1, &buffer[i + 1], 15 - i));
+}
+
+int	writeuhex(int nb)
+{
+	char		buffer[16];
+	__int8_t	i;
+
+	if (nb == -2147483647 - 1)
+		return (write(1, "80000000", 8));
+	if (nb == 0)
+		return (write(1, "0", 1));
+	else if (nb < 0)
+		return (neg_writeuhex((unsigned int)nb, buffer));
+	i = 15;
+	while (nb > 0)
+	{
+		buffer[i--] = UHEX_CHAR[nb % 16];
+		nb /= 16;
+	}
+	return (write(1, &buffer[i + 1], 15 - i));
 }

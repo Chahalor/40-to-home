@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:36:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/25 16:40:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/28 09:51:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	write_loop(const char *s, va_list args, __uint32_t strlen,
 				int *nb_char)
 {
 	__uint32_t	i;
-	char		wout;
+	int			wout;
 
 	i = 0;
 	while (i < strlen)
@@ -92,14 +92,13 @@ int	ft_printf(const char *s, ...)
 	va_list		args;
 	__uint32_t	strlen;
 	int			nb_char;
-	
+
 	if (write(1, "", 0) == -1)
 		return (-1);
 	else if (!s)
 		return (-1);
 	va_start(args, s);
 	nb_char = 0;
-	// va_start(args, s);
 	strlen = ft_strlen(s);
 	nb_char = write_loop(s, args, strlen, &nb_char);
 	va_end(args);

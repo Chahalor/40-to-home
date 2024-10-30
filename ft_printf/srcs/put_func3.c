@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:19:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/25 16:40:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/28 09:37:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	writedec(int dec)
 	if (dec == -2147483647 - 1)
 		return (write(1, "-2147483648", 11));
 	else if (dec == 0)
-		return(write(1, "0", 1));
+		return (write(1, "0", 1));
 	if (dec < 0)
 	{
 		dec *= -1;
