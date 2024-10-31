@@ -12,32 +12,50 @@
 
 #include "get_next_line.h"
 
-ssize_t	linelen(char *buffer, ssize_t max)
+ssize_t	linelen(char *buffer, ssize_t start, ssize_t max)
 {
 	ssize_t	i;
 
-	i = 0;
+	i = start;
 	while (buffer[i] != '\n' && i < max && buffer[i] != '\0')
 		i++;
 	if (i < max)
 		i++;
-	return (i);
+	return (i - start);
 }
 
-char	*gnl_strdup(const char *buffer, ssize_t size)
+char	*gnl_substr(const char *buffer, ssize_t start, size_t size)
 {
 	char	*result;
-	ssize_t	i;
+	size_t	i;
+	size_t	j;
 
 	result = (char *)malloc(sizeof(char) * size);
-	if (!result || !buffer)
+	if (!result)
 		return (NULL);
-	i = 0;
-	while (i < size)
+	i = start;
+	j = 0;
+	while (j < size && buffer[i])
 	{
-		result[i] = buffer[i];
+		result[j] = buffer[i];
+		i++;
+		j++;
+	}
+	result[j] = '\0';
+	return (result);
+}
+
+ssize_t	get_buffer_use(t_fd lst_fd[MAX_FD])
+{
+	ssize_t	result;
+	int		i;
+
+	i = 0;
+	result = 0;
+	while (i < MAX_FD)
+	{
+		result += lst_fd[i].buffer_use;
 		i++;
 	}
-	result[i] = '\0';
 	return (result);
 }

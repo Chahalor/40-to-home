@@ -15,30 +15,26 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-#include <stdio.h>	// rm
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
 
-# define LST_FD_SZ 1024 + 1
-# define MAX_FD 1024
-enum	e_bool
-{
-	FALSE,
-	TRUE
-};
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
 
-typedef struct s_lst_fd
+typedef struct s_fd
 {
-	char	*content;
-	int		readed;
-}	t_lst_fd;
+	char	buffer[BUFFER_SIZE];
+	ssize_t	buffer_use;
+}	t_fd;
 
 // utils
-ssize_t	linelen(char *buffer, ssize_t max);
-char	*gnl_strdup(const char *buffer, ssize_t size);
+ssize_t	linelen(char *buffer, ssize_t start, ssize_t max);
+char	*gnl_substr(const char *buffer, ssize_t start, size_t size);
+ssize_t	get_buffer_use(t_fd lst_fd[MAX_FD]);
 
-char		*get_next_line(int fd);
+char	*get_next_line(int fd);
 
 #endif

@@ -9,38 +9,69 @@
 /*   Updated: 2024/10/27 08:24:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
 #include "get_next_line.h"
-#include <unistd.h>
+
+static char	*read_new_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
+{
+	size_t	line_len;
+	ssize_t	read_size;
+	char	*result;
+
+	read_size = read(fd, lst_fd[fd].buffer, BUFFER_SIZE - buffer_use);
+	if (read_size <= 0)
+		return (NULL);
+	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use, read_size);
+	result = gnl_substr(lst_fd[fd].buffer, 0, line_len);
+	if (!result)
+		return (NULL);
+	lst_fd[fd].buffer_use = line_len;
+	return (result);
+}
+
+static char	*read_old_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
+{
+	size_t	line_len;
+	char	*result;
+
+	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use,
+			BUFFER_SIZE - buffer_use);
+	result = gnl_substr(lst_fd[fd].buffer, lst_fd[fd].buffer_use, line_len);
+	if (!result)
+		return (NULL);
+	lst_fd[fd].buffer_use += line_len;
+	return (result);
+}
+
+static char	*read_stdi(ssize_t buffer_use, t_fd lst_fd[MAX_FD])
+{
+	ssize_t	read_size;
+	size_t	line_len;
+	char	*result;
+
+	read_size = read(0, lst_fd[0].buffer, BUFFER_SIZE - buffer_use);
+	if (read_size <= 0)
+		return (NULL);
+	line_len = linelen(lst_fd[0].buffer, 0, read_size);
+	result = gnl_substr(lst_fd[0].buffer, 0, line_len);
+	if (!result)
+		return (NULL);
+	lst_fd[0].buffer_use += line_len;
+	return (result);
+}
 
 char	*get_next_line(int fd)
 {
-	static void	*lst_fd[LST_FD_SZ];
-	int			b_use;
-	char		buffer[BUFFER_SIZE];
-	ssize_t		rout;
-	char		*result;
+	static t_fd	lst_fd[MAX_FD];
+	ssize_t		buffer_use;
 
-	if (lst_fd[1024] == NULL)
-	{
-		b_use = 0;
-		lst_fd[1024] = &b_use;
-	}
-	else 
-		b_use = (int)(*lst_fd)[1024];
-	if (lst_fd[fd] == NULL)
-	{
-		rout = read(fd, buffer, BUFFER_SIZE - b_use);
-		if (rout == -1)
-			return (NULL);
-		result = gnl_strdup(buffer, linelen(buffer, rout));
-		lst_fd[fd] = &buffer[linelen(buffer, rout)];
-		lst_fd[1024] += linelen(lst_fd[fd], BUFFER_SIZE - b_use);
-		return (result);
-	}
-	printf("linelen=%d\n", BUFFER_SIZE - b_use);
-	result = gnl_strdup(lst_fd[fd], linelen(lst_fd[fd], BUFFER_SIZE - b_use));
-	lst_fd[fd] = &lst_fd[fd][linelen(lst_fd[fd], BUFFER_SIZE - b_use)];
-	lst_fd[1024] += linelen(lst_fd[fd], BUFFER_SIZE - b_use);
-	return (result);
+	buffer_use = get_buffer_use(lst_fd);
+	if (buffer_use >= BUFFER_SIZE || BUFFER_SIZE == 0 || fd < 0)
+		return (NULL);
+	if (fd == 0)
+		return (read_stdi(buffer_use, lst_fd));
+	if (lst_fd[fd].buffer_use == 0)
+		return (read_new_fd(fd, lst_fd, buffer_use));
+	else
+		return (read_old_fd(fd, lst_fd, buffer_use));
 }
