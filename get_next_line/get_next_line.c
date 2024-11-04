@@ -9,7 +9,7 @@
 /*   Updated: 2024/10/27 08:24:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "get_next_line.h"
 
 static char	*read_new_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
@@ -22,6 +22,8 @@ static char	*read_new_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
 	if (read_size <= 0)
 		return (NULL);
 	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use, read_size);
+	if (line_len == 0)
+		return (NULL);
 	result = gnl_substr(lst_fd[fd].buffer, 0, line_len);
 	if (!result)
 		return (NULL);
@@ -36,6 +38,8 @@ static char	*read_old_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
 
 	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use,
 			BUFFER_SIZE - buffer_use);
+	if (line_len == 0)
+		return (NULL);
 	result = gnl_substr(lst_fd[fd].buffer, lst_fd[fd].buffer_use, line_len);
 	if (!result)
 		return (NULL);
@@ -66,7 +70,7 @@ char	*get_next_line(int fd)
 	ssize_t		buffer_use;
 
 	buffer_use = get_buffer_use(lst_fd);
-	if (buffer_use >= BUFFER_SIZE || BUFFER_SIZE == 0 || fd < 0)
+	if (buffer_use >= BUFFER_SIZE || BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	if (fd == 0)
 		return (read_stdi(buffer_use, lst_fd));

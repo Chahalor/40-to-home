@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 08:52:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/31 14:54:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/04 10:06:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 ssize_t	linelen(char *buffer, ssize_t start, ssize_t max)
 {
 	ssize_t	i;
+	ssize_t	j;
 
 	i = start;
-	while (buffer[i] != '\n' && i < max && buffer[i] != '\0')
+	j = 0;
+	while (buffer[i] != '\n' && j < max && buffer[i] != '\0')
+	{
 		i++;
-	if (i < max)
-		i++;
-	return (i - start);
+		j++;
+	}
+	if (j < max)
+		j++;
+	return (j);
 }
 
 char	*gnl_substr(const char *buffer, ssize_t start, size_t size)

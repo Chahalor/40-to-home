@@ -15,13 +15,18 @@
 ssize_t	linelen(char *buffer, ssize_t start, ssize_t max)
 {
 	ssize_t	i;
+	ssize_t	j;
 
 	i = start;
-	while (buffer[i] != '\n' && i < max && buffer[i] != '\0')
+	j = 0;
+	while (buffer[i] != '\n' && j < max && buffer[i] != '\0')
+	{
 		i++;
-	if (i < max)
-		i++;
-	return (i - start);
+		j++;
+	}
+	if (j < max)
+		j++;
+	return (j);
 }
 
 char	*gnl_substr(const char *buffer, ssize_t start, size_t size)

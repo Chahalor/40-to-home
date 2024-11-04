@@ -10,45 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../get_next_line.h"
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include "../get_next_line.h"
 
-int main(void)
+int	ft_strlen(const char *s)
 {
-	// int fd_langueur = open("test/langueur.txt", O_RDONLY);
-	// int	fd_endormie = open("test/a_ma_femme_endormie.txt", O_RDONLY);
+	int i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
-	// char	*str_l = NULL;
-	// char	*str_e = NULL;
-	// str_l = get_next_line(fd_langueur);
-	// str_e = get_next_line(fd_endormie);
-	// while (str_e || str_l)
-	// {
+int test_get_next_line(int fd, int fd2)
+{
+	char	*line;
+	char	*line2;
+	int sum = 0;
 
-	// 	printf("langueur : %s", str_l);
-	// 	printf("endormie : %s", str_e);
-	// 	if (str_l)
-	// 		free(str_l);
-	// 	if (str_e)
-	// 		free(str_e);
-	// 	str_l = get_next_line(fd_langueur);
-	// 	str_e = get_next_line(fd_endormie);
-	// }
-	// close(fd_langueur);
-	// close(fd_endormie);
+	while ((line = get_next_line(fd)) != NULL || (line2 = get_next_line(fd2)) != NULL)
+	{
+		sum += printf("%s", line);
+		sum += printf("%s", line2);
+		free(line);
+		free(line2);
+	}
+	return (sum);
+}
 
-	// /*stdi reading*/
-	// int i = 0;
-	// while (i++ < BUFFER_SIZE)
-	// {
-	// 	printf("sti : %s", get_next_line(0));
-	// }
-	
-	int	fd = open("test/1char.txt", O_RDONLY);
-	char	*vide = NULL;
-	printf("r : %s, exepted : %s", get_next_line(fd), "a");
-	printf("r : %s, exepted : %s", get_next_line(fd), vide);
+int main()
+{
+	int fd = open("test/empty.txt", O_RDONLY);
+	int fd2 = open("test/langueur.txt", O_RDONLY);
+
+	int sum = 0;
+	// sum = test_get_next_line(fd, fd2);
+	sum += printf("%s", get_next_line(fd));
+	sum += printf("%s", get_next_line(fd2));
+	sum += printf("%s", get_next_line(fd));
+	sum += printf("%s", get_next_line(fd2));
+	printf("\n sum=%d\n", sum);
+
 	close(fd);
+	close(fd2);
+	return 0;
 }

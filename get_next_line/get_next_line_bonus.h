@@ -6,15 +6,15 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 08:52:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/31 14:55:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/04 10:05:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
