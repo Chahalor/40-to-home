@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "../get_next_line.h"
 
 int	ft_strlen(const char *s)
@@ -22,36 +23,35 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int test_get_next_line(int fd, int fd2)
+int test_get_next_line(int fd)
 {
-	char	*line;
-	char	*line2;
-	int sum = 0;
+	int		sum = 0;
+	char	*line = NULL;
 
-	while ((line = get_next_line(fd)) != NULL || (line2 = get_next_line(fd2)) != NULL)
+	// while ((line = get_next_line(fd)) != NULL)
+	// {
+	// 	sum += printf("%s", line);
+	// 	free(line);
+	// }
+	line = get_next_line(fd);
+	if (line == NULL)
 	{
-		sum += printf("%s", line);
-		sum += printf("%s", line2);
-		free(line);
-		free(line2);
+		printf("%s", line);
+		return (0);
 	}
+	sum = printf("%s", line);
+	free(line);
 	return (sum);
 }
 
 int main()
 {
-	int fd = open("test/empty.txt", O_RDONLY);
-	int fd2 = open("test/langueur.txt", O_RDONLY);
+	int fd = open("test/one_line_no_nl.txt", O_RDONLY);
 
-	int sum = 0;
-	// sum = test_get_next_line(fd, fd2);
-	sum += printf("%s", get_next_line(fd));
-	sum += printf("%s", get_next_line(fd2));
-	sum += printf("%s", get_next_line(fd));
-	sum += printf("%s", get_next_line(fd2));
-	printf("\n sum=%d\n", sum);
+	// int sum = test_get_next_line(fd);
+	printf("%s", get_next_line(fd));
+	// printf("| sum=%d ", sum);
 
 	close(fd);
-	close(fd2);
 	return 0;
 }

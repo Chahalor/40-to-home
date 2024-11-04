@@ -12,70 +12,33 @@
 
 #include "get_next_line.h"
 
-static char	*read_new_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
+char	*read_fd(int fd, char buffer[BUFFER_SIZE])
 {
-	size_t	line_len;
-	ssize_t	read_size;
 	char	*result;
+	char	c;
+	ssize_t	readbytes;
+	ssize_t	i;
 
-	read_size = read(fd, lst_fd[fd].buffer, BUFFER_SIZE - buffer_use);
-	if (read_size <= 0)
-		return (NULL);
-	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use, read_size);
-	if (line_len == 0)
-		return (NULL);
-	result = gnl_substr(lst_fd[fd].buffer, 0, line_len);
-	if (!result)
-		return (NULL);
-	lst_fd[fd].buffer_use = line_len;
-	return (result);
-}
-
-static char	*read_old_fd(int fd, t_fd lst_fd[MAX_FD], ssize_t buffer_use)
-{
-	size_t	line_len;
-	char	*result;
-
-	line_len = linelen(lst_fd[fd].buffer, lst_fd[fd].buffer_use,
-			BUFFER_SIZE - buffer_use);
-	if (line_len == 0)
-		return (NULL);
-	result = gnl_substr(lst_fd[fd].buffer, lst_fd[fd].buffer_use, line_len);
-	if (!result)
-		return (NULL);
-	lst_fd[fd].buffer_use += line_len;
-	return (result);
-}
-
-static char	*read_stdi(ssize_t buffer_use, t_fd lst_fd[MAX_FD])
-{
-	ssize_t	read_size;
-	size_t	line_len;
-	char	*result;
-
-	read_size = read(0, lst_fd[0].buffer, BUFFER_SIZE - buffer_use);
-	if (read_size <= 0)
-		return (NULL);
-	line_len = linelen(lst_fd[0].buffer, 0, read_size);
-	result = gnl_substr(lst_fd[0].buffer, 0, line_len);
-	if (!result)
-		return (NULL);
-	lst_fd[0].buffer_use += line_len;
+	i = 0;
+	c = '\0';
+	while (c != '\n' && i < BUFFER_SIZE)
+	{
+		readbytes = read(fd, buffer + i, 1);
+		c = buffer[i];
+		if (readbytes < 0)
+			return (NULL);
+		i++;
+	}
+	result = gnl_strdup(buffer, i);
 	return (result);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_fd	lst_fd[MAX_FD];
-	ssize_t		buffer_use;
+	static char	buffer[MAX_FD][BUFFER_SIZE];
 
-	buffer_use = get_buffer_use(lst_fd);
-	if (buffer_use >= BUFFER_SIZE || BUFFER_SIZE <= 0 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (fd == 0)
-		return (read_stdi(buffer_use, lst_fd));
-	if (lst_fd[fd].buffer_use == 0)
-		return (read_new_fd(fd, lst_fd, buffer_use));
-	else
-		return (read_old_fd(fd, lst_fd, buffer_use));
+	return (read_fd(fd, buffer[fd]));
 }
+

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 08:52:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/04 10:05:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/04 16:14:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,5 @@
 # ifndef MAX_FD
 #  define MAX_FD 1024
 # endif
-
-typedef struct s_fd
-{
-	char	buffer[BUFFER_SIZE];
-	ssize_t	buffer_use;
-}	t_fd;
-
-// utils
-ssize_t	linelen(char *buffer, ssize_t start, ssize_t max);
-char	*gnl_substr(const char *buffer, ssize_t start, size_t size);
-ssize_t	get_buffer_use(t_fd lst_fd[MAX_FD]);
-
-char	*get_next_line(int fd);
 
 #endif
