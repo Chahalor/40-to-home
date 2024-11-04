@@ -6,33 +6,37 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 09:06:20 by nduvoid           #+#    #+#              #
-#    Updated: 2024/10/30 14:29:39 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/11/04 10:36:05 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRCDIR = srcs
-INCDIR = libft
-OBJDIR = ./.obj
+SRCDIR =	srcs
+LIBFTDIR =	libft
+OBJDIR =	./.obj
+LIBFT =		$(LIBFTDIR)/libft.a
 
 SRCS =		ft_printf.c \
 			put_func.c \
 			put_func2.c \
 			put_func3.c \
 			utils.c
-SRC = 		$(addprefix $(SRCDIR)/, $(SRCS))
-SRCOBJ = 	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+SRC =		$(addprefix $(SRCDIR)/, $(SRCS))
+SRCOBJ =	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
-AR = ar
-FLAGS = rcs
-RM = rm -f
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+AR =		ar
+FLAGS =		rcs
+RM =		rm -f
+CC =		cc
+CFLAGS =	-Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJDIR) $(SRCOBJ)
+$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
+
+$(NAME): $(LIBFT) $(SRCOBJ)
 	$(AR) $(FLAGS) $(NAME) $(SRCOBJ)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
@@ -43,9 +47,11 @@ $(OBJDIR):
 
 clean:
 	rm -rf $(OBJDIR)
+	$(MAKE) -C $(LIBFTDIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
 
