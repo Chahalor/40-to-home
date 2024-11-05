@@ -12,22 +12,19 @@
 
 #include "get_next_line.h"
 
-// char	ft_strjoin(char *s1, char *s2)
-// {
-
-// }
-
-char	*gnl_strdup(char *src, ssize_t max)
+char	*gnl_strdup(const char *src, ssize_t max)
 {
 	char	*dest;
 	ssize_t	buffer;
-	
+
 	buffer = 0;
-	while (src[buffer] && buffer < max)
+	while (buffer < max)
 		buffer++;
 	dest = (char *)malloc(sizeof(char) * (buffer + 1));
 	if (!dest)
 		return (NULL);
+	dest[buffer] = '\0';
+	buffer--;
 	while (buffer >= 0)
 	{
 		dest[buffer] = src[buffer];

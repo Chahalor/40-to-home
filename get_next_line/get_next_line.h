@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-#include <stdio.h>	//rm
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -25,7 +24,7 @@
 #  define MAX_FD 1024
 # endif
 
-char	*gnl_strdup(char *src, ssize_t max);
+char	*gnl_strdup(const char *src, ssize_t max);
 
 char	*get_next_line(int fd);
 

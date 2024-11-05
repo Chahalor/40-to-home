@@ -1,13 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 08:52:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/04 16:13:57 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/30 10:50:55 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/10/30 10:50:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+char	*gnl_strdup(const char *src, ssize_t max)
+{
+	char	*dest;
+	ssize_t	buffer;
+
+	buffer = 0;
+	while (buffer < max)
+		buffer++;
+	dest = (char *)malloc(sizeof(char) * (buffer + 1));
+	if (!dest)
+		return (NULL);
+	dest[buffer] = '\0';
+	buffer--;
+	while (buffer >= 0)
+	{
+		dest[buffer] = src[buffer];
+		buffer--;
+	}
+	return (dest);
+}

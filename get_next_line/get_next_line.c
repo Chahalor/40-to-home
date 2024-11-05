@@ -12,7 +12,23 @@
 
 #include "get_next_line.h"
 
-char	*read_fd(int fd, char buffer[BUFFER_SIZE])
+static char	*read_stdin(char buffer[BUFFER_SIZE])
+{
+	char	*result;
+	ssize_t	readbytes;
+	ssize_t	linelen;
+
+	readbytes = read(0, buffer, BUFFER_SIZE);
+	if (readbytes < 0)
+		return (NULL);
+	linelen = 0;
+	while (linelen < readbytes && buffer[linelen] != '\n')
+		linelen++;
+	result = gnl_strdup(buffer, linelen + 1);
+	return (result);
+}
+
+static char	*read_fd(int fd, char buffer[BUFFER_SIZE])
 {
 	char	*result;
 	char	c;
@@ -24,21 +40,30 @@ char	*read_fd(int fd, char buffer[BUFFER_SIZE])
 	while (c != '\n' && i < BUFFER_SIZE)
 	{
 		readbytes = read(fd, buffer + i, 1);
-		c = buffer[i];
 		if (readbytes < 0)
 			return (NULL);
+		else if (readbytes == 0)
+			break ;
+		c = buffer[i];
 		i++;
 	}
-	result = gnl_strdup(buffer, i);
+	if (i > 0)
+		result = gnl_strdup(buffer, i);
+	else
+		result = NULL;
 	return (result);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[MAX_FD][BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE];
+	char		*result;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	return (read_fd(fd, buffer[fd]));
+	if (fd == 0)
+		result = read_stdin(buffer);
+	else
+		result = read_fd(fd, buffer);
+	return (result);
 }
-
