@@ -58,7 +58,7 @@ int	*test_gnl_bonus(int fd1, int fd2, int result[3])
 	return (result);
 }
 
-int main(const int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
 	int fd1 = -1;
 	int	fd2 = -1;
@@ -70,18 +70,18 @@ int main(const int argc, char *argv[])
 	}
 	else
 	{
-		fd1 = open("test/42_no_nl", O_RDWR);
+		fd1 = open("test/langueur.txt", O_RDWR);
 		fd2 = open("test/endormi.txt", O_RDWR);
 	}
 
 	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
+	// printf("%s", get_next_line(fd1));
 
 	close(fd1);
 	close(fd2);

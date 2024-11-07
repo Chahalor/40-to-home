@@ -6,44 +6,77 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:02:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/05 15:47:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:20:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*read_fd(int fd, char buffer[BUFFER_SIZE])
+static char	new_stock(char *stock, int size)
 {
-	char	tmp[BUFFER_SIZE];
 	char	*result;
-	ssize_t	rbytes;
-	int		buffer_size;
+	int		i;
 
-	ft_strlcpy(tmp, buffer, BUFFER_SIZE);
-	rbytes = read(fd, buffer, BUFFER_SIZE);
-	if (rbytes < 0)
-		return (NULL);
-	buffer_size = min(ft_strlen(tmp) + rbytes, BUFFER_SIZE) + 1;
-	result = (char *)malloc(sizeof(char) * buffer_size);
+	result = (char *)malloc(sizeof(char) * (size + 1));
 	if (!result)
 		return (NULL);
-	ft_strlcpy(result, tmp, ft_strlen(tmp));
-	ft_strlcat(result, buffer, buffer_size - ft_strlen(tmp));
-	if (buffer_size == BUFFER_SIZE)
-		return (result);
-	buffer[rbytes] = \0
-	buffer = &buffer[buffer_size - ft_strlen(tmp)]
+	i = 0;
+	while (i < size)
+	{
+		result[i] = stock[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+
+static char	*read_new_fd(int fd, char *stock, char buffer[BUFFER_SIZE])
+{
+	ssize_t	rbytes;
+	char	*result;
+	ssize_t	next_nl;
+
+	rbytes = read(fd, buffer, BUFFER_SIZE);
+	if (rbytes <= 0)
+		return (NULL);
+	if (rbytes < BUFFER_SIZE)
+		return (gnl_strdup(buffer, rbytes));
+	next_nl = get_nl_pos(buffer);
+	if (next_nl != -1)
+	{
+		stock = gnl_strdup(&buffer[next_nl + 1], rbytes);
+		return (gnl_strdup(buffer, next_nl));
+	}
+	stock = gnl_strdup(buffer, rbytes);
+	return (NULL);
+}
+
+static char	*read_old_fd(int fd, char *stock, char buffer[BUFFER_SIZE])
+{
+	char	*result;
+	char	tmp[BUFFER_SIZE];
+	ssize_t	next_nl;
+
+	next_nl = get_nl_pos(buffer);
+	if (next_nl != -1)
+	{
+		gnl_strcpy(stock, tmp, get_stock_size(stock));
+		free(stock);
+		stock = gnl_strdup(tmp[next_nl], BUFFER_SIZE);
+		return (gnl_strdup(tmp, next_nl));
+	}
 	
 }
 
-
-
 char	*get_next_line(int fd)
 {
-	static char	lst_fd[MAX_FD][BUFFER_SIZE];
+	static char	*stock[MAX_FD];
+	char		buffer[BUFFER_SIZE];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	
+	if (stock[fd] == NULL)
+		return (read_new_fd(fd, stock[fd], buffer));
+	return (read_old_fd(fd, stock[fd], buffer));
 }
 

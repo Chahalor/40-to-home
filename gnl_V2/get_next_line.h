@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 12:02:24 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/05 15:52:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:20:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ typedef struct s_fd
 
 static inline int	min(int val1, int val2)
 {
-	if (val1 < val1)
+	if (val1 < val2)
 		return (val1);
 	return (val2);
 }
-size_t	ft_strlen(const char *s);
-ssize_t	linelen(char buffer[BUFFER_SIZE], ssize_t max);
-void	ft_strlcpy(char *dst, const char *src, size_t size);
-size_t	ft_strlcat(char *dst, const char *src, size_t size);
+
+size_t	get_line_len(char *s, size_t max);
+char	*gnl_strdup(char *buffer, ssize_t size);
+ssize_t	get_nl_pos(char buffer[BUFFER_SIZE]);
+size_t	gnl_strcpy(const char buffer[BUFFER_SIZE], char *dest, size_t max);
+size_t	get_stock_size(char *stock);
 
 char	*get_next_line(int fd);
 
