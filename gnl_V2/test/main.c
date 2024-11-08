@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <ctype.h>
 #include "../get_next_line.h"
 
 int test_get_next_line(int fd)
@@ -29,7 +30,7 @@ int test_get_next_line(int fd)
 		free(line);
 		return (sum);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while ((line = get_next_line(fd)) != NULL && i < 100)
 	{
 		sum += printf("%s", line);
 		free(line);
@@ -70,11 +71,14 @@ int main(int argc, const char *argv[])
 	}
 	else
 	{
-		fd1 = open("test/langueur.txt", O_RDWR);
+		fd1 = open("test/1char.txt", O_RDWR);
 		fd2 = open("test/endormi.txt", O_RDWR);
 	}
 
-	printf("%s", get_next_line(fd1));
+	char *s= get_next_line(fd1);
+	printf("\niteration=%s\n", s);
+	free(s);
+	// printf("%s", get_next_line(fd1));
 	// printf("%s", get_next_line(fd1));
 	// printf("%s", get_next_line(fd1));
 	// printf("%s", get_next_line(fd1));
