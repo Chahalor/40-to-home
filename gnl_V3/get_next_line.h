@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 12:04:40 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/11/12 16:02:15 by nduvoid          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFER_SIZE 42
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
+
+inline MIN(val1, val2)
+{
+	if (val1 > val2) return (val2); return (val1);
+}
+
+size_t	ft_strlen(const char *s);
+char	*gnl_strdup(char *s, size_t max);
+size_t	gnl_strlcpy(char *dest, const char *src, size_t max);
+
+char	*get_next_line(int fd);
+
+#endif
