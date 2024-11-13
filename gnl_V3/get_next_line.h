@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:04:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/12 16:02:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:53:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,20 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFER_SIZE 42
+#  define BUFFER_SIZE 42
 # endif
 
 # ifndef MAX_FD
 #  define MAX_FD 1024
 # endif
 
-inline MIN(val1, val2)
-{
-	if (val1 > val2) return (val2); return (val1);
-}
-
 size_t	ft_strlen(const char *s);
 char	*gnl_strdup(char *s, size_t max);
 size_t	gnl_strlcpy(char *dest, const char *src, size_t max);
+size_t	min(size_t val1, size_t val2);
 
 char	*get_next_line(int fd);
 
