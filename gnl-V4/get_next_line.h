@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/13 18:35:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/15 13:49:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #ifdef GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h>
@@ -26,9 +26,10 @@
 # endif
 
 size_t	ft_strlen(const char *s);
+size_t	line_len(const char *s);
 void	gnl_strcpy(char *dest, const char *src, size_t start);
-char	*gnl_strdup(char *s);
+char	*gnl_strdup(char *s, size_t max);
 
 char	*get_next_line(int fd);
 
-// #endif
+#endif

@@ -6,87 +6,53 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/13 18:35:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/11/15 14:12:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char *update_stock(char **s, char *buffer, size_t s_strt, size_t b_strt)
-{
-	size_t	s_len;
-	size_t	b_len;
-	char	*new_str;
-	size_t	i;
 
-	if (!s || !*s || !buffer)
+static char	*join(char *s1, char *s2)
+{
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*result;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	if (len_s1 + len_s2 == 0)
+	{
+		free(s1);
+		s1 = NULL;
 		return (NULL);
-	s_len = ft_strlen(*s + s_strt);
-	b_len = ft_strlen(buffer + b_strt);
-	new_str = (char *)malloc(sizeof(char) * (s_len + b_len + 1));
-	if (!new_str)
+	}
+	result = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!result)
 		return (NULL);
-	gnl_strcpy(new_str, *s, s_strt + 1);
-	gnl_strcpy(*new_str + s_len, buffer, b_strt);
-	free(*s);
-	return (new_str);
+	gnl_strcpy(result, s1, 0);
+	gnl_strcpy(&result[len_s1], s2, 0);
+	free(s1);
+	s1 = NULL;
+	return (result);
 }
 
-static char *get_line_old_fd(char **s, char *buffer)
+static char	*final(char *result, char *buffer, size_t buffer_size)
 {
-	char	tmp[BUFFER_SIZE + 1];
-	size_t	i;
-	size_t	j;
+	char	*tmp;
 
-	i = 0;
-	j = 0;
-	while (*s && (*s)[i] != '\n' && (*s)[i] != '\0' && i < BUFFER_SIZE)
-	{
-		tmp[i] = (*s)[i];
-		i++;
-	}
-	if (*s && (*s)[i] == '\n')
-	{
-		tmp[i] = '\n';
-		tmp[i + 1] = '\0';
-		*s = update_stock(s, buffer, i, j);
-		return (gnl_strdup(tmp));
-	}
-	while (buffer[j] != '\n' && buffer[j] != '\0' && i < BUFFER_SIZE)
-		tmp[i++] = buffer[j++];
-	if (buffer[j] == '\n' && i < BUFFER_SIZE)
-		tmp[i++] = '\n';
-	tmp[i] = '\0';
-	*s = update_stock(s, buffer, i, j);
-	return (gnl_strdup(tmp));
-}
-
-static char	*get_line_new_fd(char **s, char *buffer, size_t rbytes)
-{
-	size_t	i;
-	char	tmp[BUFFER_SIZE + 1];
-
-	i = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0' && i < BUFFER_SIZE)
-	{
-		tmp[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] == '\n' && i < BUFFER_SIZE)
-		tmp[i++] = '\n';
-	tmp[i] = '\0';
-	*s = (char *)malloc(sizeof(char) * (rbytes - i + 1));
-	if (!*s)
-		return (NULL);
-	gnl_strcpy(*s, buffer, i);
-	return (gnl_strdup(tmp));
+	tmp = gnl_strdup(buffer, buffer_size + 1);
+	result = join(result, tmp);
+	free(tmp);
+	return (result);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stock[MAX_FD] = {NULL};
+	static char	stock[MAX_FD][BUFFER_SIZE];
 	char		buffer[BUFFER_SIZE + 1];
 	ssize_t		rbytes;
+	char		*result;
 
 	if (fd == -1 || fd > MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -94,27 +60,17 @@ char	*get_next_line(int fd)
 	if (rbytes == -1)
 		return (NULL);
 	buffer[rbytes] = '\0';
-	if (stock[fd] != NULL)
-		return (get_line_old_fd(&stock[fd], buffer));
-	return (get_line_new_fd(&stock[fd], buffer, rbytes));
+	result = NULL;
+	while (line_len(buffer) == BUFFER_SIZE && rbytes == BUFFER_SIZE)
+	{
+		result = join(result, buffer);
+		rbytes = read(fd, buffer, BUFFER_SIZE);
+		if (rbytes == -1)
+			return (NULL);
+		buffer[rbytes] = '\0';
+	}
+	result = final(result, buffer, line_len(buffer));
+	gnl_strcpy(stock[fd], buffer, line_len(buffer) - 1);
+	printf("buff : %s\n", buffer);
+	return (result);
 }
-
-// int main(void)
-// {
-// 	// char	*s = "world ";
-// 	// char	*buffer = "hello";
-// 	// printf("line : %s\n", get_line(&s, buffer));
-// 	// printf(update_stock(&s, buffer, 10, 0));
-// 	int fd = open("test/langueur.txt", 0);
-// 	printf("FD : %d\n", fd);
-// 	char	*line = NULL;
-// 	line = get_next_line(fd);
-// 	printf("line : %s", line);
-// 	free(line);	line = get_next_line(fd);
-// 	printf("line : %s", line);
-// 	free(line);	line = get_next_line(fd);
-// 	printf("line : %s", line);
-// 	free(line);
-// 	close(fd);
-// 	return (0);
-// }
