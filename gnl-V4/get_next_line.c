@@ -97,7 +97,7 @@ static char	*read_and_store(int fd, char *remainder)
  * @file get_next_line.c
  * @brief Read a line from a file descriptor
  * @author nduvoid
- * @example get_next_line(1)
+ * 
  * @param fd File descriptor
  * @return The line read from the file descriptor or NULL if an error occurs
  */
