@@ -1,69 +1,124 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 08:24:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/27 08:24:03 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/11/19 11:39:16 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/11/20 12:41:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static char	*read_stdin(char buffer[BUFFER_SIZE])
+static char	*line_getter(char *str)
 {
-	char	*result;
-	ssize_t	readbytes;
-	ssize_t	linelen;
-
-	readbytes = read(0, buffer, BUFFER_SIZE);
-	if (readbytes < 0)
-		return (NULL);
-	linelen = 0;
-	while (linelen < readbytes && buffer[linelen] != '\n')
-		linelen++;
-	result = gnl_strdup(buffer, linelen + 1);
-	return (result);
-}
-
-static char	*read_fd(int fd, char buffer[BUFFER_SIZE])
-{
-	char	*result;
-	char	c;
-	ssize_t	readbytes;
-	ssize_t	i;
+	int		i;
+	char	*line;
 
 	i = 0;
-	c = '\0';
-	while (c != '\n' && i < BUFFER_SIZE)
+	if (!str)
+		return (NULL);
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i] == '\n')
+		i++;
+	line = (char *)malloc(sizeof(char) * (i + 1));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != '\n')
 	{
-		readbytes = read(fd, buffer + i, 1);
-		if (readbytes < 0)
-			return (NULL);
-		else if (readbytes == 0)
-			break ;
-		c = buffer[i];
+		line[i] = str[i];
 		i++;
 	}
-	if (i > 0)
-		result = gnl_strdup(buffer, i);
-	else
-		result = NULL;
-	return (result);
+	if (str[i] == '\n')
+		line[i++] = '\n';
+	line[i] = '\0';
+	return (line);
 }
 
+static char	*update_remainder(char *str)
+{
+	int		i;
+	int		j;
+	char	*remainder;
+
+	i = 0;
+	j = 0;
+	if (!str)
+		return (NULL);
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (!str[i] || !str[i + 1])
+	{
+		free(str);
+		return (NULL);
+	}
+	remainder = (char *)malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (!remainder)
+		return (NULL);
+	i++;
+	while (str[i])
+		remainder[j++] = str[i++];
+	remainder[j] = '\0';
+	free(str);
+	return (remainder);
+}
+
+static char	*read_and_store(int fd, char *remainder)
+{
+	char	*buffer;
+	int		bytes_read;
+
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	bytes_read = 1;
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0 && remainder)
+			return (free(buffer), free(remainder), NULL);
+		else if (bytes_read < 0)
+			return (free(buffer), NULL);
+		buffer[bytes_read] = '\0';
+		remainder = str_join(remainder, buffer);
+		if (!remainder)
+			return (free(buffer), free(remainder), NULL);
+		if (bytes_read == 0 || (bytes_read > 0 && remainder
+				&& (ft_strchr(remainder, '\n'))))
+			break ;
+	}
+	free(buffer);
+	return (remainder);
+}
+
+/**
+ * @file get_next_line.c
+ * @brief Read a line from a file descriptor
+ * @author nduvoid
+ * 
+ * @param fd File descriptor
+ * @return The line read from the file descriptor, NULL if an error occurs
+ * or the end of the file is reached
+ */
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
-	char		*result;
+	static char	*remainder[MAX_FD];
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (fd == 0)
-		result = read_stdin(buffer);
-	else
-		result = read_fd(fd, buffer);
-	return (result);
+	remainder[fd] = read_and_store(fd, remainder[fd]);
+	if (!remainder[fd] || remainder[fd][0] == '\0')
+	{
+		free(remainder[fd]);
+		remainder[fd] = NULL;
+		return (NULL);
+	}
+	line = line_getter(remainder[fd]);
+	remainder[fd] = update_remainder(remainder[fd]);
+	return (line);
 }

@@ -1,5 +1,6 @@
-*.exe
+.vscode/
+.test/
+.my_test/
 *.out
 *.o
-main.c
-.vscode
+./test_gnl
