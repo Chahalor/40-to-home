@@ -1,6 +1,0 @@
-.vscode/
-.test/
-*.out
-*.o
-./test_gnl
-./test/main.c
