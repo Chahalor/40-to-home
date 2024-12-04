@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/28 14:43:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/04 12:55:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rrr(t_list **stack_a, t_list **stack_b)
 {
-	write(1, "rrr\n", 4);
-	rra(stack_a);
-	rrb(stack_b);
+	rra(stack_a, false);
+	rrb(stack_b, false);
+	write(1, RRR, 3);
 }

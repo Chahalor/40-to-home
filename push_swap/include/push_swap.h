@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/28 16:54:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/04 12:46:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@
 # define RRR "rrr\n"
 
 /* STRUCT */
-typedef struct s_tree
+typedef struct s_stack
 {
-	struct s_tree	*left;
-	struct s_tree	*right;
-	int				value;
-}	t_tree;
+	int *stack;
+	int size;
+}	t_stack;
 
 /* ENUM */
 enum e_error 
 {
 	SUCCESS,
+	SORTED,
 	MALLOC_ERROR,
 	INVALIDE_STACK
 };
@@ -56,24 +56,15 @@ typedef enum e_bool
 }	t_bool;
 
 /* PROTOTYPE */
-void	sa(t_list **stack);
-void	sb(t_list **stack);
-void	ss(t_list **stack_a, t_list **stack_b);
-void	pa(t_list **stack_a, t_list **stack_b);
-void	pb(t_list **stack_a, t_list **stack_b);
-void	ra(t_list **stack);
-void	rb(t_list **stack);
-void	rr(t_list **stack_a, t_list **stack_b);
-void	rra(t_list **stack);
-void	rrb(t_list **stack);
-void	rrr(t_list **stack_a, t_list **stack_b);
 
-// t_list	*create_node(void *value);
-// void	free_stack(t_list **stack);
-// t_bool	is_in_stack(t_list *stack, void *value);
-// t_list	*init_stack(int argc, const char **argv);
-// int		get_stack_size(t_list *stack);
-// void	add_top_stack(t_list **stack, t_list *new);
+
+t_list	*create_node(void *value);
+void	free_stack(t_list **stack);
+t_bool	is_in_stack(t_list *stack, void *value);
+t_list	*init_stack(int argc, const char **argv);
+int		get_stack_size(t_list *stack);
+void	add_top_stack(t_list **stack, t_list *new);
+t_bool	is_sorted(t_list *stack);
 
 // debug
 void	print_stack(t_list *stack);

@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 09:08:21 by nduvoid           #+#    #+#              #
-#    Updated: 2024/11/28 15:49:09 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/02 14:16:10 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC =	push_swap.c \
 		command2.c \
 		command3.c \
 		stack.c \
-		stack2.c \
 		debuger.c #rm
 
 OBJ = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))

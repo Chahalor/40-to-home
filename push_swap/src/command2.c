@@ -6,79 +6,91 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:38:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/28 14:41:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/04 12:55:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	ra(t_list **stack)
+void	ra(t_stack *stack, t_bool w)
 {
-	t_list	*tmp;
-	t_list	*last;
+	int	tmp;
+	int	i;
 
-	if (!*stack || !(*stack)->next)
+	if (stack->size < 2)
 		return ;
-	tmp = *stack;
-	*stack = (*stack)->next;
-	last = *stack;
-	while (last->next)
-		last = last->next;
-	last->next = tmp;
-	tmp->next = NULL;
+	if (w == true)
+		write(1, RA, 3);
+	tmp = stack->stack[0];
+	i = 0;
+	while (i < stack->size - 1)
+	{
+		stack->stack[i] = stack->stack[i + 1];
+		i++;
+	}
+	stack->stack[i] = tmp;
 }
 
-void	rb(t_list **stack)
+void	rb(t_stack *stack_b, t_bool w)
 {
-	t_list	*tmp;
-	t_list	*last;
+	int	tmp;
+	int	i;
 
-	if (!*stack || !(*stack)->next)
+	if (stack_b->size < 2)
 		return ;
-	tmp = *stack;
-	*stack = (*stack)->next;
-	last = *stack;
-	while (last->next)
-		last = last->next;
-	last->next = tmp;
-	tmp->next = NULL;
+	if (w)
+		write(1, RB, 3);
+	tmp = stack_b->stack[0];
+	i = 0;
+	while (i < stack_b->size - 1)
+	{
+		stack_b->stack[i] = stack_b->stack[i + 1];
+		i++;
+	}
+	stack_b->stack[i] = tmp;
 }
 
-void	rr(t_list **stack_a, t_list **stack_b)
+void	rr(t_stack *stack_a, t_stack *stack_b)
 {
-	write(1, "rr\n", 3);
-	ra(stack_a);
-	rb(stack_b);
+	ra(stack_a, false);
+	rb(stack_b, false);
+	write(1, RR, 3);
 }
 
-void	rra(t_list **stack)
+void	rra(t_stack *stack, t_bool w)
 {
-	t_list	*tmp;
-	t_list	*last;
+	int	tmp;
+	int	i;
 
-	if (!*stack || !(*stack)->next)
+	if (stack->size < 2)
 		return ;
-	tmp = *stack;
-	while (tmp->next->next)
-		tmp = tmp->next;
-	last = tmp->next;
-	tmp->next = NULL;
-	last->next = *stack;
-	*stack = last;
+	if (w)
+		write(1, RRA, 4);
+	tmp = stack->stack[stack->size - 1];
+	i = stack->size - 1;
+	while (i > 0)
+	{
+		stack->stack[i] = stack->stack[i - 1];
+		i--;
+	}
+	stack->stack[i] = tmp;
 }
 
-void	rrb(t_list **stack)
+void	rrb(t_stack *stack_b, t_bool w)
 {
-	t_list	*tmp;
-	t_list	*last;
+	int	tmp;
+	int	i;
 
-	if (!*stack || !(*stack)->next)
+	if (stack_b->size < 2)
 		return ;
-	tmp = *stack;
-	while (tmp->next->next)
-		tmp = tmp->next;
-	last = tmp->next;
-	tmp->next = NULL;
-	last->next = *stack;
-	*stack = last;
+	if (w)
+		write(1, RRB, 4);
+	tmp = stack_b->stack[stack_b->size - 1];
+	i = stack_b->size - 1;
+	while (i > 0)
+	{
+		stack_b->stack[i] = stack_b->stack[i - 1];
+		i--;
+	}
+	stack_b->stack[i] = tmp;
 }

@@ -6,37 +6,73 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:09:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/28 16:55:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/04 12:59:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	*init_stack(int argc, char **argv)
+int	sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int	atoied;
 	int	i;
-	int	*stack;
+	int	max;
+	
 
-	stack = (int *)malloc(sizeof(int) * (argc - 1));
-	if (!stack)
-		return (NULL);
+	while (stack_a->size)
+	{
+		i = 0;
+		max = stack_b->stack[0];
+		while (i < stack_b->size)
+		{
+			if (stack_b->stack[i] > max)
+				max = stack_b->stack[i];
+			i++;
+		}
+		
+	}
+}
+
+void	sortator(t_stack *stack_a, t_stack *stack_b)
+{
+	int	pivot;
+	int i;
+	int j;
+
+	pivot = find_median(stack_a);
+	i = 0;
+	while (i < stack_a->size)
+	{
+		if (stack_a->stack[i] < pivot)
+			pb(stack_a, stack_b);
+		else
+			ra(stack_a);
+			i++;
+	}
+	j = sort(stack_b, stack_a);
+	while (j > 0)
+	{
+		pa(stack_a, stack_b);
+		j--;
+	}
+	sort(stack_b, stack_a);
+}
+
+void	sort_stack(t_stack *stack_a, t_stack *stack_b, int argc)
+{
+	int	pivot;
+	int	i;
+	
+	pivot = stack_a->stack[stack_a->size / 2];
 	i = 0;
 	while (i < argc)
 	{
-		atoied = ft_atoi(argv[i]);
-		if (atoied == 0 && *argv[i] != '0')
-			return (free(stack), NULL);
-		stack[i] = atoied;
+		if (stack_a->stack[i] < pivot)
+			pb(stack_a, stack_b);
+		else
+			ra(stack_a);
 	}
-	return (stack);
-}
-
-void	sort_stack(t_list *stack_a, t_list *stack_b, int argc)
-{
-	t_tree	*tree;
-
-	tree = init_tree(stack_a, argc - 1);
+	sortator(stack_a, stack_b);
+	sortator(stack_b, stack_a);
 }
 
 /**
@@ -44,18 +80,24 @@ void	sort_stack(t_list *stack_a, t_list *stack_b, int argc)
  */
 int	main(int argc, const char **argv)
 {
-	int	*statck_a;
-	int	*statck_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
-	statck_a = init_stack(argc, argv);
-	statck_b = ft_calloc(sizeof(int), argc - 1);
-	if (!statck_a || !statck_b)
+	stack_a = init_stack(argc, argv);
+	stack_b = (t_stack *)malloc(sizeof(t_stack));
+	if (!stack_a || !stack_b)
 	{
 		ft_printf("Error\n");
-		return (free(statck_a), free(statck_b), INVALIDE_STACK);
+		return (free_stack(&stack_a), free_stack(&stack_b), MALLOC_ERROR);
 	}
-	sort_stack(statck_a, statck_b, argc);
-	free_stack(&statck_a);
-	free_stack(&statck_b);
+	stack_b->stack = (int *)malloc(sizeof(int) * stack_a->size);
+	if (!stack_b->stack)
+	{
+		ft_printf("Error\n");
+		return (free_stack(&stack_a), free_stack(&stack_b), MALLOC_ERROR);
+	}
+	sort_stack(stack_a, stack_b, argc);
+	free_stack(stack_a);
+	free_stack(stack_b);
 	return (SUCCESS);
 }
