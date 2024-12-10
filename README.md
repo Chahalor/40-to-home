@@ -22,7 +22,3 @@
 ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)
 
 # Exemple de Dégradé en Markdown
-
-<div style="background: linear-gradient(to right, red, blue); padding: 20px; color: white;">
-    Ceci est un texte avec un dégradé de couleur en arrière-plan.
-</div>
