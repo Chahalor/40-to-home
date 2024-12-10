@@ -19,4 +19,6 @@
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/circle-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
 | ... | ... | ??? | ??? |
 
-![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)
+|							Begining										|				|	Passing Moulinette 🪢	|
+|:-------------------------------------------------------------------------:|:-----------------------------------------:|
+![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![arrow]()	| ![happy hucany]()			|
