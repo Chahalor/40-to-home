@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tester.h"
+#include "../header/tester.h"
 
 t_bool	is_digits(char *str)
 {
@@ -54,7 +54,7 @@ int	ft_atoi(const char *nptr)
 	}
 	else if (nptr[i] == '+')
 		i++;
-	while (nptr[i] && ft_isdigit(nptr[i]))
+	while (nptr[i])
 	{
 		r = r * 10 + (nptr[i] - 48);
 		i++;
@@ -62,32 +62,34 @@ int	ft_atoi(const char *nptr)
 	return (r * neg);
 }
 
-t_bool	in_array(int *array, int size, int value)
+char	**extand_instruct(char **instructions, int size)
+{
+	char	**new;
+	int		i;
+
+	new = (char **)ft_calloc(size, sizeof(char *));
+	if (!new)
+		return (free_instructions(instructions), NULL);
+	i = 0;
+	while (i < size - 1)
+	{
+		new[i] = instructions[i];
+		i++;
+	}
+	new[i] = NULL;
+	free(instructions);
+	instructions = NULL;
+	return (new);
+}
+
+void	free_instructions(char **instructions)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
-	{
-		if (array[i] == value)
-			return (TRUE);
-		i++;
-	}
-	return (FALSE);
-}
-
-void	extand_instruct(char ***instructions, char *line, int size)
-{
-	char	**new;
-
-	new = (char **)malloc(sizeof(char *) * 2);
-	if (!new)
-	{
-		free(*instructions);
-		instructions = NULL;
-		return ;
-	}
-	new[0] = line;
-	new[1] = NULL;
-	*instructions[size] = new;
+	while (instructions[i])
+		free(instructions[i++]);
+	free(instructions[i]);
+	free(instructions);
+	instructions = NULL;
 }

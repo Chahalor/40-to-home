@@ -10,76 +10,78 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	sa(int *stack_a, int size)
+#include "../header/tester.h"
+
+void	sa(t_stack *stacks)
 {
 	int	tmp;
 
-	if (size < 2)
+	if (stacks->size_a < 2)
 		return ;
-	tmp = stack_a[0];
-	stack_a[0] = stack_a[1];
-	stack_a[1] = tmp;
+	tmp = stacks->stack_a[0];
+	stacks->stack_a[0] = stacks->stack_a[1];
+	stacks->stack_a[1] = tmp;
 }
 
-void	sb(int *stack_b, int size)
+void	sb(t_stack *stacks)
 {
 	int	tmp;
 
-	if (size < 2)
+	if (stacks->size_b < 2)
 		return ;
-	tmp = stack_b[0];
-	stack_b[0] = stack_b[1];
-	stack_b[1] = tmp;
+	tmp = stacks->stack_b[0];
+	stacks->stack_b[0] = stacks->stack_b[1];
+	stacks->stack_b[1] = tmp;
 }
 
-void	ss(int *stack_a, int *stack_b, int size_a, int size_b)
+void	ss(t_stack *stacks)
 {
-	sa(stack_a, size_a);
-	sb(stack_b, size_b);
+	sa(stacks);
+	sb(stacks);
 }
 
-void	pa(int *stack_a, int *stack_b, int *size_a, int *size_b)
-{
-	int	i;
-
-	if (*size_b < 1)
-		return ;
-	i = *size_a;
-	while (i > 0)
-	{
-		stack_a[i] = stack_a[i - 1];
-		i--;
-	}
-	stack_a[0] = stack_b[0];
-	i = 0;
-	while (i < *size_b - 1)
-	{
-		stack_b[i] = stack_b[i + 1];
-		i++;
-	}
-	(*size_a)++;
-	(*size_b)--;
-}
-
-void	pb(int *stack_a, int *stack_b, int *size_a, int *size_b)
+void	pa(t_stack *stacks)
 {
 	int	i;
 
-	if (*size_a < 1)
+	if (stacks->size_b == 0)
 		return ;
-	i = *size_b;
+	i = stacks->size_a;
 	while (i > 0)
 	{
-		stack_b[i] = stack_b[i - 1];
+		stacks->stack_a[i] = stacks->stack_a[i - 1];
 		i--;
 	}
-	stack_b[0] = stack_a[0];
+	stacks->stack_a[0] = stacks->stack_b[0];
 	i = 0;
-	while (i < *size_a - 1)
+	while (i < stacks->size_b - 1)
 	{
-		stack_a[i] = stack_a[i + 1];
+		stacks->stack_b[i] = stacks->stack_b[i + 1];
 		i++;
 	}
-	(*size_b)++;
-	(*size_a)--;
+	stacks->size_a++;
+	stacks->size_b--;
+}
+
+void	pb(t_stack *stacks)
+{
+	int	i;
+
+	if (stacks->size_a == 0)
+		return ;
+	i = stacks->size_b;
+	while (i > 0)
+	{
+		stacks->stack_b[i] = stacks->stack_b[i - 1];
+		i--;
+	}
+	stacks->stack_b[0] = stacks->stack_a[0];
+	i = 0;
+	while (i < stacks->size_a - 1)
+	{
+		stacks->stack_a[i] = stacks->stack_a[i + 1];
+		i++;
+	}
+	stacks->size_b++;
+	stacks->size_a--;
 }

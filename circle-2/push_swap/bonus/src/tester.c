@@ -10,60 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tester.h"
-
-t_stack	*init_stacks(int argc, char **argv)
-{
-	t_stack	*stacks;
-	int		i;
-
-	stacks = (t_stack *)ft_calloc(sizeof(t_stack) + sizeof(int *) + sizeof(int),
-									2 * argc + 2);
-	if (!stacks)
-		exit(MALLOC_ERROR);
-	stacks->stack_a = (int *)(stacks + 1);
-	stacks->stack_b = stacks->stack_a + argc;
-	stacks->size_a = argc - 1;
-	stacks->size_b = 0;
-	i = 0;
-	while (++i < argc)
-	{
-		if (!is_digits(argv[i]))
-		{
-			free(stacks);
-			exit(ARG_ERROR);
-		}
-		stacks->stack_a[i - 1] = ft_atoi(argv[i]);
-	}
-	return (stacks);
-}
+#include "../header/tester.h"
 
 char	**read_instructions(int fd)
 {
-	char	*line;
-	char	**instructions;
 	int		size;
+	char	**instructions;
+	char	*line;
 	int		i;
 
 	size = 2;
 	instructions = (char **)ft_calloc(size, sizeof(char *));
+	instructions[size - 1] = NULL;
 	if (!instructions)
 		exit(MALLOC_ERROR);
 	line = get_next_line(fd);
 	i = 0;
-	while (line)
+	while (line && line[0] != '\n')
 	{
+		if (!is_instruction(line))
+			return (free_instructions(instructions), free(line), NULL);
 		instructions[i++] = line;
 		if (i == size)
 		{
-			size *= 2;
-			instructions = (char **)ft_calloc(size, sizeof(char *));
-			if (!instructions)
-				exit(MALLOC_ERROR);
+			size += 1;
+			instructions = extand_instruct(instructions, size);
 		}
+		line = get_next_line(fd);
 	}
+	return (free(line), instructions);
 }
 
+t_bool	testing(t_stack *stacks, char **instructs)
+{
+	int	i;
+
+	i = 0;
+	while (instructs[i])
+	{
+		do_instructions(stacks, instructs[i]);
+		free(instructs[i]);
+		instructs[i] = NULL;
+		i++;
+	}
+	if (stacks->size_b || !is_sorted(stacks->stack_a, stacks->size_a))
+		return (FALSE);
+	return (TRUE);
+}
 
 int	main(int argc, char **argv)
 {
@@ -75,14 +68,13 @@ int	main(int argc, char **argv)
 	if (!instructions)
 	{
 		write(2, "Error\n", 6);
-		return (free(stacks->stack_a), free(stacks->stack_b), MALLOC_ERROR);
+		return (free(stacks), MALLOC_ERROR);
 	}
-	if (testing(stacks->stack_a, stacks->stack_b, instructions))
+	if (testing(stacks, instructions))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	free(stacks->stack_a);
-	free(stacks->stack_b);
-	free(instructions);
+	free(stacks);
+	free_instructions(instructions);
 	return (GOOD);
 }

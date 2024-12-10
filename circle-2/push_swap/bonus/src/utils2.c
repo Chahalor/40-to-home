@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tester.h"
+#include "../header/tester.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
-	if (n == 0)
-		return (0);
+	if (!s1 || !s2)
+		return (-1);
 	if (s1[0] == '\0')
 		return (-(unsigned char)s2[0]);
 	else if (s2[0] == '\0')
 		return ((unsigned char)s1[0]);
 	i = 0;
-	while (i < n)
+	while (s1[i] || s2[i])
 	{
 		if ((unsigned char)s1[i] < (unsigned char)s2[i] || s1[i] == '\0')
 			return (-(unsigned char)s2[i]);
@@ -37,7 +37,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*arr;
-	int		i;
+	size_t	i;
 
 	if (nmemb == 0 || size == 0)
 		return (malloc(0));
