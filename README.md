@@ -19,4 +19,4 @@
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/circle-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
 | ... | ... | ??? | ??? |
 
-![trauma gif](https://tenor.com/view/war-vietnam-ptsd-shell-shock-moment-gif-3022747568394546158)
+![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)
