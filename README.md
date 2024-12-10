@@ -19,6 +19,6 @@
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/circle-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
 | ... | ... | ??? | ??? |
 
-|							Begining										|				|								Passing Moulinette 🪢							|
+|							Begining										|		coding	|								Passing Moulinette 🪢							|
 |:-------------------------------------------------------------------------:|:-------------:|:-----------------------------------------------------------------------------:|
 ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![arrow]()	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
