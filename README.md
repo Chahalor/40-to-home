@@ -1,4 +1,5 @@
 # NDUVOID's 42 cursus
+[![nduvoid's 42 stats](https://badge.mediaplus.ma/black/nduvoid?1337Badge=off&UM6P=off)](https://github.com/oakoudad/badge42)
 
 ## 🗂️ Circle 0
 |								Name								|				Meaning					|Bonus	|Score|
