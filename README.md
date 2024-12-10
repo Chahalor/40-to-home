@@ -20,5 +20,3 @@
 | ... | ... | ??? | ??? |
 
 ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)
-
-# Exemple de Dégradé en Markdown
