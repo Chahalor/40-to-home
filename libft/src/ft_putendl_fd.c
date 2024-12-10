@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 13:00:18 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/16 10:37:06 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/21 10:39:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "libft.h"
 
-extern t_stack	stack_a;
-extern t_stack	stack_b;
-
-void	rrr()
+/**
+ * @brief Outputs the string s to the given file descriptor
+ * followed by a newline.
+ * 
+ * @param s String to be output.
+ * @param fd File descriptor on which to write.
+ * @return void
+ */
+void	ft_putendl_fd(char *s, int fd)
 {
-	rra(false);
-	rrb(false);
-	write(1, RRR, 3);
+	if (fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

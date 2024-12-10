@@ -1,0 +1,36 @@
+fonction radixSort(tableau)
+    max <- trouverMax(tableau)
+    exp <- 1
+    tant que max / exp > 0
+        tableau <- countingSort(tableau, exp)
+        exp <- exp * 10
+    retourner tableau
+
+fonction trouverMax(tableau)
+    max <- tableau[0]
+    pour i de 1 à longueur(tableau) - 1
+        si tableau[i] > max
+            max <- tableau[i]
+    retourner max
+
+fonction countingSort(tableau, exp)
+    n <- longueur(tableau)
+    sortie <- tableau de taille n initialisé à 0
+    count <- tableau de taille 10 initialisé à 0
+
+    pour i de 0 à n - 1
+        index <- (tableau[i] / exp) % 10
+        count[index] <- count[index] + 1
+
+    pour i de 1 à 9
+        count[i] <- count[i] + count[i - 1]
+
+    pour i de n - 1 à 0
+        index <- (tableau[i] / exp) % 10
+        sortie[count[index] - 1] <- tableau[i]
+        count[index] <- count[index] - 1
+
+    pour i de 0 à n - 1
+        tableau[i] <- sortie[i]
+
+    retourner tableau

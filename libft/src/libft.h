@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:40:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 10:44:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/10/23 13:50:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,5 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-
-// ft_printf
-int					ft_printf(const char *str, ...)
-					__attribute__ ((format(printf, 1, 2)));
-
-// get_next_line
-char				*get_next_line(int fd);
 
 #endif

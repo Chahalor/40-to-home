@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 13:00:18 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/23 14:14:03 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/11/21 10:43:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "libft.h"
 
-extern t_stack	stack_a;
-extern t_stack	stack_b;
-
-void	rrr()
+/**
+ * @brief Converts a lower-case letter to the corresponding upper-case letter.
+ * 
+ * @param c Character to be converted.
+ * @return int The corresponding upper-case letter.
+ */
+int	ft_toupper(int c)
 {
-	rra(false);
-	rrb(false);
-	write(1, RRR, 3);
+	if ('a' <= c && c <= 'z')
+		return (c - 32);
+	return (c);
 }

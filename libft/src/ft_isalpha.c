@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 13:00:18 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/10/23 14:03:29 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/11/21 10:29:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "libft.h"
 
-extern t_stack	stack_a;
-extern t_stack	stack_b;
-
-void	rrr()
+/**
+ * @brief Checks for an alphabetic character.
+ * 
+ * @param c Character to be checked.
+ * @return int 1 if c is an alphabetic character, 0 otherwise.
+ */
+int	ft_isalpha(int c)
 {
-	rra(false);
-	rrb(false);
-	write(1, RRR, 3);
+	return ((c >= 65 && 90 >= c) || (c >= 97 && 122 >= c));
 }

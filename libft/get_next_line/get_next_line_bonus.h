@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 13:00:18 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/11/13 18:35:25 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/11/20 12:41:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-extern t_stack	stack_a;
-extern t_stack	stack_b;
+# include <stdlib.h>
+# include <unistd.h>
 
-void	rrr()
-{
-	rra(false);
-	rrb(false);
-	write(1, RRR, 3);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
+
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*str_join(char *s1, char *s2);
+
+char	*get_next_line(int fd);
+
+#endif

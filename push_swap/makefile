@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 09:08:21 by nduvoid           #+#    #+#              #
-#    Updated: 2024/12/02 14:16:10 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/05 14:34:20 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	push_swap.c \
 		command2.c \
 		command3.c \
 		stack.c \
+		radix.c \
 		debuger.c #rm
 
 OBJ = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
@@ -43,9 +44,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-debug: CFLAGS += $(DEBUGFLAGS)
 debug: $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME) $(LIBFT)
 
 clean:
 	@rm -rf $(OBJDIR)

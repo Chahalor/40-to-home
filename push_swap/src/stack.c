@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:23:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/02 14:14:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/06 08:49:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	free_stack(t_stack *stack)
 {
 	if (!stack)
 		return ;
-	free(stack->stack);
+	if (stack->stack)
+		free(stack->stack);
 	free(stack);
 }
 
@@ -48,7 +49,7 @@ t_bool	is_sorted(t_stack *stack)
 	return (true);
 }
 
-t_bool	is_nbr(char *str)
+t_bool	is_nbr(const char *str)
 {
 	int	i;
 
@@ -68,20 +69,20 @@ t_stack	*init_stack(int argc, const char **argv)
 {
 	t_stack	*stack;
 
-	stack = (t_stack *)malloc(sizeof(t_stack));
+	stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	stack->size = 0;
-	stack->stack = (int *)malloc(sizeof(int) * stack->size);
+	stack->size = 1;
+	stack->stack = (int *)ft_calloc(argc, sizeof(int));
 	if (!stack->stack)
 		return (free(stack), NULL);
+	if (!argv || argc <= 1)
+		return (stack);
 	while (stack->size < argc)
 	{
-		if (!is_nbr(argv[stack->size]))
-		{
-			free(stack->stack);
-			exit(INVALIDE_STACK);
-		}
+		if (!is_nbr(argv[stack->size])
+			|| is_in_stack(stack, ft_atoi(argv[stack->size])))
+			return (free(stack->stack), NULL);
 		stack->stack[stack->size] = ft_atoi(argv[stack->size]);
 		stack->size++;
 	}
