@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:26:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/10 12:28:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/10 14:57:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../header/tester.h"
+#include "../header/tester.h"
 
 void	ra(t_stack *stacks)
 {

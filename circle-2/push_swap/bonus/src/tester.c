@@ -12,6 +12,63 @@
 
 #include "../header/tester.h"
 
+#if ALLOW_FILE == 1
+# include <fcntl.h>
+
+int	main(int argc, const char *argv[])
+{
+	t_stack	*stacks;
+	char	**instructions;
+
+	if (ft_strcmp(argv[1], "-f") == 0 && argc > 3)
+	{
+		stacks = init_stacks(argc - 2, argv + 2);
+		instructions = read_instructions(open(argv[2], O_RDONLY));
+	}
+	else
+	{
+		stacks = init_stacks(argc, argv);
+		instructions = read_instructions(0);
+	}
+	if (!instructions)
+	{
+		write(2, "Error\n", 6);
+		return (free(stacks), MALLOC_ERROR);
+	}
+	if (testing(stacks, instructions))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	free(stacks);
+	free_instructions(instructions);
+	return (GOOD);
+}
+
+#else
+
+int	main(int argc, char **argv)
+{
+	t_stack	*stacks;
+	char	**instructions;
+
+	stacks = init_stacks(argc, argv);
+	instructions = read_instructions(0);
+	if (!instructions)
+	{
+		write(2, "Error\n", 6);
+		return (free(stacks), MALLOC_ERROR);
+	}
+	if (testing(stacks, instructions))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	free(stacks);
+	free_instructions(instructions);
+	return (GOOD);
+}
+
+#endif
+
 char	**read_instructions(int fd)
 {
 	int		size;
@@ -56,25 +113,4 @@ t_bool	testing(t_stack *stacks, char **instructs)
 	if (stacks->size_b || !is_sorted(stacks->stack_a, stacks->size_a))
 		return (FALSE);
 	return (TRUE);
-}
-
-int	main(int argc, char **argv)
-{
-	t_stack	*stacks;
-	char	**instructions;
-
-	stacks = init_stacks(argc, argv);
-	instructions = read_instructions(0);
-	if (!instructions)
-	{
-		write(2, "Error\n", 6);
-		return (free(stacks), MALLOC_ERROR);
-	}
-	if (testing(stacks, instructions))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	free(stacks);
-	free_instructions(instructions);
-	return (GOOD);
 }

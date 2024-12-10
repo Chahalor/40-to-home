@@ -12,7 +12,7 @@
 
 #include "../header/tester.h"
 
-t_bool	is_digits(char *str)
+t_bool	is_digits(const char *str)
 {
 	int	i;
 

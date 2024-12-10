@@ -18,10 +18,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include <stdio.h>
 # include "get_next_line.h"
 
 /* Defines */
+
 # define SA "sa\n"
 # define SB "sb\n"
 # define SS "ss\n"
@@ -34,16 +34,19 @@
 # define RRB "rrb\n"
 # define RRR "rrr\n"
 # define ERROR "Error\n"
-# define ALL {SA, SB, SS, PA, PB, RA, RB, RR, RRA, RRB, RRR}
+
+# define ALLOW_FILE 1
 
 /* Enum */
 
+// boolean enum
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
 }	t_bool;
 
+// all output codes
 typedef enum e_error
 {
 	GOOD,
@@ -55,7 +58,8 @@ typedef enum e_error
 
 /* Structures */
 
-typedef	struct s_stack
+// the struct that strores all two stacks
+typedef struct s_stack
 {
 	int	*stack_a;
 	int	*stack_b;
@@ -65,9 +69,14 @@ typedef	struct s_stack
 
 /* Prototypes */
 
+// tester
+
+char	**read_instructions(int fd);
+t_bool	testing(t_stack *stacks, char **instructs);
+
 // utils 
 
-t_bool	is_digits(char *str);
+t_bool	is_digits(const char *str);
 void	free_instructions(char **instructions);
 int		ft_atoi(const char *nptr);
 char	**extand_instruct(char **instructions, int size);
@@ -76,7 +85,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 
 // stacks
 
-t_stack	*init_stacks(int argc, char **argv);
+t_stack	*init_stacks(int argc, const char **argv);
 t_bool	is_sorted(int *stack, int size);
 
 // instructions

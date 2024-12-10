@@ -12,13 +12,13 @@
 
 #include "../header/tester.h"
 
-t_stack	*init_stacks(int argc, char **argv)
+t_stack	*init_stacks(int argc, const char **argv)
 {
 	t_stack	*stacks;
 	int		i;
 
 	stacks = (t_stack *)ft_calloc(sizeof(t_stack) + sizeof(int *) + sizeof(int),
-								2 * argc + 2);
+			2 * argc + 2);
 	if (!stacks)
 		exit(MALLOC_ERROR);
 	stacks->stack_a = (int *)(stacks + 1);
@@ -31,6 +31,7 @@ t_stack	*init_stacks(int argc, char **argv)
 		if (!is_digits(argv[i]))
 		{
 			free(stacks);
+			write(2, "Error\n", 6);
 			exit(ARG_ERROR);
 		}
 		stacks->stack_a[i - 1] = ft_atoi(argv[i]);
