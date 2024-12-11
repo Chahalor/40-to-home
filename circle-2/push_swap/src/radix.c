@@ -6,66 +6,66 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:21:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/06 08:40:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:57:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-extern t_stack	*stack_a;
-extern t_stack	*stack_b;
-
-int	max_value(t_stack *stack)
+// renvoie les nbr dans l ordre du nb signi (le plus grans en premier et les push en bas de A)
+/**	tant que all.stack_b.size > 0
+ * 		get poss max
+ * 		rb() ou rrb() en fonction du plus opti jusqu a que stack_b.head == max
+ * 		pa()
+ * 		ra()
+*/
+void	sort_stack(t_all *all)
 {
-	int	i;
 	int	max;
-
-	max = stack->stack[0];
-	i = 0;
-	while (i < stack->size)
-	{
-		if (stack->stack[i] > max)
-			max = stack->stack[i];
-		i++;
-	}
-	return (max);
+	int	max_poss
 }
 
-void	count_sort(int expo)
+void	radix(t_all *all)
 {
+	int	expo;
+	int	max;
+	int	signi;
 	int	i;
 	int	j;
+	int	max_poss;
 
-	i = 0;
-	while (i < 10)
+	max = get_max(all->stack_a);
+	expo = get_expo(max);
+
+	while (expo > 0)
 	{
-		j = 0;
-		while (j < stack_a->size)
+		signi = 0;
+		while (signi < 10)
 		{
-			if (stack_a->stack[0] / expo % 10 == i)
-				pb();
-			else
+			i = 0;
+			while (i < all->stack_a->size)	//passe les nbr dont le le nb signi est i de A a B
 			{
-				ra(true);
-				j++;
+				if (all->stack_a->stack[0] % signi == i)
+				{
+					write(1, PB, 3);
+					pb(all);
+				}
+				else 
+				{
+					write(1, RA, 3);
+					ra(all);
+				}
+				i++;
 			}
+			j = 0;
+
+			while (j < all->stack_b->size)
+			{
+				max_poss = 0;
+				
+			}
+			signi++;
 		}
-		i++;
-	}
-	while (stack_b->size)
-		pa();
-}
-
-void	radix_sort(void)
-{
-	int	max;
-	int	expo;
-
-	max = max_value(stack_a);
-	expo = 1;
-	while (max / expo > 0)
-	{
-		count_sort(expo);
-		expo *= 10;
+		expo /= 10;
 	}
 }

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 14:42:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 13:00:18 by nduvoid          ###   ########.fr       */
+/*   Created: 2024/12/11 11:26:27 by nduvoid           #+#    #+#             */
+/*   Updated: 2024/12/11 11:28:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-extern t_stack	stack_a;
-extern t_stack	stack_b;
-
-void	rrr()
+void	exiting(int code)
 {
-	rra(false);
-	rrb(false);
-	write(1, RRR, 3);
+	write(2, "Error\n", 6);
+	exit(code);
 }

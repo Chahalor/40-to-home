@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/05 14:05:44 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:28:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,59 +32,69 @@
 # define RRB "rrb\n"
 # define RRR "rrr\n"
 
-/* STRUCT */
-typedef struct s_stack
-{
-	int *stack;
-	int size;
-}	t_stack;
-
 /* ENUM */
-enum e_error 
-{
-	SUCCESS,
-	SORTED,
-	MALLOC_ERROR,
-	INVALIDE_STACK
-};
 
-/* TYPEDEF */
 typedef enum e_bool
 {
-	false,
-	true
+	FALSE,
+	TRUE
 }	t_bool;
 
-/* PROTOTYPE */
-// Stack
-void		free_stack(t_stack *stack);
-t_bool		is_in_stack(t_stack *stack, int content);
-t_bool		is_sorted(t_stack *stack);
-t_bool		is_nbr(const char *str);
-t_stack		*init_stack(int argc, const char **argv);
+typedef enum r_output
+{
+	GOOD,
+	MALLOC_ERROR,
+	ARG_ERROR,
+	STACK_ERROR
+}	t_output;
 
+/* STRUCTS */
 
-// Instructions
-void		sa();
-void		sb();
-void		ss();
-void		pa();
-void		pb();
-void		ra(t_bool w);
-void		rb(t_bool w);
-void		rr();
-void		rra(t_bool w);
-void		rrb(t_bool w);
-void		rrr();
+typedef struct s_stack
+{
+	int	*stack;
+	int	size;
+}	t_stack;
 
+typedef struct s_all
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+}	t_all;
 
-// radix sort msd
-void		radix_sort(void);
-int			max_value(t_stack *stack);
-void		push_signi(t_stack **stack_a, t_stack **stack_b, int signi, int max);
-int			get_digit(int value);
+/* PROTOTYPES */
 
-// debug
+// stack.c
+
+t_bool	is_digits(const char *str);
+t_bool	in_stack(t_stack *stack, int value);
+t_all	*init_stacks(int argc, const char *argv[]);
+
+// instructions 
+
+void	sa(t_all *all);
+void	sb(t_all *all);
+void	ss(t_all *all);
+void	pa(t_all *all);
+void	pb(t_all *all);
+void	ra(t_all *all);
+void	rb(t_all *all);
+void	rr(t_all *all);
+void	rra(t_all *all);
+void	rrb(t_all *all);
+void	rrr(t_all *all);
+
+// probalby not needed
+t_bool	is_instruction(char *target);
+void	do_instructions(t_all *all, char *instructs);
+
+// utils.c
+
+void	exiting(int code);
+
+// debuger.c
+
 void	print_stack(t_stack *stack);
+void	print_all(t_all *all);
 
 #endif	/* PUSH_SWAP_H */
