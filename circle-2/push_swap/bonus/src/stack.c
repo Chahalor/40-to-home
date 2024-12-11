@@ -31,7 +31,7 @@
  * 
  * - exit with an error if an argument is not a digit
  */
-t_stack	*init_stacks(int argc, const char **argv)
+t_stack	*init_all(int argc, const char **argv)
 {
 	t_stack	*stacks;
 	int		i;
@@ -55,6 +55,8 @@ t_stack	*init_stacks(int argc, const char **argv)
 		}
 		stacks->stack_a[i - 1] = ft_atoi(argv[i]);
 	}
+	if (is_sorted(stacks->stack_a, stacks->size_a))
+		return (free(stacks), NULL);
 	return (stacks);
 }
 

@@ -6,31 +6,44 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 09:08:21 by nduvoid           #+#    #+#              #
-#    Updated: 2024/12/11 11:07:47 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/11 14:09:39 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
+# Directories
 SRCDIR =	src
 LIBFTDIR =	libft
 OBJDIR =	.obj
+DBGDIR =	debug # not exiting yet
+INCDIR =	include
 
-SRC =	push_swap.c	\
-		instruct.c	\
-		instruct2.c	\
-		instruct3.c	\
-		stack.c		\
-		radix.c		\
-		debuger.c #rm
+# All source files
+SRC =		push_swap.c	\
+			instruct.c	\
+			instruct2.c	\
+			instruct3.c	\
+			stack.c		\
+			radix.c		\
+			utils.c
+DEBUGSRC =	debuger.c
 
-OBJ = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
-
-CC =			cc
-CFLAGS =		-Wall -Wextra -Werror
-DEBUGFLAGS =	-g3 -fsanitize=address
-
+# All archive files
 LIBFT =	$(LIBFTDIR)/libft.a
+
+# All object files
+OBJ =		$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+DEBUGOBJ =	$(addprefix $(OBJDIR)/, $(DEBUGSRC:.c=.o))
+
+# Compilation Flags
+CC =				cc
+CFLAGS =			-Wall -Wextra -Werror -I./$(INCDIR) -I./libft/include
+
+# Debug Flags
+DEBUGFLAGS =		-g3 -D DEBUG=1
+FSANITIZEFLAGS =	-fsanitize=address
+
 
 all: $(NAME)
 
@@ -44,8 +57,18 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-debug: $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME) $(LIBFT)
+debug: CFLAGS += $(DEBUGFLAGS)
+debug: $(LIBFT) $(OBJ) $(DEBUGOBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(DEBUGOBJ) -o $(NAME) $(LIBFT)
+
+debug.fsanitize: CFLAGS += $(FSANITIZEFLAGS)
+debug.fsanitize: debug
+
+debug.fs: debug.fsanitize
+
+norm:
+	@$(call make_norm)
+# @make -C $(LIBFTDIR) norm TODO
 
 clean:
 	@rm -rf $(OBJDIR)
@@ -57,4 +80,16 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re debug debug.fsanitize
+
+# All functions
+define make_norm
+	@norminette $(SRCDIR)/*.c $(INCDIR)/*.h > /tmp/norm_output.txt; \
+	if grep -q "Error!" /tmp/norm_output.txt; then \
+		echo "\e[31mNorminette failed\e[0m"; \
+		cat /tmp/norm_output.txt; \
+	else \
+		echo "\e[32mNorminette passed\e[0m"; \
+	fi; \
+	rm -f /tmp/norm_output.txt
+endef

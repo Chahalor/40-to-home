@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 08:13:34 by nduvoid           #+#    #+#              #
-#    Updated: 2024/11/21 13:36:12 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/11 13:14:13 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,16 +70,16 @@ FT_PRINTF_SRC =	ft_printf.c \
 GNL_SRC =	get_next_line_bonus.c \
 			get_next_line_utils_bonus.c
 
-LIBFT_OBJ = $(addprefix $(OBJDIR)/, $(SRC_LIBFT:.c=.o))
-LIBFT_BONUS_OBJ = $(addprefix $(OBJDIR)/, $(LIBFT_BONUS:.c=.o))
-FT_PRINTF_OBJ = $(addprefix $(OBJDIR)/, $(FT_PRINTF_SRC:.c=.o))
-GNL_OBJ = $(addprefix $(OBJDIR)/, $(GNL_SRC:.c=.o))
+LIBFT_OBJ =			$(addprefix $(OBJDIR)/, $(SRC_LIBFT:.c=.o))
+LIBFT_BONUS_OBJ =	$(addprefix $(OBJDIR)/, $(LIBFT_BONUS:.c=.o))
+FT_PRINTF_OBJ =		$(addprefix $(OBJDIR)/, $(FT_PRINTF_SRC:.c=.o))
+GNL_OBJ =			$(addprefix $(OBJDIR)/, $(GNL_SRC:.c=.o))
 
-AR = ar
-FLAGS = rcs
-RM = rm -f
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+AR =		ar
+FLAGS =		rcs
+RM =		rm -f
+CC =		cc
+CFLAGS =	-Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -106,7 +106,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "libft.a removed"
+	@echo "$(NAME) removed"
 
 re: fclean all
 

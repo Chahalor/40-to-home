@@ -35,7 +35,7 @@
 # define RRR "rrr\n"
 # define ERROR "Error\n"
 
-# define ALLOW_FILE 0
+# define ALLOW_FILE 1
 
 /* Enum */
 
@@ -85,7 +85,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 
 // stacks
 
-t_stack	*init_stacks(int argc, const char **argv);
+t_stack	*init_all(int argc, const char **argv);
 t_bool	is_sorted(int *stack, int size);
 
 // instructions

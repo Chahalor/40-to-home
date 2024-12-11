@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:40:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 09:32:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 14:02:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,10 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
 // ft_printf
-int				ft_printf(const char *str, ...)
-				__attribute__ ((format(printf, 1, 2)));
+int					ft_printf(const char *str, ...)
+					__attribute__ ((format(printf, 1, 2)));
 
 // get_next_line
-char			*get_next_line(int fd);
-
+char				*get_next_line(int fd);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include <push_swap.h>
 
 /**
  * @brief swap the first two elements of stack A

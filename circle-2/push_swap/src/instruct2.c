@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:26:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 11:17:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:33:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include <push_swap.h>
 
 /**
  * @brief rotate the stack a, the first element becomes the last

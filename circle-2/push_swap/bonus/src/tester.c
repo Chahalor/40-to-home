@@ -47,13 +47,13 @@ int	main(int argc, const char *argv[])
 	if (ft_strcmp(argv[1], "-f") == 0 && argc > 3)
 	{
 		fd = open(argv[2], O_RDONLY);
-		stacks = init_stacks(argc - 2, argv + 2);
+		stacks = init_all(argc - 2, argv + 2);
 		instructions = read_instructions(fd);
 	}
 	else
 	{
 		fd = -1;
-		stacks = init_stacks(argc, argv);
+		stacks = init_all(argc, argv);
 		instructions = read_instructions(0);
 	}
 	if (!instructions)
@@ -90,12 +90,12 @@ int	main(int argc, const char *argv[])
  * 
  * - 5 if an error occurs during the reading of the file
  */
-int	main(int argc, char **argv)
+int	main(int argc, const char **argv)
 {
 	t_stack	*stacks;
 	char	**instructions;
 
-	stacks = init_stacks(argc, argv);
+	stacks = init_all(argc, argv);
 	instructions = read_instructions(0);
 	if (!instructions)
 	{

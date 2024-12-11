@@ -6,11 +6,28 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:23:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 11:28:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:30:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include <push_swap.h>
+
+/**
+ * @note 
+ * 
+ *  - une idee que j ai eu pour ne pas avoir a passer all en parametre des 
+ * instructions car global variable == forbiden (bruh)
+ * 
+ * - c est une tentative de singleton cacher quoi tkt demande a Romain
+ * 
+ *  - unused
+ */
+t_all	*get_all(void)
+{
+	static t_all	*all = NULL;
+
+	return (all);
+}
 
 t_bool	is_digits(const char *str)
 {
@@ -42,13 +59,13 @@ t_bool	in_stack(t_stack *stack, int value)
 	return (FALSE);
 }
 
-t_all	*init_stacks(int argc, const char *argv[])
+t_all	*init_all(int argc, const char *argv[])
 {
 	t_all	*all;
 	int		i;
 
-	all = (t_all *)ft_calloc(1, sizeof(t_all) 
-		+ 2 * (sizeof(t_stack) + argc + 1 * sizeof(int)));
+	all = (t_all *)ft_calloc(1, sizeof(t_all)
+			+ 2 * (sizeof(t_stack) + argc + 1 * sizeof(int)));
 	if (!all)
 		exiting(MALLOC_ERROR);
 	all->stack_a = (t_stack *)(all + 1);

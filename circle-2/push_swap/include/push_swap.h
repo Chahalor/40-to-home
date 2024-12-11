@@ -6,14 +6,14 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 11:28:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:32:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft.h"
+# include <libft.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -32,6 +32,10 @@
 # define RRB "rrb\n"
 # define RRR "rrr\n"
 
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
+
 /* ENUM */
 
 typedef enum e_bool
@@ -43,6 +47,7 @@ typedef enum e_bool
 typedef enum r_output
 {
 	GOOD,
+	STACK_SORTED,
 	MALLOC_ERROR,
 	ARG_ERROR,
 	STACK_ERROR
@@ -68,7 +73,7 @@ typedef struct s_all
 
 t_bool	is_digits(const char *str);
 t_bool	in_stack(t_stack *stack, int value);
-t_all	*init_stacks(int argc, const char *argv[]);
+t_all	*init_all(int argc, const char *argv[]);
 
 // instructions 
 
@@ -91,10 +96,20 @@ void	do_instructions(t_all *all, char *instructs);
 // utils.c
 
 void	exiting(int code);
+int		get_max(t_stack *stack);
+int		get_poss(t_stack *stack, int max);
+int		get_expo(int max);
 
+// radix.c
+
+void	radix(t_all *all);
+
+# if DEBUG
 // debuger.c
 
 void	print_stack(t_stack *stack);
 void	print_all(t_all *all);
+
+# endif /* DEBUG */
 
 #endif	/* PUSH_SWAP_H */
