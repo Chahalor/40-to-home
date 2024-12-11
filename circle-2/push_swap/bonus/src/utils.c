@@ -12,6 +12,21 @@
 
 #include "../header/tester.h"
 
+/**
+ * @brief check if the string is a number
+ * 
+ * @example "123" => TRUE
+ * @example "-123" => TRUE
+ * @example "+123" => TRUE
+ * @example "123a" => FALSE
+ * 
+ * @param str: the string to check
+ * @return
+ * 
+ * - TRUE if the string is a number
+ * 
+ * - FALSE if the string is not a number
+ */
 t_bool	is_digits(const char *str)
 {
 	int	i;
@@ -28,6 +43,20 @@ t_bool	is_digits(const char *str)
 	return (TRUE);
 }
 
+/**
+ * @brief check if the string is an white space
+ * 
+ * @example "sa" => FALSE
+ * @example " " => TRUE
+ * @example "\n" => TRUE
+ * 
+ * @param c: the character to check
+ * @return
+ * 
+ * - TRUE if the character is a white space
+ * 
+ * - FALSE if the character is not a white space
+ */
 static int	is_space(int c)
 {
 	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
@@ -36,6 +65,17 @@ static int	is_space(int c)
 	return (0);
 }
 
+/**
+ * @brief convert a string to an integer
+ * 
+ * @example "123" => 123
+ * @example "-123" => -123
+ * @example "+123" => 123
+ * @example "123a" => 123
+ * 
+ * @param nptr: the string to convert
+ * @return the integer
+ */
 int	ft_atoi(const char *nptr)
 {
 	int		r;
@@ -62,6 +102,17 @@ int	ft_atoi(const char *nptr)
 	return (r * neg);
 }
 
+/**
+ * @brief calloc a new array of instructions, copy the old one and free it
+ * 
+ * @param instructions: the instructions array
+ * @param size: the new size
+ * @return
+ * 
+ * - the new array of instructions
+ * 
+ * - NULL if an error occured (Most likely a malloc error)
+ */
 char	**extand_instruct(char **instructions, int size)
 {
 	char	**new;
@@ -82,6 +133,13 @@ char	**extand_instruct(char **instructions, int size)
 	return (new);
 }
 
+/**
+ * @brief free the instructions array, by freeing each instruction and 
+ * the array itself
+ * 
+ * @param instructions: the instructions array
+ * @return void
+ */
 void	free_instructions(char **instructions)
 {
 	int	i;

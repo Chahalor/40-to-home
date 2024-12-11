@@ -6,18 +6,34 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:28:28 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/10 15:03:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/11 09:13:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/tester.h"
 
+/**
+ * @brief swap the first two elements of stack A
+ */
 void	rrr(t_stack *stacks)
 {
 	rra(stacks);
 	rrb(stacks);
 }
 
+/**
+ * @brief check if the target is an instruction
+ * 
+ * @example is_instruction("sa\n") => TRUE
+ * @example is_instruction("sa") => FALSE
+ * 
+ * @param target: the target to check
+ * @return
+ * 
+ * - TRUE if the target is an instruction
+ * 
+ * - FALSE if the target is not an instruction
+ */
 t_bool	is_instruction(char *target)
 {
 	return (!ft_strcmp(target, SA) || !ft_strcmp(target, SB)
@@ -28,6 +44,17 @@ t_bool	is_instruction(char *target)
 		|| !ft_strcmp(target, RRR));
 }
 
+/**
+ * @brief execute the instructions
+ * 
+ * - the function will execute the instruction
+ * 
+ * - do nothing if the instruction is not valid
+ * 
+ * @param stacks: the two stacks and their sizes
+ * @param instructs: the instruction to
+ * 
+ */
 void	do_instructions(t_stack *stacks, char *instructs)
 {
 	if (!ft_strcmp(instructs, SA))

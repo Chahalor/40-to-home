@@ -12,6 +12,17 @@
 
 #include "../header/tester.h"
 
+/**
+ * @brief compare two strings
+ * 
+ * @param s1: the first string
+ * @param s2: the second string
+ * @return
+ * 
+ * - 0 if the two strings are equal
+ * 
+ * - the difference between the two strings
+ */
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
@@ -34,13 +45,24 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
+/**
+ * @brief allocate memory and set it to 0
+ * 
+ * @param nmemb: number of elements
+ * @param size: size of each element
+ * @return
+ * 
+ * - void*: the allocated memory
+ * 
+ * - NULL if an error occurs (malloc)
+ */
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*arr;
 	size_t	i;
 
 	if (nmemb == 0 || size == 0)
-		return (malloc(0));
+		return (NULL);
 	if ((nmemb * size) / nmemb != size)
 		return (NULL);
 	arr = malloc(nmemb * size);

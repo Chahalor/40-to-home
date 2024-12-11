@@ -12,6 +12,9 @@
 
 #include "../header/tester.h"
 
+/**
+ * @brief swap the first two elements of stack A
+ */
 void	sa(t_stack *stacks)
 {
 	int	tmp;
@@ -23,6 +26,9 @@ void	sa(t_stack *stacks)
 	stacks->stack_a[1] = tmp;
 }
 
+/**
+ * @brief swap the first two elements of stack B
+ */
 void	sb(t_stack *stacks)
 {
 	int	tmp;
@@ -34,12 +40,18 @@ void	sb(t_stack *stacks)
 	stacks->stack_b[1] = tmp;
 }
 
+/**
+ * @brief swap the first two elements of stack A and B
+ */
 void	ss(t_stack *stacks)
 {
 	sa(stacks);
 	sb(stacks);
 }
 
+/**
+ * @brief push the first element of stack A to stack B
+ */
 void	pa(t_stack *stacks)
 {
 	int	i;
@@ -63,6 +75,9 @@ void	pa(t_stack *stacks)
 	stacks->size_b--;
 }
 
+/**
+ * @brief push the first element of stack B to stack A
+ */
 void	pb(t_stack *stacks)
 {
 	int	i;

@@ -35,7 +35,7 @@
 # define RRR "rrr\n"
 # define ERROR "Error\n"
 
-# define ALLOW_FILE 1
+# define ALLOW_FILE 0
 
 /* Enum */
 
