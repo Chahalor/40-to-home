@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:23:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 15:30:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/12 10:27:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,33 @@ t_bool	is_digits(const char *str)
 		if (!ft_isdigit(str[i]))
 			return (FALSE);
 		i++;
+	}
+	return (TRUE);
+}
+
+/**
+ * @brief check if the stack is sorted in ascending order
+ * 
+ * @example [1, 2, 3, 4, 5] => TRUE
+ * @example [1, 2, 3, 5, 4] => FALSE
+ * 
+ * @param stack: the stack
+ * @param size: the size of the stack
+ * @return
+ * 
+ * - TRUE if the stack is sorted
+ * 
+ * - FALSE if the stack is not sorted
+ */
+t_bool	is_sorted(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (++i < stack->size)
+	{
+		if (stack->stack[i - 1] > stack->stack[i])
+			return (FALSE);
 	}
 	return (TRUE);
 }

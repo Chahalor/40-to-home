@@ -4,7 +4,7 @@
 
 ### Code : 
  - [ ] le quick sort
- - [ ] ou le radix sort
+ - [X] ou le radix sort
  - [ ] les write d instruction dans les fonctions qui trie
  - [ ] un systeme de singleton chacher evec des variable static pour activer/deactiver les writes des instruction
 

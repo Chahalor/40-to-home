@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:26:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 15:06:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/12 08:33:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,31 @@ int	get_max(t_stack *stack)
 	return (max);
 }
 
-int	get_poss(t_stack *stack, int max)
+int	get_min(t_stack *stack)
+{
+	int	min;
+	int	i;
+
+	min = stack->stack[0];
+	i = 1;
+	while (i < stack->size)
+	{
+		if (stack->stack[i] < min)
+			min = stack->stack[i];
+		i++;
+	}
+	return (min);
+}
+
+int	get_poss(t_stack *stack, int nbr)
 {
 	int	i;
 
 	i = 0;
-	while (stack->stack[i] != max && i < stack->size)
+	while (stack->stack[i] != nbr && i < stack->size)
 		i++;
 	{
-		if (stack->stack[i] == max)
+		if (stack->stack[i] == nbr)
 			return (i);
 		i++;
 	}

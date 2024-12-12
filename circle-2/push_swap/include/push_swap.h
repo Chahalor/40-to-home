@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/11 15:32:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/12 10:27:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define RRR "rrr\n"
 
 # ifndef DEBUG
-#  define DEBUG 0
+#  define DEBUG 1
 # endif
 
 /* ENUM */
@@ -72,6 +72,7 @@ typedef struct s_all
 // stack.c
 
 t_bool	is_digits(const char *str);
+t_bool	is_sorted(t_stack *stack);
 t_bool	in_stack(t_stack *stack, int value);
 t_all	*init_all(int argc, const char *argv[]);
 
@@ -97,18 +98,22 @@ void	do_instructions(t_all *all, char *instructs);
 
 void	exiting(int code);
 int		get_max(t_stack *stack);
-int		get_poss(t_stack *stack, int max);
+int		get_min(t_stack *stack);
+int		get_poss(t_stack *stack, int nbr);
 int		get_expo(int max);
 
 // radix.c
 
 void	radix(t_all *all);
+void	push_signi_to_b(t_all *all, int signi, int mod);
+void	sort_stack_b(t_all *all);
 
 # if DEBUG
 // debuger.c
 
 void	print_stack(t_stack *stack);
 void	print_all(t_all *all);
+void	sort_stack_b(t_all *all);
 
 # endif /* DEBUG */
 
