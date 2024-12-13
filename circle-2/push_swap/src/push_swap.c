@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:09:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/12 09:37:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/13 09:30:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	main(int argc, const char **argv)
 		exiting(ARG_ERROR);
 	all = init_all(argc, argv);
 	// print_all(all);
-	radix(all);
-	// push_signi_to_b(all, 10, 1);
-	// print_all(all);
-	// sort_stack_b(all);
-	// print_all(all);
+	// radix(all);
+	push_signi_to_b(all, 10, 1);
+	print_all(all);
+	sort_stack_b(all);
+	print_all(all);
 	free(all);
 	return (GOOD);
 }
