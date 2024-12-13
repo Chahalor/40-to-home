@@ -3,7 +3,7 @@
 
 ## 🗂️ Circle 0
 |								Name								|				Meaning					|Bonus	|Score|
-|:-----------------------------------------------------------------:|:-------------------------------------:|:-----:|:-----:|
+|:-----------------------------------------------------------------:|:-------------------------------------:|:-----:|:---:|
 | [Libft](https://github.com/Chahalor/40-to-home/tree/main/libft)	| My first and usefull library (lol)	| yes	| 124 |
 
 ## Circle 1
@@ -17,7 +17,9 @@
 |									Name												|					Meaning							|Bonus	|Score|
 |:-------------------------------------------------------------------------------------:|:-------------------------------------------------:|:-----:|:---:|
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/circle-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
-| ... | ... | ??? | ??? |
+| [FDF](https://github.com/Chahalor/40-to-home/tree/main/circle-2/FDF)					| TODO	| yes	| ??? |
+| [pipex](https://github.com/Chahalor/40-to-home/tree/main/circle-2/pipex)				| TODO	| yes	| ??? |
+
 
 |							Begining										|		coding	|								Passing Moulinette 🪢							|
 |:-------------------------------------------------------------------------:|:-------------:|:-----------------------------------------------------------------------------:|
