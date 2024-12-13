@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:30:55 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/12 08:36:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/13 10:24:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
 
 void	print_stack(t_stack *stack)
 {

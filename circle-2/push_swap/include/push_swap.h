@@ -6,12 +6,14 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/13 09:11:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:45:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+/* -----| Library |----- */
 
 # include <libft.h>
 # include <unistd.h>
@@ -19,7 +21,24 @@
 # include <fcntl.h>
 #include <stdio.h>	// rm
 
-/* DEFINE */
+/* -----| Define |----- */
+// define algo
+
+# ifndef RADIX
+#  define RADIX 1 /* 0=LSD, 1=MSD */
+# endif
+#ifndef QUICK_SORT
+# define QUICK_SORT 0
+#endif
+#ifndef MIRACLE
+# define MIRACLE 0
+#endif
+#ifndef RANDOM
+# define RANDOM 0
+#endif
+
+// Define for the instructions write
+
 # define SA "sa\n"
 # define SB "sb\n"
 # define SS "ss\n"
@@ -32,11 +51,15 @@
 # define RRB "rrb\n"
 # define RRR "rrr\n"
 
+// Allow defines
+
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
+# define ALLOW_FLAG 0
+# define ALLOW_HEADER 0
 
-/* ENUM */
+/* -----| Enum |----- */
 
 typedef enum e_bool
 {
@@ -53,7 +76,7 @@ typedef enum r_output
 	STACK_ERROR
 }	t_output;
 
-/* STRUCTS */
+/* -----| Structs |----- */
 
 typedef struct s_stack
 {
@@ -67,7 +90,7 @@ typedef struct s_all
 	t_stack	*stack_b;
 }	t_all;
 
-/* PROTOTYPES */
+/* -----| Prototypes |----- */
 
 // stack.c
 

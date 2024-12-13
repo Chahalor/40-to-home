@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:09:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/13 09:30:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:28:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
 
 #if DEBUG == 1
 
@@ -37,22 +37,28 @@
  * 
  * @note if DEBUG is set to 0, the program will run an other main function
  */
-int	main(int argc, const char **argv)
-{
-	t_all	*all;
+// int	main(int argc, const char **argv)
+// {
+// 	t_all	*all;
 
-	if (argc < 2)
-		exiting(ARG_ERROR);
-	all = init_all(argc, argv);
-	// print_all(all);
-	// radix(all);
-	push_signi_to_b(all, 10, 1);
-	print_all(all);
-	sort_stack_b(all);
-	print_all(all);
-	free(all);
-	return (GOOD);
-}
+// 	if (argc < 2)
+// 		exiting(ARG_ERROR);
+// 	all = init_all(argc, argv);
+// 	radix(all);
+// 	// push_signi_to_b(all, 10, 1);
+// 	// print_all(all);
+// 	// sort_stack_b(all);
+// 	// print_all(all);
+// 	// push_signi_to_b(all, 10, 2);
+// 	// print_all(all);
+// 	// sort_stack_b(all);
+// 	// push_signi_to_b(all, 10, 3);
+// 	// print_all(all);
+// 	// sort_stack_b(all);
+// 	print_all(all);
+// 	free(all);
+// 	return (GOOD);
+// }
 
 #else
 
@@ -79,17 +85,17 @@ int	main(int argc, const char **argv)
  * 
  * @note if DEBUG is set to 1, the program will run an other main function
  */
-int	main(int argc, const char **argv)
-{
-	t_all	*all;
+// int	main(int argc, const char **argv)
+// {
+// 	t_all	*all;
 
-	if (argc < 2)
-		exiting(ARG_ERROR);
-	all = init_all(argc, argv);
-	if (!all || is_sorted(all->stack_a))
-		return (free(all), STACK_SORTED);
-	radix(all);
-	return (free(all), GOOD);
-}
+// 	if (argc < 2)
+// 		exiting(ARG_ERROR);
+// 	all = init_all(argc, argv);
+// 	if (!all || is_sorted(all->stack_a))
+// 		return (free(all), STACK_SORTED);
+// 	radix(all);
+// 	return (free(all), GOOD);
+// }
 
 #endif

@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 09:08:21 by nduvoid           #+#    #+#              #
-#    Updated: 2024/12/11 14:09:39 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/13 11:28:38 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ DBGDIR =	debug # not exiting yet
 INCDIR =	include
 
 # All source files
-SRC =		push_swap.c	\
+SRC =		main.c 		\
+			push_swap.c	\
 			instruct.c	\
 			instruct2.c	\
 			instruct3.c	\

@@ -6,28 +6,40 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:21:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/12 10:28:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:45:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
 
 /**
- * @brief push push every number of the stack A to B if the number % expo == i
+ * @brief push evry numbre of stack A into B that are equal to signi * mod
+ * 
+ * @param all	 the structure that contain the two stacks
+ * @param signi	 the number that will be used to sort the stack (signi != 0)
+ * @param mod	 the number that will be used to sort the stack
+ * 
+ * @note signi should not be equal to 0
  */
 void	push_signi_to_b(t_all *all, int signi, int mod)
 {
 	int	i;
 	int	nb_iter;
+	int	nb_to_push;
 
+	nb_iter = 0;
+	nb_to_push = 0;
+	while (nb_iter < all->stack_a->size)
+		if (all->stack_a->stack[nb_iter++]/signi == mod)
+			nb_to_push++;
 	i = 1;
-	nb_iter = all->stack_a->size;
-	while (i < nb_iter)
+	while (i < nb_iter && nb_to_push > 0)
 	{
 		if (all->stack_a->stack[0] > signi && all->stack_a->stack[0]/signi == mod)
 		{
 			write(1, PB, 3);
 			pb(all);
+			nb_to_push--;
 		}
 		else
 		{
@@ -41,6 +53,8 @@ void	push_signi_to_b(t_all *all, int signi, int mod)
 /**
  * @brief sort the stack B by shearching the min and pushing it to A and 
  * rotating the stack A to push the min to the bottom of A
+ * 
+ * @param all the structure that contain the two stacks
  */
 void	sort_stack_b(t_all *all)
 {
@@ -51,7 +65,7 @@ void	sort_stack_b(t_all *all)
 	{
 		min = get_min(all->stack_b);
 		min_pos = get_poss(all->stack_b, min);
-		if (min_pos == -1)
+		if (min_pos < 0)
 			return ;
 		if (min_pos > all->stack_b->size / 2)
 		{
@@ -72,10 +86,12 @@ void	sort_stack_b(t_all *all)
 		write(1, PA, 3);
 		pa(all);
 		write(1, RRA, 4);
-		rra(all);
+		ra(all);
 	}
 }
 
+#if RADIX == 0
+/** @todo */
 void	radix(t_all *all)
 {
 	int	expo;
@@ -87,13 +103,35 @@ void	radix(t_all *all)
 	while (expo < expo_max)
 	{
 		i = 1;
-		while (i < 10 && !(is_sorted(all->stack_a) && all->stack_b->size == 0))
+		while (i < 10 /*&& !(is_sorted(all->stack_a) && all->stack_b->size == 0)*/)
 		{
 			push_signi_to_b(all, expo, i);
 			sort_stack_b(all);
 			i++;
 		}
 		expo *= 10;
-		// print_all(all);
 	}
 }
+
+#else
+/** @todo */
+void	radix(t_all *all)
+{
+	int	expo;
+	int	i;
+
+	expo = get_expo(get_max(all->stack_a));
+	while (expo > 0)
+	{
+		i = 1;
+		while (i < 10 /*&& !(is_sorted(all->stack_a) && all->stack_b->size == 0)*/)
+		{
+			push_signi_to_b(all, expo, i);
+			sort_stack_b(all);
+			i++;
+		}
+		expo /= 10;
+	}
+}
+
+#endif
