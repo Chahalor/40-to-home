@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 08:13:34 by nduvoid           #+#    #+#              #
-#    Updated: 2024/12/17 12:22:58 by nduvoid          ###   ########.fr        #
+#    Updated: 2024/12/17 14:10:16 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ $(OBJDIR)/%.o: $(LIBFT_BONUS)/%.c
 
 clean:
 	@$(RM) $(LIBFT_OBJ) $(LIBFT_BONUS_OBJ) $(FT_PRINTF_OBJ) $(GNL_OBJ)
-	@rmdir $(OBJDIR)
+	@$(RM) $(OBJDIR)
 
 fclean: clean
 	@$(RM) $(NAME)
