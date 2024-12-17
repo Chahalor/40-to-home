@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/20 12:41:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:41:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param s The string
  * @return The length of the string
  */
-size_t	ft_strlen(const char *s)
+size_t	gnl_strlen(const char *s)
 {
 	size_t	len;
 
@@ -72,7 +72,7 @@ char	*str_join(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = gnl_strlen(s1) + gnl_strlen(s2);
 	result = (char *)malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);

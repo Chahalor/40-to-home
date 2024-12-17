@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/20 12:41:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:41:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #  define MAX_FD 1024
 # endif
 
-size_t	ft_strlen(const char *s);
+size_t	gnl_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*str_join(char *s1, char *s2);
 

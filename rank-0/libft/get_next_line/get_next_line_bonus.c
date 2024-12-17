@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:39:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/20 12:41:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:42:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*update_remainder(char *str)
 		free(str);
 		return (NULL);
 	}
-	remainder = (char *)malloc(sizeof(char) * (ft_strlen(str) - i));
+	remainder = (char *)malloc(sizeof(char) * (gnl_strlen(str) - i));
 	if (!remainder)
 		return (NULL);
 	i++;
