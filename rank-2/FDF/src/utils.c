@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:42:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/13 15:06:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/17 12:45:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	exiting(int code, char *message)
 		write(2, "Error\n", 6);
 	exit(code);
 }
-
 
 static int	is_space(int c)
 {

@@ -1,67 +1,156 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/13 11:58:41 by nduvoid           #+#    #+#              #
-#    Updated: 2024/12/13 15:44:20 by nduvoid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ 
+# ║                                                                                                                             ║ 
+# ║   ________  ___      ___           _______           ________      _______           ________  _______       ________       ║ 
+# ║  |\  _____\|\  \    |\  \         |\  ___ \         |\   ___ \    |\  ___ \         |\  _____\|\  ___ \     |\   __  \      ║ 
+# ║  \ \  \__/ \ \  \   \ \  \        \ \   __/|        \ \  \_|\ \   \ \   __/|        \ \  \__/ \ \   __/|    \ \  \|\  \     ║ 
+# ║   \ \   __\ \ \  \   \ \  \        \ \  \_|/__       \ \  \ \\ \   \ \  \_|/__       \ \   __\ \ \  \_|/__   \ \   _  _\    ║ 
+# ║    \ \  \_|  \ \  \   \ \  \____    \ \  \_|\ \       \ \  \_\\ \   \ \  \_|\ \       \ \  \_|  \ \  \_|\ \   \ \  \\  \|   ║ 
+# ║     \ \__\    \ \__\   \ \_______\   \ \_______\       \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\ _\   ║ 
+# ║      \|__|     \|__|    \|_______|    \|_______|        \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ 
+# ║                                                                                                                             ║ 
+# ║    By nduvoid                                                                                                               ║ 
+# ║                                                                                                                             ║ 
+# ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-NAME =	FDF
+# ***************************************************** #
+# *                VARIABLES                          * #
+# ***************************************************** #
 
-DIRSRC	  =	src/
-DIRMLIBX  =	minilibx-linux/
-DIRLIBFT  =	libft/
-HEADERDIR =	includes/
-DIROBJ	  =	.obj/
+# Name of the executable
+NAME :=			fdf
 
-SRC =	fdf.c		\
-		parsing.c	\
-SRCDEBUG =	debug.c
+CC :=			cc
+CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
+MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
+INCMLXFLAGS =	-I$(DIR_INCL) -Imlx
 
-OBJ =		$(addprefix $(DIROBJ), $(SRC:.c=.o))
-OBJDEBUG =	$(addprefix $(DIROBJ), $(SRCDEBUG:.c=.o))
+# Directories
+DIR_SRC =	src
+DIR_OBJ =	.obj
+DIR_LIBFT =	libft
+DIR_MLX =	minilibx-linux
+DIR_INCL =	includes
 
-CC = 			cc
-CFLAGS =		-Wall -Wextra -Werror
-CFLAGS +=		-I $(HEADERDIR)
-CFLAGS +=		-I $(DIRLIBFT)$(HEADERDIR)
-CFLAGS +=		-I $(DIRMLIBX)
-DEBUGFLAGS =	-g3 -D DEBUG=1
-FSFLAGS =		-fsanitize=address
 
-all: $(NAME)
+# All archive files
+LIBFT =		$(DIR_LIBFT)/libft.a
+MLX_LIB =	$(DIR_MLX)/libmlx_Linux.a
+MLX_FLAGS	:= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
-$(NAME): $(OBJ)
-	@make -C $(DIRLIBFT)
-	@make -C $(DIRMLIBX)
-	@$(CC) $(OBJ) $(DIRMLIBX)/libmlx_Linux.a -lXext -lX11 -lm -lz -o $(NAME)
+# All source files
+SRC =	fdf.c \
+		parsing.c \
+		utils.c
 
-$(DIROBJ)%.o: $(DIRSRC)%.c
-	@mkdir -p $(DIROBJ)
-	@$(CC) $(CFLAGS) -I$(DIRMLIBX) -I$(HEADERDIR) -O3 -c $< -o $@
+# All object files
+OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 
-debug: $(OBJ)
-	@make -C $(DIRLIBFT)
-	@make -C $(DIRMLIBX)
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) -I$(DIRMLIBX) -I$(HEADERDIR) -o $(NAME) $(OBJ) -L $(DIRLIBFT) -lft -L $(DIRMLIBX)
+# ***************************************************** #
+# *                      Main Rules                   * #
+# ***************************************************** #
 
-debug.fs: 
-	$(DEBUGFLAGS) := $(DEBUGFLAGS) $(FSFLAGS)
-	debug
+all: write_header norm $(NAME)
+	@if [ -z "$(shell find $(OBJ) -newer $(NAME) 2>/dev/null)" ]; then \
+		echo " Nothing to be done for 'all'."; \
+	fi
+
+$(NAME): $(LIBFT) $(MLX_LIB) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) $(INCMLXFLAGS) -c $< -o $@
+	-@$(call progress_bar)
+
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
+
+$(LIBFT):
+	@make -C $(DIR_LIBFT) 
+
+$(MLX_LIB):
+	@make -C $(DIR_MLX)
+
+# ***************************************************** #
+# *                     Debug                         * #
+# ***************************************************** #
+
+debug: CFLAGS += -g3 -D DEBUG=1
+debug: all
+
+debug.fsanitize: CFLAGS += -fsanitize=address
+debug.fsanitize: debug
+
+debug.fs: debug.fsanitize
+
+# ***************************************************** #
+# *                    Clean Rules                    * #
+# ***************************************************** #
 
 clean:
-	@rm -rf $(DIROBJ)
-	@make -C $(DIRLIBFT) clean
-	@make -C $(DIRMLIBX) clean
+	@rm -rf $(DIR_OBJ)
+	-@make -C $(DIR_LIBFT) clean
+	-@make -C $(DIR_MLX) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C $(DIRLIBFT) fclean
+	-@make -C $(DIR_LIBFT) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# ***************************************************** #
+# *                Header                             * #
+# ***************************************************** #
+
+write_header:
+	@clear
+	@printf "\n\
+	╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ \n\
+	║                                                                                                              ║ \n\
+	║   ________  ___      ___              ________      _______           ________  _______       ________       ║ \n\
+	║  |\  _____\|\  \    |\  \            |\   ___ \    |\  ___ \         |\  _____\|\  ___ \     |\   __  \      ║ \n\
+	║  \ \  \__/ \ \  \   \ \  \           \ \  \_|\ \   \ \   __/|        \ \  \__/ \ \   __/|    \ \  \|\  \     ║ \n\
+	║   \ \   __\ \ \  \   \ \  \           \ \  \ \\\\\\ \   \ \  \_|/__       \ \   __\ \ \  \_|/__   \ \   _  _\    ║ \n\
+	║    \ \  \_|  \ \  \   \ \  \____       \ \  \_\\\\\\ \   \ \  \_|\ \       \ \  \_|  \ \  \_|\ \   \ \  \\\\\\\  \|   ║ \n\
+	║     \ \__\    \ \__\   \ \_______\      \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\\\\\\ _\   ║ \n\
+	║      \|__|     \|__|    \|_______|       \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ \n\
+	║                                                                                                              ║ \n\
+	║    \033[4mauthor:\033[0m nduvoid                                                                                           ║ \n\
+	║    \033[4mRules:\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                    ║ \n\
+	║                                                                                                              ║ \n\
+	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
+	"
+
+# ***************************************************** #
+# *                      Utils                        * #
+# ***************************************************** #
+
+norm:
+	@$(call make_norm)
+
+define make_norm
+	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
+	if grep -q " ❌ Error!" /tmp/norm_output.txt; then \
+		echo "\e[31mNorminette failed\e[0m"; \
+		cat /tmp/norm_output.txt; \
+	else \
+		echo " ✅ \e[32mNorminette passed\e[0m"; \
+	fi; \
+	echo; \
+	rm -- /tmp/norm_output.txt
+endef
+
+define progress_bar
+	printf "\033[A\033[2K"; \
+	printf "🔧 Compiling $<... "
+	printf "\033[32m["
+	for i in $(shell seq 1 30); do \
+		if [ $$i -le $(shell echo "$(words $(SRC)) * 2" | bc) ]; then \
+			printf "="; \
+		else \
+			printf " "; \
+		fi; \
+	done; \
+	printf "] $(words $(SRC)) / $(words $(SRC))\033[0m\n"
+endef
+
+.PHONY: all clean fclean re write_header debug debug.fsanitize debug.fs norm

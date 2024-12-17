@@ -6,19 +6,20 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:38:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/13 15:40:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/17 14:56:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /** @todo */
-static int	get_line_size(const char *line)
+int	get_line_size(const char *line)
 {
-	int	size;
 	int	i;
+	int	size;
 
 	i = 0;
+	size = 0;
 	while (line[i])
 	{
 		if (line[i] == ' ' && line[i + 1] != ' ')
@@ -29,7 +30,7 @@ static int	get_line_size(const char *line)
 }
 
 /** @todo */
-static void	line_to_map(t_map *map, char *line)
+void	line_to_map(t_map *map, char *line)
 {
 	char	**splits;
 	int		i;
@@ -38,9 +39,10 @@ static void	line_to_map(t_map *map, char *line)
 	if (!splits)
 		return ;
 	i = 0;
+	(void)map;
 	while (splits[i])
 	{
-		map->data[map->height][i] = fdf_atoi(splits[i]);
+		map->map[map->height][i] = fdf_atoi(splits[i]);
 		i++;
 	}
 	free(splits);
@@ -50,21 +52,23 @@ static void	line_to_map(t_map *map, char *line)
 t_map	*realloc_map(t_map *map)
 {
 	t_map	*new;
-	int		i;
+	t_type	i;
 
-	new = (t_map *)ft_calloc(1, sizeof(t_map) + sizeof(t_type) * map->width * map->height);
+	if (!map || !map->width || !map->height || !map->map)
+		return (free(map), NULL);
+	new = (t_map *)ft_calloc(1, sizeof(t_map)
+			+ sizeof(t_type) * map->width * map->height);
 	if (!new)
-		return (MALLOC_ERROR);
+		return (free(map), NULL);
 	new->width = map->width;
 	new->height = map->height;
 	i = 0;
-	while (i < map->height)
+	while (i < map->height - 1)
 	{
-		new->data[i] = map->data[i];
+		new->map[i] = map->map[i];
 		i++;
 	}
-	free(map);
-	return (new);
+	return (free(map), new);
 }
 
 /** @todo */
@@ -76,22 +80,22 @@ t_map	*parse_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (OPEN_ERROR);
-	map = (map *)ft_calloc(1, sizeof(t_map));
-	if (!map)
-		return (MALLOC_ERROR);
+		return (NULL);
 	line = get_next_line(fd);
+	map = (t_map *)ft_calloc(1, sizeof(t_map) + sizeof(t_type) * get_line_size(line));
+	if (!map)
+		return (free(line), NULL);
 	map->width = get_line_size(line);
 	while (line)
 	{
 		map->height++;
 		map = realloc_map(map);
 		if (!map)
-			return (MALLOC_ERROR);
+			return (free(line), NULL);
 		line_to_map(map, line);
 		free(line);
 		line = get_next_line(fd);
-	}
+	};
 	close(fd);
-	return (map);
+	return (free(line), map);
 }
