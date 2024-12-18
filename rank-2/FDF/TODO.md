@@ -3,9 +3,9 @@
 ## Mandatory
 
 ### SRC
- - [ ] verifier que le parsing est fonctionnel
- - [ ] comprendre comment fonctionne la minilibX
- - [ ] regler les pbl de return de parsing_map()
+ - [X] verifier que le parsing est fonctionnel
+ - [X] comprendre comment fonctionne la minilibX
+ - [X] regler les pbl de return de parsing_map()
  - [ ] set up le gestionnaire de windows
  - [ ] transformateur de t_map et img
 

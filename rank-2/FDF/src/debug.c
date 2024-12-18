@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:38:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/18 13:53:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:11:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	dbg_print_map(t_map *map)
 	{
 		if (!map->map[i])
 		{
-			ft_printf("map->map[%d] is NULL\n", i);
+			ft_printf("map->map[%d] %p\n", i, map->map[i]);
 			i++;
 			continue ;
 		}

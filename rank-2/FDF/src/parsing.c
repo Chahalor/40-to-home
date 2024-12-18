@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:38:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/18 14:01:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:42:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	get_line_size(const char *line)
 	while (line[i])
 	{
 		if (line[i] == ' ' && line[i + 1] != ' ')
+		{
+			i++;
 			size++;
+		}
 		i++;
 	}
 	return (size);
@@ -40,8 +43,11 @@ void	line_to_map(t_map *map, char *line)
 		return ;
 	i = -1;
 	while (splits[++i] && i < map->width)
-		map->map[map->height][i] = fdf_atoi(splits[i]);
-		// map->map[map->height] = NULL;
+	{
+		map->map[map->height - 1][i] = ft_atoi(splits[i]);
+		free(splits[i]);
+	}
+	free(splits[i]);
 	free(splits);
 	free(line);
 }
@@ -50,16 +56,23 @@ void	line_to_map(t_map *map, char *line)
 t_map	*realloc_map(t_map *map)
 {
 	t_type	**new_map;
+	int		i;
 
 	map->height++;
-	new_map = (t_type **)ft_calloc(map->height, sizeof(t_type *) * map->width);
+	new_map = (t_type **)ft_calloc(map->height, sizeof(t_type *));
 	if (!new_map)
-		return (free(map), NULL);
+		return (free_map(map), NULL);
 	if (map->map)
 	{
-		ft_memcpy(new_map, map->map, map->height - 1);
+		i = -1;
+		while (++i < map->height - 1)
+			new_map[i] = map->map[i];
 		free(map->map);
 	}
+	i = -1;
+	while (++i < map->height)
+		if (!new_map[i])
+			new_map[i] = (t_type *)ft_calloc(map->width, sizeof(t_type));
 	map->map = new_map;
 	return (map);
 }

@@ -133,8 +133,8 @@ norm:
 
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
-	if grep -q " ❌ Error!" /tmp/norm_output.txt; then \
-		echo "\e[31mNorminette failed\e[0m"; \
+	if grep -q " Error!" /tmp/norm_output.txt; then \
+		echo " ❌ \e[31mNorminette failed\e[0m"; \
 		cat /tmp/norm_output.txt; \
 	else \
 		echo " ✅ \e[32mNorminette passed\e[0m"; \
