@@ -14,7 +14,7 @@
  - [ ] ajouter un logo au header du makefile
  - [ ] refaire le titre du makefile
  - [ ] faire en sort que les espace apres les Rules du header soit en bonne quntiter pour pas le casser
- - [ ] la barre de chargement de la compilation marche pas, GL
+ - [ ] la barre de chargement de la compilation mange la ligne au dessus d elle quoi qu elle soit a regler
 
 ### Other
  - ...
@@ -31,4 +31,5 @@
  - ...
 
 ## Other
- - ...
+ - si le makefile te dit que tel ou tel fonction est pas def regarde si tu compile le fichier bouffon, panique apres
+ - ordre pour fermer la mlx: destroy_window puis destroy_display.

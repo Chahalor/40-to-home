@@ -21,8 +21,10 @@ NAME :=			fdf
 
 CC :=			cc
 CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
+INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-INCMLXFLAGS =	-I$(DIR_INCL) -Imlx
+INCMLXFLAGS =	-I/usr/include -Imlx
+DEBUGFLAGS =
 
 # Directories
 DIR_SRC =	src
@@ -35,12 +37,14 @@ DIR_INCL =	includes
 # All archive files
 LIBFT =		$(DIR_LIBFT)/libft.a
 MLX_LIB =	$(DIR_MLX)/libmlx_Linux.a
-MLX_FLAGS	:= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 # All source files
 SRC =	fdf.c \
 		parsing.c \
-		utils.c
+		utils.c \
+		screen.c \
+		interactions.c \
+		debug.c
 
 # All object files
 OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
@@ -50,15 +54,14 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 # ***************************************************** #
 
 all: write_header norm $(NAME)
-	@if [ -z "$(shell find $(OBJ) -newer $(NAME) 2>/dev/null)" ]; then \
-		echo " Nothing to be done for 'all'."; \
-	fi
+	@echo "\033[32m ✅ Compilation done\033[0m"
 
 $(NAME): $(LIBFT) $(MLX_LIB) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) $(MLXFLAGS) -o $(NAME)
+	@echo "\033[32m ✅ $@ created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
-	@$(CC) $(CFLAGS) $(INCMLXFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCMLXFLAGS) -c $< -o $@
 	-@$(call progress_bar)
 
 $(DIR_OBJ):
@@ -74,10 +77,11 @@ $(MLX_LIB):
 # *                     Debug                         * #
 # ***************************************************** #
 
-debug: CFLAGS += -g3 -D DEBUG=1
+debug: DEBUGFLAGS += -g3 -D DEBUG=1
+debug: INCFLAGS += -I./$(DIR_INCL)/debug.h
 debug: all
 
-debug.fsanitize: CFLAGS += -fsanitize=address
+debug.fsanitize: DEBUGFLAGS += -fsanitize=address
 debug.fsanitize: debug
 
 debug.fs: debug.fsanitize
@@ -135,7 +139,6 @@ define make_norm
 	else \
 		echo " ✅ \e[32mNorminette passed\e[0m"; \
 	fi; \
-	echo; \
 	rm -- /tmp/norm_output.txt
 endef
 
