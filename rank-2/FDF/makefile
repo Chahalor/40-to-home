@@ -155,6 +155,7 @@ define progress_bar
 	printf "\033[32m["
 	for i in $(shell seq 1 30); do \
 		current=$$(echo $(SRC) | cut -d ' ' -f $$i); \
+		echo "$$current && $$<"; \
 		if [ "$<" != "$$current" ]; then \
 			printf "="; \
 			i=$$((i + $(shell echo "30 / $(words $(SRC))" | bc))); \
