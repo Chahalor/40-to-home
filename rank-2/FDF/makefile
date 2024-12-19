@@ -44,6 +44,7 @@ SRC =	fdf.c \
 		utils.c \
 		screen.c \
 		interactions.c \
+		image.c \
 		debug.c
 
 # All object files
@@ -118,8 +119,8 @@ write_header:
 	║     \ \__\    \ \__\   \ \_______\      \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\\\\\\ _\   ║ \n\
 	║      \|__|     \|__|    \|_______|       \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ \n\
 	║                                                                                                              ║ \n\
-	║    \033[4mauthor:\033[0m nduvoid                                                                                           ║ \n\
-	║    \033[4mRules:\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                    ║ \n\
+	║    \033[4mAuthor:\033[0m  nduvoid                                                                                          ║ \n\
+	║    \033[4mRule(s):\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                  ║ \n\
 	║                                                                                                              ║ \n\
 	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
 	"
@@ -131,11 +132,17 @@ write_header:
 norm:
 	@$(call make_norm)
 
+clear:
+	@clear
+
+tkt:
+	@echo "$(words $(SRC)) * 2"
+
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
 	if grep -q " Error!" /tmp/norm_output.txt; then \
-		echo " ❌ \e[31mNorminette failed\e[0m"; \
 		cat /tmp/norm_output.txt; \
+		echo " ❌ \e[31mNorminette failed\e[0m"; \
 	else \
 		echo " ✅ \e[32mNorminette passed\e[0m"; \
 	fi; \
@@ -147,8 +154,10 @@ define progress_bar
 	printf "🔧 Compiling $<... "
 	printf "\033[32m["
 	for i in $(shell seq 1 30); do \
-		if [ $$i -le $(shell echo "$(words $(SRC)) * 2" | bc) ]; then \
+		current=$$(echo $(SRC) | cut -d ' ' -f $$i); \
+		if [ "$<" != "$$current" ]; then \
 			printf "="; \
+			i=$$((i + $(shell echo "30 / $(words $(SRC))" | bc))); \
 		else \
 			printf " "; \
 		fi; \
@@ -156,4 +165,4 @@ define progress_bar
 	printf "] $(words $(SRC)) / $(words $(SRC))\033[0m\n"
 endef
 
-.PHONY: all clean fclean re write_header debug debug.fsanitize debug.fs norm
+.PHONY: all clean fclean re write_header debug debug.fsanitize debug.fs norm clear

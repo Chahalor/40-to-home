@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:55:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/18 12:41:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/19 14:17:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int	key_hook(int keycode, t_data *data)
 {
-	ft_printf("keycode: %d\n", keycode);
-	mlx_clear_window(data->mlx, data->win);
+	ft_printf("keycode: %d\n", keycode);	//rm
 	if (keycode == K_ESC)
-	{
-		free(data->map);
-		destroy_window(data);
-		exit(0);
-	}
+		exiting(NO_ERROR, NULL, data);
 	return (TRUE);
 }
 
@@ -34,5 +29,17 @@ int	mouse_hook(int button, int x, int y, t_data *data)
 		ft_printf("right click at %d, %d\n", x, y);
 	else if (button == 3)
 		ft_printf("middle click at %d, %d\n", x, y);
+	else if (button == 4)
+		ft_printf("scroll up at %d, %d\n", x, y);
+	else if (button == 5)
+		ft_printf("scroll down at %d, %d\n", x, y);
+	else
+		ft_printf("button %d at %d, %d\n", button, x, y);
+	return (TRUE);
+}
+
+int	close_hook(t_data *data)
+{
+	exiting(NO_ERROR, NULL, data);
 	return (TRUE);
 }

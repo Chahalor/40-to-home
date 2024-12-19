@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/18 14:01:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:51:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef enum e_error
 	PARSE_ERROR,
 	MLX_INIT_ERROR,
 	MLX_WIN_ERROR,
+	MLX_IMG_ERROR,
 }	t_error;
 
 typedef enum e_bool
@@ -62,7 +63,7 @@ typedef enum e_key
 
 /* -----| Typedef |----- */
 
-typedef unsigned int	t_uint;
+typedef int	t_uint;
 
 # if (ALLOW_FLOAT == 1 && ALLOW_NEGATIVE == 1)
 
@@ -89,6 +90,15 @@ typedef struct s_map
 }	t_map;
 
 /** @todo */
+typedef struct s_image
+{
+	void	*img;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_image;
+
+/** @todo */
 typedef struct s_data
 {
 	void	*mlx;
@@ -96,6 +106,7 @@ typedef struct s_data
 	t_uint	width;
 	t_uint	height;
 	t_map	*map;
+	t_image	*img;
 }	t_data;
 
 /* -----| Prototypes |----- */
@@ -113,6 +124,7 @@ void	destroy_window(t_data *data);
 
 int		key_hook(int keycode, t_data *data);
 int		mouse_hook(int button, int x, int y, t_data *data);
+int		close_hook(t_data *data);
 
 // parsing
 
@@ -122,10 +134,15 @@ t_map	*realloc_map(t_map *map);
 t_map	*parse_file(char *file);
 void	free_map(t_map *map);
 
+// Images
+
+t_error	map_to_img_2d(t_data *data);
+
 // utils
 
-void	exiting(int code, char *message);
+void	exiting(int code, char *message, t_data *mlx);
 t_type	fdf_atoi(const char *nptr);
+int	ft_min(int a, int b);
 
 # if DEBUG
 

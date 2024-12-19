@@ -6,18 +6,37 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:42:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/17 12:45:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:51:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	exiting(int code, char *message)
+void	exiting(int code, char *message, t_data *mlx)
 {
+	if (mlx)
+	{
+		if (mlx->img)
+		{
+			if (mlx->img->img)
+				mlx_destroy_image(mlx->mlx, mlx->img->img);
+			free(mlx->img);
+		}
+		if (mlx->map)
+			free_map(mlx->map);
+		if (mlx->win)
+			mlx_destroy_window(mlx->mlx, mlx->win);
+		if (mlx->mlx)
+			mlx_destroy_display(mlx->mlx);
+		free(mlx->mlx);
+		free(mlx);
+	}
 	if (message)
-		write(2, message, ft_strlen(message));
+		perror(message);
+	else if (code == NO_ERROR)
+		ft_printf("Exiting with no error\n");
 	else
-		write(2, "Error\n", 6);
+		perror("Exiting with an error code\n");
 	exit(code);
 }
 
@@ -59,4 +78,11 @@ t_type	fdf_atoi(const char *nptr)
 		i++;
 	}
 	return (r * neg);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }
