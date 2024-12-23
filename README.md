@@ -4,7 +4,7 @@
 ## 🗂️ Circle 0
 |								Name								|				Meaning					|Bonus	|Score|
 |:-----------------------------------------------------------------:|:-------------------------------------:|:-----:|:---:|
-| [Libft](https://github.com/Chahalor/40-to-home/tree/main/libft)	| My first and usefull library (lol)	| yes	| 124 |
+| [Libft](https://github.com/Chahalor/40-to-home/tree/main/rank-0/libft)	| My first and usefull library (lol)	| yes	| 124 |
 
 ## Circle 1
 |										Name													|						Meaning							|Bonus	|Score|
