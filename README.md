@@ -9,16 +9,16 @@
 ## Circle 1
 |										Name													|						Meaning							|Bonus	|Score|
 |:---------------------------------------------------------------------------------------------:|:-----------------------------------------------------:|:-----:|:---:|
-| [ft_printf](https://github.com/Chahalor/40-to-home/tree/main/circle-1/ft_printf)				| recoding the printf function							| no	| 100 |
-| [get_next_line](https://github.com/Chahalor/40-to-home/tree/main/circle-1/get_next_line)		| coding a function that read an fd until the next line	| yes	| 125 |
-| [Born2BeRoot](https://github.com/Chahalor/40-to-home/tree/main/circle-1/Born2BeRoot)			| A basic debian serveur under VM						| no	| 100 |
+| [ft_printf](https://github.com/Chahalor/40-to-home/tree/main/rank-1/ft_printf)				| recoding the printf function							| no	| 100 |
+| [get_next_line](https://github.com/Chahalor/40-to-home/tree/main/rank-1/get_next_line)		| coding a function that read an fd until the next line	| yes	| 125 |
+| [Born2BeRoot](https://github.com/Chahalor/40-to-home/tree/main/rank-1/Born2BeRoot)			| A basic debian serveur under VM						| no	| 100 |
 
 ## Circle 2
 |									Name												|					Meaning							|Bonus	|Score|
 |:-------------------------------------------------------------------------------------:|:-------------------------------------------------:|:-----:|:---:|
-| [push_swap](https://github.com/Chahalor/40-to-home/tree/main/circle-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
-| [FDF](https://github.com/Chahalor/40-to-home/tree/main/circle-2/FDF)					| TODO	| yes	| ??? |
-| [pipex](https://github.com/Chahalor/40-to-home/tree/main/circle-2/pipex)				| TODO	| yes	| ??? |
+| [push_swap](https://github.com/Chahalor/40-to-home/tree/main/rank-2/push_swap)		| understannding complexity in sorting algorithm	| yes	| ??? |
+| [FDF](https://github.com/Chahalor/40-to-home/tree/main/rank-2/FdF)					| TODO	| yes	| ??? |
+| [pipex](https://github.com/Chahalor/40-to-home/tree/main/rank-2/pipex)				| TODO	| yes	| ??? |
 
 
 |							Begining										|		coding	|								Passing Moulinette 🪢							|
