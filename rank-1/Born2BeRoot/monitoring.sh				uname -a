@@ -1,3 +1,4 @@
+Monitoring.sh
 architecture + kernel :					uname -a
 CPU :									lscpu | grep "CPU(s)" | head -n 1
 virtual CPU :							nproc
