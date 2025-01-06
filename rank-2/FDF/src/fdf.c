@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/19 14:17:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/06 12:16:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_error	fdf(int argc, const char *argv[])
 	mlx_key_hook(mlx->win, key_hook, mlx);		// find every key interactions
 	mlx_mouse_hook(mlx->win, mouse_hook, mlx);	// find every mouse interactions
 	mlx_hook(mlx->win, 17, 0, close_hook, mlx);	// check for window close request
-	map_to_img_2d(mlx);
+	// map_to_img_2d(mlx);
+	map_to_img_3d(mlx);
 	mlx_loop(mlx->mlx);
 	return (NO_ERROR);
 }

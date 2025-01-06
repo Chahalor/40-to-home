@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/19 13:51:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/06 09:42:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef t_uint			t_type;
 /* -----| Structures |----- */
 
 /** @todo */
+typedef struct s_point
+{
+	t_type	u;
+	t_type	v;
+}	t_point;
+
+/** @todo */
 typedef struct s_map
 {
 	t_type	**map;
@@ -137,6 +144,7 @@ void	free_map(t_map *map);
 // Images
 
 t_error	map_to_img_2d(t_data *data);
+t_error	map_to_img_3d(t_data *data);
 
 // utils
 

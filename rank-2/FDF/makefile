@@ -33,7 +33,6 @@ DIR_LIBFT =	libft
 DIR_MLX =	minilibx-linux
 DIR_INCL =	includes
 
-
 # All archive files
 LIBFT =		$(DIR_LIBFT)/libft.a
 MLX_LIB =	$(DIR_MLX)/libmlx_Linux.a
@@ -43,7 +42,7 @@ SRC =	fdf.c \
 		parsing.c \
 		utils.c \
 		screen.c \
-		interactions.c \
+		hookProc.c \
 		image.c \
 		debug.c
 
@@ -55,37 +54,29 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 # ***************************************************** #
 
 all: write_header norm $(NAME)
-	@echo "\033[32m ✅ Compilation done\033[0m"
 
-$(NAME): $(LIBFT) $(MLX_LIB) $(OBJ)
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) $(MLXFLAGS) -o $(NAME)
-	@echo "\033[32m ✅ $@ created\033[0m"
+$(NAME): $(LIBFT) $(MLX_LIB) compile
+
+# ***************************************************** #
+# *                 Compile Rule                      * #
+# ***************************************************** #
+
+compile: $(DIR_OBJ) $(OBJ)
+	@echo "\033[32m ✅ Compilation done\033[0m"
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
+	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCMLXFLAGS) -c $< -o $@
-	-@$(call progress_bar)
+	@$(call compile_object, $(INCFLAGS) $(INCMLXFLAGS), $(SRC), $(COLOR_YELLOW))
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
 
 $(LIBFT):
-	@make -C $(DIR_LIBFT) 
+	@make -C $(DIR_LIBFT)
 
 $(MLX_LIB):
 	@make -C $(DIR_MLX)
-
-# ***************************************************** #
-# *                     Debug                         * #
-# ***************************************************** #
-
-debug: DEBUGFLAGS += -g3 -D DEBUG=1
-debug: INCFLAGS += -I./$(DIR_INCL)/debug.h
-debug: all
-
-debug.fsanitize: DEBUGFLAGS += -fsanitize=address
-debug.fsanitize: debug
-
-debug.fs: debug.fsanitize
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -103,7 +94,19 @@ fclean: clean
 re: fclean all
 
 # ***************************************************** #
-# *                Header                             * #
+# *                    Debug Rules                    * #
+# ***************************************************** #
+
+debug:
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3)
+
+debug.fsanitize: debug
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=address)
+
+debug.fs: debug.fsanitize
+
+# ***************************************************** #
+# *                      Utils                        * #
 # ***************************************************** #
 
 write_header:
@@ -125,18 +128,9 @@ write_header:
 	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
 	"
 
-# ***************************************************** #
-# *                      Utils                        * #
-# ***************************************************** #
 
 norm:
 	@$(call make_norm)
-
-clear:
-	@clear
-
-tkt:
-	@echo "$(words $(SRC)) * 2"
 
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
@@ -149,21 +143,30 @@ define make_norm
 	rm -- /tmp/norm_output.txt
 endef
 
-define progress_bar
-	printf "\033[A\033[2K"; \
-	printf "🔧 Compiling $<... "
-	printf "\033[32m["
-	for i in $(shell seq 1 30); do \
-		current=$$(echo $(SRC) | cut -d ' ' -f $$i); \
-		echo "$$current && $$<"; \
-		if [ "$<" != "$$current" ]; then \
-			printf "="; \
-			i=$$((i + $(shell echo "30 / $(words $(SRC))" | bc))); \
-		else \
-			printf " "; \
-		fi; \
-	done; \
-	printf "] $(words $(SRC)) / $(words $(SRC))\033[0m\n"
+# Helper function to print a progress bar
+# Credits: ugwentzi@student.42mulhouse.fr
+#=- Progress Bar -=#
+BAR_LENGTH =	42
+PADDING =		10
+COLOR_YELLOW =	\033[1;33m
+COLOR_GREEN =	\033[1;32m
+COLOR_CYAN =	\033[1;36m
+COLOR_RED =		\033[31m
+COLOR_RESET =	\033[0m
+
+reset_count:
+	$(eval COUNT := 0)
+
+define compile_object
+	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
+	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
+		"$(NAME)" \
+		$$(($(PADDING) - $$(echo -n "$(NAME)" | wc -c))) "" \
+		$(shell printf '=%.0s' $$(seq 1 $$(echo "$$(( $(BAR_LENGTH) * $(COUNT) / $(words $(2)) ))"))) \
+		$(COUNT) \
+		$(words $(2))
+	@true
 endef
 
-.PHONY: all clean fclean re write_header debug debug.fsanitize debug.fs norm clear
+.PHONY: all compile clean fclean re debug debug.fsanitize debug.fs write_header norm
