@@ -12,6 +12,8 @@
 # ║                                                                                                                             ║ 
 # ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
+MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
+
 # ***************************************************** #
 # *                VARIABLES                          * #
 # ***************************************************** #
@@ -53,7 +55,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 # *                      Main Rules                   * #
 # ***************************************************** #
 
-all: write_header norm $(NAME)
+all: write_header $(NAME) #norm
 
 $(NAME): $(LIBFT) $(MLX_LIB) compile
 
@@ -63,7 +65,7 @@ $(NAME): $(LIBFT) $(MLX_LIB) compile
 
 compile: $(DIR_OBJ) $(OBJ)
 	@echo "\033[32m ✅ Compilation done\033[0m"
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
@@ -76,7 +78,7 @@ $(LIBFT):
 	@make -C $(DIR_LIBFT)
 
 $(MLX_LIB):
-	@make -C $(DIR_MLX)
+	@make -s -C $(DIR_MLX)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -122,12 +124,13 @@ write_header:
 	║     \ \__\    \ \__\   \ \_______\      \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\\\\\\ _\   ║ \n\
 	║      \|__|     \|__|    \|_______|       \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ \n\
 	║                                                                                                              ║ \n\
-	║    \033[4mAuthor:\033[0m  nduvoid                                                                                          ║ \n\
-	║    \033[4mRule(s):\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                  ║ \n\
+	║    \033[4mAuthor:\033[0m  nduvoid                                                                                          ║ \n"
+	@$(write_goals);
+	@printf "\
 	║                                                                                                              ║ \n\
 	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
 	"
-
+#	║    \033[4mRule(s):\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                  ║ \n
 
 norm:
 	@$(call make_norm)
@@ -141,6 +144,13 @@ define make_norm
 		echo " ✅ \e[32mNorminette passed\e[0m"; \
 	fi; \
 	rm -- /tmp/norm_output.txt
+endef
+
+define write_goals
+	line_size=113; \
+	line="║    \e[0m\e[4mRule(s):\e[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)"; \
+	line_size=$$(( $$line_size - $${#line} )); \
+	printf "\e[31m%s\e[0m%*s\e[0m║\n" "$$line" $$line_size " "
 endef
 
 # Helper function to print a progress bar
