@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/06 09:42:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:40:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 
 # define ALLOW_NEGATIVE 1
 # define ALLOW_FLOAT 0
+# define ALLOW_STDARG 0
 
 /* -----| Enums |----- */
 
@@ -60,6 +61,15 @@ typedef enum e_key
 {
 	K_ESC = 65307,
 }	t_key;
+
+typedef enum e_color
+{
+	BLACK = 0x00000000,
+	WHITE = 0x00FFFFFF,
+	RED = 0x00FF0000,
+	GREEN = 0x0000FF00,
+	BLUE = 0x000000FF,
+}	t_color;
 
 /* -----| Typedef |----- */
 
@@ -94,6 +104,7 @@ typedef struct s_map
 	t_type	**map;
 	t_type	width;
 	t_type	height;
+	t_point	**iso_map;
 }	t_map;
 
 /** @todo */
@@ -150,11 +161,20 @@ t_error	map_to_img_3d(t_data *data);
 
 void	exiting(int code, char *message, t_data *mlx);
 t_type	fdf_atoi(const char *nptr);
-int	ft_min(int a, int b);
+int		ft_min(int a, int b);
+t_type	abs(t_type n);
+
+// drawing
+
+t_error	draw_line(t_data *data, t_point p1, t_point p2, int weigth);
+void	draw_fdf(t_data *data);
 
 # if DEBUG
 
 void	dbg_print_map(t_map *map);
+void	dbg_print_image(t_image *img);
+void	dbg_print_data(t_data *data);
+int		dbg_print(char *str, ...);
 
 # endif // DEBUG
 

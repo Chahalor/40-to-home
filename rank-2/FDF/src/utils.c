@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:42:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/19 13:51:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/07 08:58:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,11 @@ int	ft_min(int a, int b)
 	if (a < b)
 		return (a);
 	return (b);
+}
+
+t_type	abs(t_type n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
 }

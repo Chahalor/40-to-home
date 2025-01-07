@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:38:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/18 15:42:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:33:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_map	*parse_file(char *file)
 	map->height = 0;
 	map->width = get_line_size(line);
 	map->map = NULL;
+	map->iso_map = NULL;
 	while (line)
 	{
 		map = realloc_map(map);

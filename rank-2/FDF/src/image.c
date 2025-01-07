@@ -6,14 +6,36 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:30:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/06 12:36:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:17:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @rm 
+ * test function 
+ * */
+void	print_iso(t_data *data, t_point **iso)
+{
+	int	x, y = 0;
+
+	while (y < data->map->height - 1)
+	{
+		x = 0;
+		ft_printf("%p: ", iso[y]);
+		while (x < data->map->width - 1)
+		{
+			ft_printf("[u=%d, v=%d] ", iso[y][x].u, iso[y][x].v);
+			x++;
+		}
+		y++;
+		ft_printf("\n");
+	}
+}
+
 /** test function */
-static void	draw_map_2d(void *addr, t_data *data)
+_X_UNUSED static void	draw_map_2d(void *addr, t_data *data)
 {
 	int		stepX;
 	int		stepY;
@@ -36,7 +58,7 @@ static void	draw_map_2d(void *addr, t_data *data)
 			screenX = x * stepX;
 			screenY = y * stepY;
 			pixel = (screenX * data->img->size_line + screenY * (data->img->bpp / 8));
-			*(unsigned int *)(addr + pixel) = 0x00FF0000 + data->map->map[x][y] * 100;
+			*(unsigned int *)(addr + pixel) = RED + data->map->map[x][y] * 100;
 			y++;
 		}
 		x++;
@@ -44,7 +66,7 @@ static void	draw_map_2d(void *addr, t_data *data)
 }
 
 /** test function */
-t_error	map_to_img_2d(t_data *data)
+_X_UNUSED t_error	map_to_img_2d(t_data *data)
 {
 	void	*img_addr;
 
@@ -65,63 +87,62 @@ t_error	map_to_img_2d(t_data *data)
  * @brief Convert the map to an isometric map
  * 
  * @param data The data structure
- * @return int** The isometric map On the format array[array[x, y]],
+ * @return t_point** The isometric map On the format array[array[t_point]],
  *  the map is ready to be drawed
+ * @todo
  */
-t_point		**map_to_iso(t_data *data)
+t_point	**map_to_iso(t_data *data)
 {
+	t_point	**iso_map;
 	t_type	x;
 	t_type	y;
-	t_point	**iso_map;
-	
-	iso_map = (t_point**)ft_calloc(data->map->height, sizeof(t_point*)
-			+ data->map->width * sizeof(t_type));
+
+	iso_map = (t_point **)malloc(sizeof(t_point *) * data->map->height +
+		sizeof(t_point) * data->map->height * data->map->width);
 	if (!iso_map)
 		return (NULL);
-	x = 0;
-	while (x < data->map->height)
+	x = -1;
+	while (++x < data->map->height)
+		iso_map[x] = (t_point *)(iso_map + data->map->height)
+					+ x * data->map->width;
+	x = -1;
+	while (++x < data->map->height)
 	{
-		y = 0;
-		iso_map[x] = (t_point*)(iso_map + data->map->height) + x * data->map->width;
-		while (y < data->map->width)
+		y = -1;
+		while (++y < data->map->width)
 		{
-			iso_map[x][y].u = x * cos(45) + y * sin(45);
-			iso_map[x][y].v = y * sin(30) + y * cos(30);
-			y++;
+			iso_map[x][y].u = abs((int)(x * cos(45) + y * sin(45)
+							* data->width / data->map->width));
+			iso_map[x][y].v = abs((int)(y * sin(30) + y * cos(30)
+							* data->height / data->map->height));
 		}
-		x++;
 	}
 	return (iso_map);
 }
 
-void	*addr_builder(t_data *data, t_point **iso_map)
+void	*map_drawer(t_data *data, t_point **iso_map)
 {
+	void	*addr;
 	t_type	x;
 	t_type	y;
-	int		screenX;
-	int		screenY;
-	int		pixel;
+	t_type	pixel;
 
-	x = 0;
-	while (x < data->map->height)
+	addr = mlx_get_data_addr(data->img->img, &data->img->bpp,
+			&data->img->size_line, &data->img->endian);
+	if (!addr)
+		return (NULL);
+	x = -1;
+	while (++x < data->map->height - 1)
 	{
-		y = 0;
-		while (y < data->map->width)
+		y = -1;
+		while (++y < data->map->width - 1)
 		{
-			screenX = iso_map[x][y].u * data->width / data->map->width;
-			screenY = iso_map[x][y].v * data->height / data->map->height;
-			pixel = (screenX * data->img->size_line + screenY
-					* (data->img->bpp / 8));
-			*(unsigned int *)(data->img->img + pixel) = 0x00FF0000
-					+ data->map->map[x][y] * 100;
-			y++;
+			pixel = (iso_map[x][y].u * data->img->size_line +
+					iso_map[x][y].v * (data->img->bpp / 8));
+			*(unsigned int *)(addr + pixel) = RED + data->map->map[x][y] * 100;
 		}
-		x++;
 	}
-	// screenX = iso_map->u * data->width / data->map->width;
-	// screenY = iso_map->v * data->height / data->map->height;
-	// pixel = (screenX * data->img->size_line + screenY * (data->img->bpp / 8));
-	return (data->img->img);
+	return (addr);
 }
 
 t_error	map_to_img_3d(t_data *data)
@@ -138,9 +159,12 @@ t_error	map_to_img_3d(t_data *data)
 	if (!img_addr)
 		return (MLX_IMG_ERROR);
 	iso_map = map_to_iso(data);
-	if (!addr_builder(data, iso_map))
+	print_iso(data, iso_map);	// rm
+	if (!map_drawer(data, iso_map))
 		return (MLX_IMG_ERROR);
 	if (mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0) < 0)
 		return (MLX_IMG_ERROR);
+	free(iso_map);
 	return (NO_ERROR);
 }
+

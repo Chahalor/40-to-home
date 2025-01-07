@@ -46,6 +46,7 @@ SRC =	fdf.c \
 		screen.c \
 		hookProc.c \
 		image.c \
+		drawing.c \
 		debug.c
 
 # All object files
@@ -130,7 +131,6 @@ write_header:
 	║                                                                                                              ║ \n\
 	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
 	"
-#	║    \033[4mRule(s):\033[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)                                                                                                  ║ \n
 
 norm:
 	@$(call make_norm)
@@ -147,10 +147,10 @@ define make_norm
 endef
 
 define write_goals
-	line_size=113; \
-	line="║    \e[0m\e[4mRule(s):\e[0m $(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)"; \
+	line_size=97; \
+	line="$(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)"; \
 	line_size=$$(( $$line_size - $${#line} )); \
-	printf "\e[31m%s\e[0m%*s\e[0m║\n" "$$line" $$line_size " "
+	printf "║    \e[4mRule(s):\e[0m %s%*s\e[0m║\n" "$$line" $$line_size " "
 endef
 
 # Helper function to print a progress bar
@@ -171,7 +171,7 @@ define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
-		"$(NAME)" \
+		"$<" \
 		$$(($(PADDING) - $$(echo -n "$(NAME)" | wc -c))) "" \
 		$(shell printf '=%.0s' $$(seq 1 $$(echo "$$(( $(BAR_LENGTH) * $(COUNT) / $(words $(2)) ))"))) \
 		$(COUNT) \
