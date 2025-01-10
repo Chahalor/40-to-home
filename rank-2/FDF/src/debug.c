@@ -6,38 +6,19 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:38:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 13:41:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/10 10:00:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#if ALLOW_STDARG
-# include <stdarg.h>
 
-/** @todo */
-int	dbg_print(char *str, ...)
-{
-	va_list	args;
-	int		ret;
-
-	if (DEBUG == 0)
-		return (0);
-	va_start(args, str);
-	ret = ft_printf(str, args);
-	va_end(args);
-	return (ret);
-}
-
-#else
 /** @todo */
 int	dbg_print(char *str, ...)
 {
 	if (DEBUG == 0)
 		return (0);
-	return (ft_printf(str));
+	return (ft_printf("%s", str));
 }
-
-#endif
 
 /** @todo */
 void	dbg_print_map(t_map *map)
@@ -71,7 +52,9 @@ void	dbg_print_map(t_map *map)
 /** @todo */
 void	dbg_print_image(t_image *img)
 {
-	ft_printf("└──data->img %p\n", img);
+	if (DEBUG == 0)
+		return ;
+	ft_printf("data->img %p\n", img);
 	ft_printf("\t├──img->img %p\n", img->img);
 	ft_printf("\t├──img->bpp %d\n", img->bpp);
 	ft_printf("\t├──img->size_line %d\n", img->size_line);
@@ -81,12 +64,39 @@ void	dbg_print_image(t_image *img)
 /** @todo */
 void	dbg_print_data(t_data *data)
 {
+	if (DEBUG == 0)
+		return ;
 	ft_printf("data %p\n", data);
 	ft_printf("├──data->mlx %p\n", data->mlx);
 	ft_printf("├──data->win %p\n", data->win);
 	ft_printf("├──data->width %d\n", data->width);
 	ft_printf("├──data->height %d\n", data->height);
 	ft_printf("├──data->map %p\n", data->map);
+	ft_printf("├──");
 	dbg_print_map(data->map);
+	ft_printf("└──");
 	dbg_print_image(data->img);
+}
+
+/**
+ * //rm 
+ * test function 
+ * */
+void	dbg_print_iso(t_data *data, t_point *iso)
+{
+	int	x = 0;
+
+	if (DEBUG == 0)
+		return ;
+	if (!iso)
+	{
+		ft_printf("iso is NULL\n");
+		return ;
+	}
+	x = 0;
+	while (x < data->map->height - 1)
+	{
+		ft_printf("[u=%d, v=%d] ", iso[x].u, iso[x].v);
+		x++;
+	}
 }

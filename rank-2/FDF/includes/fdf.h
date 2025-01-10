@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 15:40:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/10 10:14:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@
 /* -----| Defines |----- */
 
 # ifndef DEBUG
-#  define DEBUG 1
+#  define DEBUG 0
 # endif // DEBUG
 
 # define ALLOW_NEGATIVE 1
 # define ALLOW_FLOAT 0
-# define ALLOW_STDARG 0
+
+# define ANGLE 0.523599
+# define SCALE 10
 
 /* -----| Enums |----- */
 
@@ -96,6 +98,7 @@ typedef struct s_point
 {
 	t_type	u;
 	t_type	v;
+	t_type	z;
 }	t_point;
 
 /** @todo */
@@ -104,7 +107,7 @@ typedef struct s_map
 	t_type	**map;
 	t_type	width;
 	t_type	height;
-	t_point	**iso_map;
+	t_point	*iso_map;
 }	t_map;
 
 /** @todo */
@@ -114,6 +117,7 @@ typedef struct s_image
 	int		bpp;
 	int		size_line;
 	int		endian;
+	void	*addr;
 }	t_image;
 
 /** @todo */
@@ -127,11 +131,26 @@ typedef struct s_data
 	t_image	*img;
 }	t_data;
 
+/** @todo */
+typedef struct s_args
+{
+	int			argc;
+	const char	**argv;
+	int			width;
+	int			height;
+	char		*title;
+	char		*path;
+	t_bool		help	: 1;
+	t_bool		invalid	: 1;
+	t_bool		header	: 1;
+}	t_args;
+
+
 /* -----| Prototypes |----- */
 
 // fdf.c
 
-t_error	fdf(int argc, const char *argv[]);
+t_error	fdf(t_args *args);
 
 // screen.c
 
@@ -154,7 +173,8 @@ void	free_map(t_map *map);
 
 // Images
 
-t_error	map_to_img_2d(t_data *data);
+t_error	map_to_img_2d(t_data *data);	//rm sert q rien, pls enlever sa
+void	color_pixel(void *addr, t_data *data, t_point p, t_color color);
 t_error	map_to_img_3d(t_data *data);
 
 // utils
@@ -166,16 +186,25 @@ t_type	abs(t_type n);
 
 // drawing
 
-t_error	draw_line(t_data *data, t_point p1, t_point p2, int weigth);
 void	draw_fdf(t_data *data);
 
-# if DEBUG
+// args.c
+
+t_args	*parse_args(int argc, const char *argv[]);
+t_args	*do_args(t_args *args);
+void	help(void);
+
+// debug.c
 
 void	dbg_print_map(t_map *map);
 void	dbg_print_image(t_image *img);
 void	dbg_print_data(t_data *data);
 int		dbg_print(char *str, ...);
+void	dbg_print_iso(t_data *data, t_point *iso);
+// void	print_args(t_args *args);	//rm
 
-# endif // DEBUG
+// test
+
+void	draw_tile(t_data *data, t_point start, int heigth, int width);
 
 #endif // FDF_H

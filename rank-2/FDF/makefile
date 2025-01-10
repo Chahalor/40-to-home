@@ -41,6 +41,7 @@ MLX_LIB =	$(DIR_MLX)/libmlx_Linux.a
 
 # All source files
 SRC =	fdf.c \
+		args.c \
 		parsing.c \
 		utils.c \
 		screen.c \
@@ -56,7 +57,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 # *                      Main Rules                   * #
 # ***************************************************** #
 
-all: write_header $(NAME) #norm
+all: write_header norm $(NAME)
 
 $(NAME): $(LIBFT) $(MLX_LIB) compile
 
@@ -101,7 +102,8 @@ re: fclean all
 # ***************************************************** #
 
 debug:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3)
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
+
 
 debug.fsanitize: debug
 	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=address)

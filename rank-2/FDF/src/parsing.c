@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:38:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 15:33:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/09 09:09:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	free_map(t_map *map)
 		free(map->map[i]);
 		i++;
 	}
+	free(map->iso_map);
 	free(map->map);
 	free(map);
 }

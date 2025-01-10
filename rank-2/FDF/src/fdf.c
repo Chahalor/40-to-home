@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 15:38:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/10 15:27:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,11 @@
 /** @todo */
 int	main(int argc, const char *argv[])
 {
-	// t_data	*mlx;
+	t_args	*args;
 
-	// if (argc != 2)
-	// {
-	// 	write(2, "Usage: ", 7);
-	// 	write(2, argv[0], ft_strlen(argv[0]));
-	// 	write(2, " <file>\n", 8);
-	// 	exit(1);
-	// }
-	// mlx = init_data(800, 600, (char *)(argv[0] + 2));
-	// if (!mlx)
-	// {
-	// 	perror("init_data failed");
-	// 	exit(MLX_INIT_ERROR);
-	// }
-	// mlx->map = parse_file((char *)argv[1]);
-	// dbg_print_map(mlx->map);
-	fdf(argc, argv);
-	// map_to_img(mlx);
+	args = do_args(parse_args(argc, argv));
+	// print_args(args);
+	fdf(args);
 	return (NO_ERROR);
 }
 
@@ -44,40 +30,34 @@ int	main(int argc, const char *argv[])
 /** @todo */
 int	main(int argc, const char *argv[])
 {
-	t_error	error;
+	t_args	*args;
 
-	if (argc != 2)
-	{
-		write(2, "Usage: ", 7);
-		write(2, argv[0], ft_strlen(argv[0]));
-		write(2, " <file>\n", 8);
-		exit(1);
-	}
-	error = fdf(argc, argv);
-	if (error != NO_ERROR)
-		perror("fdf failed");
-	return (error);
+	args = do_args(parse_args(argc, argv));
+	fdf(args);
+
+	return (1);
 }
 
 #endif // DEBUG
 
 /** @todo */
-t_error	fdf(int argc, const char *argv[])
+t_error	fdf(t_args *args)
 {
 	t_data	*mlx;
 
-	(void)argc;
-	mlx = init_data(1600, 1200, (char *)(argv[0] + 2));
+	mlx = init_data(args->width, args->height, args->title);
 	if (!mlx)
 		return (MLX_INIT_ERROR);
-	mlx->map = parse_file((char *)argv[1]);
+	mlx->map = parse_file(args->path);
 	if (!mlx->map)
 		exiting(PARSE_ERROR, NULL, mlx);
 	mlx_key_hook(mlx->win, key_hook, mlx);		// find every key interactions
 	mlx_mouse_hook(mlx->win, mouse_hook, mlx);	// find every mouse interactions
 	mlx_hook(mlx->win, 17, 0, close_hook, mlx);	// check for window close request
 	map_to_img_3d(mlx);							// put the "3d" map on the window
-	draw_fdf(mlx, mlx->map->iso_map);			// draw the map
+	// dbg_print_iso(mlx, mlx->map->iso_map);	// rm
+	// draw_fdf(mlx);								// draw the map
+	draw_tile(mlx, (t_point){1000, 1000, 0}, 1000, 1000);
 	mlx_loop(mlx->mlx);							// idk how its working but it does
 	return (NO_ERROR);
 }

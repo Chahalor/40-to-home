@@ -6,51 +6,41 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:19:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 15:39:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/10 10:25:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_sign(int n)
+static int	get_sign(int n)
 {
 	return ((n > 0) - (n < 0));
 }
 
-t_type	get_error(t_type dx, t_type dy)
-{
-	if (dx > dy)
-		return (dx);
-	return (-dy);
-}
-
-t_error	draw_line(t_data *data, t_point p1, t_point p2, int weigth)
+t_error	draw_line(t_data *data, t_point p1, t_point p2)
 {
 	t_type	dx;
 	t_type	dy;
-	t_type	sx;
-	t_type	sy;
 	t_type	err;
-	(void)weigth;
+	void	*addr;
 
-	ft_printf("p1: %d %d; p2: %d %d\n", p1.u, p1.v, p2.u, p2.v);
 	dx = abs(p2.u - p1.u);
 	dy = abs(p2.v - p1.v);
-	sx = get_sign(p2.u - p1.u);
-	sy = get_sign(p2.v - p1.v);
 	err = dx - dy;
+	addr = data->img->addr;
 	while (p1.u < p2.u && p1.v < p2.v)
 	{
-		mlx_pixel_put(data->mlx, data->win, p1.u, p1.v, RED);
+		ft_printf("\tp1.u=%d, p1.v=%d\n", p1.u, p1.v);
+		color_pixel(addr, data, p1, GREEN);
 		if (2 * err > -dy)
 		{
 			err -= dy;
-			p1.u += sx;
+			p1.u += get_sign(p2.u - p1.u);
 		}
 		else if (2 * err < dx)
 		{
 			err += dx;
-			p1.v += sy;
+			p1.v += get_sign(p2.v - p1.v);
 		}
 	}
 	return (NO_ERROR);
@@ -58,19 +48,25 @@ t_error	draw_line(t_data *data, t_point p1, t_point p2, int weigth)
 
 void	draw_fdf(t_data *data)
 {
-	t_type	x;
-	t_type	y;
+	// t_type	x;
 
-	x = -1;
-	while (++x < data->map->height - 1)
-	{
-		y = -1;
-		while (++y < data->map->width - 1)
-		{
-			if (x + 1 < data->map->height)
-				draw_line(data, data->map->iso_map[x][y], data->map->iso_map[x + 1][y], 0);
-			if (y + 1 < data->map->width)
-				draw_line(data, data->map->iso_map[x][y], data->map->iso_map[x][y + 1], 0);
-		}
-	}
+	// x = -1;
+	// while (++x < data->map->height - 1)
+	// {
+	// 	if (x + 1 < data->map->height)
+	// 		draw_line(data, data->map->iso_map[x], data->map->iso_map[x + 1]);
+	// }
+	(void)data;
+	// need to remake
+}
+
+//rm
+void	draw_tile(t_data *data, t_point start, int heigth, int width)
+{
+	ft_printf("start.u=%d, start.v=%d, heigth=%d, width=%d\n", start.u, start.v, heigth, width);
+	// draw_line(data, (t_point){0, 0, 0}, (t_point){100, 100, 0});
+	draw_line(data, start, (t_point){start.u + width, start.v, 0});
+	draw_line(data, start, (t_point){start.u, start.v + heigth, 0});
+	draw_line(data, (t_point){start.u + width, start.v, 0}, (t_point){start.u + width, start.v + heigth, 0});
+	draw_line(data, (t_point){start.u, start.v + heigth, 0}, (t_point){start.u + width, start.v + heigth, 0});
 }

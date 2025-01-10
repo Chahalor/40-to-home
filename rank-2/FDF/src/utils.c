@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:42:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/07 08:58:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/09 08:45:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	exiting(int code, char *message, t_data *mlx)
 	if (message)
 		perror(message);
 	else if (code == NO_ERROR)
-		ft_printf("Exiting with no error\n");
+		ft_printf("clean exit with no error\n");
 	else
-		perror("Exiting with an error code\n");
+		perror("Clean exit with an error code");
 	exit(code);
 }
 
