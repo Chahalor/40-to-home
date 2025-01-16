@@ -10,7 +10,8 @@
  - [X] transformateur de t_map et img (fonctionne mais en 2d)
  - [X] comprendre la 3d isometric
  - [ ] gerer les retour de toute les fonction dans fdf()
- - [ ] faire fonctioner la 3d isometric ([lien](https://www.youtube.com/watch?v=go1qrWFw_bs), autre [lien](https://www.youtube.com/watch?v=04oQ2jOUjkU))
+ - [X] faire fonctioner la 3d isometric ([lien](https://www.youtube.com/watch?v=go1qrWFw_bs), autre [lien](https://www.youtube.com/watch?v=04oQ2jOUjkU))
+ - [ ] faire fonctionner le degrader de couleur du fdf, avec une couleur de depart, darriver qui degrade en fonction de la hauteur max
 
 ### Make
  - [X] faire que les option de debug compile correctement le minilibX
@@ -23,16 +24,20 @@
  - ...
 
 ## Bonus
- - [ ] l affichade du header du programme dans le terminal (pas dans le makefile maisle binaire)
+ - [ ] l affichade du header du programme dans le terminal (pas dans le makefile mais le binaire)
+ - [ ] ajouter une option pour definir les couleur d arriver et de depart
+ - [ ] empecher la segfault si on zoom/dezoom trop /!\
+ - [ ] prendre en compte les variable rotationx/y de t_data
+
 
 ### SRC
 
 ### Make
  - ...
 
-### Other
- - ...
+### Avant de rendre
+ - [ ] verifier que -h ou --help est bien a jour
 
 ## Other
- - si le makefile te dit que tel ou tel fonction est pas def regarde si tu compile le fichier bouffon, panique apres
+ - si le makefile te dit que tel ou tel fonction est pas def regarde si tu compile le fichier bouffon, panique apres (so true)
  - ordre pour fermer la mlx: destroy_window puis destroy_display.

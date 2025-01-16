@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:37:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/12/19 12:42:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:35:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_data	*init_data(t_uint width, t_uint height, char *title)
 		exiting(MLX_INIT_ERROR, NULL, data);
 	data->img->img = NULL;
 	data->map = NULL;
+	data->zoom = 1;
 	return (data);
 }
 

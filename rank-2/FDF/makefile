@@ -65,7 +65,10 @@ $(NAME): $(LIBFT) $(MLX_LIB) compile
 # *                 Compile Rule                      * #
 # ***************************************************** #
 
+.PHONY: compile
+
 compile: $(DIR_OBJ) $(OBJ)
+	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
@@ -86,6 +89,8 @@ $(MLX_LIB):
 # *                    Clean Rules                    * #
 # ***************************************************** #
 
+.PHONY: clean fclean re
+
 clean:
 	@rm -rf $(DIR_OBJ)
 	-@make -C $(DIR_LIBFT) clean
@@ -101,6 +106,8 @@ re: fclean all
 # *                    Debug Rules                    * #
 # ***************************************************** #
 
+.PHONY: debug debug.fsanitize debug.fs
+
 debug:
 	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
 
@@ -113,6 +120,8 @@ debug.fs: debug.fsanitize
 # ***************************************************** #
 # *                      Utils                        * #
 # ***************************************************** #
+
+.PHONY: write_header norm reset_count make_norm compile_object write_goals
 
 write_header:
 	@clear
@@ -140,7 +149,7 @@ norm:
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
 	if grep -q " Error!" /tmp/norm_output.txt; then \
-		cat /tmp/norm_output.txt; \
+		cat /tmp/norm_output.txt | grep "Error"; \
 		echo " ❌ \e[31mNorminette failed\e[0m"; \
 	else \
 		echo " ✅ \e[32mNorminette passed\e[0m"; \
@@ -178,7 +187,6 @@ define compile_object
 		$(shell printf '=%.0s' $$(seq 1 $$(echo "$$(( $(BAR_LENGTH) * $(COUNT) / $(words $(2)) ))"))) \
 		$(COUNT) \
 		$(words $(2))
+		printf " "
 	@true
 endef
-
-.PHONY: all compile clean fclean re debug debug.fsanitize debug.fs write_header norm

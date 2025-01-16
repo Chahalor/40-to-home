@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:38:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/09 09:09:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/16 12:35:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	line_to_map(t_map *map, char *line)
 	free(splits[i]);
 	free(splits);
 	free(line);
+	line = NULL;
 }
 
 /** @todo */

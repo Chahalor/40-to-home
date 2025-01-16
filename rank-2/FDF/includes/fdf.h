@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/10 10:14:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/16 14:10:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 
 # define ANGLE 0.523599
 # define SCALE 10
+
+# define MIN_ZOOM 0
+# define MAX_ZOOM 12
+# define ZOOM_FACTOR 10
 
 /* -----| Enums |----- */
 
@@ -94,6 +98,20 @@ typedef t_uint			t_type;
 /* -----| Structures |----- */
 
 /** @todo */
+typedef struct s_args
+{
+	int			argc;
+	const char	**argv;
+	int			width;
+	int			height;
+	char		*title;
+	char		*path;
+	t_bool		help	: 1;
+	t_bool		invalid	: 1;
+	t_bool		header	: 1;
+}				t_args;
+
+/** @todo */
 typedef struct s_point
 {
 	t_type	u;
@@ -129,22 +147,10 @@ typedef struct s_data
 	t_uint	height;
 	t_map	*map;
 	t_image	*img;
+	t_type	zoom;
+	int		rotationx;	// @todo
+	int		rotationy;
 }	t_data;
-
-/** @todo */
-typedef struct s_args
-{
-	int			argc;
-	const char	**argv;
-	int			width;
-	int			height;
-	char		*title;
-	char		*path;
-	t_bool		help	: 1;
-	t_bool		invalid	: 1;
-	t_bool		header	: 1;
-}	t_args;
-
 
 /* -----| Prototypes |----- */
 
@@ -173,7 +179,6 @@ void	free_map(t_map *map);
 
 // Images
 
-t_error	map_to_img_2d(t_data *data);	//rm sert q rien, pls enlever sa
 void	color_pixel(void *addr, t_data *data, t_point p, t_color color);
 t_error	map_to_img_3d(t_data *data);
 
@@ -186,7 +191,10 @@ t_type	abs(t_type n);
 
 // drawing
 
-void	draw_fdf(t_data *data);
+t_error	map_drawer(t_data *data, t_point *iso_map, t_color color);
+t_error	draw_zoom(t_data *data, t_type zoom);
+t_error	draw_fdf(t_data *data);
+t_error	draw_line(t_data *data, t_point p1, t_point p2, t_color color);
 
 // args.c
 
@@ -201,10 +209,5 @@ void	dbg_print_image(t_image *img);
 void	dbg_print_data(t_data *data);
 int		dbg_print(char *str, ...);
 void	dbg_print_iso(t_data *data, t_point *iso);
-// void	print_args(t_args *args);	//rm
 
-// test
-
-void	draw_tile(t_data *data, t_point start, int heigth, int width);
-
-#endif // FDF_H
+#endif // FDF_H 

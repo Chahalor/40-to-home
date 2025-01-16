@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:38:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/10 10:00:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/16 12:28:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	dbg_print_map(t_map *map)
 			ft_printf("│\t└──");
 		else
 			ft_printf("│\t├──");
-		j = 0;
-		while (j < map->width)
-		{
+		j = -1;
+		while (++j < map->width)
 			ft_printf("%d ", map->map[i][j]);
-			j++;
-		}
 		ft_printf("\n");
 	}
+	ft_printf("│\t├──map->iso_map %p\n", map->iso_map);
+	ft_printf("│\t├──map->width %d\n", map->width);
+	ft_printf("│\t└──map->height %d\n", map->height);
 }
 
 /** @todo */
@@ -78,13 +78,10 @@ void	dbg_print_data(t_data *data)
 	dbg_print_image(data->img);
 }
 
-/**
- * //rm 
- * test function 
- * */
+/** @todo */
 void	dbg_print_iso(t_data *data, t_point *iso)
 {
-	int	x = 0;
+	int	x;
 
 	if (DEBUG == 0)
 		return ;
@@ -99,4 +96,5 @@ void	dbg_print_iso(t_data *data, t_point *iso)
 		ft_printf("[u=%d, v=%d] ", iso[x].u, iso[x].v);
 		x++;
 	}
+	printf("\n");
 }

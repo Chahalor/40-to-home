@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:37:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/09 12:41:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/16 12:22:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	short_options(t_args *args, const char *argv[], int *i)
 	else
 		args->invalid = TRUE;
 }
+
 /**
  * @brief Parse the arguments passed to the program.
  * @note the following options are available:  
@@ -112,14 +113,16 @@ void	help(void)
 	ft_printf("\nDescription:\n");
 	ft_printf("A simple 3D wireframe renderer\n");
 	ft_printf("\nOptions:\n");
-	ft_printf("  -s, --size <width> <heigth> Set the width and the heigth of the window\n");
+	ft_printf("  -s, --size <width> <heigth> Set the width and the heigth \
+		of the window\n");
 	ft_printf("  -t, --title <title> Set the title of the window\n");
 	ft_printf("  -p, --path <path> Set the path of the file to parse\n");
 	ft_printf("  -h, --help Display the help message\n");
 	ft_printf("      --no-header Do not display the header\n");
 	ft_printf("\nExample:\n");
 	ft_printf("  fdf -s 1600 1200 -t \"fdf\" -p \"maps/42.fdf\"\n");
-	ft_printf("  fdf --size 1600 1200 --title \"fdf\" --path \"maps/42.fdf\"\n");
+	ft_printf("  fdf --size 1600 1200 --title \"fdf\" --path \
+		\"maps/42.fdf\"\n");
 	ft_printf("  fdf maps/42.fdf\n");
 }
 
