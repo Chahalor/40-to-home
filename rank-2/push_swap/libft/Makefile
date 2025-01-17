@@ -78,7 +78,7 @@ GNL_OBJ =			$(addprefix $(OBJDIR)/, $(GNL_SRC:.c=.o))
 AR =		ar
 FLAGS =		rcs
 RM =		rm -f
-CC =		cc
+CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
 
 all: $(NAME)

@@ -38,7 +38,7 @@ OBJ =		$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 DEBUGOBJ =	$(addprefix $(OBJDIR)/, $(DEBUGSRC:.c=.o))
 
 # Compilation Flags
-CC =				cc
+CC =				gcc
 CFLAGS =			-Wall -Wextra -Werror -I./$(INCDIR) -I./libft/include
 
 # Debug Flags

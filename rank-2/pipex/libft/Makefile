@@ -73,11 +73,9 @@ SRC_PRINTF =	ft_printf.c \
 SRC_GNL =	get_next_line_bonus.c \
 			get_next_line_utils_bonus.c
 
-OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(notdir $(SRC_LIBFT:.c=.o)))
+OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(SRC_LIBFT:.c=.o))
 OBJ_PRINTF =		$(addprefix $(DIR_OBJ)/, $(SRC_PRINTF:.c=.o))
 OBJ_GNL =			$(addprefix $(DIR_OBJ)/, $(SRC_GNL:.c=.o))
-
-INCFLAGS =	-I./libft.h -I$(DIR_PRINTF)/ft_printf.h -I$(DIR_GNL)/get_next_line.h
 
 AR =		ar
 FLAGS =		rcs
@@ -92,9 +90,7 @@ DEBUGFLAGS =
 
 all: header norm $(NAME)
 
-$(NAME): compile
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME)
-	@echo "\033[32m ✅ $(NAME) created\033[0m"
+$(NAME): $(LIBFT) $(MLX_LIB) compile
 
 # ***************************************************** #
 # *                 Compile Rule                      * #
@@ -102,13 +98,11 @@ $(NAME): compile
 
 .PHONY: compile
 
-test:
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCFLAGS) -c $(DIR_SRC)/$(word 1, $(SRC_LIBFT)) -o test.o
-
 compile: $(DIR_OBJ) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
-	@printf "OBJ: $(OBJ_LIBFT)\n $(OBJ_PRINTF)\n $(OBJ_GNL)\n"
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
+	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_LIBFT)/%.c | $(DIR_OBJ)
 	@$(call compile_object, $(INCFLAGS), "", $(SRC_LIBFT), $(COLOR_YELLOW))
@@ -124,6 +118,9 @@ $(DIR_OBJ):
 
 $(LIBFT):
 	@make -C $(DIR_LIBFT)
+
+$(MLX_LIB):
+	@make -s -C $(DIR_MLX)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -165,14 +162,26 @@ debug.fs: debug.fsanitize
 
 header:
 	@clear
-	@printf "Header Libft\n"
+	@printf "\n\
+	╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ \n\
+	║                                                                                                              ║ \n\
+	║   ________  ___      ___              ________      _______           ________  _______       ________       ║ \n\
+	║  |\  _____\|\  \    |\  \            |\   ___ \    |\  ___ \         |\  _____\|\  ___ \     |\   __  \      ║ \n\
+	║  \ \  \__/ \ \  \   \ \  \           \ \  \_|\ \   \ \   __/|        \ \  \__/ \ \   __/|    \ \  \|\  \     ║ \n\
+	║   \ \   __\ \ \  \   \ \  \           \ \  \ \\\\\\ \   \ \  \_|/__       \ \   __\ \ \  \_|/__   \ \   _  _\    ║ \n\
+	║    \ \  \_|  \ \  \   \ \  \____       \ \  \_\\\\\\ \   \ \  \_|\ \       \ \  \_|  \ \  \_|\ \   \ \  \\\\\\\  \|   ║ \n\
+	║     \ \__\    \ \__\   \ \_______\      \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\\\\\\ _\   ║ \n\
+	║      \|__|     \|__|    \|_______|       \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ \n\
+	║                                                                                                              ║ \n\
+	║    \033[4mAuthor:\033[0m  nduvoid                                                                                          ║ \n"
+	@$(write_goals);
+	@printf "\
+	║                                                                                                              ║ \n\
+	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
+	"
 
 norm:
-	@if [ command -v norminette &> /dev/null ]; then \
-		$(call make_norm); \
-	else \
-		printf "Norminette not found\n"; \
-	fi
+	@$(call make_norm)
 
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
@@ -208,8 +217,7 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	printf "	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \
 		$$(($(PADDING) - $$(echo -n "$(NAME)" | wc -c))) "" \
