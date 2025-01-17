@@ -73,7 +73,7 @@ SRC_PRINTF =	ft_printf.c \
 SRC_GNL =	get_next_line_bonus.c \
 			get_next_line_utils_bonus.c
 
-OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(SRC_LIBFT:.c=.o))
+OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(notdir $(SRC_LIBFT:.c=.o)))
 OBJ_PRINTF =		$(addprefix $(DIR_OBJ)/, $(SRC_PRINTF:.c=.o))
 OBJ_GNL =			$(addprefix $(DIR_OBJ)/, $(SRC_GNL:.c=.o))
 
@@ -162,26 +162,14 @@ debug.fs: debug.fsanitize
 
 header:
 	@clear
-	@printf "\n\
-	╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ \n\
-	║                                                                                                              ║ \n\
-	║   ________  ___      ___              ________      _______           ________  _______       ________       ║ \n\
-	║  |\  _____\|\  \    |\  \            |\   ___ \    |\  ___ \         |\  _____\|\  ___ \     |\   __  \      ║ \n\
-	║  \ \  \__/ \ \  \   \ \  \           \ \  \_|\ \   \ \   __/|        \ \  \__/ \ \   __/|    \ \  \|\  \     ║ \n\
-	║   \ \   __\ \ \  \   \ \  \           \ \  \ \\\\\\ \   \ \  \_|/__       \ \   __\ \ \  \_|/__   \ \   _  _\    ║ \n\
-	║    \ \  \_|  \ \  \   \ \  \____       \ \  \_\\\\\\ \   \ \  \_|\ \       \ \  \_|  \ \  \_|\ \   \ \  \\\\\\\  \|   ║ \n\
-	║     \ \__\    \ \__\   \ \_______\      \ \_______\   \ \_______\       \ \__\    \ \_______\   \ \__\\\\\\\ _\   ║ \n\
-	║      \|__|     \|__|    \|_______|       \|_______|    \|_______|        \|__|     \|_______|    \|__|\|__|  ║ \n\
-	║                                                                                                              ║ \n\
-	║    \033[4mAuthor:\033[0m  nduvoid                                                                                          ║ \n"
-	@$(write_goals);
-	@printf "\
-	║                                                                                                              ║ \n\
-	╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ \n\
-	"
+	@printf "Header Libft\n"
 
 norm:
-	@$(call make_norm)
+	@if [ command -v norminette &> /dev/null ]; then \
+		$(call make_norm); \
+	else \
+		echo "Norminette not found\n"; \
+	fi
 
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
