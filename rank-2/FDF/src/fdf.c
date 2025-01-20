@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/16 13:34:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:30:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_error	fdf(t_args *args)
 	mlx_key_hook(mlx->win, key_hook, mlx);
 	mlx_mouse_hook(mlx->win, mouse_hook, mlx);
 	mlx_hook(mlx->win, 17, 0, close_hook, mlx);
+	mlx_hook(mlx->win, MotionNotify, PointerMotionMask, mouse_move_hook, mlx);
 	map_to_img_3d(mlx);
-	dbg_print_iso(mlx, mlx->map->iso_map);
 	draw_fdf(mlx);
 	mlx_loop(mlx->mlx);
 	return (NO_ERROR);

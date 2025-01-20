@@ -12,6 +12,8 @@
  - [ ] gerer les retour de toute les fonction dans fdf()
  - [X] faire fonctioner la 3d isometric ([lien](https://www.youtube.com/watch?v=go1qrWFw_bs), autre [lien](https://www.youtube.com/watch?v=04oQ2jOUjkU))
  - [ ] faire fonctionner le degrader de couleur du fdf, avec une couleur de depart, darriver qui degrade en fonction de la hauteur max
+ - [ ] changer les offset dans map_drawer() pur rendre sa modulaire
+ - [ ] regler les truc qui sont jamais effeacer sur la map quqnd on zoom/dezoom
 
 ### Make
  - [X] faire que les option de debug compile correctement le minilibX
@@ -26,11 +28,15 @@
 ## Bonus
  - [ ] l affichade du header du programme dans le terminal (pas dans le makefile mais le binaire)
  - [ ] ajouter une option pour definir les couleur d arriver et de depart
- - [ ] empecher la segfault si on zoom/dezoom trop /!\
- - [ ] prendre en compte les variable rotationx/y de t_data
+ - [X] empecher la segfault si on zoom/dezoom trop /!\
+ - [X] prendre en compte les variable rotationx/y de t_data
+ - [ ] une touche pour reset le model
+ - [ ] augmenter la denciter de pixel avec le zoom
+ - [ ] faire en sorte que bouger la souris avec clique gauche down bouge le modele avec la souris (mouse_move_hook()) maybe remplacer sa pour la rotation et les fleche pour la translation (good idea)
 
 
 ### SRC
+ - ...
 
 ### Make
  - ...

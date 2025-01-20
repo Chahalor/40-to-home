@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/16 14:10:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:29:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@
 # define ALLOW_FLOAT 0
 
 # define ANGLE 0.523599
-# define SCALE 10
+# define SCALE 1
 
 # define MIN_ZOOM 0
 # define MAX_ZOOM 12
 # define ZOOM_FACTOR 10
+# define ROTA_FACTOR 3
+
+# define OFFSET_X 1600/2
+# define OFFSET_Y 1200/2
 
 /* -----| Enums |----- */
 
@@ -66,6 +70,13 @@ typedef enum e_bool
 typedef enum e_key
 {
 	K_ESC = 65307,
+	K_UP = 65362,
+	K_DOWN = 65364,
+	K_LEFT = 65361,
+	K_RIGHT = 65363,
+	K_RESET = 65288,
+	K_PLUS = 65451,
+	K_MINUS = 65453,
 }	t_key;
 
 typedef enum e_color
@@ -148,8 +159,8 @@ typedef struct s_data
 	t_map	*map;
 	t_image	*img;
 	t_type	zoom;
-	int		rotationx;	// @todo
-	int		rotationy;
+	float	rotationx;	// @todo
+	float	rotationy;
 }	t_data;
 
 /* -----| Prototypes |----- */
@@ -167,6 +178,7 @@ void	destroy_window(t_data *data);
 
 int		key_hook(int keycode, t_data *data);
 int		mouse_hook(int button, int x, int y, t_data *data);
+int		mouse_move_hook(int x, int y, t_data *data);
 int		close_hook(t_data *data);
 
 // parsing
@@ -180,6 +192,7 @@ void	free_map(t_map *map);
 // Images
 
 void	color_pixel(void *addr, t_data *data, t_point p, t_color color);
+t_point	*map_to_iso(t_data *data);
 t_error	map_to_img_3d(t_data *data);
 
 // utils
@@ -191,10 +204,11 @@ t_type	abs(t_type n);
 
 // drawing
 
-t_error	map_drawer(t_data *data, t_point *iso_map, t_color color);
+t_error	draw_line(t_data *data, t_point p1, t_point p2, t_color color);
+t_error	map_drawer(t_data *data, t_point *iso_map, t_color color, Bool scaling);
+t_error	draw_rotation(t_data *data);
 t_error	draw_zoom(t_data *data, t_type zoom);
 t_error	draw_fdf(t_data *data);
-t_error	draw_line(t_data *data, t_point p1, t_point p2, t_color color);
 
 // args.c
 

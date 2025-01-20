@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:30:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/16 14:12:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:07:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	color_pixel(void *addr, t_data *data, t_point p, t_color color)
 	int		pixel;
 
 	pixel = (p.v * data->img->size_line + (p.u * (data->img->bpp / 8)));
+	if (pixel < 0 || pixel >= data->img->size_line * data->height)
+		return ;
 	*(unsigned int *)(addr + pixel) = color;
 }
 
-/**
+/**k
  * @brief Convert the map to an isometric map
  * 
  * @param data The data structure
@@ -44,9 +46,9 @@ t_point	*map_to_iso(t_data *data)
 		y = -1;
 		while (++y < data->map->width)
 		{
-			iso_map[x * data->map->width + y].u = (y - x) * cos(ANGLE);
-			iso_map[x * data->map->width + y].v = (y + x) * sin(ANGLE)
-				- data->map->map[x][y] * SCALE;
+			iso_map[x * data->map->width + y].u = (y - x) * cos(data->rotationx);//  + (OFFSET_X);
+			iso_map[x * data->map->width + y].v = (y + x) * sin(data->rotationy)
+				- data->map->map[x][y] * SCALE ;//+ (OFFSET_Y);
 		}
 	}
 	return (iso_map);

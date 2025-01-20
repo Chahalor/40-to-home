@@ -6,11 +6,12 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:37:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/16 13:35:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:00:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <limits.h>
 
 t_data	*init_data(t_uint width, t_uint height, char *title)
 {
@@ -31,6 +32,8 @@ t_data	*init_data(t_uint width, t_uint height, char *title)
 	data->img->img = NULL;
 	data->map = NULL;
 	data->zoom = 1;
+	data->rotationx = ANGLE;
+	data->rotationy = ANGLE;
 	return (data);
 }
 
