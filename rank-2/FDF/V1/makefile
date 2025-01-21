@@ -27,6 +27,7 @@ INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 INCMLXFLAGS =	-I/usr/include -Imlx
 DEBUGFLAGS =
+ARGS =
 
 # Directories
 DIR_SRC =	src
@@ -121,7 +122,10 @@ debug.fs: debug.fsanitize
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: write_header norm reset_count make_norm compile_object write_goals
+.PHONY: run write_header norm reset_count make_norm compile_object write_goals
+
+run:
+	./$(NAME) $(ARGS)
 
 write_header:
 	@clear

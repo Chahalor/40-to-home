@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:37:00 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/20 15:00:46 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/21 09:18:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_data	*init_data(t_uint width, t_uint height, char *title)
 		exiting(MLX_INIT_ERROR, NULL, data);
 	data->img->img = NULL;
 	data->map = NULL;
-	data->zoom = 1;
+	data->zoom = 50;
 	data->rotationx = ANGLE;
 	data->rotationy = ANGLE;
 	return (data);

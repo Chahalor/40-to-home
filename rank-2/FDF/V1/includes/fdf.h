@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:03:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/20 15:29:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/21 09:17:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,8 @@
 # define ANGLE 0.523599
 # define SCALE 1
 
-# define MIN_ZOOM 0
-# define MAX_ZOOM 12
-# define ZOOM_FACTOR 10
-# define ROTA_FACTOR 3
-
-# define OFFSET_X 1600/2
-# define OFFSET_Y 1200/2
+# define ZOOM_FACTOR 5
+# define ROTA_FACTOR 1
 
 /* -----| Enums |----- */
 
@@ -90,20 +85,20 @@ typedef enum e_color
 
 /* -----| Typedef |----- */
 
-typedef int	t_uint;
+typedef int		t_uint;
 
 # if (ALLOW_FLOAT == 1 && ALLOW_NEGATIVE == 1)
 
-typedef double			t_type;
+typedef double	t_type;
 # elif ALLOW_FLOAT == 1
 
-typedef float			t_type;
+typedef float	t_type;
 # elif ALLOW_NEGATIVE == 1
 
-typedef int				t_type;
+typedef int		t_type;
 # else
 
-typedef t_uint			t_type;
+typedef t_uint	t_type;
 # endif // ALLOW_FLOAT && ALLOW_NEGATIVE
 
 /* -----| Structures |----- */
@@ -162,6 +157,14 @@ typedef struct s_data
 	float	rotationx;	// @todo
 	float	rotationy;
 }	t_data;
+
+/* -----| Inlines |----- */
+
+/** @todo */
+static inline int	get_sign(int n)
+{
+	return ((n > 0) - (n < 0));
+}
 
 /* -----| Prototypes |----- */
 

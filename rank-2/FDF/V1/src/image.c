@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:30:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/20 15:07:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/21 08:20:44 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_point	*map_to_iso(t_data *data)
 		y = -1;
 		while (++y < data->map->width)
 		{
-			iso_map[x * data->map->width + y].u = (y - x) * cos(data->rotationx);//  + (OFFSET_X);
+			iso_map[x * data->map->width + y].u = (y - x) * cos(data->rotationx);//  + (data->height / 2);
 			iso_map[x * data->map->width + y].v = (y + x) * sin(data->rotationy)
-				- data->map->map[x][y] * SCALE ;//+ (OFFSET_Y);
+				- data->map->map[x][y] * SCALE ;//+ (data->width / 2);
 		}
 	}
 	return (iso_map);
