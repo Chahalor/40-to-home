@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/21 14:59:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/22 12:03:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	put_pixel(t_image *img, t_point pos, t_uint color)
 {
 	int		pixel;
 
+	ft_printf("pos.x: %d, pos.y: %d\n", pos.x, pos.y);
 	pixel = (pos.y * img->size_line + (pos.x * (img->bpp / 8)));
 	if (pixel < 0 || pixel >= img->size_line * img->height)
 		return ;
@@ -60,19 +61,34 @@ void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end)
 {
 	int	x;
 	int	y;
+	int	screenx;
+	int	screeny;
 
 	(void)col_end;
+	d_print_fdf(fdf);
 	x = -1;
-	while (++x < fdf->map->height)
+	while (++x < fdf->map->height - 1)
 	{
 		y = -1;
-		while (++y < fdf->map->width)
+		while (++y < fdf->map->width - 1)
 		{
-			put_pixel(fdf->img, fdf->map->iso_map[x][y], col_start);
-			if (y < fdf->map->width - 1)
-				draw_line(fdf, fdf->map->iso_map[x][y], fdf->map->iso_map[x][y + 1], col_start);
-			if (x < fdf->map->height - 1)
-				draw_line(fdf, fdf->map->iso_map[x][y], fdf->map->iso_map[x + 1][y], col_start);
+			screenx = fdf->map->iso_map[x][y].x * fdf->pos->zoom / ZOOM_FACTOR + fdf->mlx->height / 2;
+			screeny = fdf->map->iso_map[x][y].y * fdf->pos->zoom / ZOOM_FACTOR + fdf->mlx->width / 2;
+			put_pixel(fdf->img, (t_point){screenx, screeny, 0}, col_start);
 		}
 	}
 }
+
+void	zoom_model(t_fdf *fdf, int zoom)
+{
+	draw_projection(fdf, black, black);
+	fdf->pos->zoom += zoom;
+	draw_projection(fdf, red, blue);
+}
+
+void	rotate_model(t_fdf *fdf, int rotation)
+{
+	(void)fdf;
+	(void)rotation;
+}
+

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/21 14:59:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/22 11:50:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 1
 
-# define ANGLE 30.0f
+# define ANGLE 0.5f
 # define ROTA_FACTOR 5.0f
 # define ZOOM_FACTOR 1
 # define SCALE 10

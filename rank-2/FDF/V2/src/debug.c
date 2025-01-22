@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/21 13:43:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/22 11:25:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	d_print_map(t_map *map, const int padding)
 	}
 	ft_printf("map = %p\n", map);
 	ft_printf("├──map->map = %p\n", map->map);
+	ft_printf("├──map->iso_map = %p\n", map->iso_map);
 	ft_printf("├──map->width = %d\n", map->width);
 	ft_printf("└──map->height = %d\n", map->height);
 }

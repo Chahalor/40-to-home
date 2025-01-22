@@ -22,7 +22,7 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 NAME :=			fdf
 
 CC :=			cc
-CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
+CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL) -lm
 INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 INCMLXFLAGS =	-I/usr/include -Imlx
@@ -71,7 +71,8 @@ $(NAME): $(LIBFT) $(MLX_LIB) compile
 compile: $(DIR_OBJ) $(OBJ)
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm  -lX11 -lXext -o $(NAME)
+#@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
