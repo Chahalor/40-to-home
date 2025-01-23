@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/22 11:50:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/23 08:13:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,10 +286,10 @@ void	exiting(t_fdf *fdf, t_error code, const char *message);
 
 // debug.c ├──└──│
 
-void	d_print_args(t_args *args, const int padding);
-void	d_print_mlx(t_mlx *mlx, const int padding);
-void	d_print_map(t_map *map, const int padding);
-void	d_print_image(t_image *img, const int padding);
+void	d_print_args(t_args *args);
+void	d_print_mlx(t_mlx *mlx);
+void	d_print_map(t_map *map);
+void	d_print_image(t_image *img);
 void	d_print_fdf(t_fdf *fdf);
 
 #endif // FDF_H

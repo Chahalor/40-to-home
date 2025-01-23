@@ -6,17 +6,16 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/22 11:25:46 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/23 08:14:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	d_print_args(t_args *args, const int padding)
+void	d_print_args(t_args *args)
 {
 	if (DEBUG == 0)
 		return ;
-	(void)padding;
 	if (args == NULL)
 	{
 		ft_printf("args = NULL\n");
@@ -32,11 +31,10 @@ void	d_print_args(t_args *args, const int padding)
 	ft_printf("└──args->invalid = %d\n", args->invalid);
 }
 
-void	d_print_mlx(t_mlx *mlx, const int padding)
+void	d_print_mlx(t_mlx *mlx)
 {
 	if (DEBUG == 0)
 		return ;
-	(void)padding;
 	if (mlx == NULL)
 	{
 		ft_printf("mlx = NULL\n");
@@ -49,9 +47,11 @@ void	d_print_mlx(t_mlx *mlx, const int padding)
 	ft_printf("└──mlx->height = %d\n", mlx->height);
 }
 
-void	d_print_map(t_map *map, const int padding)
+void	d_print_map(t_map *map)
 {
-	(void)padding;
+	int	x;
+	int	y;
+
 	if (DEBUG == 0)
 		return ;
 	if (map == NULL)
@@ -62,13 +62,22 @@ void	d_print_map(t_map *map, const int padding)
 	ft_printf("map = %p\n", map);
 	ft_printf("├──map->map = %p\n", map->map);
 	ft_printf("├──map->iso_map = %p\n", map->iso_map);
+	x = -1;
+	while (++x < map->height - 1)
+	{
+		ft_printf("│ ");
+		y = -1;
+		while (++y < map->width - 1)
+			ft_printf("[%d, %d, %d] ", map->iso_map[x][y].x,
+				map->iso_map[x][y].y, map->iso_map[x][y].z);
+		ft_printf("\n");
+	}
 	ft_printf("├──map->width = %d\n", map->width);
 	ft_printf("└──map->height = %d\n", map->height);
 }
 
-void	d_print_image(t_image *img, const int padding)
+void	d_print_image(t_image *img)
 {
-	(void)padding;
 	if (DEBUG == 0)
 		return ;
 	if (img == NULL)
@@ -93,10 +102,10 @@ void	d_print_fdf(t_fdf *fdf)
 	else
 	{
 		ft_printf("fdf = %p\n", fdf);
-		d_print_args(fdf->args, 1);
-		d_print_mlx(fdf->mlx, 1);
-		d_print_map(fdf->map, 1);
-		d_print_image(fdf->img, 1);
+		d_print_args(fdf->args);
+		d_print_mlx(fdf->mlx);
+		d_print_map(fdf->map);
+		d_print_image(fdf->img);
 		ft_printf("fdf->pos = %p\n", fdf->pos);
 		ft_printf("├──fdf->pos->zoom = %d\n", fdf->pos->zoom);
 		ft_printf("├──fdf->pos->rotationx = %f\n", fdf->pos->rotationx);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/22 11:50:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/23 08:01:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,11 @@ t_point	**isometric(t_fdf *fdf, t_map *map)
 		j = -1;
 		while (++j < map->width - 1)
 		{
-			// ft_printf("i: %d, j: %d\n", i, j);
-			points[i][j].x = (i - j) * cos(fdf->pos->rotationx) + (fdf->mlx->height / 2);
-			points[i][j].y = (i + j) * sin(fdf->pos->rotationy) - map->map[i][j] * SCALE + (fdf->mlx->width / 2);
-			points[i][j].z = map->map[i][j];
-			// points[i][j] = (t_point)
-			// {
-			// 	.x = (i - j) * cos(fdf->pos->rotationx),//  + (data->height / 2);
-			// 	.y = (i + j) * sin(fdf->pos->rotationy) - map->map[i][j] * SCALE,// + (data->width / 2);
-			// 	.z = map->map[i][j]
-			// };
+			points[i][j] = (t_point) {
+				.x = (i - j) * cos(fdf->pos->rotationx)  + (fdf->img->height / 2),
+				.y = (i + j) * sin(fdf->pos->rotationy) - map->map[i][j] * 10
+					+ (fdf->img->width / 2),
+				.z = map->map[i][j]};
 		}
 	}
 	return (points);

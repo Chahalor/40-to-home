@@ -22,7 +22,7 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 NAME :=			fdf
 
 CC :=			cc
-CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL) -lm
+CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
 INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 INCMLXFLAGS =	-I/usr/include -Imlx
