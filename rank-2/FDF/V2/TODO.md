@@ -3,8 +3,9 @@
 ## Mandatory
 
 ### SRC
- - [ ] tracer l autre moitier des ligne entre les point
+ - [X] tracer l autre moitier des ligne entre les point
  - [ ] mettre en place le degrader de couleur
+  - [ ] passez les couleur en du RGB avec une struct
  - [ ] mettre args.c a la norm
  - [X] regler la segfault de isometric()
  - [ ] mettre a jour les docs 

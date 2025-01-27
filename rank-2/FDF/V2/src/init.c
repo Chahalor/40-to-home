@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 15:06:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 18:29:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	init_pos(t_fdf *fdf)
 {
 	fdf->pos->zoom = DEFAULT_ZOOM;
-	fdf->pos->rotationx = 210.0;
-	fdf->pos->rotationy = 45.0;
+	fdf->pos->rotationx = DEFAULT_ROTATIONX;
+	fdf->pos->rotationy = DEFAULT_ROTATIONY;
 	fdf->pos->paddingx = fdf->mlx->width / 2;
 	fdf->pos->paddingy = fdf->mlx->height / 2;
 	fdf->pos->rclickdown = False;

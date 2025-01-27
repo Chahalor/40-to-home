@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 14:34:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 18:55:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 4
+# define DEFAULT_ROTATIONX 210.0
+# define DEFAULT_ROTATIONY 45.0
 
 # define ANGLE 0.5f
 # define ROTA_FACTOR 5.0f
@@ -262,6 +264,16 @@ typedef struct s_fdf	t_fdf;
 static inline double	dtr(double deg)
 {
 	return (deg * PI / 180);
+}
+
+/** @todo */
+static inline t_point	calculate_coord(t_point pt, int zoom, int paddingx,
+									int paddingy)
+{
+	return ((t_point){
+		.x = pt.x * zoom / ZOOM_FACTOR + paddingx,
+		.y = pt.y * zoom / ZOOM_FACTOR + paddingy,
+		.z = pt.z});
 }
 
 /* -----| Prototypes |----- */

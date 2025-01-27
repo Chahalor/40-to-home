@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 15:23:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:01:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end)
 {
 	int	x;
 	int	y;
-	int	screenx;
-	int	screeny;
 
 	(void)col_end;
 	x = -1;
@@ -67,19 +65,26 @@ void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end)
 		y = -1;
 		while (++y < fdf->map->width - 1)
 		{
-			screenx = fdf->map->iso_map[x][y].x * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingx;
-			screeny = fdf->map->iso_map[x][y].y * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingy;
-			put_pixel(fdf->img, (t_point){screenx, screeny, 0}, col_start);
+			put_pixel(fdf->img, calculate_coord(fdf->map->iso_map[x][y],
+				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
+				col_start);
 			if (y + 1 < fdf->map->width - 1)
-				draw_line(fdf, (t_point){screenx, screeny, 0},
-					(t_point){fdf->map->iso_map[x][y + 1].x * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingx,
-					fdf->map->iso_map[x][y + 1].y * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingy, 0}, col_start);
+				draw_line(fdf, calculate_coord(fdf->map->iso_map[x][y],
+				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
+					calculate_coord(fdf->map->iso_map[x][y + 1],
+				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
+				col_start);
 		}
 		if (x + 1 < fdf->map->height - 1)
-			draw_line(fdf,
-			(t_point){screenx, screeny, 0},
-			(t_point){fdf->map->iso_map[x + 1][y].x * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingx,
-			fdf->map->iso_map[x + 1][y].y * fdf->pos->zoom / ZOOM_FACTOR + fdf->pos->paddingy, 0}, col_start);
+		{
+			y = -1;
+			while (++y < fdf->map->width - 1)
+				draw_line(fdf, calculate_coord(fdf->map->iso_map[x][y],
+					fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
+					calculate_coord(fdf->map->iso_map[x + 1][y],
+					fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
+					col_start);
+		}
 	}
 	mlx_put_image_to_window(fdf->mlx->mlx, fdf->mlx->win, fdf->img->img, 0, 0);
 }

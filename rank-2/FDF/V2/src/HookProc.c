@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 14:57:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 18:59:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	key_hook(int keycode, t_fdf *data)
 	{
 		draw_projection(data, black, black);
 		data->pos->zoom = DEFAULT_ZOOM;
-		data->pos->rotationx = 50.0;
-		data->pos->rotationy = -30.0;
+		data->pos->rotationx = DEFAULT_ROTATIONX;
+		data->pos->rotationy = DEFAULT_ROTATIONY;
 		data->pos->paddingx = data->mlx->width / 2;
 		data->pos->paddingy = data->mlx->height / 2;
 		zoom_model(data, 0);
@@ -93,7 +93,7 @@ int	mouse_move_hook(int x, int y, t_fdf *data)
 	static int	last_posy = 0;
 
 	if (data->pos->lclickdown == -1)
-		rotate_model(data, x - last_posx, y - last_posy);
+		rotate_model(data, (x - last_posx) * .1f, (y - last_posy) * .1f);
 	last_posx = x;
 	last_posy = y;
 	return (True);
