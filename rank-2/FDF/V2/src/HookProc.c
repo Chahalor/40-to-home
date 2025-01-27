@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 18:59:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:48:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	key_hook(int keycode, t_fdf *data)
 		exiting(data, no_error, NULL);
 	else if (keycode == k_reset)
 	{
-		draw_projection(data, black, black);
+		draw_projection(data, data->colors->black, data->colors->black);
 		data->pos->zoom = DEFAULT_ZOOM;
 		data->pos->rotationx = DEFAULT_ROTATIONX;
 		data->pos->rotationy = DEFAULT_ROTATIONY;

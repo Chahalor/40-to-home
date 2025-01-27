@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 18:55:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:45:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,24 @@ enum e_key
 };
 
 /* -----| Structs |----- */
+
+/** @todo */
+struct s_color
+{
+	int	a;
+	int	r;
+	int	g;
+	int	b;
+};
+
+struct s_colors
+{
+	struct s_color	black;
+	struct s_color	red;
+	struct s_color	green;
+	struct s_color	blue;
+};
+
 
 /**
  * @brief Arguments structure, it stores the arguments passed to the program.
@@ -236,6 +254,8 @@ struct	s_fdf
 	struct s_map	*map;
 	struct s_image	*img;
 	struct s_pos	*pos;
+	struct s_colors	*colors;
+	
 };
 
 /* -----| Typedefs |----- */
@@ -243,9 +263,11 @@ struct	s_fdf
 typedef unsigned int	t_uint;
 
 typedef enum e_error	t_error;
-typedef enum e_color	t_color;
+// typedef enum e_color	t_color;
 typedef enum e_key		t_key;
 
+typedef struct s_color	t_color;
+typedef struct s_colors	t_colors;
 typedef struct s_args	t_args;
 typedef struct s_point	t_point;
 typedef struct s_mlx	t_mlx;
@@ -274,6 +296,20 @@ static inline t_point	calculate_coord(t_point pt, int zoom, int paddingx,
 		.x = pt.x * zoom / ZOOM_FACTOR + paddingx,
 		.y = pt.y * zoom / ZOOM_FACTOR + paddingy,
 		.z = pt.z});
+}
+
+/** @todo */
+static inline t_uint	rgb_to_uint(t_color color)
+{
+	return ((color.a << 24) | (color.r << 16) | (color.g << 8) | color.b);
+}
+
+/** @todo */
+static inline int		get_sign(int a, int b)
+{
+	if (a < b)
+		return (-1);
+	return (1);
 }
 
 /* -----| Prototypes |----- */
@@ -311,11 +347,15 @@ t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
 // window.c
 
-void	put_pixel(t_image *img, t_point pos, t_uint color);
+void	put_pixel(t_image *img, t_point pos, t_color color);
 void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end);
 void	zoom_model(t_fdf *fdf, int zoom);
 void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
 void	translat_model(t_fdf *fdf, int x, int y);
+
+// color.c
+
+t_color	calculate_color(int min, int max, int current, t_color colors[2]);
 
 // exit.c
 

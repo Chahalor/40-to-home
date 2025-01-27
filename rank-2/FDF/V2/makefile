@@ -49,6 +49,7 @@ SRC =	fdf.c \
 		window.c \
 		parsing.c \
 		exit.c \
+		color.c \
 		debug.c
 
 # All object files

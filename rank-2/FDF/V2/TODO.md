@@ -5,7 +5,9 @@
 ### SRC
  - [X] tracer l autre moitier des ligne entre les point
  - [ ] mettre en place le degrader de couleur
-  - [ ] passez les couleur en du RGB avec une struct
+  - [X] passez les couleur en du RGB avec une struct
+  - [ ] faut le min/max de la map
+  - [ ] faut un fonction pour calculer les couleur pour les ligne
  - [ ] mettre args.c a la norm
  - [X] regler la segfault de isometric()
  - [ ] mettre a jour les docs 

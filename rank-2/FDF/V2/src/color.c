@@ -6,24 +6,24 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:11:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 19:12:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:59:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_color	calculate_color(int min, int max, int current, t_color start, t_color end)
+t_color	calculate_color(int min, int max, int current, t_color colors[2])
 {
 	t_color	color;
 	double	percent;
 
 	if (current == max)
-		return (end);
+		return (colors[1]);
 	if (current == min)
-		return (start);
+		return (colors[0]);
 	percent = (double)(current - min) / (max - min);
-	color.red = (int)((1 - percent) * start.red + percent * end.red);
-	color.green = (int)((1 - percent) * start.green + percent * end.green);
-	color.blue = (int)((1 - percent) * start.blue + percent * end.blue);
+	color.r = (int)((1 - percent) * colors[0].r + percent * colors[1].r);
+	color.g = (int)((1 - percent) * colors[0].g + percent * colors[1].g);
+	color.b = (int)((1 - percent) * colors[0].b + percent * colors[1].b);
 	return (color);
 }
