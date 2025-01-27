@@ -3,15 +3,18 @@
 ## Mandatory
 
 ### SRC
+ - [ ] tracer l autre moitier des ligne entre les point
+ - [ ] mettre en place le degrader de couleur
  - [ ] mettre args.c a la norm
- - [ ] regler la segfault de isometric()
+ - [X] regler la segfault de isometric()
+ - [ ] mettre a jour les docs 
 
 ### Headers
 
 ### Make
 
 ### Other
- - [ ] regler d_print_pos() pour qu il print les float
+ - [X] regler d_print_pos() pour qu il print les float
 
 ## Bonus
 
@@ -19,6 +22,7 @@
  - [ ] faut ajouter une option pour le titre
  - [ ] la fonction pour le -h/--help
  - [ ] le deuxieme projection
+ - [ ] le zoom est douteux, a changer
 
 ### Headers
 

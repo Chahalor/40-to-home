@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/23 08:14:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:41:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	d_print_fdf(t_fdf *fdf)
 		ft_printf("fdf->pos = %p\n", fdf->pos);
 		ft_printf("├──fdf->pos->zoom = %d\n", fdf->pos->zoom);
 		ft_printf("├──fdf->pos->rotationx = %f\n", fdf->pos->rotationx);
-		ft_printf("└──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
+		ft_printf("├──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
+		ft_printf("├──fdf->pos->paddingx = %d\n", fdf->pos->paddingx);
+		ft_printf("└──fdf->pos->paddingy = %d\n", fdf->pos->paddingy);
 	}
 }

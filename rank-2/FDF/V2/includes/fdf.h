@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/23 08:13:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:34:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@
 # define DEFAULT_HEIGHT 600
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
-# define DEFAULT_ZOOM 1
+# define DEFAULT_ZOOM 4
 
 # define ANGLE 0.5f
 # define ROTA_FACTOR 5.0f
 # define ZOOM_FACTOR 1
 # define SCALE 10
+
+# define PI 3.14159265358979323846
 
 /* -----| Enums |----- */
 
@@ -207,8 +209,12 @@ struct s_image
 struct s_pos
 {
 	unsigned int	zoom;
-	float			rotationx;
-	float			rotationy;
+	double			rotationx;
+	double			rotationy;
+	int				paddingx;
+	int				paddingy;
+	Bool			rclickdown	: 1;
+	Bool			lclickdown	: 1;
 };
 
 /**
@@ -247,13 +253,23 @@ typedef struct s_pos	t_pos;
 typedef struct s_fdf	t_fdf;
 
 /* -----| Inlines |----- */
-//...
+
+/**
+ * @brief Convert degrees to radians.
+ * 
+ *  - dtr = degrees to radians.
+ */
+static inline double	dtr(double deg)
+{
+	return (deg * PI / 180);
+}
 
 /* -----| Prototypes |----- */
 
 // args.c
 
 t_args	*parse_args(int argc, const char *argv[]);
+
 
 // fdf.c
 
@@ -262,10 +278,15 @@ void	fdf(t_args *args);
 // init.c
 
 t_fdf	*init_fdf(t_args *args);
+void	setup_hooks(t_fdf *data);
 
 // hookProc.c
 
-void	setup_hooks(t_fdf *data);
+int		key_hook(int keycode, t_fdf *data);
+int		mouse_hook_down(int button, int x, int y, t_fdf *data);
+int		mouse_hook_up(int button, int x, int y, t_fdf *data);
+int		mouse_move_hook(int x, int y, t_fdf *data);
+int		close_hook(t_fdf *data);
 
 // parsing.c
 
@@ -274,11 +295,15 @@ void	free_map(t_map *map);
 
 // isometric.c
 
-t_point	**isometric(t_fdf *fdf, t_map *map);
+t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
 // window.c
 
+void	put_pixel(t_image *img, t_point pos, t_uint color);
 void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end);
+void	zoom_model(t_fdf *fdf, int zoom);
+void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
+void	translat_model(t_fdf *fdf, int x, int y);
 
 // exit.c
 
