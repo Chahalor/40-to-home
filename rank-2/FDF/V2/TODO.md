@@ -5,8 +5,8 @@
 ### SRC
  - [X] tracer l autre moitier des ligne entre les point
  - [ ] mettre en place le degrader de couleur
-  - [X] passez les couleur en du RGB avec une struct
-  - [ ] faut le min/max de la map
+  - [X] ~~passez les couleur en du RGB avec une struct~~ aborted
+  - [X] faut le min/max de la map
   - [ ] faut un fonction pour calculer les couleur pour les ligne
  - [ ] mettre args.c a la norm
  - [X] regler la segfault de isometric()
@@ -22,8 +22,8 @@
 ## Bonus
 
 ### SRC
- - [ ] faut ajouter une option pour le titre
- - [ ] la fonction pour le -h/--help
+ - [ ] ~~faut ajouter une option pour le titre~~
+ - [X] la fonction pour le -h/--help
  - [ ] le deuxieme projection
  - [ ] le zoom est douteux, a changer
 
@@ -36,7 +36,7 @@
 
 ## Avant de rendre
 - ```bash
-  norminette src/ includes/
+  norminette src/ includes/ libft/ | grep KO
  - check leak
  - verifier avec des **BIG** map et des map fausse
  - verifier que les 42 git est pas vide

@@ -6,19 +6,21 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 20:46:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:18:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	init_pos(t_fdf *fdf)
+static void	init_pos(t_fdf *fdf, t_uint color1, t_uint color2) 
 {
 	fdf->pos->zoom = DEFAULT_ZOOM;
 	fdf->pos->rotationx = DEFAULT_ROTATIONX;
 	fdf->pos->rotationy = DEFAULT_ROTATIONY;
 	fdf->pos->paddingx = fdf->mlx->width / 2;
 	fdf->pos->paddingy = fdf->mlx->height / 2;
+	fdf->pos->color1 = color1;
+	fdf->pos->color2 = color2;
 	fdf->pos->rclickdown = False;
 	fdf->pos->lclickdown = False;
 }
@@ -55,26 +57,23 @@ t_fdf	*init_fdf(t_args *args)
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)ft_calloc(1, sizeof(t_fdf) + sizeof(t_mlx) + sizeof(t_image)
-		+ sizeof(t_pos) + sizeof(t_colors));
+		+ sizeof(t_pos));
 	if (fdf == NULL)
 		return (NULL);
 	fdf->args = args;
 	fdf->mlx = (t_mlx *)(fdf + 1);
 	fdf->img = (t_image *)(fdf->mlx + 1);
 	fdf->pos = (t_pos *)(fdf->img + 1);
-	fdf->colors = (t_colors *)(fdf->pos + 1);
-	fdf->colors->black = (t_color){0, 0, 0, 0};
-	fdf->colors->red = (t_color){0, 255, 0, 0};
-	fdf->colors->green = (t_color){0, 0, 255, 0};
-	fdf->colors->blue = (t_color){0, 0, 0, 255};
 	init_mlx(fdf->mlx, args, fdf);
 	init_img(fdf);
-	init_pos(fdf);
+	init_pos(fdf, args->color1, args->color2);
 	if (!fdf->mlx || !fdf->img || !fdf->pos)
 		exiting(fdf, mlx_error, "cannot initialize fdf");
 	fdf->map = parse_map(args->file);
 	if (fdf->map == NULL)
 		exiting(fdf, invalid_map, "cannot parse map");
+	get_map_min(fdf->map);
+	get_map_max(fdf->map);
 	return (fdf);
 }
 

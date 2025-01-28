@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/21 14:27:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:14:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ t_map	*parse_map(const char *path)
 		line_to_map(map, line);
 		line = get_next_line(fd);
 	}
-	close(fd);
 	return (free(line), map);
 }
 

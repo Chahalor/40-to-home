@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 20:48:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/28 16:37:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	key_hook(int keycode, t_fdf *data)
 		exiting(data, no_error, NULL);
 	else if (keycode == k_reset)
 	{
-		draw_projection(data, data->colors->black, data->colors->black);
+		clear_model(data);
 		data->pos->zoom = DEFAULT_ZOOM;
 		data->pos->rotationx = DEFAULT_ROTATIONX;
 		data->pos->rotationy = DEFAULT_ROTATIONY;
@@ -38,6 +38,20 @@ int	key_hook(int keycode, t_fdf *data)
 		translat_model(data, -SCALE, 0);
 	else if (keycode == k_right)
 		translat_model(data, SCALE, 0);
+	else if (keycode == k_pad_2)	// @rm a partir d ici debug
+		rotate_model(data, 0, -.1);
+	else if (keycode == k_pad_8)
+		rotate_model(data, 0, .1);
+	else if (keycode == k_pad_4)
+		rotate_model(data, -1, .0);
+	else if (keycode == k_pad_6)
+		rotate_model(data, 1, .0);
+	else if (keycode == k_plus)
+		zoom_model(data, ZOOM_FACTOR);
+	else if (keycode == k_minus)
+		zoom_model(data, -ZOOM_FACTOR);
+	else
+		ft_printf("keycode %d\n", keycode);
 	return (True);
 }
 
@@ -92,8 +106,9 @@ int	mouse_move_hook(int x, int y, t_fdf *data)
 	static int	last_posx = 0;
 	static int	last_posy = 0;
 
-	if (data->pos->lclickdown == -1)
-		rotate_model(data, (x - last_posx) * .1f, (y - last_posy) * .1f);
+	// ft_printf("mouse move at %d, %d\n", x, y);
+	if (data->pos->lclickdown == True)
+		rotate_model(data, (x - last_posx) * .01f, (y - last_posy) * .01f);
 	last_posx = x;
 	last_posy = y;
 	return (True);

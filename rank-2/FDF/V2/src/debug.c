@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 11:41:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:26:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@ void	d_print_args(t_args *args)
 		return ;
 	}
 	ft_printf("args = %p\n", args);
-	ft_printf("├──args->type = %d\n", args->type);
-	ft_printf("├──args->help = %d\n", args->help);
-	ft_printf("├──args->invalid = %d\n", args->invalid);
-	ft_printf("├──args->width = %d\n", args->width);
-	ft_printf("├──args->height = %d\n", args->height);
+	ft_printf("├──args->argc = %d\n", args->argc);
+	ft_printf("├──args->argv = %p\n", args->argv);
 	ft_printf("├──args->file = %s\n", args->file);
+	ft_printf("├──args->height = %d\n", args->height);
+	ft_printf("├──args->width = %d\n", args->width);
+	ft_printf("├──args->type = %d\n", args->type);
+	ft_printf("├──args->color1 = %d\n", args->color1);
+	ft_printf("├──args->color2 = %d\n", args->color2);
+	ft_printf("├──args->help = %d\n", args->help);
 	ft_printf("└──args->invalid = %d\n", args->invalid);
 }
 
@@ -55,10 +58,7 @@ void	d_print_map(t_map *map)
 	if (DEBUG == 0)
 		return ;
 	if (map == NULL)
-	{
-		ft_printf("map = NULL\n");
-		return ;
-	}
+		return ((void)ft_printf("map = NULL\n"));
 	ft_printf("map = %p\n", map);
 	ft_printf("├──map->map = %p\n", map->map);
 	ft_printf("├──map->iso_map = %p\n", map->iso_map);
@@ -72,6 +72,8 @@ void	d_print_map(t_map *map)
 				map->iso_map[x][y].y, map->iso_map[x][y].z);
 		ft_printf("\n");
 	}
+	ft_printf("├──map->min = %d\n", map->min);
+	ft_printf("├──map->max = %d\n", map->max);
 	ft_printf("├──map->width = %d\n", map->width);
 	ft_printf("└──map->height = %d\n", map->height);
 }

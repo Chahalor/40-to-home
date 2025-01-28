@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 20:45:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/28 17:57:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define DEFAULT_ZOOM 4
 # define DEFAULT_ROTATIONX 210.0
 # define DEFAULT_ROTATIONY 45.0
+# define DEFAULT_COLOR1 0x0000FF00
+# define DEFAULT_COLOR2 0x00FF0000
 
 # define ANGLE 0.5f
 # define ROTA_FACTOR 5.0f
@@ -106,6 +108,11 @@ enum e_key
 	k_reset = 65288,
 	k_plus = 65451,
 	k_minus = 65453,
+	k_pad_2 = 65433,
+	k_pad_4 = 65431,
+	k_pad_5 = 65437,
+	k_pad_6 = 65432,
+	k_pad_8 = 65430,
 };
 
 /* -----| Structs |----- */
@@ -118,15 +125,6 @@ struct s_color
 	int	g;
 	int	b;
 };
-
-struct s_colors
-{
-	struct s_color	black;
-	struct s_color	red;
-	struct s_color	green;
-	struct s_color	blue;
-};
-
 
 /**
  * @brief Arguments structure, it stores the arguments passed to the program.
@@ -149,8 +147,10 @@ struct s_args
 	int			height;
 	int			width;
 	int			type;
-	Bool		help	: 1;
-	Bool		invalid	: 1;
+	int			color1;
+	int			color2;
+	Bool		help	: 2;
+	Bool		invalid	: 2;
 };
 
 /**
@@ -194,6 +194,8 @@ struct s_map
 	int				**map;
 	int				width;
 	int				height;
+	int				min;
+	int				max;
 	struct s_point	**iso_map;
 };
 
@@ -233,8 +235,10 @@ struct s_pos
 	double			rotationy;
 	int				paddingx;
 	int				paddingy;
-	Bool			rclickdown	: 1;
-	Bool			lclickdown	: 1;
+	uid_t			color1;
+	uid_t			color2;
+	Bool			rclickdown	: 2;
+	Bool			lclickdown	: 2;
 };
 
 /**
@@ -254,7 +258,7 @@ struct	s_fdf
 	struct s_map	*map;
 	struct s_image	*img;
 	struct s_pos	*pos;
-	struct s_colors	*colors;
+	// struct s_colors	*colors;	// @todo rm
 	
 };
 
@@ -263,11 +267,11 @@ struct	s_fdf
 typedef unsigned int	t_uint;
 
 typedef enum e_error	t_error;
-// typedef enum e_color	t_color;
+typedef enum e_color	t_color;
 typedef enum e_key		t_key;
 
-typedef struct s_color	t_color;
-typedef struct s_colors	t_colors;
+// typedef struct s_color	t_color;
+// typedef struct s_colors	t_colors;
 typedef struct s_args	t_args;
 typedef struct s_point	t_point;
 typedef struct s_mlx	t_mlx;
@@ -299,17 +303,43 @@ static inline t_point	calculate_coord(t_point pt, int zoom, int paddingx,
 }
 
 /** @todo */
-static inline t_uint	rgb_to_uint(t_color color)
+static inline int		get_sign(int a, int b)
 {
-	return ((color.a << 24) | (color.r << 16) | (color.g << 8) | color.b);
+	if (a > b)
+		return (-1);
+	return (1);
 }
 
 /** @todo */
-static inline int		get_sign(int a, int b)
+static inline void		get_map_min(t_map *map)
 {
-	if (a < b)
-		return (-1);
-	return (1);
+	int	x;
+	int	y;
+
+	x = -1;
+	while (++x < map->height - 1)
+	{
+		y = -1;
+		while (++y < map->width - 1)
+			if (map->map[x][y] < map->min)
+				map->min = map->map[x][y];
+	}
+}
+
+/** @todo */
+static inline void	get_map_max(t_map *map)
+{
+	int	x;
+	int	y;
+
+	x = -1;
+	while (++x < map->height - 1)
+	{
+		y = -1;
+		while (++y < map->width - 1)
+			if (map->map[x][y] > map->max)
+				map->max = map->map[x][y];
+	}
 }
 
 /* -----| Prototypes |----- */
@@ -347,19 +377,27 @@ t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
 // window.c
 
-void	put_pixel(t_image *img, t_point pos, t_color color);
-void	draw_projection(t_fdf *fdf, t_color col_start, t_color col_end);
+void	put_pixel(t_image *img, t_pos *pos, t_point coord, t_uint color);
+void	draw_line(t_fdf *fdf, t_point start, t_point end, t_uint colors[2]);
+void	draw_line_2(t_fdf *fdf, int x, int y, int mode);
+
+// model.c
+
+void	draw_projection(t_fdf *fdf);
 void	zoom_model(t_fdf *fdf, int zoom);
 void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
 void	translat_model(t_fdf *fdf, int x, int y);
+void	clear_model(t_fdf *fdf);
 
 // color.c
 
-t_color	calculate_color(int min, int max, int current, t_color colors[2]);
+t_uint	calculate_color(t_fdf *fdf, int curent);
+t_uint	calc_line_color(t_point s, t_point e, t_point cur, t_uint colors[2]);
 
-// exit.c
+// utils.c
 
 void	exiting(t_fdf *fdf, t_error code, const char *message);
+void	print_help(const char *name);
 
 // debug.c ├──└──│
 

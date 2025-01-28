@@ -48,7 +48,8 @@ SRC =	fdf.c \
 		isometric.c \
 		window.c \
 		parsing.c \
-		exit.c \
+		model.c \
+		utils.c \
 		color.c \
 		debug.c
 
