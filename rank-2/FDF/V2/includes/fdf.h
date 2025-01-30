@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 17:57:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:36:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,8 +391,8 @@ void	clear_model(t_fdf *fdf);
 
 // color.c
 
-t_uint	calculate_color(t_fdf *fdf, int curent);
-t_uint	calc_line_color(t_point s, t_point e, t_point cur, t_uint colors[2]);
+t_uint	get_point_color(t_fdf *fdf, t_point point);
+t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur);
 
 // utils.c
 

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 17:58:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:37:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	draw_projection(t_fdf *fdf)
 		{
 			put_pixel(fdf->img, fdf->pos, calculate_coord(fdf->map->iso_map[x][y],
 				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
-				calculate_color(fdf, fdf->map->map[x][y]));
+				get_point_color(fdf, fdf->map->iso_map[x][y]));
 			if (y + 1 < fdf->map->width - 1)
 				// draw_line_2(fdf, x, y, 0);
 				draw_line(fdf, calculate_coord(fdf->map->iso_map[x][y],

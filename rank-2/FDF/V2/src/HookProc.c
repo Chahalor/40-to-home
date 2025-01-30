@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 16:37:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:41:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,6 @@ int	key_hook(int keycode, t_fdf *data)
 		translat_model(data, -SCALE, 0);
 	else if (keycode == k_right)
 		translat_model(data, SCALE, 0);
-	else if (keycode == k_pad_2)	// @rm a partir d ici debug
-		rotate_model(data, 0, -.1);
-	else if (keycode == k_pad_8)
-		rotate_model(data, 0, .1);
-	else if (keycode == k_pad_4)
-		rotate_model(data, -1, .0);
-	else if (keycode == k_pad_6)
-		rotate_model(data, 1, .0);
-	else if (keycode == k_plus)
-		zoom_model(data, ZOOM_FACTOR);
-	else if (keycode == k_minus)
-		zoom_model(data, -ZOOM_FACTOR);
-	else
-		ft_printf("keycode %d\n", keycode);
 	return (True);
 }
 
