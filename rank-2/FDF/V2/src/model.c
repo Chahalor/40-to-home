@@ -6,7 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/30 10:37:29 by nduvoid          ###   ########.fr       */
+=======
+/*   Updated: 2025/01/29 10:01:04 by nduvoid          ###   ########.fr       */
+>>>>>>> abbfe39 (auto push)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +77,7 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 	clear_model(fdf);
 	fdf->pos->rotationx += rotationy;
 	fdf->pos->rotationy += rotationx;
-	fdf->map->iso_map = isometric(fdf, fdf->map, fdf->map->iso_map);
-	if (!fdf->map->iso_map)
-		exiting(fdf, mlx_error, "cannot rotate model");
+	calculate_rotation(fdf->map, rotationx, rotationy);
 	draw_projection(fdf);
 }
 

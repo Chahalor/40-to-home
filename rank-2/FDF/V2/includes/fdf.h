@@ -6,7 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/30 10:36:09 by nduvoid          ###   ########.fr       */
+=======
+/*   Updated: 2025/01/29 09:32:30 by nduvoid          ###   ########.fr       */
+>>>>>>> abbfe39 (auto push)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +43,8 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 4
-# define DEFAULT_ROTATIONX 210.0
-# define DEFAULT_ROTATIONY 45.0
+# define DEFAULT_ROTATIONX -45.0
+# define DEFAULT_ROTATIONY 35.26
 # define DEFAULT_COLOR1 0x0000FF00
 # define DEFAULT_COLOR2 0x00FF0000
 
@@ -389,10 +393,16 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
 void	translat_model(t_fdf *fdf, int x, int y);
 void	clear_model(t_fdf *fdf);
 
-// color.c
+// color.c	@todo rename file
 
+<<<<<<< HEAD
 t_uint	get_point_color(t_fdf *fdf, t_point point);
 t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur);
+=======
+t_uint	calculate_color(t_fdf *fdf, int curent);
+t_uint	calc_line_color(t_point s, t_point e, t_point cur, t_uint colors[2]);
+void	calculate_rotation(t_map *map, double rotationx, double rotationy);
+>>>>>>> abbfe39 (auto push)
 
 // utils.c
 

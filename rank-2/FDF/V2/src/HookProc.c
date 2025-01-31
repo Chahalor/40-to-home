@@ -6,7 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/30 10:41:22 by nduvoid          ###   ########.fr       */
+=======
+/*   Updated: 2025/01/29 09:57:16 by nduvoid          ###   ########.fr       */
+>>>>>>> abbfe39 (auto push)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +98,7 @@ int	mouse_move_hook(int x, int y, t_fdf *data)
 
 	// ft_printf("mouse move at %d, %d\n", x, y);
 	if (data->pos->lclickdown == True)
-		rotate_model(data, (x - last_posx) * .01f, (y - last_posy) * .01f);
+		rotate_model(data, (x - last_posx), (y - last_posy));
 	last_posx = x;
 	last_posy = y;
 	return (True);
