@@ -6,12 +6,42 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:12:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 15:50:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 09:47:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @author nduvoid
+ * 
+ * @brief This is the main function of the program.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * 
+ * @note This function will parse the arguments, initialize the fdf structure,
+ * setup the hooks, calculate the isometric map, display the fdf structure and
+ * start the mlx loop.
+ * 
+ * @returns Different exit codes:
+ * 
+ * - 0: The program ended successfully.
+ * 
+ * - 1: The program ended with an invalid argument.
+ * 
+ * - 2: The program ended with an mlx error.
+ * 
+ * - 3: The program ended with a map error.
+ * 
+ * - 4: The program ended with a memory error.
+ * 
+ * - 5: The program ended with a file error.
+ * 
+ * - 6: The program ended with a color error.
+ * 
+ * @see parse_args(), init_fdf(), setup_hooks(), isometric(), draw_projection()
+ */
 int main(int argc, char const *argv[])
 {
 	t_args	*args;
@@ -25,6 +55,14 @@ int main(int argc, char const *argv[])
 	return (0);
 }
 
+/**
+ * @brief This function is the main function of the program. It will initialize
+ * the fdf structure, setup the hooks, calculate the isometric map, display the
+ * fdf structure and start the mlx loop. All logic diffrent than parsing args
+ * is here.
+ * 
+ * @param args The arguments structure.
+ */
 void	fdf(t_args *args)
 {
 	t_fdf	*fdf_var;

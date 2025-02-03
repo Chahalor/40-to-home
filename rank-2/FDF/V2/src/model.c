@@ -6,13 +6,10 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/30 10:37:29 by nduvoid          ###   ########.fr       */
-=======
-/*   Updated: 2025/01/29 10:01:04 by nduvoid          ###   ########.fr       */
->>>>>>> abbfe39 (auto push)
+/*   Updated: 2025/02/03 12:48:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "fdf.h"
 
@@ -33,7 +30,6 @@ void	draw_projection(t_fdf *fdf)
 				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
 				get_point_color(fdf, fdf->map->iso_map[x][y]));
 			if (y + 1 < fdf->map->width - 1)
-				// draw_line_2(fdf, x, y, 0);
 				draw_line(fdf, calculate_coord(fdf->map->iso_map[x][y],
 				fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
 					calculate_coord(fdf->map->iso_map[x][y + 1],
@@ -44,7 +40,6 @@ void	draw_projection(t_fdf *fdf)
 		{
 			y = -1;
 			while (++y < fdf->map->width - 1)
-				// draw_line_2(fdf, x, y, 1);
 				draw_line(fdf, calculate_coord(fdf->map->iso_map[x][y],
 					fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy),
 					calculate_coord(fdf->map->iso_map[x + 1][y],
@@ -64,6 +59,8 @@ void	clear_model(t_fdf *fdf)
 /** @todo */
 void	zoom_model(t_fdf *fdf, int zoom)
 {
+	if (DEBUG == 1)
+		ft_printf("zoom: %d\n", zoom);
 	clear_model(fdf);
 	if (fdf->pos->zoom == 1 && zoom < 0)
 		return ;
@@ -74,9 +71,11 @@ void	zoom_model(t_fdf *fdf, int zoom)
 /** @todo */
 void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 {
+	if (DEBUG == 1)
+		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
 	clear_model(fdf);
-	fdf->pos->rotationx += rotationy;
-	fdf->pos->rotationy += rotationx;
+	fdf->pos->rotationx += rotationx;
+	fdf->pos->rotationy += rotationy;
 	calculate_rotation(fdf->map, rotationx, rotationy);
 	draw_projection(fdf);
 }
@@ -84,6 +83,8 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 /** @todo */
 void	translat_model(t_fdf *fdf, int x, int y)
 {
+	if (DEBUG == 1)
+		ft_printf("translat x: %d, y: %d\n", x, y);
 	clear_model(fdf);
 	fdf->pos->paddingx += x;
 	fdf->pos->paddingy += y;

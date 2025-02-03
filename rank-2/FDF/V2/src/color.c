@@ -6,13 +6,10 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:11:04 by nduvoid           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/30 10:35:44 by nduvoid          ###   ########.fr       */
-=======
-/*   Updated: 2025/01/29 11:30:37 by nduvoid          ###   ########.fr       */
->>>>>>> abbfe39 (auto push)
+/*   Updated: 2025/02/03 10:50:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "fdf.h"
 
@@ -43,19 +40,8 @@ void	calculate_rotation(t_map *map, double rotationx, double rotationy)
 {
 	int	x;
 	int	y;
-	int	k;
-	// const int	matx[3][3] = {
-	// 	{1, 0, 0},
-	// 	{0, cos(rotationx), -sin(rotationx)},
-	// 	{0, sin(rotationx), cos(rotationx)}
-	// };
-	// const int	maty[3][3] = {
-	// 	{cos(rotationy), 0, sin(rotationy)},
-	// 	{0, 1, 0},
-	// 	{-sin(rotationy), 0, cos(rotationy)}
-	// };
-	int		new_x;
-	int		new_y;
+	// int	new_x;
+	// int	new_y;
 
 	x = -1;
 	while (++x < map->height - 1)
@@ -63,14 +49,25 @@ void	calculate_rotation(t_map *map, double rotationx, double rotationy)
 		y = -1;
 		while (++y < map->width - 1)
 		{
-			k = -1;
-			while (++k < 3)
-			{
-				new_x = map->iso_map[x][y].x * cos(rotationx) - map->iso_map[x][y].y * sin(rotationx);
-				new_y = map->iso_map[x][y].x * sin(rotationy) + map->iso_map[x][y].y * cos(rotationy);
-				map->iso_map[x][y].x = new_x;
-				map->iso_map[x][y].y = new_y;
-			}
+			// double	x;
+			// double	y;
+			double	z;
+			double	angle_z;
+
+			angle_z = 90;
+			z = map->map[x][y];
+			t_point point = {
+				// .x = x * cos(fdf->pos->rotationy) * cos(angle_z) - y
+				// 	* sin(angle_z) + z * sin(fdf->pos->rotationy),
+				// .y = x * sin(fdf->pos->rotationx) * sin(fdf->pos->rotationy)
+				// 	+ y * cos(fdf->pos->rotationx) - z * sin(fdf->pos->rotationx)
+				// 	* cos(fdf->pos->rotationy),
+				// .z = map->map[i][j]
+				.x = (x - y) * cos(rotationx),
+				.y = (x + y) * sin(rotationy) - z,
+				.z = map->map[x][y]
+			};
+			map->iso_map[x][y] = point;
 		}
 	}
 }

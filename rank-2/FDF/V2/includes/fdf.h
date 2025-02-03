@@ -6,13 +6,10 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/30 10:36:09 by nduvoid          ###   ########.fr       */
-=======
-/*   Updated: 2025/01/29 09:32:30 by nduvoid          ###   ########.fr       */
->>>>>>> abbfe39 (auto push)
+/*   Updated: 2025/02/03 12:15:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef FDF_H
 # define FDF_H
@@ -43,7 +40,7 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 4
-# define DEFAULT_ROTATIONX -45.0
+# define DEFAULT_ROTATIONX -180.0//45.0
 # define DEFAULT_ROTATIONY 35.26
 # define DEFAULT_COLOR1 0x0000FF00
 # define DEFAULT_COLOR2 0x00FF0000
@@ -99,6 +96,20 @@ enum e_color
 	blue = 0x0000FF,
 };
 
+enum e_cmd
+{
+	exit_cmd,
+	quit_cmd,
+	help_cmd,
+	reset_cmd,
+	zoom_cmd,
+	rotate_cmd,
+	move_cmd,
+	draw_cmd,
+	cmd_cmd,
+	not_found
+};
+
 /**
  * @brief Key codes for the 42 Imac (cause there special).
  */
@@ -117,18 +128,12 @@ enum e_key
 	k_pad_5 = 65437,
 	k_pad_6 = 65432,
 	k_pad_8 = 65430,
+	k_ctrl = 65507,
+	k_rtrn = 65293,
+	k_spc = 32,
 };
 
 /* -----| Structs |----- */
-
-/** @todo */
-struct s_color
-{
-	int	a;
-	int	r;
-	int	g;
-	int	b;
-};
 
 /**
  * @brief Arguments structure, it stores the arguments passed to the program.
@@ -159,6 +164,11 @@ struct s_args
 
 /**
  * @brief Point structure, it stores the coordinates of a point.
+ * 
+ * @details
+ * - x: X position.
+ * - y: Y position.
+ * - z: Z position.
  */
 struct s_point
 {
@@ -231,6 +241,13 @@ struct s_image
  * - zoom: Zoom.
  * - rotationx: Rotation on the x-axis.
  * - rotationy: Rotation on the y-axis.
+ * - paddingx: Padding on the x-axis.
+ * - paddingy: Padding on the y-axis.
+ * - color1: Color 1.
+ * - color2: Color 2.
+ * - rclickdown: Right click down.
+ * - lclickdown: Left click down.
+ * - ctrldown: Control key down.
  */
 struct s_pos
 {
@@ -243,6 +260,7 @@ struct s_pos
 	uid_t			color2;
 	Bool			rclickdown	: 2;
 	Bool			lclickdown	: 2;
+	Bool			ctrldown	: 2;
 };
 
 /**
@@ -262,8 +280,6 @@ struct	s_fdf
 	struct s_map	*map;
 	struct s_image	*img;
 	struct s_pos	*pos;
-	// struct s_colors	*colors;	// @todo rm
-	
 };
 
 /* -----| Typedefs |----- */
@@ -273,6 +289,7 @@ typedef unsigned int	t_uint;
 typedef enum e_error	t_error;
 typedef enum e_color	t_color;
 typedef enum e_key		t_key;
+typedef enum e_cmd		t_cmd;
 
 // typedef struct s_color	t_color;
 // typedef struct s_colors	t_colors;
@@ -364,11 +381,11 @@ void	setup_hooks(t_fdf *data);
 
 // hookProc.c
 
-int		key_hook(int keycode, t_fdf *data);
+int		key_down_hook(int keycode, t_fdf *data);
+int		key_up_hook(int keycode, t_fdf *data);
 int		mouse_hook_down(int button, int x, int y, t_fdf *data);
 int		mouse_hook_up(int button, int x, int y, t_fdf *data);
 int		mouse_move_hook(int x, int y, t_fdf *data);
-int		close_hook(t_fdf *data);
 
 // parsing.c
 
@@ -395,17 +412,17 @@ void	clear_model(t_fdf *fdf);
 
 // color.c	@todo rename file
 
-<<<<<<< HEAD
 t_uint	get_point_color(t_fdf *fdf, t_point point);
 t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur);
-=======
-t_uint	calculate_color(t_fdf *fdf, int curent);
-t_uint	calc_line_color(t_point s, t_point e, t_point cur, t_uint colors[2]);
 void	calculate_rotation(t_map *map, double rotationx, double rotationy);
->>>>>>> abbfe39 (auto push)
+
+// cmd.c
+
+void	cmd(t_fdf *data);
 
 // utils.c
 
+int		close_hook(t_fdf *data);
 void	exiting(t_fdf *fdf, t_error code, const char *message);
 void	print_help(const char *name);
 

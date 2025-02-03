@@ -6,12 +6,22 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/30 10:37:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 10:33:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @brief This function will put a pixel in the image.
+ * 
+ * @param img The image.
+ * @param pos The position of the camera.
+ * @param coord The coordinates of the pixel.
+ * @param color The color of the pixel.
+ * 
+ * @return void
+ */
 void	put_pixel(t_image *img, t_pos *pos, t_point coord, t_uint color)
 {
 	t_point	screen;
@@ -25,6 +35,15 @@ void	put_pixel(t_image *img, t_pos *pos, t_point coord, t_uint color)
 	*(unsigned int *)(img->addr + pixel) = color;
 }
 
+/**
+ * @brief This function will draw a line between two points.
+ * 
+ * @param fdf The fdf structure.
+ * @param start The start point.
+ * @param end The end point.
+ * 
+ * @return void
+ */
 void	draw_line(t_fdf *fdf, t_point start, t_point end, t_uint colors[2])
 {
 	t_point	sign;
@@ -48,52 +67,6 @@ void	draw_line(t_fdf *fdf, t_point start, t_point end, t_uint colors[2])
 		{
 			error[0] += abs(end.x - start.x);
 			cur.y += sign.y;
-		}
-	}
-}
-
-/** @todo */
-void	draw_line_2(t_fdf *fdf, int x, int y, int mode)
-{
-	t_point	start;
-	t_point	end;
-	t_point	coord;
-	int		sign[2];
-	int		err[2];
-	double	percent;
-
-	if (mode == 0)
-	{
-		start = calculate_coord(fdf->map->iso_map[x][y], fdf->pos->zoom,
-			fdf->pos->paddingx, fdf->pos->paddingy);
-		end = calculate_coord(fdf->map->iso_map[x][y + 1], fdf->pos->zoom,
-			fdf->pos->paddingx, fdf->pos->paddingy);
-	}
-	else
-	{
-		start = calculate_coord(fdf->map->iso_map[x][y], fdf->pos->zoom,
-			fdf->pos->paddingx, fdf->pos->paddingy);
-		end = calculate_coord(fdf->map->iso_map[x + 1][y ], fdf->pos->zoom,
-			fdf->pos->paddingx, fdf->pos->paddingy);
-	}
-	sign[0] = get_sign(start.x, end.x);
-	sign[1] = get_sign(start.y, end.y);
-	err[0] = abs(end.x - start.x) - abs(end.y - start.y);
-	coord = start;
-	while (coord.x != end.x || coord.y != end.y)
-	{
-		percent = (coord.x - start.x) / (double)(end.x - start.x);
-		put_pixel(fdf->img, fdf->pos, coord, (fdf->pos->color1 + fdf->pos->color2) * (1 + percent));
-		err[1] = err[0] * 2;
-		if (err[1] > -abs(end.y - start.y))
-		{
-			err[0] -= abs(end.y - start.y);
-			coord.x += sign[0];
-		}
-		if (err[1] < abs(end.x - start.x))
-		{
-			err[0] += abs(end.x - start.x);
-			coord.y += sign[1];
 		}
 	}
 }

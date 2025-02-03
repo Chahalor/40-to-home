@@ -6,12 +6,38 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 13:18:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 09:37:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @brief Initialize the position of the camera and some user input information
+ *  on default.
+ * 
+ * @param fdf Fdf structure.
+ * @param color1 The first color.
+ * @param color2 The second color.
+ * 
+ * @note The position is composed of:
+ * 
+ * - zoom: The zoom, default=4.
+ * 
+ * - rotationx: The rotation on the x axis, default=-45.0.
+ * 
+ * - rotationy: The rotation on the y axis, default=35.26.
+ * 
+ * - paddingx: The padding on the x axis.
+ * 
+ * - paddingy: The padding on the y axis.
+ * 
+ * - color1: The first color.
+ * 
+ * - color2: The second color.
+ * 
+ * - and some user input information.
+ * */
 static void	init_pos(t_fdf *fdf, t_uint color1, t_uint color2) 
 {
 	fdf->pos->zoom = DEFAULT_ZOOM;
@@ -23,8 +49,18 @@ static void	init_pos(t_fdf *fdf, t_uint color1, t_uint color2)
 	fdf->pos->color2 = color2;
 	fdf->pos->rclickdown = False;
 	fdf->pos->lclickdown = False;
+	fdf->pos->ctrldown = False;
 }
 
+/**
+ *  @brief Initialize the MLX context.
+ * 
+ * @note If the MLX context cannot be created, the program will exit.
+ * 
+ * @param ptr MLX structure.
+ * @param args Arguments.
+ * @param fdf Fdf structure.
+ */
 static void	init_mlx(t_mlx *ptr, t_args *args, t_fdf *fdf)
 {
 	ptr->width = args->width;
@@ -38,6 +74,30 @@ static void	init_mlx(t_mlx *ptr, t_args *args, t_fdf *fdf)
 		exiting(fdf, mlx_window_error, "cannot create window");
 }
 
+/**
+ * @brief Initialize the fdf image.
+ * 
+ * @note If the image cannot be created, the program will exit.
+ * 
+ * @param fdf Fdf structure.
+ * 
+ * @note The image is composed of:
+ * 
+ * - width: The width of the image.
+ * 
+ * - height: The height of the image.
+ * 
+ * - img: The image.
+ * 
+ * - addr: The address of the image.
+ * 
+ * - bpp: The bits per pixel.
+ * 
+ * - size_line: The size of a line.
+ * 
+ * - endian: The endian.
+ * 
+ */
 static void	init_img(t_fdf *fdf)
 {
 	fdf->img->width = fdf->mlx->width;
@@ -52,6 +112,25 @@ static void	init_img(t_fdf *fdf)
 		exiting(fdf, mlx_image_error, "cannot get image address");
 }
 
+/**
+ * @brief Initialize the Fdf structure.
+ * 
+ * @param args Arguments.
+ * 
+ * @return The Fdf structure.
+ * 
+ * @note The Fdf structure is composed of:
+ * 
+ * - args: The arguments.
+ * 
+ * - mlx: The MLX context.
+ * 
+ * - img: The image.
+ * 
+ * - pos: The position of the camera and some other user informations.
+ * 
+ * - map: The map.
+ * */
 t_fdf	*init_fdf(t_args *args)
 {
 	t_fdf	*fdf;
@@ -77,9 +156,29 @@ t_fdf	*init_fdf(t_args *args)
 	return (fdf);
 }
 
+/**
+ * @brief Setup the different events hooks.
+ * 
+ * @param data Fdf structure.
+ * 
+ * @note The hooks are:
+ * 
+ * - key_down_hook: Key down event.
+ * 
+ * - key_up_hook: Key up event.
+ * 
+ * - mouse_hook_down: Mouse down event.
+ * 
+ * - mouse_hook_up: Mouse up event.
+ * 
+ * - mouse_move_hook: Mouse move event.
+ * 
+ * - close_hook: Close event.
+ */
 void	setup_hooks(t_fdf *data)
 {
-	mlx_hook(data->mlx->win, 2, 1L << 0, key_hook, data);
+	mlx_hook(data->mlx->win, 2, 1L << 0, key_down_hook, data);
+	mlx_hook(data->mlx->win, 3, 1L << 1, key_up_hook, data);
 	mlx_hook(data->mlx->win, 4, 1L << 2, mouse_hook_down, data);
 	mlx_hook(data->mlx->win, 5, 1L << 3, mouse_hook_up, data);
 	mlx_hook(data->mlx->win, 6, 1L << 6, mouse_move_hook, data);

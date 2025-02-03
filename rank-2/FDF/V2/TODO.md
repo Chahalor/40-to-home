@@ -8,7 +8,7 @@
   - [X] ~~passez les couleur en du RGB avec une struct~~ aborted
   - [X] faut le min/max de la map
   - [ ] faut un fonction pour calculer les couleur pour les ligne
- - [ ] mettre args.c a la norm
+ - [X] mettre args.c a la norm
  - [X] regler la segfault de isometric()
  - [ ] mettre a jour les docs 
 
@@ -25,13 +25,14 @@
  - [ ] ~~faut ajouter une option pour le titre~~
  - [X] la fonction pour le -h/--help
  - [ ] le deuxieme projection
- - [ ] le zoom est douteux, a changer
+ - [X] le zoom est douteux, a changer
 
 ### Headers
 
 ### Make
 
 ### Other
+ - [ ] avoir un icon d app custom
 
 
 ## Avant de rendre

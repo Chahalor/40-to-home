@@ -6,12 +6,36 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 09:50:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 13:15:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:58:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @brief This is the function that will be called when the window is closed.
+ *  by clicking on the red cross.
+ * 
+ * @param data The fdf structure.
+ * 
+ * @return int Always return True.
+ */
+int	close_hook(t_fdf *data)
+{
+	exiting(data, no_error, NULL);
+	return (True);
+}
+
+/**
+ * @brief This function is called when an error occurs. This is a cancelation
+ * function that will free all the allocated memory and exit the program.
+ * 
+ * @param fdf The fdf structure.
+ * @param code The error code.
+ * @param message The error message.
+ * 
+ * @return void
+ */
 void	exiting(t_fdf *fdf, t_error code, const char *message)
 {
 	if (fdf)
@@ -37,10 +61,17 @@ void	exiting(t_fdf *fdf, t_error code, const char *message)
 	exit(code);
 }
 
+/**
+ * @brief Print the help message. when the -h or --help option is given.
+ * 
+ * @param name The name of the program.
+ * 
+ * @return void
+ */
 void	print_help(const char *name)
 {
-	ft_printf("Usage: %s [options]\n", name);
-	ft_printf("Options:\n");
+	ft_printf("\nUsage: %s [options] <map>\n", name);
+	ft_printf("\nOptions:\n");
 	ft_printf("  -h, --help\t\t\tDisplay this help\n");
 	ft_printf("  -s, --size\t\t\tSet the window size\n");
 	ft_printf("  -f, --file <heigth><width>\tSet the map file\n");
@@ -54,9 +85,13 @@ void	print_help(const char *name)
 	ft_printf("  4\t\t\tMLX error\n");
 	ft_printf("  5\t\t\tMLX window error\n");
 	ft_printf("  6\t\t\tMLX image error\n");
-	ft_printf("\nExample:\n");
-	ft_printf("  \"%s \" >> Error", name);
-	ft_printf("  %s maps/map.fdf\n", name);
-	ft_printf("  %s -h\n", name);
-	ft_printf("  %s -s 800 600 -f map.fdf\n", name);
+	ft_printf("\nAvailable commands (by pressing space):\n");
+	ft_printf("  exit\t\t\tExit the program\n");
+	ft_printf("  quit/q\t\tQuit the cmd\n");
+	ft_printf("  help\t\t\tDisplay this help\n");
+	ft_printf("  reset\t\t\tReset the program\n");
+	ft_printf("  zoom\t\t\tZoom the model\n");
+	ft_printf("  rotate\t\tRotate the model\n");
+	ft_printf("  move\t\t\tMove the model\n");
+	ft_printf("  draw\t\t\tDraw the model\n");
 }

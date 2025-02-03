@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:31:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 10:20:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 13:07:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,38 @@
  * @brief Check if the short option is valid.
  * 
  *  - type: 0 = no args after, 1 = 1 arg after.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @param pos The position of the argument.
+ * @param nb_args The number of arguments after the option.
+ * 
+ * @return True if the option is valid, otherwise False.
  */
-static Bool is_valid_soption(const int argc, const char *argv[], int pos,
+static Bool	is_valid_soption(const int argc, const char *argv[], int pos,
 	int nb_args)
 {
 	if (pos >= argc)
 		return (False);
-	if (argv[pos][0] != '-' || ft_strlen(argv[pos]) != 2 || pos + nb_args >= argc)
+	if (argv[pos][0] != '-' || ft_strlen(argv[pos]) != 2
+		|| pos + nb_args >= argc)
 		return (False);
 	return (True);
 }
 
-/** @todo */
-static Bool	is_v_lopt(const int argc, const char *argv[], int pos,
+/**
+ * @brief Check if the long option is valid.
+ * 
+ *  - type: 0 = no args after, 1 = 1 arg after.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @param pos The position of the argument.
+ * @param nb_args The number of arguments after the option.
+ * 
+ * @return True if the option is valid, otherwise False.
+ */
+static Bool	vl(const int argc, const char *argv[], int pos,
 	int nb_args)
 {
 	if (pos >= argc)
@@ -38,7 +57,16 @@ static Bool	is_v_lopt(const int argc, const char *argv[], int pos,
 	return (True);
 }
 
-/** @todo */
+/**
+ * @brief Parse the short options. in case of an invalid option, the invalid
+ * flag will be set to True.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @param args The arguments structure.
+ * 
+ * @return void
+ * */
 void	parse_short_options(int argc, char const *argv[], t_args *args)
 {
 	int	x;
@@ -67,7 +95,16 @@ void	parse_short_options(int argc, char const *argv[], t_args *args)
 	}
 }
 
-/** @todo */
+/**
+ * @brief Parse the long options. in case of an invalid option, the invalid
+ * flag will be set to True.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @param args The arguments structure.
+ * 
+ * @return void
+ */
 void	parse_long_options(int argc, char const *argv[], t_args *args)
 {
 	int	x;
@@ -77,16 +114,17 @@ void	parse_long_options(int argc, char const *argv[], t_args *args)
 	{
 		if (ft_strncmp(argv[x], "--help", 6) == 0)
 			args->help = True;
-		else if (ft_strncmp(argv[x], "--size", 6) == 0 && is_v_lopt(argc, argv, x, 2))
+		else if (ft_strncmp(argv[x], "--size", 6) == 0 && vl(argc, argv, x, 2))
 		{
 			args->width = ft_atoi(argv[++x]);
 			args->height = ft_atoi(argv[++x]);
 		}
-		else if (ft_strncmp(argv[x], "--file", 6) == 0 && is_v_lopt(argc, argv, x, 1))
+		else if (ft_strncmp(argv[x], "--file", 6) == 0 && vl(argc, argv, x, 1))
 			args->file = argv[++x];
-		else if (ft_strncmp(argv[x], "--type", 6) == 0 && is_v_lopt(argc, argv, x, 1))
+		else if (ft_strncmp(argv[x], "--type", 6) == 0 && vl(argc, argv, x, 1))
 			args->type = ft_atoi(argv[++x]);
-		else if (ft_strncmp(argv[x], "--colors", 8) == 0 && is_v_lopt(argc, argv, x, 2))
+		else if (ft_strncmp(argv[x], "--colors", 8) == 0
+			&& vl(argc, argv, x, 2))
 		{
 			args->color1 = ft_atoi(argv[++x]);
 			args->color2 = ft_atoi(argv[++x]);
@@ -96,7 +134,34 @@ void	parse_long_options(int argc, char const *argv[], t_args *args)
 	}
 }
 
-/** @todo */
+/**
+ * @brief Parse the arguments.
+ * 
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * 
+ * @return The arguments structure.
+ * 
+ * @note The arguments structure is composed of:
+ * 
+ * - argc: The number of arguments.
+ * 
+ * - argv: The arguments.
+ * 
+ * - file: The file path. (the last argument will be take as a default path)
+ * 
+ * - height: The window height. (default: 600)
+ * 
+ * - width: The window width. (default: 800)
+ * 
+ * - color1: The first color. (default: 0x00FF00)
+ * 
+ * - color2: The second color. (default: 0x0000FF)
+ * 
+ * - invalid: Invalid argument.
+ * 
+ * - help: Display help.
+ */
 t_args	*parse_args(int argc, char const *argv[])
 {
 	t_args	*args;

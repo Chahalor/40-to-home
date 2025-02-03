@@ -6,17 +6,23 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/30 10:26:56 by nduvoid          ###   ########.fr       */
-=======
-/*   Updated: 2025/01/29 09:53:57 by nduvoid          ###   ########.fr       */
->>>>>>> abbfe39 (auto push)
+/*   Updated: 2025/02/03 09:49:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "fdf.h"
 
-/** @todo */
+/**
+ * @brief This function will calculate the isometric coordinates of a point.
+ * 
+ * @param fdf The fdf structure.
+ * @param map The map structure.
+ * @param i The x position of the point.
+ * @param j The y position of the point.
+ * 
+ * @return t_point The isometric coordinates of the point.
+ */
 static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 {
 	double	x;
@@ -42,6 +48,15 @@ static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 	return (point);
 }
 
+/**
+ * @brief This function will calculate the isometric map.
+ * 
+ * @param fdf The fdf structure.
+ * @param map The map structure.
+ * @param points The points.
+ * 
+ * @return t_point** The isometric map.
+ */
 t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points)
 {
 	int		i;

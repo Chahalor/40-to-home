@@ -51,6 +51,7 @@ SRC =	fdf.c \
 		model.c \
 		utils.c \
 		color.c \
+		cmd.c \
 		debug.c
 
 # All object files
