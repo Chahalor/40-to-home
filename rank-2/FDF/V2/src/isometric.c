@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 09:49:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:45:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 	y = j;
 	z = map->map[i][j];
 	t_point point = {
-		// .x = x * cos(fdf->pos->rotationy) * cos(angle_z) - y
-		// 	* sin(angle_z) + z * sin(fdf->pos->rotationy),
-		// .y = x * sin(fdf->pos->rotationx) * sin(fdf->pos->rotationy)
-		// 	+ y * cos(fdf->pos->rotationx) - z * sin(fdf->pos->rotationx)
-		// 	* cos(fdf->pos->rotationy),
-		// .z = map->map[i][j]
-		.x = (x - y) * cos(fdf->pos->rotationx),
-		.y = (x + y) * sin(fdf->pos->rotationy) - z,
+		.x = x * cos(fdf->pos->rotationy) * cos(angle_z) - y
+			* sin(angle_z) + z * sin(fdf->pos->rotationy),
+		.y = x * sin(fdf->pos->rotationx) * sin(fdf->pos->rotationy)
+			+ y * cos(fdf->pos->rotationx) - z * sin(fdf->pos->rotationx)
+			* cos(fdf->pos->rotationy),
 		.z = map->map[i][j]
+
+		// .x = (x - y) * cos(fdf->pos->rotationx),
+		// .y = (x + y) * sin(fdf->pos->rotationy) - z,
+		// .z = map->map[i][j]
 	};
 	return (point);
 }

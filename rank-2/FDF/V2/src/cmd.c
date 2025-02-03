@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 13:13:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:13:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ static int	len_cmd(char **cmd)
 	while (cmd[i])
 		i++;
 	return (i);
+}
+
+static void	get_status(t_fdf *fdf)
+{
+	ft_printf("fdf->pos = %p\n", fdf->pos);
+	ft_printf("├──fdf->pos->zoom = %d\n", fdf->pos->zoom);
+	ft_printf("├──fdf->pos->rotationx = %f\n", fdf->pos->rotationx);
+	ft_printf("├──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
+	ft_printf("├──fdf->pos->paddingx = %d\n", fdf->pos->paddingx);
+	ft_printf("└──fdf->pos->paddingy = %d\n", fdf->pos->paddingy);
 }
 
 /**
@@ -56,8 +66,10 @@ static t_cmd	parse_input(char *line)
 		action = draw_cmd;
 	else if (strcmp(line, "quit\n") == 0 || strcmp(line, "q\n") == 0)
 		action = quit_cmd;
-	else if (strcmp(line, "cmd\n") == 0)
-		action = cmd_cmd;
+	else if (strcmp(line, "reset\n") == 0)
+		action = reset_cmd;
+	else if (strcmp(line, "status\n") == 0)
+		action = status_cmd;
 	else
 		action = not_found;
 	return (action);
@@ -89,6 +101,13 @@ static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd, char *line)
 		translat_model(fdf, ft_atoi(cmd[1]), ft_atoi(cmd[2]));
 	else if (action == draw_cmd)
 		draw_projection(fdf);
+	else if (action == status_cmd)
+		get_status(fdf);
+	else if (action == reset_cmd)
+	{
+		clear_model(fdf);
+		draw_projection(fdf);
+	}
 	else
 		ft_printf("invalide commande: %s", line);
 }
@@ -116,7 +135,9 @@ static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd, char *line)
  * 
  * - move: Move the model.
  * 
- * - draw: Draw the model.
+ * - reset: reset the model.
+ * 
+ * - status: Display the status of the model.
  * 
  * - cmd: Enter a new command.
  */
@@ -141,6 +162,6 @@ void	cmd(t_fdf *data)
 	free(_cmd);
 	if (action == exit_cmd)
 		exiting(data, no_error, NULL);
-	else if (action == not_found || action == cmd_cmd)
+	else if (action == not_found)
 		cmd(data);
 }

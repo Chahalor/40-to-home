@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 10:33:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:34:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	draw_line(t_fdf *fdf, t_point start, t_point end, t_uint colors[2])
 	cur = start;
 	while (cur.x != end.x || cur.y != end.y)
 	{
-		put_pixel(fdf->img, fdf->pos, cur, calc_line_color(fdf, start, end, cur));
+		put_pixel(fdf->img, fdf->pos, calculate_coord(cur, fdf->pos->zoom, fdf->pos->paddingx, fdf->pos->paddingy), calc_line_color(fdf, start, end, cur));
 		error[1] = error[0] * 2;
 		if (error[1] > -abs(end.y - start.y))
 		{

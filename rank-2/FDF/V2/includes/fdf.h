@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 12:15:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:19:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 4
-# define DEFAULT_ROTATIONX -180.0//45.0
+# define DEFAULT_ROTATIONX 45.0
 # define DEFAULT_ROTATIONY 35.26
-# define DEFAULT_COLOR1 0x0000FF00
-# define DEFAULT_COLOR2 0x00FF0000
+# define DEFAULT_COLOR1 0x00FF00
+# define DEFAULT_COLOR2 0xFF0000
 
 # define ANGLE 0.5f
-# define ROTA_FACTOR 5.0f
+# define ROTA_FACTOR 5
 # define ZOOM_FACTOR 1
 # define SCALE 10
 
-# define PI 3.14159265358979323846
+# define PI 3.1415//9265358979323846
 
 /* -----| Enums |----- */
 
@@ -106,7 +106,7 @@ enum e_cmd
 	rotate_cmd,
 	move_cmd,
 	draw_cmd,
-	cmd_cmd,
+	status_cmd,
 	not_found
 };
 
@@ -307,6 +307,8 @@ typedef struct s_fdf	t_fdf;
  * @brief Convert degrees to radians.
  * 
  *  - dtr = degrees to radians.
+ * 
+ * @todo posibly useless.
  */
 static inline double	dtr(double deg)
 {

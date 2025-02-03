@@ -6,13 +6,14 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 19:11:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 10:50:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:27:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fdf.h"
 
+/** @todo */
 t_uint	get_point_color(t_fdf *fdf, t_point point)
 {
 	double	percent;
@@ -23,6 +24,7 @@ t_uint	get_point_color(t_fdf *fdf, t_point point)
 	return (color);
 }
 
+/** @todo */
 t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur)
 {
 	double	percent;
@@ -36,38 +38,31 @@ t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur)
 	return (color);
 }
 
+/** @todo */
 void	calculate_rotation(t_map *map, double rotationx, double rotationy)
 {
-	int	x;
-	int	y;
-	// int	new_x;
-	// int	new_y;
+	int		x;
+	int		y;
+	float	tmpx;
+	float	tmpy;
+	int		center_x; 
+	int		center_y;
 
+	center_y = (map->height - 1) / 2;
+	center_x = (map->width - 1) / 2;
 	x = -1;
 	while (++x < map->height - 1)
 	{
 		y = -1;
 		while (++y < map->width - 1)
 		{
-			// double	x;
-			// double	y;
-			double	z;
-			double	angle_z;
-
-			angle_z = 90;
-			z = map->map[x][y];
-			t_point point = {
-				// .x = x * cos(fdf->pos->rotationy) * cos(angle_z) - y
-				// 	* sin(angle_z) + z * sin(fdf->pos->rotationy),
-				// .y = x * sin(fdf->pos->rotationx) * sin(fdf->pos->rotationy)
-				// 	+ y * cos(fdf->pos->rotationx) - z * sin(fdf->pos->rotationx)
-				// 	* cos(fdf->pos->rotationy),
-				// .z = map->map[i][j]
-				.x = (x - y) * cos(rotationx),
-				.y = (x + y) * sin(rotationy) - z,
-				.z = map->map[x][y]
+			tmpx = x - center_x;
+			tmpy = y - center_y;
+			map->iso_map[x][y] = (t_point){
+				.x = (tmpx * cos(rotationx) + tmpy * sin(rotationx)) + center_x,
+				.y = (tmpx * sin(rotationy) + tmpy * cos(rotationy)) + center_y,
+				.z = map->iso_map[x][y].z
 			};
-			map->iso_map[x][y] = point;
 		}
 	}
 }

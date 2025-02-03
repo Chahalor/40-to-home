@@ -17,7 +17,7 @@
 ### Make
 
 ### Other
- - [X] regler d_print_pos() pour qu il print les float
+ - [X] regler d_print_pos() pour qu il print les double
 
 ## Bonus
 

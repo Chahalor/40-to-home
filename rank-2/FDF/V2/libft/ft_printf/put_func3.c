@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:19:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/27 09:34:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:19:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	writedec(int dec)
 	return (logic_writedec(dec) + nb_char);
 }
 
-int	writefloat(double nb)
+int	writedouble(double nb)
 {
 	int		nb_char;
 	int		wout;
