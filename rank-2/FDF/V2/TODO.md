@@ -7,11 +7,12 @@
  - [ ] mettre en place le degrader de couleur
   - [X] ~~passez les couleur en du RGB avec une struct~~ aborted
   - [X] faut le min/max de la map
-  - [ ] faut un fonction pour calculer les couleur pour les ligne
+  - [X] faut un fonction pour calculer les couleur pour les ligne
  - [X] mettre args.c a la norm
  - [X] regler la segfault de isometric()
- - [ ] mettre a jour les docs 
+ - [X] mettre a jour les docs 
  - [X] enverser les axe de la rotation
+ - [ ] optimiser le pieline de drawing !!!
 
 ### Headers
 
