@@ -6,10 +6,9 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 16:19:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:38:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FDF_H
 # define FDF_H
@@ -40,30 +39,37 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
 # define DEFAULT_ZOOM 4
-# define DEFAULT_ROTATIONX 45.0
-# define DEFAULT_ROTATIONY 35.26
-# define DEFAULT_COLOR1 0x00FF00
+# define DEFAULT_ROTATIONX 120
+# define DEFAULT_ROTATIONY 90
+# define DEFAULT_COLOR1 0x0000FF
 # define DEFAULT_COLOR2 0xFF0000
 
 # define ANGLE 0.5f
 # define ROTA_FACTOR 5
 # define ZOOM_FACTOR 1
 # define SCALE 10
+# define STRENTGH 2
 
-# define PI 3.1415//9265358979323846
+# define PI 3.1415
 
 /* -----| Enums |----- */
 
 /**
  * @brief Error codes.
  * 
- * @details
+ * @note
  * - no_error: No error.
+ * 
  * - invalid_argument: Invalid argument.
+ * 
  * - invalid_file: Invalid file.
+ * 
  * - invalid_map: Invalid map.
+ * 
  * - mlx_error: MLX error.
+ * 
  * - mlx_window_error: MLX window error.
+ * 
  * - mlx_image_error: MLX image error.
  */
 enum e_error
@@ -75,6 +81,7 @@ enum e_error
 	mlx_error,
 	mlx_window_error,
 	mlx_image_error,
+	malloc_error
 };
 
 /**
@@ -138,14 +145,22 @@ enum e_key
 /**
  * @brief Arguments structure, it stores the arguments passed to the program.
  * 
- * @details
+ * @note
+ * 
  * - argc: Number of arguments.
+ * 
  * - argv: Array of arguments.
+ * 
  * - file: File path. (if no -p/--path the last argument will be take as path)
+ * 
  * - height: Window height.
+ * 
  * - width: Window width.
+ * 
  * - type: Type of projection. @todo
+ * 
  * - help: Display help.
+ * 
  * - invalid: Invalid argument.
  */
 struct s_args
@@ -291,8 +306,6 @@ typedef enum e_color	t_color;
 typedef enum e_key		t_key;
 typedef enum e_cmd		t_cmd;
 
-// typedef struct s_color	t_color;
-// typedef struct s_colors	t_colors;
 typedef struct s_args	t_args;
 typedef struct s_point	t_point;
 typedef struct s_mlx	t_mlx;
@@ -316,17 +329,16 @@ static inline double	dtr(double deg)
 }
 
 /** @todo */
-static inline t_point	calculate_coord(t_point pt, int zoom, int paddingx,
-									int paddingy)
+static inline t_point	calc_c(t_point pt, t_pos *pos)
 {
 	return ((t_point){
-		.x = pt.x * zoom / ZOOM_FACTOR + paddingx,
-		.y = pt.y * zoom / ZOOM_FACTOR + paddingy,
+		.x = pt.x * pos->zoom / ZOOM_FACTOR + pos->paddingx,
+		.y = pt.y * pos->zoom / ZOOM_FACTOR + pos->paddingy,
 		.z = pt.z});
 }
 
 /** @todo */
-static inline int		get_sign(int a, int b)
+static inline int	get_sign(int a, int b)
 {
 	if (a > b)
 		return (-1);
@@ -334,7 +346,7 @@ static inline int		get_sign(int a, int b)
 }
 
 /** @todo */
-static inline void		get_map_min(t_map *map)
+static inline void	get_map_min(t_map *map)
 {
 	int	x;
 	int	y;
@@ -371,7 +383,6 @@ static inline void	get_map_max(t_map *map)
 
 t_args	*parse_args(int argc, const char *argv[]);
 
-
 // fdf.c
 
 void	fdf(t_args *args);
@@ -400,9 +411,8 @@ t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
 // window.c
 
-void	put_pixel(t_image *img, t_pos *pos, t_point coord, t_uint color);
-void	draw_line(t_fdf *fdf, t_point start, t_point end, t_uint colors[2]);
-void	draw_line_2(t_fdf *fdf, int x, int y, int mode);
+void	put_pixel(t_image *img, t_point coord, t_uint color);
+void	draw_line(t_fdf *fdf, t_point start, t_point end);
 
 // model.c
 
@@ -412,11 +422,10 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
 void	translat_model(t_fdf *fdf, int x, int y);
 void	clear_model(t_fdf *fdf);
 
-// color.c	@todo rename file
+// color.c
 
-t_uint	get_point_color(t_fdf *fdf, t_point point);
-t_uint	calc_line_color(t_fdf *fd, t_point start, t_point end, t_point cur);
-void	calculate_rotation(t_map *map, double rotationx, double rotationy);
+t_uint	get_point_color(t_fdf *fdf, t_point start, t_point end, t_point cur);
+t_uint	calc_line_color(t_fdf *fd, t_color start, t_color end, int percent);
 
 // cmd.c
 

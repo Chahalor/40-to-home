@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 13:14:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	line_to_map(t_map *map, char *line)
 		map->map[map->height - 1][i] = ft_atoi(splits[i]);
 		free(splits[i]);
 	}
+	while (splits[i])
+		free(splits[i++]);
 	free(splits[i]);
 	free(splits);
 	free(line);
@@ -80,7 +82,7 @@ static void	line_to_map(t_map *map, char *line)
 static t_map	*realloc_map(t_map *map)
 {
 	int	**new_map;
-	int		i;
+	int	i;
 
 	map->height++;
 	new_map = (int **)ft_calloc(map->height, sizeof(int *));
@@ -151,12 +153,9 @@ void	free_map(t_map *map)
 {
 	int	i;
 
-	i = 0;
-	while (i < map->height)
-	{
+	i = -1;
+	while (++i < map->height)
 		free(map->map[i]);
-		i++;
-	}
 	free(map->iso_map);
 	free(map->map);
 	free(map);

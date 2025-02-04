@@ -11,6 +11,7 @@
  - [X] mettre args.c a la norm
  - [X] regler la segfault de isometric()
  - [ ] mettre a jour les docs 
+ - [X] enverser les axe de la rotation
 
 ### Headers
 

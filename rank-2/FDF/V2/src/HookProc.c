@@ -6,10 +6,9 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 16:39:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:25:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "fdf.h"
 
@@ -21,7 +20,7 @@
  * 
  * @return int Always return True.
  */
-int	key_down_hook(int keycode, t_fdf *data)
+__attribute__((hot)) int	key_down_hook(int keycode, t_fdf *data)
 {
 	if (DEBUG == 1)
 		ft_printf("key down: %d\n", keycode);
@@ -48,7 +47,7 @@ int	key_down_hook(int keycode, t_fdf *data)
  * 
  * @return int Always return True.
  */
-int	key_up_hook(int keycode, t_fdf *data)
+__attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 {
 	if (DEBUG == 1)
 		ft_printf("key up: %d\n", keycode);
@@ -80,7 +79,8 @@ int	key_up_hook(int keycode, t_fdf *data)
  * 
  * @return int Always return True.
  */
-int	mouse_hook_down(int button, int x, int y, t_fdf *data)
+__attribute__((hot)) int	mouse_hook_down(int button, int x, int y,
+	t_fdf *data)
 {
 	if (DEBUG == 1)
 		ft_printf("button %d down at %d, %d\n", button, x, y);
@@ -105,7 +105,7 @@ int	mouse_hook_down(int button, int x, int y, t_fdf *data)
  * 
  * @return int Always return True.
  */
-int	mouse_hook_up(int button, int x, int y, t_fdf *data)
+__attribute__((hot)) int	mouse_hook_up(int button, int x, int y, t_fdf *data)
 {
 	if (DEBUG == 1)
 		ft_printf("button %d up at %d, %d\n", button, x, y);
@@ -125,15 +125,25 @@ int	mouse_hook_up(int button, int x, int y, t_fdf *data)
  * 
  * @return int Always return True.
  */
-int	mouse_move_hook(int x, int y, t_fdf *data)
+__attribute__((hot)) int	mouse_move_hook(int x, int y, t_fdf *data)
 {
 	static int	last_posx = 0;
 	static int	last_posy = 0;
+	static int	strengthx = 1;
+	static int	strengthy = 1;
 
-	if (data->pos->ctrldown == 1 && data->pos->lclickdown == 1)
-		rotate_model(data, (x - last_posx), (y - last_posy));
-	else if (data->pos->lclickdown == True)
-		translat_model(data, (x - last_posx), (y - last_posy));
+	strengthx += last_posx - x;
+	strengthy += last_posy - y;
+	if ((strengthx > STRENTGH || strengthx < -STRENTGH)
+		|| (strengthy > STRENTGH || strengthy < -STRENTGH))
+	{
+		if (data->pos->ctrldown == 1 && data->pos->lclickdown == 1)
+			rotate_model(data, (x - last_posx), (y - last_posy));
+		else if (data->pos->lclickdown == True)
+			translat_model(data, (x - last_posx), (y - last_posy));
+		strengthx = 0;
+		strengthy = 0;
+	}
 	last_posx = x;
 	last_posy = y;
 	return (True);

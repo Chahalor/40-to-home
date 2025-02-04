@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 15:13:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:22:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * 
  * @return int The length of the command.
  */
-static int	len_cmd(char **cmd)
+__attribute__((cold)) static int	len_cmd(char **cmd)
 {
 	int	i;
 
@@ -29,14 +29,19 @@ static int	len_cmd(char **cmd)
 	return (i);
 }
 
-static void	get_status(t_fdf *fdf)
+__attribute__((unused, cold)) static void	get_status(t_fdf *fdf)
 {
-	ft_printf("fdf->pos = %p\n", fdf->pos);
-	ft_printf("├──fdf->pos->zoom = %d\n", fdf->pos->zoom);
-	ft_printf("├──fdf->pos->rotationx = %f\n", fdf->pos->rotationx);
-	ft_printf("├──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
-	ft_printf("├──fdf->pos->paddingx = %d\n", fdf->pos->paddingx);
-	ft_printf("└──fdf->pos->paddingy = %d\n", fdf->pos->paddingy);
+	if (DEBUG == 1)
+		d_print_fdf(fdf);
+	else
+	{
+		ft_printf("fdf->pos = %p\n", fdf->pos);
+		ft_printf("├──fdf->pos->zoom = %d\n", fdf->pos->zoom);
+		ft_printf("├──fdf->pos->rotationx = %f\n", fdf->pos->rotationx);
+		ft_printf("├──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
+		ft_printf("├──fdf->pos->paddingx = %d\n", fdf->pos->paddingx);
+		ft_printf("└──fdf->pos->paddingy = %d\n", fdf->pos->paddingy);
+	}
 }
 
 /**
@@ -46,7 +51,7 @@ static void	get_status(t_fdf *fdf)
  * 
  * @return t_cmd The command.
  */
-static t_cmd	parse_input(char *line)
+__attribute__((cold)) static t_cmd	parse_input(char *line)
 {
 	t_cmd	action;
 
@@ -56,7 +61,7 @@ static t_cmd	parse_input(char *line)
 		action = help_cmd;
 	else if (strcmp(line, "reset\n") == 0)
 		action = reset_cmd;
-	else if (strcmp(line, "zoom\n") == 0)
+	else if (strcmp(line, "zoom") == 0)
 		action = zoom_cmd;
 	else if (strcmp(line, "rotate") == 0)
 		action = rotate_cmd;
@@ -84,12 +89,13 @@ static t_cmd	parse_input(char *line)
  * 
  * @return void
  */
-static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd, char *line)
+__attribute__((cold)) static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd,
+	char *line)
 {
 	int	len;
 
 	len = len_cmd(cmd);
-	if (action == exit_cmd || action ==  quit_cmd)
+	if (action == exit_cmd || action == quit_cmd)
 		return ;
 	else if (action == help_cmd)
 		print_help(fdf->args->argv[0]);
@@ -141,7 +147,7 @@ static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd, char *line)
  * 
  * - cmd: Enter a new command.
  */
-void	cmd(t_fdf *data)
+__attribute__((cold)) void	cmd(t_fdf *data)
 {
 	char	*line;
 	char	**_cmd;

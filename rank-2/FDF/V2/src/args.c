@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:31:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 13:07:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:20:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
  * 
  * @return True if the option is valid, otherwise False.
  */
-static Bool	is_valid_soption(const int argc, const char *argv[], int pos,
-	int nb_args)
+__attribute__((hot)) static Bool	is_valid_soption(const int argc,
+	const char *argv[], int pos, int nb_args)
 {
 	if (pos >= argc)
 		return (False);
@@ -47,8 +47,8 @@ static Bool	is_valid_soption(const int argc, const char *argv[], int pos,
  * 
  * @return True if the option is valid, otherwise False.
  */
-static Bool	vl(const int argc, const char *argv[], int pos,
-	int nb_args)
+__attribute__((hot))  static Bool	vl(const int argc, const char *argv[],
+	int pos, int nb_args)
 {
 	if (pos >= argc)
 		return (False);
@@ -67,7 +67,8 @@ static Bool	vl(const int argc, const char *argv[], int pos,
  * 
  * @return void
  * */
-void	parse_short_options(int argc, char const *argv[], t_args *args)
+__attribute__((cold)) void	parse_short_options(int argc, char const *argv[],
+	t_args *args)
 {
 	int	x;
 
@@ -105,7 +106,8 @@ void	parse_short_options(int argc, char const *argv[], t_args *args)
  * 
  * @return void
  */
-void	parse_long_options(int argc, char const *argv[], t_args *args)
+__attribute__((cold)) void	parse_long_options(int argc, char const *argv[],
+	t_args *args)
 {
 	int	x;
 
@@ -162,7 +164,8 @@ void	parse_long_options(int argc, char const *argv[], t_args *args)
  * 
  * - help: Display help.
  */
-t_args	*parse_args(int argc, char const *argv[])
+__attribute__((unused, cold)) t_args	*parse_args(int argc,
+	char const *argv[])
 {
 	t_args	*args;
 

@@ -6,10 +6,9 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 16:45:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:27:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "fdf.h"
 
@@ -23,28 +22,22 @@
  * 
  * @return t_point The isometric coordinates of the point.
  */
-static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
+__attribute__((hot)) static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 {
 	double	x;
 	double	y;
 	double	z;
-	double	angle_z;
+	t_point	point;
 
-	angle_z = 90;
 	x = i;
 	y = j;
-	z = map->map[i][j];
-	t_point point = {
-		.x = x * cos(fdf->pos->rotationy) * cos(angle_z) - y
-			* sin(angle_z) + z * sin(fdf->pos->rotationy),
-		.y = x * sin(fdf->pos->rotationx) * sin(fdf->pos->rotationy)
-			+ y * cos(fdf->pos->rotationx) - z * sin(fdf->pos->rotationx)
-			* cos(fdf->pos->rotationy),
-		.z = map->map[i][j]
-
-		// .x = (x - y) * cos(fdf->pos->rotationx),
-		// .y = (x + y) * sin(fdf->pos->rotationy) - z,
-		// .z = map->map[i][j]
+	z = -y * sin(fdf->pos->rotationx) + map->map[i][j] / 2
+		* cos(fdf->pos->rotationx);
+	point = (t_point){
+		.x = y * cos(fdf->pos->rotationx) + map->map[i][j] / 2
+		* sin(fdf->pos->rotationx),
+		.y = x * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
+		.z = fdf->map->map[i][j]
 	};
 	return (point);
 }
@@ -58,14 +51,14 @@ static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
  * 
  * @return t_point** The isometric map.
  */
-t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points)
+__attribute__((hot)) t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points)
 {
 	int		i;
 	int		j;
 
 	if (!points)
 		points = (t_point **)ft_calloc(map->height, sizeof(t_point *)
-			+ sizeof(t_point) * map->width);
+				+ sizeof(t_point) * map->width);
 	if (!points)
 		return (NULL);
 	i = -1;

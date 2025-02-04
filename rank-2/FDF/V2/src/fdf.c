@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:12:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 09:47:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:24:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
  * 
  * @see parse_args(), init_fdf(), setup_hooks(), isometric(), draw_projection()
  */
-int main(int argc, char const *argv[])
+int	main(int argc, char const *argv[])
 {
 	t_args	*args;
 
@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
  * 
  * @param args The arguments structure.
  */
-void	fdf(t_args *args)
+__attribute__((unused, cold)) void	fdf(t_args *args)
 {
 	t_fdf	*fdf_var;
 

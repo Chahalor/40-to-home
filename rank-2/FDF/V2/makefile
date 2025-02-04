@@ -25,23 +25,23 @@ CC :=			cc
 CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
 INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-INCMLXFLAGS =	-I/usr/include -Imlx
+INCMLXFLAGS :=	-I/usr/include -Imlx
 DEBUGFLAGS =
 ARGS =
 
 # Directories
-DIR_SRC =	src
-DIR_OBJ =	.obj
-DIR_LIBFT =	libft
-DIR_MLX =	minilibx-linux
-DIR_INCL =	includes
+DIR_SRC :=		src
+DIR_OBJ :=		.obj
+DIR_LIBFT :=	libft
+DIR_MLX :=		minilibx-linux
+DIR_INCL :=		includes
 
 # All archive files
-LIBFT =		$(DIR_LIBFT)/libft.a
-MLX_LIB =	$(DIR_MLX)/libmlx_Linux.a
+LIBFT :=	$(DIR_LIBFT)/libft.a
+MLX_LIB :=	$(DIR_MLX)/libmlx_Linux.a
 
 # All source files
-SRC =	fdf.c \
+SRC :=	fdf.c \
 		args.c \
 		init.c \
 		HookProc.c \
@@ -55,7 +55,7 @@ SRC =	fdf.c \
 		debug.c
 
 # All object files
-OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
+OBJ = $(addprefix $(DIR_OBJ)/, $(notdir $(SRC:.c=.o)))
 
 # ***************************************************** #
 # *                      Main Rules                   * #
@@ -75,7 +75,6 @@ compile: $(DIR_OBJ) $(OBJ)
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm  -lX11 -lXext -o $(NAME)
-#@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) -lm $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
@@ -130,6 +129,10 @@ debug.fs: debug.fsanitize
 
 run:
 	./$(NAME) $(ARGS)
+
+echo:
+	@echo $(OBJ)
+	@echo $(SRC)
 
 write_header:
 	@clear

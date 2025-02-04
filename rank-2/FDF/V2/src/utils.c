@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 09:50:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/03 12:58:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:30:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	close_hook(t_fdf *data)
  * 
  * @return void
  */
-void	exiting(t_fdf *fdf, t_error code, const char *message)
+__attribute__((unused, cold)) void	exiting(t_fdf *fdf, t_error code, const char *message)
 {
 	if (fdf)
 	{
@@ -68,7 +68,7 @@ void	exiting(t_fdf *fdf, t_error code, const char *message)
  * 
  * @return void
  */
-void	print_help(const char *name)
+__attribute__((unused, cold)) void	print_help(const char *name)
 {
 	ft_printf("\nUsage: %s [options] <map>\n", name);
 	ft_printf("\nOptions:\n");
