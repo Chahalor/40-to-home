@@ -3,4 +3,4 @@
 .vscode
 
 *.o
-./fdf
+fdf

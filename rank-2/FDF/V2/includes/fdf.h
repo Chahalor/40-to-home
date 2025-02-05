@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:38:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/05 13:55:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,7 +412,8 @@ t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 // window.c
 
 void	put_pixel(t_image *img, t_point coord, t_uint color);
-void	draw_line(t_fdf *fdf, t_point start, t_point end);
+void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr);
+void	draw_line2(t_fdf *fdf, t_point p1, t_point p2, void *buffer);
 
 // model.c
 

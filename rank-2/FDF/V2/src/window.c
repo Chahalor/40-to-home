@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:44:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/05 13:57:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,21 @@ __attribute__((hot)) static t_uint	interpolate(t_fdf *fdf, int z1, int z2)
  * 
  * @return void
  */
-__attribute__((hot)) void	draw_line(t_fdf *fdf, t_point start, t_point end)
+__attribute__((hot)) void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr)
 {
 	t_point	sign;
 	t_point	cur;
 	int		error[2];
+	int		pixel;
 
 	sign = (t_point){get_sign(start.x, end.x), get_sign(start.y, end.y), 0};
 	error[0] = abs(end.x - start.x) - abs(end.y - start.y);
 	cur = start;
 	while (cur.x != end.x || cur.y != end.y)
 	{
-		put_pixel(fdf->img, cur, interpolate(fdf, start.z, end.z));
+		pixel = (cur.y * fdf->img->size_line + (cur.x * (fdf->img->bpp / 8)));
+		if (pixel >= 0 && pixel < fdf->img->size_line * fdf->img->height)
+			*(unsigned int *)(ptr + pixel) = interpolate(fdf, start.z, end.z);
 		error[1] = error[0] * 2;
 		if (error[1] > -abs(end.y - start.y))
 		{
@@ -82,6 +85,34 @@ __attribute__((hot)) void	draw_line(t_fdf *fdf, t_point start, t_point end)
 		if (error[1] < abs(end.x - start.x))
 		{
 			error[0] += abs(end.x - start.x);
+			cur.y += sign.y;
+		}
+	}
+}
+
+__attribute__((hot)) void	draw_line2(t_fdf *fdf, t_point p1, t_point p2, void *buffer)
+{
+	t_point	delta;
+	t_point	sign;
+	t_point	cur;
+	int		error[2];
+
+	delta = (t_point){abs(p2.x - p1.x), abs(p2.y - p1.y), 0};
+	sign = (t_point){get_sign(p1.x, p2.x), get_sign(p1.y, p2.y), 0};
+	error[0] = delta.x - delta.y;
+	cur = p1;
+	while (cur.x != p2.x || cur.y != p2.y)
+	{
+		*(t_uint *)(buffer + (cur.y * fdf->img->size_line + cur.x * (fdf->img->bpp / 8))) = interpolate(fdf, p1.z, p2.z);
+		error[1] = error[0] * 2;
+		if (error[1] > -delta.y)
+		{
+			error[0] -= delta.y;
+			cur.x += sign.x;
+		}
+		if (error[1] < delta.x)
+		{
+			error[0] += delta.x;
 			cur.y += sign.y;
 		}
 	}

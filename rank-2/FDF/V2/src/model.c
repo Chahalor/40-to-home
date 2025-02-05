@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:27:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/05 13:57:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ __attribute__((hot)) void	draw_projection(t_fdf *fdf)
 		{
 			if (y + 1 < fdf->map->width - 1)
 				draw_line(fdf, calc_c(fdf->map->iso_map[x][y], fdf->pos),
-					calc_c(fdf->map->iso_map[x][y + 1], fdf->pos));
+					calc_c(fdf->map->iso_map[x][y + 1], fdf->pos), fdf->img->addr);
 		}
 		if (x + 1 < fdf->map->height - 1)
 		{
 			y = -1;
 			while (++y < fdf->map->width - 1)
 				draw_line(fdf, calc_c(fdf->map->iso_map[x][y], fdf->pos),
-					calc_c(fdf->map->iso_map[x + 1][y], fdf->pos));
+					calc_c(fdf->map->iso_map[x + 1][y], fdf->pos), fdf->img->addr);
 		}
 	}
 	mlx_put_image_to_window(fdf->mlx->mlx, fdf->mlx->win, fdf->img->img, 0, 0);
@@ -72,7 +72,7 @@ void	zoom_model(t_fdf *fdf, int zoom)
 	if (DEBUG == 1)
 		ft_printf("zoom: %d\n", zoom);
 	clear_model(fdf);
-	if (zoom == 0 || fdf->pos->zoom - zoom < 0)
+	if (zoom == 0 || fdf->pos->zoom + zoom <= 0)
 		return ;
 	fdf->pos->zoom += zoom;
 	draw_projection(fdf);

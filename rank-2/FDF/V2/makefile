@@ -74,7 +74,7 @@ $(NAME): $(LIBFT) $(MLX_LIB) compile
 compile: $(DIR_OBJ) $(OBJ)
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm  -lX11 -lXext -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm -lX11 -lXext -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
