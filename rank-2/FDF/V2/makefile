@@ -52,6 +52,7 @@ SRC :=	fdf.c \
 		utils.c \
 		color.c \
 		cmd.c \
+		projection.c \
 		debug.c
 
 # All object files

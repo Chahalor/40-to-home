@@ -13,6 +13,7 @@
  - [X] mettre a jour les docs 
  - [X] enverser les axe de la rotation
  - [ ] optimiser le pieline de drawing !!!
+ - [ ] affiner la condiation avant de put un pixel pour pas que sa deborde
 
 ### Headers
 
@@ -39,7 +40,8 @@
 
 ## Avant de rendre
 - ```bash
-  norminette src/ includes/ libft/ | grep KO
+  norminette src/ includes/ libft/ | grep Error
+  ```
  - check leak
  - verifier avec des **BIG** map et des map fausse
  - verifier que les 42 git est pas vide

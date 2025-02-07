@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:31:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:20:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 08:27:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ __attribute__((hot)) static Bool	is_valid_soption(const int argc,
  * 
  * @return True if the option is valid, otherwise False.
  */
-__attribute__((hot))  static Bool	vl(const int argc, const char *argv[],
+__attribute__((hot)) static Bool	vl(const int argc, const char *argv[],
 	int pos, int nb_args)
 {
 	if (pos >= argc)

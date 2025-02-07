@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:27:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:50:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,16 @@
  */
 __attribute__((hot)) static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 {
-	double	x;
-	double	y;
 	double	z;
-	t_point	point;
 
-	x = i;
-	y = j;
-	z = -y * sin(fdf->pos->rotationx) + map->map[i][j] / 2
+	z = -j * sin(fdf->pos->rotationx) + map->map[i][j] / 2
 		* cos(fdf->pos->rotationx);
-	point = (t_point){
-		.x = y * cos(fdf->pos->rotationx) + map->map[i][j] / 2
+	return ((t_point){
+		.x = j * cos(fdf->pos->rotationx) + map->map[i][j] / 2
 		* sin(fdf->pos->rotationx),
-		.y = x * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
+		.y = i * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
 		.z = fdf->map->map[i][j]
-	};
-	return (point);
+	});
 }
 
 /**
@@ -62,11 +56,11 @@ __attribute__((hot)) t_point	**isometric(t_fdf *fdf, t_map *map, t_point **point
 	if (!points)
 		return (NULL);
 	i = -1;
-	while (++i < map->height - 1)
+	while (++i < map->height)
 	{
 		points[i] = (t_point *)(points + map->height) + i * map->width;
 		j = -1;
-		while (++j < map->width - 1)
+		while (++j < map->width)
 			points[i][j] = calculate_iso(fdf, map, i, j);
 	}
 	return (points);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/05 13:57:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 09:09:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * 
  * @return void
  */
-__attribute__((hot)) void	put_pixel(t_image *img, t_point coord, t_uint color)
+__attribute__((unused)) void	put_pixel(t_image *img, t_point coord, t_uint color)
 {
 	int	pixel;
 
@@ -66,16 +66,15 @@ __attribute__((hot)) void	draw_line(t_fdf *fdf, t_point start, t_point end, void
 	t_point	sign;
 	t_point	cur;
 	int		error[2];
-	int		pixel;
 
 	sign = (t_point){get_sign(start.x, end.x), get_sign(start.y, end.y), 0};
 	error[0] = abs(end.x - start.x) - abs(end.y - start.y);
 	cur = start;
 	while (cur.x != end.x || cur.y != end.y)
 	{
-		pixel = (cur.y * fdf->img->size_line + (cur.x * (fdf->img->bpp / 8)));
-		if (pixel >= 0 && pixel < fdf->img->size_line * fdf->img->height)
-			*(unsigned int *)(ptr + pixel) = interpolate(fdf, start.z, end.z);
+		if ((cur.x > 0 && cur.x <= fdf->img->width && cur.y > 0 && cur.y <= fdf->img->height))
+			*(unsigned int *)(ptr + (cur.y * fdf->img->size_line
+				+ (cur.x * (fdf->img->bpp / 8)))) = interpolate(fdf, start.z, end.z);
 		error[1] = error[0] * 2;
 		if (error[1] > -abs(end.y - start.y))
 		{

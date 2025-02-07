@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:25:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:07:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ __attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 		data->pos->ctrldown = False;
 	else if (keycode == k_reset)
 	{
-		clear_model(data);
+		ft_bzero(data->img->addr, data->img->size_line * data->img->height);
 		data->pos->zoom = DEFAULT_ZOOM;
 		data->pos->rotationx = DEFAULT_ROTATIONX;
 		data->pos->rotationy = DEFAULT_ROTATIONY;
 		data->pos->paddingx = data->mlx->width / 2;
 		data->pos->paddingy = data->mlx->height / 2;
-		data->map->iso_map = isometric(data, data->map, data->map->iso_map);
+		// isometric(data, data->map, data->map->iso_map);
+		reversator(data, data->map, data->map->iso_map);
 		draw_projection(data);
 	}
 	else if (keycode == k_spc)
@@ -115,6 +116,7 @@ __attribute__((hot)) int	mouse_hook_up(int button, int x, int y, t_fdf *data)
 		data->pos->rclickdown = False;
 	return (True);
 }
+#include <limits.h>
 
 /**
  * @brief This function is called when the mouse is moved.
@@ -127,23 +129,15 @@ __attribute__((hot)) int	mouse_hook_up(int button, int x, int y, t_fdf *data)
  */
 __attribute__((hot)) int	mouse_move_hook(int x, int y, t_fdf *data)
 {
-	static int	last_posx = 0;
-	static int	last_posy = 0;
-	static int	strengthx = 1;
-	static int	strengthy = 1;
+	static int		last_posx = 0;
+	static int		last_posy = 0;
+	static t_uint	tkt = 1;
 
-	strengthx += last_posx - x;
-	strengthy += last_posy - y;
-	if ((strengthx > STRENTGH || strengthx < -STRENTGH)
-		|| (strengthy > STRENTGH || strengthy < -STRENTGH))
-	{
-		if (data->pos->ctrldown == 1 && data->pos->lclickdown == 1)
-			rotate_model(data, (x - last_posx), (y - last_posy));
-		else if (data->pos->lclickdown == True)
+	if (data->pos->ctrldown == 1 && data->pos->lclickdown == 1)
+		rotate_model(data, (x - last_posx), (y - last_posy));
+	else if (data->pos->lclickdown == True)
+		if (tkt++ % 4 == 0)
 			translat_model(data, (x - last_posx), (y - last_posy));
-		strengthx = 0;
-		strengthy = 0;
-	}
 	last_posx = x;
 	last_posy = y;
 	return (True);

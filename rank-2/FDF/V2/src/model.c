@@ -6,11 +6,34 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/05 13:57:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:49:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/**
+ * @brief This function draw the last line of the map. aka the last X of the
+ * array
+ * 
+ * @param fdf The fdf structure.
+ * 
+ * @return void
+ */
+__attribute__((hot)) static void draw_last_line(t_fdf *fdf)
+{
+	t_point	current;
+	t_point	next;
+	int		y;
+	
+	y = -1;
+	while (++y < fdf->map->width - 1)
+	{
+		current = calc_c(fdf->map->iso_map[fdf->map->height - 1][y], fdf->pos);
+		next = calc_c(fdf->map->iso_map[fdf->map->height - 1][y + 1], fdf->pos);
+		draw_line(fdf, current, next, fdf->img->addr);
+	}
+}
 
 /**
  * @brief This function will draw the projection of the map.
@@ -21,42 +44,30 @@
  */
 __attribute__((hot)) void	draw_projection(t_fdf *fdf)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_point	current;
+	t_point	next;
+	t_point	next_row;
 
 	x = -1;
 	while (++x < fdf->map->height - 1)
 	{
+		current = calc_c(fdf->map->iso_map[x][0], fdf->pos);
+		next_row = calc_c(fdf->map->iso_map[x + 1][0], fdf->pos);
 		y = -1;
 		while (++y < fdf->map->width - 1)
 		{
-			if (y + 1 < fdf->map->width - 1)
-				draw_line(fdf, calc_c(fdf->map->iso_map[x][y], fdf->pos),
-					calc_c(fdf->map->iso_map[x][y + 1], fdf->pos), fdf->img->addr);
+			next = calc_c(fdf->map->iso_map[x][y + 1], fdf->pos);
+			draw_line(fdf, current, next, fdf->img->addr);
+			draw_line(fdf, current, next_row, fdf->img->addr);
+			next_row = calc_c(fdf->map->iso_map[x + 1][y + 1], fdf->pos);
+			current = next;
 		}
-		if (x + 1 < fdf->map->height - 1)
-		{
-			y = -1;
-			while (++y < fdf->map->width - 1)
-				draw_line(fdf, calc_c(fdf->map->iso_map[x][y], fdf->pos),
-					calc_c(fdf->map->iso_map[x + 1][y], fdf->pos), fdf->img->addr);
-		}
+		draw_line(fdf, current, next_row, fdf->img->addr);
 	}
+	draw_last_line(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx, fdf->mlx->win, fdf->img->img, 0, 0);
-}
-
-/** 
- * @brief This function will clear the model.
- * 
- * @param fdf The fdf structure.
- * 
- * @return void
- * 
- * @note a big ft_bzero() xD
- */
-void	clear_model(t_fdf *fdf)
-{
-	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 }
 
 /** 
@@ -71,7 +82,7 @@ void	zoom_model(t_fdf *fdf, int zoom)
 {
 	if (DEBUG == 1)
 		ft_printf("zoom: %d\n", zoom);
-	clear_model(fdf);
+	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	if (zoom == 0 || fdf->pos->zoom + zoom <= 0)
 		return ;
 	fdf->pos->zoom += zoom;
@@ -92,10 +103,13 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 {
 	if (DEBUG == 1)
 		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
-	clear_model(fdf);
+	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
+	if (rotationx == 0 && rotationy == 0)
+		return ;
 	fdf->pos->rotationx += rotationx / 10;
 	fdf->pos->rotationy += rotationy / 10;
 	isometric(fdf, fdf->map, fdf->map->iso_map);
+	// reversator(fdf, fdf->map, fdf->map->iso_map);
 	draw_projection(fdf);
 }
 
@@ -112,7 +126,7 @@ void	translat_model(t_fdf *fdf, int x, int y)
 {
 	if (DEBUG == 1)
 		ft_printf("translat x: %d, y: %d\n", x, y);
-	clear_model(fdf);
+	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	fdf->pos->paddingx += x;
 	fdf->pos->paddingy += y;
 	draw_projection(fdf);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:22:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:07:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ __attribute__((cold)) static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd,
 		get_status(fdf);
 	else if (action == reset_cmd)
 	{
-		clear_model(fdf);
+		ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 		draw_projection(fdf);
 	}
 	else
@@ -154,15 +154,15 @@ __attribute__((cold)) void	cmd(t_fdf *data)
 	t_cmd	action;
 	int		len;
 
-	ft_printf(">>cmd: ");
+	ft_printf("%s:\n└──> ", data->args->argv[0]);
 	line = get_next_line(0);
 	if (!line)
 		return ;
 	_cmd = ft_split(line, ' ');
-	len = len_cmd(_cmd);
 	action = parse_input(_cmd[0]);
 	do_cmd(data, action, _cmd, line);
 	free(line);
+	len = len_cmd(_cmd);
 	while (len--)
 		free(_cmd[len]);
 	free(_cmd);

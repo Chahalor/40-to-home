@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 11:59:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:05:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	init_mlx(t_mlx *ptr, t_args *args, t_fdf *fdf)
 	if (ptr->mlx == NULL)
 		exiting(fdf, mlx_error, "cannot initialize mlx");
 	ptr->win = mlx_new_window(ptr->mlx, args->width, args->height,
-			DEFAULT_TITLE);
+			(char *)args->file);
 	if (ptr->win == NULL)
 		exiting(fdf, mlx_window_error, "cannot create window");
 }

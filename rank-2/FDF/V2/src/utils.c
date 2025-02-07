@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 09:50:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:30:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 10:19:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * 
  * @return int Always return True.
  */
-int	close_hook(t_fdf *data)
+__attribute__((unused, cold)) int	close_hook(t_fdf *data)
 {
 	exiting(data, no_error, NULL);
 	return (True);

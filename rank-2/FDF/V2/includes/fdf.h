@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/05 13:55:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:52:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,13 @@
 # define DEFAULT_HEIGHT 600
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE 0
-# define DEFAULT_ZOOM 4
-# define DEFAULT_ROTATIONX 120
-# define DEFAULT_ROTATIONY 90
-# define DEFAULT_COLOR1 0x0000FF
+# define DEFAULT_ZOOM 1
+# define DEFAULT_ROTATIONX 0	//120
+# define DEFAULT_ROTATIONY 30	//90
+# define DEFAULT_COLOR1 0xFFFFFF
 # define DEFAULT_COLOR2 0xFF0000
 
-# define ANGLE 0.5f
-# define ROTA_FACTOR 5
-# define ZOOM_FACTOR 1
 # define SCALE 10
-# define STRENTGH 2
 
 # define PI 3.1415
 
@@ -323,22 +319,35 @@ typedef struct s_fdf	t_fdf;
  * 
  * @todo posibly useless.
  */
-static inline double	dtr(double deg)
+__attribute__((cold, unused)) static inline double	dtr(double deg)
 {
 	return (deg * PI / 180);
 }
 
-/** @todo */
-static inline t_point	calc_c(t_point pt, t_pos *pos)
+/**
+ * @brief add the padding and the zoom to the point.
+ * 
+ * @param pt The point.
+ * @param pos The position.
+ * 
+ * @return t_point The new point.
+ */
+__attribute__((hot)) static inline t_point	calc_c(t_point pt, t_pos *pos)
 {
 	return ((t_point){
-		.x = pt.x * pos->zoom / ZOOM_FACTOR + pos->paddingx,
-		.y = pt.y * pos->zoom / ZOOM_FACTOR + pos->paddingy,
+		.x = pt.x * pos->zoom + pos->paddingx,
+		.y = pt.y * pos->zoom + pos->paddingy,
 		.z = pt.z});
 }
 
+__attribute__((hot)) static inline void	calc_c2(t_point *pt, t_pos *pos)
+{
+	pt->x = pt->x * pos->zoom + pos->paddingx;
+	pt->y = pt->y * pos->zoom + pos->paddingy;
+}
+
 /** @todo */
-static inline int	get_sign(int a, int b)
+__attribute__((hot)) static inline int	get_sign(int a, int b)
 {
 	if (a > b)
 		return (-1);
@@ -346,7 +355,7 @@ static inline int	get_sign(int a, int b)
 }
 
 /** @todo */
-static inline void	get_map_min(t_map *map)
+__attribute__((cold, unused)) static inline void	get_map_min(t_map *map)
 {
 	int	x;
 	int	y;
@@ -362,7 +371,7 @@ static inline void	get_map_min(t_map *map)
 }
 
 /** @todo */
-static inline void	get_map_max(t_map *map)
+__attribute__((cold, unused)) static inline void	get_map_max(t_map *map)
 {
 	int	x;
 	int	y;
@@ -409,6 +418,10 @@ void	free_map(t_map *map);
 
 t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
+// projection.c
+
+t_point	**reversator(t_fdf *fdf, t_map *map, t_point **points);
+
 // window.c
 
 void	put_pixel(t_image *img, t_point coord, t_uint color);
@@ -421,7 +434,6 @@ void	draw_projection(t_fdf *fdf);
 void	zoom_model(t_fdf *fdf, int zoom);
 void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
 void	translat_model(t_fdf *fdf, int x, int y);
-void	clear_model(t_fdf *fdf);
 
 // color.c
 

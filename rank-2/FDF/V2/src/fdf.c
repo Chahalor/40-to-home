@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:12:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/04 15:24:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:50:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ __attribute__((unused, cold)) void	fdf(t_args *args)
 		exiting(fdf_var, mlx_error, "cannot initialize fdf_var");
 	setup_hooks(fdf_var);
 	fdf_var->map->iso_map = isometric(fdf_var, fdf_var->map, NULL);
-	d_print_fdf(fdf_var);
+	// fdf_var->map->iso_map = reversator(fdf_var, fdf_var->map, NULL);
+	// d_print_fdf(fdf_var);
 	draw_projection(fdf_var);
 	mlx_put_image_to_window(fdf_var->mlx->mlx, fdf_var->mlx->win,
 		fdf_var->img->img, 0, 0);

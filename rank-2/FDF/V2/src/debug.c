@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/01/28 13:26:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:19:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	d_print_map(t_map *map)
 	ft_printf("├──map->map = %p\n", map->map);
 	ft_printf("├──map->iso_map = %p\n", map->iso_map);
 	x = -1;
-	while (++x < map->height - 1)
+	while (++x < map->height)
 	{
-		ft_printf("│ ");
+		ft_printf("│ %d: ", x);
 		y = -1;
-		while (++y < map->width - 1)
+		while (++y < map->width)
 			ft_printf("[%d, %d, %d] ", map->iso_map[x][y].x,
 				map->iso_map[x][y].y, map->iso_map[x][y].z);
 		ft_printf("\n");
