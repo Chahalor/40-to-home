@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 15:49:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:10:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ __attribute__((hot)) void	draw_projection(t_fdf *fdf)
 	x = -1;
 	while (++x < fdf->map->height - 1)
 	{
-		current = calc_c(fdf->map->iso_map[x][0], fdf->pos);
+		current = calc_c(fdf->map->iso_map[0][0], fdf->pos);
 		next_row = calc_c(fdf->map->iso_map[x + 1][0], fdf->pos);
 		y = -1;
 		while (++y < fdf->map->width - 1)
@@ -108,8 +108,9 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 		return ;
 	fdf->pos->rotationx += rotationx / 10;
 	fdf->pos->rotationy += rotationy / 10;
-	isometric(fdf, fdf->map, fdf->map->iso_map);
-	// reversator(fdf, fdf->map, fdf->map->iso_map);
+	// isometric(fdf, fdf->map, fdf->map->iso_map);
+	// // reversator(fdf, fdf->map, fdf->map->iso_map);
+	projection(fdf, fdf->map, fdf->map->iso_map, calculate_iso);
 	draw_projection(fdf);
 }
 

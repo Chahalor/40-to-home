@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:13:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 15:52:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:06:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,7 +420,10 @@ t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points);
 
 // projection.c
 
-t_point	**reversator(t_fdf *fdf, t_map *map, t_point **points);
+t_point	**projection(t_fdf *fdf, t_map *map,
+	t_point **points, t_point (*f)(t_fdf *, t_map *, int, int));
+t_point	calculate_rev(t_fdf *fdf, t_map *map, int x, int y);
+t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j);
 
 // window.c
 

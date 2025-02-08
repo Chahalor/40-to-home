@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 13:07:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:06:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ __attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 		data->pos->paddingx = data->mlx->width / 2;
 		data->pos->paddingy = data->mlx->height / 2;
 		// isometric(data, data->map, data->map->iso_map);
-		reversator(data, data->map, data->map->iso_map);
+		// // reversator(data, data->map, data->map->iso_map);
+		projection(data, data->map, data->map->iso_map, calculate_iso);
 		draw_projection(data);
 	}
 	else if (keycode == k_spc)

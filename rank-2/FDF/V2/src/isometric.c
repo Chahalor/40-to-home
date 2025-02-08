@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 15:50:46 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/08 11:54:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ __attribute__((hot)) static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 		.y = i * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
 		.z = fdf->map->map[i][j]
 	});
+	// int		x;
+	// int		y;
+	// double	z;
+
+	// x = map->iso_map[i][j].x;
+	// y = map->iso_map[i][j].y;
+	
 }
 
 /**
@@ -51,10 +58,13 @@ __attribute__((hot)) t_point	**isometric(t_fdf *fdf, t_map *map, t_point **point
 	int		j;
 
 	if (!points)
+	{
 		points = (t_point **)ft_calloc(map->height, sizeof(t_point *)
 				+ sizeof(t_point) * map->width);
-	if (!points)
-		return (NULL);
+		if (!points)
+			return (NULL);
+		ft_memcpy(points + map->height, points, sizeof(t_point *) * map->height);
+	}
 	i = -1;
 	while (++i < map->height)
 	{

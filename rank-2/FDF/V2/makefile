@@ -45,7 +45,6 @@ SRC :=	fdf.c \
 		args.c \
 		init.c \
 		HookProc.c \
-		isometric.c \
 		window.c \
 		parsing.c \
 		model.c \
@@ -54,6 +53,7 @@ SRC :=	fdf.c \
 		cmd.c \
 		projection.c \
 		debug.c
+#isometric.c \
 
 # All object files
 OBJ = $(addprefix $(DIR_OBJ)/, $(notdir $(SRC:.c=.o)))
