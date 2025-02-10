@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:44:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 14:40:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
 	if (rotationx == 0 && rotationy == 0)
 		return ;
-	fdf->pos->rotationx += rotationx / 10;
-	fdf->pos->rotationy += rotationy / 10;
+	fdf->pos->rotationx += rotationx / 20;
+	fdf->pos->rotationy += rotationy / 20;
 	projection(fdf, fdf->map, fdf->map->iso_map);
 	draw_projection(fdf);
 }

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:12:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 09:15:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 14:02:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ __attribute__((unused, cold)) void	fdf(t_args *args)
 	if (fdf_var == NULL)
 		exiting(fdf_var, mlx_error, "cannot initialize fdf_var");
 	setup_hooks(fdf_var);
-	fdf_var->map->iso_map = projection(fdf_var, fdf_var->map, NULL);
+	fdf_var->map->iso_map = projection(fdf_var, fdf_var->map, fdf_var->map->iso_map);
 	draw_projection(fdf_var);
 	mlx_put_image_to_window(fdf_var->mlx->mlx, fdf_var->mlx->win,
 		fdf_var->img->img, 0, 0);

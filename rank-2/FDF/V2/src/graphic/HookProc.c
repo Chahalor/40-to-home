@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 08:38:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:50:39 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ __attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 		data->pos->ctrldown = False;
 	else if (keycode == k_reset)
 	{
-		ft_bzero(data->img->addr, data->img->size_line * data->img->height);
 		data->pos->zoom = DEFAULT_ZOOM;
 		data->pos->rotationx = DEFAULT_ROTATIONX;
 		data->pos->rotationy = DEFAULT_ROTATIONY;
@@ -66,6 +65,14 @@ __attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 	}
 	else if (keycode == k_spc)
 		cmd(data);
+	else if (keycode == k_w)
+		rotate_model(data, 0, 1);
+	else if (keycode == k_a)
+		rotate_model(data, 1, 0);
+	else if (keycode == k_s)
+		rotate_model(data, 0, -1);
+	else if (keycode == k_d)
+		rotate_model(data, -1, 0);
 	return (True);
 }
 
@@ -115,7 +122,6 @@ __attribute__((hot)) int	mouse_hook_up(int button, int x, int y, t_fdf *data)
 		data->pos->rclickdown = False;
 	return (True);
 }
-#include <limits.h>
 
 /**
  * @brief This function is called when the mouse is moved.

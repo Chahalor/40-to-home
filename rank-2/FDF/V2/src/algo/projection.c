@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:44:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:49:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:32:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
 	int y)
 {
 	return ((t_point){
-		.x = map->map[x][y] * fdf->pos->rotationy + y * fdf->pos->rotationx,
+		.x = map->map[x][y] * fdf->pos->rotationx / 2 + y * fdf->pos->rotationy,
 		.y = x * fdf->pos->rotationy + y * fdf->pos->rotationx,
 		.z = map->map[x][y]
 	});
@@ -36,24 +36,19 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
 __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 	int j)
 {
-	double	z;
+	int	z;
+	int	centered_i;
+	int	centered_j;
 
-	z = -j * sin(fdf->pos->rotationx) + map->map[i][j] / 2
-		* cos(fdf->pos->rotationx);
+	centered_i = i - map->height / 2;
+	centered_j = j - map->width / 2;
+	z = -centered_j * sin(fdf->pos->rotationx) + map->map[i][j] * cos(fdf->pos->rotationx) / 2;
 	return ((t_point){
-		.x = j * cos(fdf->pos->rotationx) + map->map[i][j] / 2
-		* sin(fdf->pos->rotationx),
-		.y = i * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
+		.x = centered_j * cos(fdf->pos->rotationx) + map->map[i][j] * sin(fdf->pos->rotationx) / 2,
+		.y = centered_i * cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
 		.z = fdf->map->map[i][j]
 	});
-	// int		x;
-	// int		y;
-	// double	z;
-
-	// x = map->iso_map[i][j].x;
-	// y = map->iso_map[i][j].y;
 }
-
 
 /** @todo */
 __attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
@@ -68,6 +63,7 @@ __attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
 				+ sizeof(t_point) * map->width);
 		if (!points)
 			exiting(fdf, malloc_error, "projection(): cannot allocate memory");
+		map->iso_map = points;
 	}
 	i = -1;
 	while (++i < map->height)

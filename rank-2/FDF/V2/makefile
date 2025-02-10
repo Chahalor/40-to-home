@@ -216,7 +216,6 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \
