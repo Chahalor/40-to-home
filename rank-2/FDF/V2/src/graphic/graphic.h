@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   graphic.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:23:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 18:02:59 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/10 17:42:01 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/10 17:53:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef HOOKS_H
+# define HOOKS_H
 
 # pragma once
 
@@ -20,9 +20,11 @@
  //...
 
 // Local
- #include "struct.h"
+# include "struct.h"
+# include "type.h"
+# include "fdf.h"
 
-// module
+// modules
  //...
 
 /* -----| Define |----- */
@@ -45,14 +47,24 @@
 
 /* -----| Prototype |----- */
 
-// fdf.c
+// HookProc.c
 
-void	fdf(t_args *args);
+int	key_down_hook(int keycode, t_fdf *data);
+int	key_up_hook(int keycode, t_fdf *data);
+int	mouse_hook_down(int button, int x, int y, t_fdf *data);
+int	mouse_hook_up(int button, int x, int y, t_fdf *data);
+int	mouse_move_hook(int x, int y, t_fdf *data);
 
-// parsing.c
+// model.c
 
-t_map	*parse_map(const char *path);
-void	free_map(t_map *map);
+void	draw_projection(t_fdf *fdf);
+void	zoom_model(t_fdf *fdf, int zoom);
+void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
+void	translat_model(t_fdf *fdf, int x, int y);
+
+// window.c
+
+void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr);
 
 /* -----| Static |----- */
 //...
@@ -63,4 +75,4 @@ void	free_map(t_map *map);
 /* -----| Inline |----- */
 //...
 
-#endif	// INIT_H
+#endif // HOOKS_H

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:23:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 18:02:59 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/10 17:58:04 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/10 18:01:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # pragma once
 
@@ -20,9 +20,10 @@
  //...
 
 // Local
- #include "struct.h"
+# include "struct.h"
+# include "type.h"
 
-// module
+// modules
  //...
 
 /* -----| Define |----- */
@@ -45,14 +46,9 @@
 
 /* -----| Prototype |----- */
 
-// fdf.c
-
-void	fdf(t_args *args);
-
-// parsing.c
-
-t_map	*parse_map(const char *path);
-void	free_map(t_map *map);
+int		close_hook(t_fdf *data);
+void	exiting(t_fdf *fdf, t_error code, const char *message);
+void	print_help(const char *name);
 
 /* -----| Static |----- */
 //...
@@ -63,4 +59,4 @@ void	free_map(t_map *map);
 /* -----| Inline |----- */
 //...
 
-#endif	// INIT_H
+#endif // UTILS_H

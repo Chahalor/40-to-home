@@ -6,34 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 14:40:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 17:53:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-/**
- * @brief This function draw the last line of the map. aka the last X of the
- * array
- * 
- * @param fdf The fdf structure.
- * 
- * @return void
- */
-__attribute__((hot)) static void draw_last_line(t_fdf *fdf)
-{
-	t_point	current;
-	t_point	next;
-	int		y;
-	
-	y = -1;
-	while (++y < fdf->map->width - 1)
-	{
-		current = calc_c(fdf->map->iso_map[fdf->map->height - 1][y], fdf->pos);
-		next = calc_c(fdf->map->iso_map[fdf->map->height - 1][y + 1], fdf->pos);
-		draw_line(fdf, current, next, fdf->img->addr);
-	}
-}
+#include "internal/internal_graphic.h"
 
 /**
  * @brief This function will draw the projection of the map.
@@ -105,8 +82,8 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
 	if (rotationx == 0 && rotationy == 0)
 		return ;
-	fdf->pos->rotationx += rotationx / 20;
-	fdf->pos->rotationy += rotationy / 20;
+	fdf->pos->rotationx += rotationx / 100;
+	fdf->pos->rotationy += rotationy / 100;
 	projection(fdf, fdf->map, fdf->map->iso_map);
 	draw_projection(fdf);
 }

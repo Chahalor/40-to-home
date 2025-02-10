@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   internal_graphic.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:23:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 18:02:59 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/10 17:39:34 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/10 17:52:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef INTERNAL_GRAPHIC_H
+# define INTERNAL_GRAPHIC_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Global
- //...
+ ///...
 
 // Local
- #include "struct.h"
+# include "struct.h"
 
-// module
- //...
+// modules
+# include "graphic.h"
 
 /* -----| Define |----- */
 //...
@@ -44,15 +44,7 @@
 //...
 
 /* -----| Prototype |----- */
-
-// fdf.c
-
-void	fdf(t_args *args);
-
-// parsing.c
-
-t_map	*parse_map(const char *path);
-void	free_map(t_map *map);
+//...
 
 /* -----| Static |----- */
 //...
@@ -61,6 +53,28 @@ void	free_map(t_map *map);
 //...
 
 /* -----| Inline |----- */
-//...
 
-#endif	// INIT_H
+/**
+ * @brief This function draw the last line of the map. aka the last X of the
+ * array
+ * 
+ * @param fdf The fdf structure.
+ * 
+ * @return void
+ */
+__attribute__((hot)) static inline void	draw_last_line(t_fdf *fdf)
+{
+	t_point	current;
+	t_point	next;
+	int		y;
+	
+	y = -1;
+	while (++y < fdf->map->width - 1)
+	{
+		current = calc_c(fdf->map->iso_map[fdf->map->height - 1][y], fdf->pos);
+		next = calc_c(fdf->map->iso_map[fdf->map->height - 1][y + 1], fdf->pos);
+		draw_line(fdf, current, next, fdf->img->addr);
+	}
+}
+
+#endif // INTERNAL_GRAPHIC_H

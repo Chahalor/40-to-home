@@ -6,13 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:12:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:03:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-#include "args.h"
-#include "type.h"
+#include "internal/internal_init.h"
 
 /**
  * @author nduvoid
