@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 11:05:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 08:38:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ t_fdf	*init_fdf(t_args *args)
 		exiting(fdf, invalid_map, "cannot parse map");
 	get_map_min(fdf->map);
 	get_map_max(fdf->map);
+	if (args->type == -1 || args->type == 0)
+		fdf->algo = calculate_iso;
+	else
+		fdf->algo = calculate_rev;
 	return (fdf);
 }
 

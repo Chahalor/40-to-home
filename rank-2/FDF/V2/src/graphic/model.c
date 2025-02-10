@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/08 12:10:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:44:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ __attribute__((hot)) void	draw_projection(t_fdf *fdf)
 	t_point	next;
 	t_point	next_row;
 
+	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	x = -1;
 	while (++x < fdf->map->height - 1)
 	{
-		current = calc_c(fdf->map->iso_map[0][0], fdf->pos);
+		current = calc_c(fdf->map->iso_map[x][0], fdf->pos);
 		next_row = calc_c(fdf->map->iso_map[x + 1][0], fdf->pos);
 		y = -1;
 		while (++y < fdf->map->width - 1)
@@ -82,7 +83,6 @@ void	zoom_model(t_fdf *fdf, int zoom)
 {
 	if (DEBUG == 1)
 		ft_printf("zoom: %d\n", zoom);
-	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	if (zoom == 0 || fdf->pos->zoom + zoom <= 0)
 		return ;
 	fdf->pos->zoom += zoom;
@@ -103,14 +103,11 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 {
 	if (DEBUG == 1)
 		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
-	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	if (rotationx == 0 && rotationy == 0)
 		return ;
 	fdf->pos->rotationx += rotationx / 10;
 	fdf->pos->rotationy += rotationy / 10;
-	// isometric(fdf, fdf->map, fdf->map->iso_map);
-	// // reversator(fdf, fdf->map, fdf->map->iso_map);
-	projection(fdf, fdf->map, fdf->map->iso_map, calculate_iso);
+	projection(fdf, fdf->map, fdf->map->iso_map);
 	draw_projection(fdf);
 }
 
@@ -127,7 +124,6 @@ void	translat_model(t_fdf *fdf, int x, int y)
 {
 	if (DEBUG == 1)
 		ft_printf("translat x: %d, y: %d\n", x, y);
-	ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
 	fdf->pos->paddingx += x;
 	fdf->pos->paddingy += y;
 	draw_projection(fdf);

@@ -6,11 +6,12 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 11:21:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:32:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "internal/internal_init.h"
+#include "init.h"
 
 /**
  * @brief Get the size of a line.
@@ -94,6 +95,7 @@ static t_map	*realloc_map(t_map *map)
 		while (++i < map->height - 1)
 			new_map[i] = map->map[i];
 		free(map->map);
+		map->map = NULL;
 	}
 	i = -1;
 	while (++i < map->height)

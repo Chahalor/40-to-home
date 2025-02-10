@@ -6,12 +6,13 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 11:19:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:48:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/** @todo */
 void	d_print_args(t_args *args)
 {
 	if (DEBUG == 0)
@@ -34,6 +35,7 @@ void	d_print_args(t_args *args)
 	ft_printf("└──args->invalid = %d\n", args->invalid);
 }
 
+/** @todo */
 void	d_print_mlx(t_mlx *mlx)
 {
 	if (DEBUG == 0)
@@ -50,6 +52,7 @@ void	d_print_mlx(t_mlx *mlx)
 	ft_printf("└──mlx->height = %d\n", mlx->height);
 }
 
+/** @todo */
 void	d_print_map(t_map *map)
 {
 	int	x;
@@ -78,6 +81,7 @@ void	d_print_map(t_map *map)
 	ft_printf("└──map->height = %d\n", map->height);
 }
 
+/** @todo */
 void	d_print_image(t_image *img)
 {
 	if (DEBUG == 0)
@@ -95,6 +99,7 @@ void	d_print_image(t_image *img)
 	ft_printf("└──img->addr = %p\n", img->addr);
 }
 
+/** @todo */
 void	d_print_fdf(t_fdf *fdf)
 {
 	if (DEBUG == 0)
@@ -114,5 +119,6 @@ void	d_print_fdf(t_fdf *fdf)
 		ft_printf("├──fdf->pos->rotationy = %f\n", fdf->pos->rotationy);
 		ft_printf("├──fdf->pos->paddingx = %d\n", fdf->pos->paddingx);
 		ft_printf("└──fdf->pos->paddingy = %d\n", fdf->pos->paddingy);
+		ft_printf("fdf->algo = %p\n", fdf->algo);
 	}
 }

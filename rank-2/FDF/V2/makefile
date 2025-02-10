@@ -36,27 +36,50 @@ DIR_LIBFT :=	libft
 DIR_MLX :=		minilibx-linux
 DIR_INCL :=		includes
 
+# All include files
+INC_GLOBAL :=	includes
+INC_LIBFT :=	$(DIR_LIBFT)
+INC_ALGO :=		$(DIR_SRC)/algo
+INC_CMD :=		$(DIR_SRC)/cmd
+INC_ARGS :=		$(DIR_SRC)/init/args
+INC_GRAPH :=	$(DIR_SRC)/graphic
+INC_INIT :=		$(DIR_SRC)/init
+INC_UTILS :=	$(DIR_SRC)/utils
+INC_DEBUG :=	$(DIR_SRC)/debug
+ALL_INC :=		$(INC_GLOBAL) $(INC_LIBFT) $(INC_ALGO) $(INC_CMD) $(INC_ARGS) $(INC_GRAPH) $(INC_INIT) $(INC_UTILS) $(INC_DEBUG)
+INCLUDES :=		$(foreach dir,$(ALL_INC),-I$(dir))
+
 # All archive files
 LIBFT :=	$(DIR_LIBFT)/libft.a
 MLX_LIB :=	$(DIR_MLX)/libmlx_Linux.a
 
 # All source files
-SRC :=	fdf.c \
-		args.c \
-		init.c \
-		HookProc.c \
-		window.c \
-		parsing.c \
-		model.c \
-		utils.c \
-		color.c \
-		cmd.c \
-		projection.c \
-		debug.c
-#isometric.c \
+SRC_ALGO :=		algo/parallel.c \
+				algo/projection.c
+
+SRC_CMD :=		cmd/cmd.c \
+				cmd/parsing.c
+
+SRC_DEBUG :=	debug/debug.c
+
+SRC_GRAPH :=	graphic/color.c \
+				graphic/HookProc.c \
+				graphic/model.c \
+				graphic/window.c
+
+SRC_INIT :=		init/args/args.c \
+				init/args/args_parsing.c \
+				init/args/args_utils.c \
+				init/init.c \
+				init/parsing.c \
+				init/fdf.c
+
+SRC_UTILS :=	utils/utils.c
+
+SRC := $(SRC_ALGO) $(SRC_CMD) $(SRC_DEBUG) $(SRC_GRAPH) $(SRC_INIT) $(SRC_UTILS)
 
 # All object files
-OBJ = $(addprefix $(DIR_OBJ)/, $(notdir $(SRC:.c=.o)))
+OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
 
 # ***************************************************** #
 # *                      Main Rules                   * #
@@ -75,11 +98,12 @@ $(NAME): $(LIBFT) $(MLX_LIB) compile
 compile: $(DIR_OBJ) $(OBJ)
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm -lX11 -lXext -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDES) $(MLXFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lm -lX11 -lXext -o $(NAME)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
-	@$(call compile_object, $(INCFLAGS) $(INCMLXFLAGS), $(SRC), $(COLOR_YELLOW))
+	@mkdir -p $(dir $@)
+	@$(call compile_object,  $(INCLUDES) $(INCFLAGS) $(INCMLXFLAGS), $(SRC), $(COLOR_YELLOW))
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
@@ -192,6 +216,7 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
+	printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \

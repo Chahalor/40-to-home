@@ -6,28 +6,12 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/07 13:07:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:08:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-/**
- * @brief Get the length of a command.
- * 
- * @param cmd The command.
- * 
- * @return int The length of the command.
- */
-__attribute__((cold)) static int	len_cmd(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-		i++;
-	return (i);
-}
+#include "internal/internal_cmd.h"
+#include "cmd.h"
 
 __attribute__((unused, cold)) static void	get_status(t_fdf *fdf)
 {
@@ -45,42 +29,6 @@ __attribute__((unused, cold)) static void	get_status(t_fdf *fdf)
 }
 
 /**
- * @brief Parse the input command.
- * 
- * @param line The command.
- * 
- * @return t_cmd The command.
- */
-__attribute__((cold)) static t_cmd	parse_input(char *line)
-{
-	t_cmd	action;
-
-	if (strcmp(line, "exit\n") == 0)
-		action = exit_cmd;
-	else if (strcmp(line, "help\n") == 0)
-		action = help_cmd;
-	else if (strcmp(line, "reset\n") == 0)
-		action = reset_cmd;
-	else if (strcmp(line, "zoom") == 0)
-		action = zoom_cmd;
-	else if (strcmp(line, "rotate") == 0)
-		action = rotate_cmd;
-	else if (strcmp(line, "move") == 0)
-		action = move_cmd;
-	else if (strcmp(line, "draw\n") == 0)
-		action = draw_cmd;
-	else if (strcmp(line, "quit\n") == 0 || strcmp(line, "q\n") == 0)
-		action = quit_cmd;
-	else if (strcmp(line, "reset\n") == 0)
-		action = reset_cmd;
-	else if (strcmp(line, "status\n") == 0)
-		action = status_cmd;
-	else
-		action = not_found;
-	return (action);
-}
-
-/**
  * @brief Execute the command by calling the corresponding function.
  * 
  * @param fdf The fdf structure.
@@ -88,34 +36,30 @@ __attribute__((cold)) static t_cmd	parse_input(char *line)
  * @param cmd The command.
  * 
  * @return void
+ * 
+ * @todo change cmd_type and put avery function call into change_algo()
  */
 __attribute__((cold)) static void	do_cmd(t_fdf *fdf, t_cmd action, char **cmd,
-	char *line)
+	int len)
 {
-	int	len;
-
-	len = len_cmd(cmd);
-	if (action == exit_cmd || action == quit_cmd)
+	if (action == cmd_exit || action == cmd_not_found)
 		return ;
-	else if (action == help_cmd)
+	else if (action == cmd_help)
 		print_help(fdf->args->argv[0]);
-	else if (action == zoom_cmd && len == 2)
+	else if (action == cmd_zoom && len == 2)
 		zoom_model(fdf, ft_atoi(cmd[1]));
-	else if (action == rotate_cmd && len == 3)
+	else if (action == cmd_rotate && len == 3)
 		rotate_model(fdf, ft_atoi(cmd[1]), ft_atoi(cmd[2]));
-	else if (action == move_cmd && len == 3)
+	else if (action == cmd_move && len == 3)
 		translat_model(fdf, ft_atoi(cmd[1]), ft_atoi(cmd[2]));
-	else if (action == draw_cmd)
+	else if (action == cmd_draw)
 		draw_projection(fdf);
-	else if (action == status_cmd)
+	else if (action == cmd_status)
 		get_status(fdf);
-	else if (action == reset_cmd)
-	{
-		ft_bzero(fdf->img->addr, fdf->img->size_line * fdf->img->height);
+	else if (action == cmd_reset)
 		draw_projection(fdf);
-	}
-	else
-		ft_printf("invalide commande: %s", line);
+	else if (action == cmd_type && len == 2)
+		change_algo(fdf, ft_atoi(cmd[1]));
 }
 
 /**
@@ -153,6 +97,7 @@ __attribute__((cold)) void	cmd(t_fdf *data)
 	char	**_cmd;
 	t_cmd	action;
 	int		len;
+	void	*func();
 
 	ft_printf("%s:\n└──> ", data->args->argv[0]);
 	line = get_next_line(0);
@@ -160,14 +105,16 @@ __attribute__((cold)) void	cmd(t_fdf *data)
 		return ;
 	_cmd = ft_split(line, ' ');
 	action = parse_input(_cmd[0]);
-	do_cmd(data, action, _cmd, line);
-	free(line);
 	len = len_cmd(_cmd);
+	do_cmd(data, action, _cmd, len);
+	if (action == cmd_not_found)
+		ft_printf("Command not found: %s\n", _cmd[0]);
+	free(line);
 	while (len--)
 		free(_cmd[len]);
 	free(_cmd);
-	if (action == exit_cmd)
+	if (action == cmd_exit)
 		exiting(data, no_error, NULL);
-	else if (action == not_found)
+	else if (action == cmd_not_found)
 		cmd(data);
 }

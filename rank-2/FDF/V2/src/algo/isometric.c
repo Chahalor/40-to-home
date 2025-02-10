@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection.c                                       :+:      :+:    :+:   */
+/*   isometric.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 10:44:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/08 12:10:58 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/01/21 14:20:47 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/10 08:18:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/** @todo */
-__attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
-	int y)
-{
-	return ((t_point){
-		.x = map->map[x][y] * fdf->pos->rotationx + y * fdf->pos->rotationy,
-		.y = x * fdf->pos->rotationy + y * fdf->pos->rotationx,
-		.z = map->map[x][y]
-	});
-}
 
 /**
  * @brief This function will calculate the isometric coordinates of a point.
@@ -33,8 +22,7 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
  * 
  * @return t_point The isometric coordinates of the point.
  */
-__attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
-	int j)
+__attribute__((hot)) static t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j)
 {
 	double	z;
 
@@ -55,10 +43,16 @@ __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 	
 }
 
-
-/** @todo */
-__attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
-	t_point **points, t_point (*f)(t_fdf *, t_map *, int, int))
+/**
+ * @brief This function will calculate the isometric map.
+ * 
+ * @param fdf The fdf structure.
+ * @param map The map structure.
+ * @param points The points.
+ * 
+ * @return t_point** The isometric map.
+ */
+__attribute__((hot)) t_point	**isometric(t_fdf *fdf, t_map *map, t_point **points)
 {
 	int		i;
 	int		j;
@@ -68,7 +62,8 @@ __attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
 		points = (t_point **)ft_calloc(map->height, sizeof(t_point *)
 				+ sizeof(t_point) * map->width);
 		if (!points)
-			exiting(fdf, malloc_error, "projection(): cannot allocate memory");
+			return (NULL);
+		ft_memcpy(points + map->height, points, sizeof(t_point *) * map->height);
 	}
 	i = -1;
 	while (++i < map->height)
@@ -76,10 +71,7 @@ __attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
 		points[i] = (t_point *)(points + map->height) + i * map->width;
 		j = -1;
 		while (++j < map->width)
-		{
-			points[i][j] = f(fdf, map, i, j);
-			ft_printf("x: %d, y: %d, z: %d\n", points[i][j].x, points[i][j].y, points[i][j].z);
-		}
+			points[i][j] = calculate_iso(fdf, map, i, j);
 	}
 	return (points);
 }
