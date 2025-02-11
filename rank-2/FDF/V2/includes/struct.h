@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 08:54:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 09:47:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 12:22:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 
 /* -----| Header |----- */
 // Global
- //...
+//...
 
 // Local
- //...
+//...
+
+// Modules
+//...
 
 /* -----| Define |----- */
 //...
@@ -70,8 +73,8 @@ typedef struct s_args
 	int			type;
 	int			color1;
 	int			color2;
-	int		help	: 2;
-	int		invalid	: 2;
+	int			help	: 2;
+	int			invalid	: 2;
 }	t_args;
 
 /**
@@ -171,9 +174,9 @@ typedef struct s_pos
 	int				paddingy;
 	unsigned int	color1;
 	unsigned int	color2;
-	int			rclickdown	: 2;
-	int			lclickdown	: 2;
-	int			ctrldown	: 2;
+	int				rclickdown	: 2;
+	int				lclickdown	: 2;
+	int				ctrldown	: 2;
 }	t_pos;
 
 /**
@@ -186,14 +189,15 @@ typedef struct s_pos
  * - img: The image.
  * - pos: The position of the camera.
  */
-typedef struct	s_fdf
+typedef struct s_fdf
 {
 	t_args	*args;
 	t_mlx	*mlx;
 	t_map	*map;
 	t_image	*img;
 	t_pos	*pos;
-	t_point	(*algo)(struct s_fdf *, t_map *, int, int);
+	t_point	(*algo)(struct s_fdf *, t_map *, int \
+		, int); // hate you so much norminette
 }	t_fdf;
 
 /* -----| Prototype |----- */

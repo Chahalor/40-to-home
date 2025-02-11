@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 08:49:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 14:42:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 12:24:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 
 /* -----| Header |----- */
 // Global
- ///...
+///...
 
 // Local
- //...
+//...
+
+// Modules
+//...
 
 /* -----| Define |----- */
 //...
@@ -99,10 +102,12 @@ enum e_color
 
 # endif	// E_COLOR
 
-#ifndef E_CMD
-# define E_CMD
+# ifndef E_CMD
+#  define E_CMD
 
-/** @todo */
+/**
+ * @brief Command codes for the cmd module.
+ */
 enum e_cmd
 {
 	cmd_exit,
