@@ -6,25 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 09:50:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 18:01:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:27:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-/**
- * @brief This is the function that will be called when the window is closed.
- *  by clicking on the red cross.
- * 
- * @param data The fdf structure.
- * 
- * @return int Always return True.
- */
-__attribute__((unused, cold)) int	close_hook(t_fdf *data)
-{
-	exiting(data, no_error, NULL);
-	return (True);
-}
+#include "internal/internal_utils.h"
 
 /**
  * @brief This function is called when an error occurs. This is a cancelation
@@ -36,7 +22,8 @@ __attribute__((unused, cold)) int	close_hook(t_fdf *data)
  * 
  * @return void
  */
-__attribute__((unused, cold)) void	exiting(t_fdf *fdf, t_error code, const char *message)
+__attribute__((unused, cold, noreturn)) void	exiting(t_fdf *fdf,
+	t_error code, const char *message)
 {
 	if (fdf)
 	{
@@ -62,6 +49,20 @@ __attribute__((unused, cold)) void	exiting(t_fdf *fdf, t_error code, const char 
 }
 
 /**
+ * @brief This is the function that will be called when the window is closed.
+ *  by clicking on the red cross.
+ * 
+ * @param data The fdf structure.
+ * 
+ * @return int Always return True.
+ */
+__attribute__((unused, cold)) int	close_hook(t_fdf *data)
+{
+	exiting(data, no_error, NULL);
+	return (true);
+}
+
+/**
  * @brief Print the help message. when the -h or --help option is given.
  * 
  * @param name The name of the program.
@@ -80,5 +81,6 @@ __attribute__((unused, cold)) void	print_help(const char *name)
 		"\n  exit\t\t\tExit the program\n  quit/q\t\tQuit the cmd\n  help\t\t"
 		"\tDisplay this help\n  reset\t\t\tReset the program\n  zoom\t\t\t"
 		"Zoom the model\n  rotate\t\tRotate the model\n  move\t\t\tMove the "
-		"model\n  draw\t\t\tDraw the model\n", name);
+		"model\n  draw\t\t\tDraw the model\n  type\t\t\tchange the type of"
+		" projection", name);
 }

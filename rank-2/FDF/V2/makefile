@@ -54,16 +54,14 @@ LIBFT :=	$(DIR_LIBFT)/libft.a
 MLX_LIB :=	$(DIR_MLX)/libmlx_Linux.a
 
 # All source files
-SRC_ALGO :=		algo/parallel.c \
-				algo/projection.c
+SRC_ALGO :=		algo/projection.c
 
 SRC_CMD :=		cmd/cmd.c \
 				cmd/parsing.c
 
 SRC_DEBUG :=	debug/debug.c
 
-SRC_GRAPH :=	graphic/color.c \
-				graphic/HookProc.c \
+SRC_GRAPH :=	graphic/HookProc.c \
 				graphic/model.c \
 				graphic/window.c
 

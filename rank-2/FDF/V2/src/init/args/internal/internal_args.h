@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:13:41 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:17:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:27:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@
 
 /* -----| Header |----- */
 // Global
- //...
+# include <stdlib.h>
 
 // Local
-# include "fdf.h"
 # include "type.h"
 # include "struct.h"
+# include "config.h"
+# include "libft.h"
 
 // Modules
- //...
+# include "utils.h"
+# include "debug.h"
 
 /* -----| Define |----- */
 //...
@@ -52,8 +54,9 @@ void	parseur_v2(int argc, const char *argv[], t_args *args);
 
 // args_utils.c
 
-int	vl(const int argc, const char *argv[], int pos, int nb_args);
-int	is_valid_soption(const int argc, const char *argv[], int pos, int nb_args);
+int		vl(const int argc, const char *argv[], int pos, int nb_args);
+int		is_valid_soption(const int argc, const char *argv[], int pos,
+			int nb_args);
 
 /* -----| Static |----- */
 //...

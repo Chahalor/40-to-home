@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:46:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 10:48:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:05:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "internal/internal_debug.h"
 
 /** @todo */
 void	d_print_args(t_args *args)

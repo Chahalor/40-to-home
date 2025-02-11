@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:24:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 11:55:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:23:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ __attribute__((cold)) t_cmd	parse_input(char *line)
 		return (cmd_move);
 	else if (ft_strncmp(line, "draw\n", 5) == 0)
 		return (cmd_draw);
-	else if (ft_strncmp(line, "quit\n", 5) == 0 || ft_strncmp(line, "q\n", 2) == 0)
+	else if (ft_strncmp(line, "quit\n", 5) == 0
+		|| ft_strncmp(line, "q\n", 2) == 0)
 		return (cmd_quit);
 	else if (ft_strncmp(line, "reset\n", 6) == 0)
 		return (cmd_reset);

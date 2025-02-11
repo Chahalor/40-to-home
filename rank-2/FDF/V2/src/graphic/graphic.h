@@ -6,26 +6,26 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:42:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 17:53:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:33:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOKS_H
-# define HOOKS_H
+#ifndef GRAPHIC_H
+# define GRAPHIC_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Global
- //...
+//...
 
 // Local
 # include "struct.h"
 # include "type.h"
-# include "fdf.h"
+# include "config.h"
 
 // modules
- //...
+//...
 
 /* -----| Define |----- */
 //...
@@ -49,11 +49,11 @@
 
 // HookProc.c
 
-int	key_down_hook(int keycode, t_fdf *data);
-int	key_up_hook(int keycode, t_fdf *data);
-int	mouse_hook_down(int button, int x, int y, t_fdf *data);
-int	mouse_hook_up(int button, int x, int y, t_fdf *data);
-int	mouse_move_hook(int x, int y, t_fdf *data);
+int		key_down_hook(int keycode, t_fdf *data);
+int		key_up_hook(int keycode, t_fdf *data);
+int		mouse_hook_down(int button, int x, int y, t_fdf *data);
+int		mouse_hook_up(int button, int x, int y, t_fdf *data);
+int		mouse_move_hook(int x, int y, t_fdf *data);
 
 // model.c
 
@@ -75,4 +75,4 @@ void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr);
 /* -----| Inline |----- */
 //...
 
-#endif // HOOKS_H
+#endif // GRAPHIC_H

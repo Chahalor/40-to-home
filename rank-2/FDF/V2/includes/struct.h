@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 08:54:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 09:20:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 09:47:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_map
 	int				height;
 	int				min;
 	int				max;
+	int				nb_high;
 	struct s_point	**iso_map;
 }	t_map;
 

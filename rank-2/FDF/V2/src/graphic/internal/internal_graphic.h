@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:39:34 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 17:52:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:51:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,23 @@
 
 /* -----| Header |----- */
 // Global
- ///...
+# include <math.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 // Local
 # include "struct.h"
+# include "config.h"
+# include "type.h"
+# include "utils.h"
+# include "algo.h"
+# include "cmd.h"
 
 // modules
-# include "graphic.h"
+//...
 
 /* -----| Define |----- */
 //...
@@ -44,7 +54,17 @@
 //...
 
 /* -----| Prototype |----- */
-//...
+
+// window.c
+
+void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr);
+
+// model.c
+
+void	draw_projection(t_fdf *fdf);
+void	zoom_model(t_fdf *fdf, int zoom);
+void	rotate_model(t_fdf *fdf, double rotationx, double rotationy);
+void	translat_model(t_fdf *fdf, int x, int y);
 
 /* -----| Static |----- */
 //...
@@ -53,6 +73,37 @@
 //...
 
 /* -----| Inline |----- */
+
+/**
+ * @brief This function will verify if the pixel is in the image.
+ * 
+ * @param point The point to verify.
+ * @param img The image.
+ * 
+ * @return int 1 if the pixel is in the image, 0 otherwise.
+*/
+__attribute__((hot)) static inline int	is_valid_pixel(t_point point,
+	t_image *img)
+{
+	return (point.x >= 0 && point.x < img->width && point.y >= 0
+		&& point.y < img->height);
+}
+
+/**
+ * @brief add the padding and the zoom to the point.
+ * 
+ * @param pt The point.
+ * @param pos The position.
+ * 
+ * @return t_point The new point.
+ */
+__attribute__((hot)) static inline t_point	calc_c(t_point pt, t_pos *pos)
+{
+	return ((t_point){
+		.x = pt.x * pos->zoom + pos->paddingx,
+		.y = pt.y * pos->zoom + pos->paddingy,
+		.z = pt.z});
+}
 
 /**
  * @brief This function draw the last line of the map. aka the last X of the
@@ -67,7 +118,7 @@ __attribute__((hot)) static inline void	draw_last_line(t_fdf *fdf)
 	t_point	current;
 	t_point	next;
 	int		y;
-	
+
 	y = -1;
 	while (++y < fdf->map->width - 1)
 	{

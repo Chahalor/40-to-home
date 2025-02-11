@@ -6,11 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 08:38:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 09:50:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "internal/internal_init.h"
 
 /**
  * @brief Initialize the position of the camera and some user input information

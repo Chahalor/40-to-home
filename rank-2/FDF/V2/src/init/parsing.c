@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:32:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:25:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ t_map	*parse_map(const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	ft_printf("Parsing map from %s\n", path);
 	line = get_next_line(fd);
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
@@ -143,6 +142,7 @@ t_map	*parse_map(const char *path)
 		line_to_map(map, line);
 		line = get_next_line(fd);
 	}
+	map->nb_high = get_nb_high(map);
 	return (free(line), map);
 }
 

@@ -1,33 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:23:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:25:58 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/11 08:14:01 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/11 09:46:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef CONFIG_H
+# define CONFIG_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Global
-//...
+ //...
 
 // Local
-# include "struct.h"
+ //...
 
-// module
-//...
+// Modules
+ //...
 
 /* -----| Define |----- */
-//...
 
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
+
+// Some default values
+# define DEFAULT_WIDTH 1600
+# define DEFAULT_HEIGHT 1200
+# define DEFAULT_TITLE "FdF"
+# define DEFAULT_TYPE -1
+# define DEFAULT_ZOOM 1
+# define DEFAULT_ROTATIONX 0
+# define DEFAULT_ROTATIONY 20
+# define DEFAULT_COLOR1 0xFFFFFF
+# define DEFAULT_COLOR2 0xFF0000
+
+# define SCALE 10
+
+# define PI 3.1415
 /* -----| Macro |----- */
 //...
 
@@ -44,15 +61,7 @@
 //...
 
 /* -----| Prototype |----- */
-
-// fdf.c
-
-void	fdf(t_args *args);
-
-// parsing.c
-
-t_map	*parse_map(const char *path);
-void	free_map(t_map *map);
+//...
 
 /* -----| Static |----- */
 //...
@@ -63,4 +72,4 @@ void	free_map(t_map *map);
 /* -----| Inline |----- */
 //...
 
-#endif	// INIT_H
+#endif	// CONFIG_H

@@ -14,8 +14,8 @@
  - [X] enverser les axe de la rotation
  - [X] optimiser le pieline de drawing !!!
  - [X] affiner la condiation avant de put un pixel pour pas que sa deborde
- - [ ] rework interpolate pour que les couleurs sois pas random
- - [ ] finish separing all nodule in is own module
+ - [X] rework interpolate pour que les couleurs sois pas random
+ - [X] finish separing all nodule in is own module
 
 ### Headers
 

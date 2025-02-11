@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 17:53:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:30:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	zoom_model(t_fdf *fdf, int zoom)
 
 /** 
  * @brief This function will rotate the model with the given rotation values.
- * By 1/10 of the given values.
+ * By 1/100 of the given values.
  * 
  * @param fdf The fdf structure.
  * @param rotationx The rotation on the x axis.

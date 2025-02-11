@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 08:43:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:17:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:26:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 
 /* -----| Header |----- */
 // Global
+//...
+
+// Local
 # include "struct.h"
 # include "libft.h"
 
-// Local
- //...
+// modules
+//...
 
 /* -----| Define |----- */
 //...

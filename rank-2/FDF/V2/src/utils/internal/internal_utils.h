@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   internal_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:23:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:25:58 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/11 10:09:06 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/11 10:12:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef INTERNAL_UTILS_H
+# define INTERNAL_UTILS_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Global
-//...
+# include <stdlib.h>
+# include <stdio.h>
+# include <mlx.h>
 
 // Local
+# include "libft.h"
 # include "struct.h"
+# include "type.h"
 
-// module
-//...
+// modules
+# include "init.h"
 
 /* -----| Define |----- */
 //...
@@ -44,15 +48,7 @@
 //...
 
 /* -----| Prototype |----- */
-
-// fdf.c
-
-void	fdf(t_args *args);
-
-// parsing.c
-
-t_map	*parse_map(const char *path);
-void	free_map(t_map *map);
+//...
 
 /* -----| Static |----- */
 //...
@@ -63,4 +59,4 @@ void	free_map(t_map *map);
 /* -----| Inline |----- */
 //...
 
-#endif	// INIT_H
+#endif	// INTERNAL_UTILS_H

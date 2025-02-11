@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 10:38:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 10:39:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:22:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 
 /* -----| Header |----- */
 // Global
- //...
+//...
 
 // Local
- //...
+//...
+
+// modules
+//...
 
 /* -----| Define |----- */
 //...
@@ -44,6 +47,7 @@
 
 // projection.c
 
+t_point	**projection(t_fdf *fdf, t_map *map, t_point **points);
 t_point	calculate_iso(t_fdf *fdf, t_map *map, int i, int j);
 t_point	calculate_rev(t_fdf *fdf, t_map *map, int x, int y);
 

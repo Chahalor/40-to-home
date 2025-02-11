@@ -6,12 +6,12 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:31:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:19:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:07:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal/internal_args.h"
-#include "args.h"
+// #include "args.h"
 
 /**
  * @brief Parse the arguments.

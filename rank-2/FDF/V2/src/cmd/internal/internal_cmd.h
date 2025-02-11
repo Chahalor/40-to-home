@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:06:39 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/10 12:07:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:24:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@
 
 /* -----| Header |----- */
 // Global
+//...
+
+// Local
 # include "struct.h"
 # include "type.h"
 # include "libft.h"
 
-// Local
- //...
+// modules
+//...
 
 // module
 # include "algo.h"
 # include "debug.h"
-#include "fdf.h"	//@rm and add the rigth module
+# include "graphic.h"
+# include "utils.h"
 
 /* -----| Define |----- */
 
@@ -90,7 +94,7 @@ __attribute__((unused, cold)) static inline void	change_algo(t_fdf *fdf,
  * 
  * @return int The length of the command.
  */
-__attribute__((cold)) static inline int				len_cmd(char **cmd)
+__attribute__((cold)) static inline int	len_cmd(char **cmd)
 {
 	int	i;
 
