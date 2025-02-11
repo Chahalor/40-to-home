@@ -1,43 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   parsing_env.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 13:53:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 15:34:17 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/11 14:19:57 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/11 14:20:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSING_ENV_H
+# define PARSING_ENV_H
+
+# pragma once
+
 /* -----| Header |----- */
 // Global
-#include "struct.h"
-#include "type.h"
-
-// Modules
-#include "init.h"
-#include "parsing_args.h"
-#include "parsing_env.h"
-
-// Internes
 //...
 
-#ifdef BONUS && BONUS == 1
+// Local
+//...
 
-#include "bonus.h"	//@todo
+// Modules
+//...
 
-int	main(int argc, const char *argv[], const char *envp[])
-{
-	
-}
+/* -----| Define |----- */
+//...
 
-# else
+/* -----| Macro |----- */
+//...
 
-int	main(int argc, const char *argv[], const char *envp[])
-{
-	const t_args	args = parse_args(argc, argv, envp);
-	const t_cmd		cmd[2] = parse_cmd(args);
-}
+/* -----| Typedef |----- */
+//...
 
-#endif	// BONUS
+/* -----| Enum |----- */
+//...
+
+/* -----| Union |----- */
+//...
+
+/* -----| Struct |----- */
+//...
+
+/* -----| Prototype |----- */
+//...
+
+/* -----| Static |----- */
+//...
+
+/* -----| Extern |----- */
+//...
+
+/* -----| Inline |----- */
+//...
+
+#endif	// PARSING_ENV_H

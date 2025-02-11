@@ -1,43 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   i_parsing_args.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 13:53:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 15:34:17 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/11 15:15:40 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/11 15:31:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef I_PARSING_CMD_H
+# define I_PARSING_CMD_H
+
 /* -----| Header |----- */
+// Libs
+# include <stdlib.h>
+
 // Global
-#include "struct.h"
-#include "type.h"
+# include "libft.h"
 
 // Modules
-#include "init.h"
-#include "parsing_args.h"
-#include "parsing_env.h"
-
-// Internes
 //...
 
-#ifdef BONUS && BONUS == 1
+/* -----| Define |----- */
+//...
 
-#include "bonus.h"	//@todo
+/* -----| Macro |----- */
+//...
 
-int	main(int argc, const char *argv[], const char *envp[])
-{
-	
-}
+/* -----| Typedef |----- */
+//...
 
-# else
+/* -----| Enum |----- */
+//...
 
-int	main(int argc, const char *argv[], const char *envp[])
-{
-	const t_args	args = parse_args(argc, argv, envp);
-	const t_cmd		cmd[2] = parse_cmd(args);
-}
+/* -----| Union |----- */
+//...
 
-#endif	// BONUS
+/* -----| Struct |----- */
+//...
+
+/* -----| Prototype |----- */
+//...
+
+/* -----| Static |----- */
+//...
+
+/* -----| Extern |----- */
+//...
+
+/* -----| Inline |----- */
+//...
+
+#endif	// I_PARSING_CMD_H
