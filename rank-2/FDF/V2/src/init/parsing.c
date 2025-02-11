@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:25:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/11 16:52:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	get_line_size(const char *line)
 	int	i;
 	int	size;
 
+	if (!line)
+		return (0);
 	i = 0;
 	size = 0;
 	while (line[i])
