@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:36:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 10:43:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:19:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	write_arg(const char *s, va_list args)
 		return (writedec(va_arg(args, int)));
 	else if (symb == 'u')
 		return (writeuint(va_arg(args, unsigned int)));
+	else if (symb == 'f')
+		return (writedouble(va_arg(args, double)));
 	else if (symb == 'x')
 		return (writelhex(va_arg(args, int)));
 	else if (symb == 'X')

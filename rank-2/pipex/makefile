@@ -29,11 +29,11 @@ DEBUGFLAGS =
 ARGS =
 
 # Directories
-DIR_SRC :=		src
-DIR_OBJ :=		.obj
-DIR_LIBFT :=	libft
-DIR_INTERFACE := interface
-DIR_INTERNE := interne
+DIR_SRC :=			src
+DIR_OBJ :=			.obj
+DIR_LIBFT :=		libft
+DIR_INTERFACE :=	interface
+DIR_INTERNE :=		interne
 
 # Libraries
 LIBFT :=		$(DIR_LIBFT)/libft.a
@@ -99,12 +99,12 @@ compile: $(DIR_OBJ) $(OBJ)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	@$(call compile_object,  $(INCLUDES), $(SRC), $(COLOR_YELLOW))
+	@$(call compile_object, $(INCLUDES), $(SRC), $(COLOR_YELLOW))
 
-$(DIR_OBJ):
-	@mkdir -p $(DIR_OBJ)
+# $(DIR_OBJ):
+# 	@mkdir -p $(DIR_OBJ)
 
-$(LIBFT):
+libft: $(LIBFT)
 	@make -C $(DIR_LIBFT)
 
 # ***************************************************** #

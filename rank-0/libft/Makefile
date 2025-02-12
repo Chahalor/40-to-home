@@ -1,25 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/17 08:13:34 by nduvoid           #+#    #+#              #
-#    Updated: 2025/01/16 14:38:09 by nduvoid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# ╔════════════════════════════════════════════════════════════════════════════════╗
+# ║                                                                                ║
+# ║   ___               ___          ________          ________      _________     ║
+# ║  |\  \             |\  \        |\   __  \        |\  _____\    |\___   ___\   ║
+# ║  \ \  \            \ \  \       \ \  \|\ /_       \ \  \__/     \|___ \  \_|   ║
+# ║   \ \  \            \ \  \       \ \   __  \       \ \   __\         \ \  \    ║
+# ║    \ \  \____        \ \  \       \ \  \|\  \       \ \  \_|          \ \  \   ║
+# ║     \ \_______\       \ \__\       \ \_______\       \ \__\            \ \__\  ║
+# ║      \|_______|        \|__|        \|_______|        \|__|             \|__|  ║
+# ║                                                                                ║
+# ║  by nduvoid                                                                    ║
+# ║                                                                                ║
+# ╚════════════════════════════════════════════════════════════════════════════════╝
+
+MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 
 # ***************************************************** #
 # *                 Variable                          * #
 # ***************************************************** #
 
+# Name of the executable/library
 NAME = libft.a
 
-DIR_SRC =		src
+CC :=		gcc
+CFLAGS :=	-Wall -Wextra -Werror
+DEBUGFLAGS :=
+AR :=		ar
+ARFLAGS :=	rcs
+
+# Directories
+DIR_LIBFT =		libft
 DIR_PRINTF =	ft_printf
 DIR_GNL =		get_next_line
 DIR_OBJ =		.obj
+
+INCFLAGS =	-I./ -I$(DIR_PRINTF) -I$(DIR_GNL)
+
+# achive
+#...
 
 SRC_LIBFT =	char-change/ft_toupper.c \
 			char-change/ft_tolower.c \
@@ -73,27 +90,21 @@ SRC_PRINTF =	ft_printf.c \
 SRC_GNL =	get_next_line_bonus.c \
 			get_next_line_utils_bonus.c
 
-OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(notdir $(SRC_LIBFT:.c=.o)))
+OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(SRC_LIBFT:.c=.o))
 OBJ_PRINTF =		$(addprefix $(DIR_OBJ)/, $(SRC_PRINTF:.c=.o))
 OBJ_GNL =			$(addprefix $(DIR_OBJ)/, $(SRC_GNL:.c=.o))
-
-INCFLAGS =	-I./libft.h -I$(DIR_PRINTF)/ft_printf.h -I$(DIR_GNL)/get_next_line.h
-
-AR =		ar
-FLAGS =		rcs
-RM =		rm -f
-CC =		cc
-CFLAGS =	-Wall -Wextra -Werror
-DEBUGFLAGS =
 
 # ***************************************************** #
 # *                      Main Rules                   * #
 # ***************************************************** #
 
+.PHONY: all
+
 all: header norm $(NAME)
 
 $(NAME): compile
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME)
+#@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
 # ***************************************************** #
@@ -102,28 +113,23 @@ $(NAME): compile
 
 .PHONY: compile
 
-test:
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCFLAGS) -c $(DIR_SRC)/$(word 1, $(SRC_LIBFT)) -o test.o
-
 compile: $(DIR_OBJ) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
-	@printf "OBJ: $(OBJ_LIBFT)\n $(OBJ_PRINTF)\n $(OBJ_GNL)\n"
-	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_LIBFT)/%.c | $(DIR_OBJ)
-	@$(call compile_object, $(INCFLAGS), "", $(SRC_LIBFT), $(COLOR_YELLOW))
+	@mkdir -p $(dir $@)
+	@$(call compile_object, $(INCFLAGS), $(SRC_LIBFT), $(COLOR_YELLOW))
 
 $(DIR_OBJ)/%.o: $(DIR_PRINTF)/%.c | $(DIR_OBJ)
-	@$(call compile_object, $(INCFLAGS), "", $(SRC_PRINTF), $(COLOR_YELLOW))
+	@mkdir -p $(dir $@)
+	@$(call compile_object, $(INCFLAGS), $(SRC_PRINTF), $(COLOR_YELLOW))
 
 $(DIR_OBJ)/%.o: $(DIR_GNL)/%.c | $(DIR_OBJ)
-	@$(call compile_object, $(INCFLAGS), "", $(SRC_GNL), $(COLOR_YELLOW))
+	@mkdir -p $(dir $@)
+	@$(call compile_object, $(INCFLAGS), $(SRC_GNL), $(COLOR_YELLOW))
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
-
-$(LIBFT):
-	@make -C $(DIR_LIBFT)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -133,12 +139,9 @@ $(LIBFT):
 
 clean:
 	@rm -rf $(DIR_OBJ)
-	-@make -C $(DIR_LIBFT) clean
-	-@make -C $(DIR_MLX) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	-@make -C $(DIR_LIBFT) fclean
 
 re: fclean all
 
@@ -167,12 +170,8 @@ header:
 	@clear
 	@printf "Header Libft\n"
 
-norm:
-	@if [ command -v norminette &> /dev/null ]; then \
-		$(call make_norm); \
-	else \
-		printf "Norminette not found\n"; \
-	fi
+# norm:
+# 	$(call make_norm);
 
 define make_norm
 	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
