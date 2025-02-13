@@ -1,6 +1,7 @@
 .vscode
 .test
 .obj
+.dev
 
 *.o
 *.out

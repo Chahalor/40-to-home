@@ -18,84 +18,137 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 # *                 Variable                          * #
 # ***************************************************** #
 
-# Name of the executable/library
 NAME = libft.a
 
-CC :=		gcc
-CFLAGS :=	-Wall -Wextra -Werror
+CC :=		cc
+CFLAGS :=	-Wall -Wextra -Werror -I./ -Ift_printf -Iget_next_line
 DEBUGFLAGS :=
 AR :=		ar
 ARFLAGS :=	rcs
 
-# Directories
-DIR_LIBFT =		libft
+DIR_LIBFT =		src
 DIR_PRINTF =	ft_printf
 DIR_GNL =		get_next_line
-DIR_OBJ =		.obj
 
-INCFLAGS =	-I./ -I$(DIR_PRINTF) -I$(DIR_GNL)
+INCFLAGS :=	-I./ -I$(DIR_PRINTF) -I$(DIR_GNL)
 
 # achive
 #...
 
-SRC_LIBFT =	char-change/ft_toupper.c \
-			char-change/ft_tolower.c \
-			is/ft_isalnum.c \
-			is/ft_isalpha.c \
-			is/ft_isascii.c \
-			is/ft_isdigit.c \
-			is/ft_isprint.c \
-			linked-list/ft_lstadd_back.c \
-			linked-list/ft_lstadd_front.c \
-			linked-list/ft_lstclear.c \
-			linked-list/ft_lstdelone.c \
-			linked-list/ft_lstiter.c \
-			linked-list/ft_lstlast.c \
-			linked-list/ft_lstmap.c \
-			linked-list/ft_lstnew.c \
-			linked-list/ft_lstsize.c \
-			memory/ft_calloc.c \
-			memory/ft_bzero.c \
-			memory/ft_memchr.c \
-			memory/ft_memcmp.c \
-			memory/ft_memcpy.c \
-			memory/ft_memmove.c \
-			memory/ft_memset.c \
-			put/ft_putchar_fd.c \
-			put/ft_putendl_fd.c \
-			put/ft_putstr_fd.c \
-			put/ft_putnbr_fd.c \
-			str/ft_strchr.c \
-			str/ft_strdup.c \
-			str/ft_striteri.c \
-			str/ft_strjoin.c \
-			str/ft_strlcat.c \
-			str/ft_strlcpy.c \
-			str/ft_strlen.c \
-			str/ft_strmapi.c \
-			str/ft_strncmp.c \
-			str/ft_strnstr.c \
-			str/ft_strrchr.c \
-			str/ft_strtrim.c \
-			str/ft_substr.c \
-			str-change/ft_atoi.c \
-			str-change/ft_itoa.c \
-			str-change/ft_split.c
+# ***************************************************** #
+# *                    DIR                            * #
+# ***************************************************** #
 
-SRC_PRINTF =	ft_printf.c \
-				put_func.c \
-				put_func2.c \
-				put_func3.c
+# dir libft
 
-SRC_GNL =	get_next_line_bonus.c \
-			get_next_line_utils_bonus.c
+FT_DIR_CHAR_CHANGE = char-change
+FT_DIR_IS = is
+FT_DIR_LINKED_LIST = linked-list
+FT_DIR_MEMORY = memory
+FT_DIR_PUT = put
+FT_DIR_STR = str
+FT_DIR_STR_CHANGE = str-change
 
-OBJ_LIBFT =			$(addprefix $(DIR_OBJ)/, $(SRC_LIBFT:.c=.o))
-OBJ_PRINTF =		$(addprefix $(DIR_OBJ)/, $(SRC_PRINTF:.c=.o))
-OBJ_GNL =			$(addprefix $(DIR_OBJ)/, $(SRC_GNL:.c=.o))
+FT_DIR_ALL = $(FT_DIR_CHAR_CHANGE) $(FT_DIR_IS) $(FT_DIR_LINKED_LIST) $(FT_DIR_MEMORY) $(FT_DIR_PUT) $(FT_DIR_STR) $(FT_DIR_STR_CHANGE)
 
 # ***************************************************** #
-# *                      Main Rules                   * #
+# *                    SRC                            * #
+# ***************************************************** #
+
+# libft
+
+SRC_IS = $(addprefix $(DIR_LIBFT)/$(FT_DIR_IS)/, \
+	ft_isalnum.c \
+	ft_isalpha.c \
+	ft_isascii.c \
+	ft_isdigit.c \
+	ft_isprint.c \
+)
+
+SRC_CHAR_CHANGE = $(addprefix $(DIR_LIBFT)/$(FT_DIR_CHAR_CHANGE)/, \
+	ft_toupper.c \
+	ft_tolower.c \
+)
+
+SRC_LINKED_LIST = $(addprefix $(DIR_LIBFT)/$(FT_DIR_LINKED_LIST)/, \
+	ft_lstadd_back.c \
+	ft_lstadd_front.c \
+	ft_lstclear.c \
+	ft_lstdelone.c \
+	ft_lstiter.c \
+	ft_lstlast.c \
+	ft_lstmap.c \
+	ft_lstnew.c \
+	ft_lstsize.c \
+)
+
+SRC_MEMORY = $(addprefix $(DIR_LIBFT)/$(FT_DIR_MEMORY)/, \
+	ft_calloc.c \
+	ft_bzero.c \
+	ft_memchr.c \
+	ft_memcmp.c \
+	ft_memcpy.c \
+	ft_memmove.c \
+	ft_memset.c \
+)
+
+SRC_PUT = $(addprefix $(DIR_LIBFT)/$(FT_DIR_PUT)/, \
+	ft_putchar_fd.c \
+	ft_putendl_fd.c \
+	ft_putstr_fd.c \
+	ft_putnbr_fd.c \
+)
+
+SRC_STR = $(addprefix $(DIR_LIBFT)/$(FT_DIR_STR)/, \
+	ft_strchr.c \
+	ft_strdup.c \
+	ft_striteri.c \
+	ft_strjoin.c \
+	ft_strlcat.c \
+	ft_strlcpy.c \
+	ft_strlen.c \
+	ft_strmapi.c \
+	ft_strncmp.c \
+	ft_strnstr.c \
+	ft_strrchr.c \
+	ft_strtrim.c \
+	ft_substr.c \
+)
+
+SRC_STR_CHANGE = $(addprefix $(DIR_LIBFT)/$(FT_DIR_STR_CHANGE)/, \
+	ft_atoi.c \
+	ft_itoa.c \
+	ft_split.c \
+)
+
+SRC_LIBFT = $(SRC_IS) $(SRC_CHAR_CHANGE) $(SRC_LINKED_LIST) $(SRC_MEMORY) $(SRC_PUT) $(SRC_STR) $(SRC_STR_CHANGE)
+
+# printf
+
+SRC_PRINTF = $(addprefix $(DIR_PRINTF)/, \
+	ft_printf.c \
+	put_func.c \
+	put_func2.c \
+	put_func3.c \
+)
+
+# gnl
+
+SRC_GNL = $(addprefix $(DIR_GNL)/, \
+	get_next_line_bonus.c \
+	get_next_line_utils_bonus.c \
+)
+
+# ***************************************************** #
+# *                    OBJ                            * #
+# ***************************************************** #
+
+OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
+OBJ_PRINTF = $(SRC_PRINTF:.c=.o)
+OBJ_GNL = $(SRC_GNL:.c=.o)
+
+# ***************************************************** #
+# *                    Rules                          * #
 # ***************************************************** #
 
 .PHONY: all
@@ -103,7 +156,6 @@ OBJ_GNL =			$(addprefix $(DIR_OBJ)/, $(SRC_GNL:.c=.o))
 all: header norm $(NAME)
 
 $(NAME): compile
-#@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJ) -o $(NAME)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@echo "\033[32m ✅ $(NAME) created\033[0m"
 
@@ -113,20 +165,20 @@ $(NAME): compile
 
 .PHONY: compile
 
-compile: $(DIR_OBJ) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
+compile: echo $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@echo "\033[32m ✅ Compilation done\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_LIBFT)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	@$(call compile_object, $(INCFLAGS), $(SRC_LIBFT), $(COLOR_YELLOW))
+	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_PRINTF)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	@$(call compile_object, $(INCFLAGS), $(SRC_PRINTF), $(COLOR_YELLOW))
+	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_GNL)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	@$(call compile_object, $(INCFLAGS), $(SRC_GNL), $(COLOR_YELLOW))
+	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
@@ -138,6 +190,7 @@ $(DIR_OBJ):
 .PHONY: clean fclean re
 
 clean:
+	@rm -f $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@rm -rf $(DIR_OBJ)
 
 fclean: clean
@@ -149,47 +202,54 @@ re: fclean all
 # *                    Debug Rules                    * #
 # ***************************************************** #
 
-.PHONY: debug debug.fsanitize debug.fs
+.PHONY: debug
 
-debug:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
-
-
-debug.fsanitize: debug
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=address)
-
-debug.fs: debug.fsanitize
+debug: 
+	@$(eval DEBUGFLAGS = -g)
+# @echo "\033[32m ✅ Debug mode activated\033[0m"
+#@make all
 
 # ***************************************************** #
-# *                      Utils                        * #
+# *                    Utils                          * #
 # ***************************************************** #
 
-.PHONY: header norm reset_count make_norm compile_object write_goals
+.PHONY: norm header
+
+echo:
+	@echo "SRC_LIBFT: $(SRC_LIBFT)\n"
+	@echo "OBJ_LIBFT: $(OBJ_LIBFT)\n"
+	@echo "INCLUDES: $(INCFLAGS)\n"
+
+norm:
+	@if norminette $(DIR_LIBFT) $(DIR_PRINTF) $(DIR_GNL) | grep "Error" > /dev/null; then \
+		norminette $(DIR_LIBFT) $(DIR_PRINTF) $(DIR_GNL) | grep "Error" > /dev/null; \
+		echo "\033[1;32m Norminette errors found \033[0m"; \
+	else \
+		echo "norminette Ok ✅"; \
+	fi
 
 header:
-	@clear
-	@printf "Header Libft\n"
+	@echo "\n"
+	@echo "╔════════════════════════════════════════════════════════════════════════════════╗"
+	@echo "║   ___               ___          ________          ________      _________     ║"
+	@echo "║  |\  \             |\  \        |\   __  \        |\  _____\    |\___   ___\   ║"
+	@echo "║  \ \  \            \ \  \       \ \  \|\ /_       \ \  \__/     \|___ \  \_|   ║"
+	@echo "║   \ \  \            \ \  \       \ \   __  \       \ \   __\         \ \  \    ║"
+	@echo "║    \ \  \            \ \  \       \ \  \|\  \       \ \  \_|          \ \  \   ║"
+	@echo "║     \ \  \____        \ \  \       \ \  \|\  \       \ \  \_|          \ \  \  ║"
+	@echo "║      \ \_______\       \ \__\       \ \_______\       \ \__\            \ \__\ ║"
+	@echo "║       \|_______|        \|__|        \|_______|        \|__|             \|__| ║"
+	@echo "║                                                                                ║"
+	@echo "║  by nduvoid                                                                    ║"
+	@echo "║                                                                                ║"
+	@echo "╚════════════════════════════════════════════════════════════════════════════════╝"
+	@echo "\n"
 
-# norm:
-# 	$(call make_norm);
+# ***************************************************** #
+# *                    Functions                      * #
+# ***************************************************** #
 
-define make_norm
-	@norminette $(DIR_SRC)/ $(DIR_LIBFT)/ > /tmp/norm_output.txt; \
-	if grep -q " Error!" /tmp/norm_output.txt; then \
-		cat /tmp/norm_output.txt | grep "Error"; \
-		echo " ❌ \e[31mNorminette failed\e[0m"; \
-	else \
-		echo " ✅ \e[32mNorminette passed\e[0m"; \
-	fi; \
-	rm -- /tmp/norm_output.txt
-endef
-
-define write_goals
-	line_size=97; \
-	line="$(if $(MAKECMDGOALS), $(MAKECMDGOALS), all)"; \
-	line_size=$$(( $$line_size - $${#line} )); \
-	printf "║    \e[4mRule(s):\e[0m %s%*s\e[0m║\n" "$$line" $$line_size " "
-endef
+.PHONY: reset_count
 
 # Helper function to print a progress bar
 # Credits: ugwentzi@student.42mulhouse.fr
@@ -207,8 +267,8 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	printf "	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
+	printf "	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
+	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \
 		$$(($(PADDING) - $$(echo -n "$(NAME)" | wc -c))) "" \
