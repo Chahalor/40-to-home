@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 14:34:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 14:35:16 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 14:21:02 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/13 18:21:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
-# define CONFIG_H
+#ifndef TYPES_H
+# define TYPES_H
 
 # pragma once
 
@@ -26,23 +26,35 @@
 //...
 
 /* -----| Define |----- */
-
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
-
-# ifndef HEAR_BUFF
-#  define HEAR_BUFF 1024
-# endif
+//...
 
 /* -----| Macro |----- */
 //...
 
 /* -----| Typedef |----- */
-//...
+
+typedef unsigned char	t_byte;
 
 /* -----| Enum |----- */
-//...
+
+/** */
+typedef enum e_bool
+{
+	FALSE = 0,
+	TRUE = 1
+}	t_bool;
+
+/** */
+typedef enum e_error
+{
+	err_none = 0,
+	err_malloc,
+	err_open,
+	err_close,
+	err_signal,
+	err_argv,
+	//...
+}	t_error;
 
 /* -----| Union |----- */
 //...
@@ -62,4 +74,4 @@
 /* -----| Inline |----- */
 //...
 
-#endif	// CONFIG_H
+#endif	// TYPES_H

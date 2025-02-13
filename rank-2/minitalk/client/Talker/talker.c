@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translator.c                                       :+:      :+:    :+:   */
+/*   talker.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 15:47:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 15:51:16 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 18:26:56 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/13 18:33:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,28 @@
 
 // Global
 #include "types.h"
-#include "libft.h"
 #include "config.h"
+#include "struct.h"
 
 // Modules
-
-#include "interne/_Translator.h"
+#include "interne/_Talker.h"
 
 /* -----| Functions |----- */
 
-__atribute__((hot)) void	translator(const int buff[HEAR_BUFF],
-	const int count)
+__attribute__((cold)) t_bool	talker(const int serv_pid, const t_byte *msg)
 {
-	
+	if (!msg)
+		return (FALSE);
+	while (*msg)
+	{
+		if (msg[0] == 0)
+			if (kill(serv_pid, SIGUSR1) == -1)
+				return (FALSE);
+		else if (msg[0] == 1)
+			if (kill(serv_pid, SIGUSR2) == -1)
+				return (FALSE);
+		else
+			return (FALSE);
+	}
+	return (TRUE);
 }

@@ -14,6 +14,7 @@
  - [ ] we need to build the full translate() function
 
 ### Client
+ - [ ] need to be tested (look at test.c)
 
 #### Listener
  - ...
@@ -28,7 +29,7 @@
  - [ ] make sur unicode is handled
 
 ## Other
- - [ ] Makefile
+ - [ ] Makefile, need compile (my isus)
 
 ## Rendu
 
