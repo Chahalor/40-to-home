@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Listener.h                                        :+:      :+:    :+:   */
+/*   Listener.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 14:19:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 14:35:27 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 15:43:59 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/13 15:45:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _LISTENER_H
-# define _LISTENER_H
+#ifndef LISTENER_H
+# define LISTENER_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Libs
-# include <unistd.h>
-# include <signal.h>
-# include <sys/types.h>
+//...
 
 // Global
-# include "config.h"
+# include "types.h"
 
 // Modules
 //...
@@ -46,7 +44,8 @@
 //...
 
 /* -----| Prototype |----- */
-//...
+
+t_bool	setup_signal();
 
 /* -----| Static |----- */
 //...
@@ -57,4 +56,4 @@
 /* -----| Inline |----- */
 //...
 
-#endif	// _LISTENER_H
+#endif	// LISTENER_H
