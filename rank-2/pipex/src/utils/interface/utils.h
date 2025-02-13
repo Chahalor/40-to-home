@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:22:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 15:07:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:35:39 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 /* -----| Prototype |----- */
 
 void	exiting(const int exit_code, char *msg, void *ptr, void *(*f)());
+char	*ft_getenv(const char *envp[], const char *target);
 
 /* -----| Static |----- */
 //...

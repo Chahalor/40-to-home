@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:09:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 15:18:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/13 11:32:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ typedef struct s_cmd
 /** @todo */
 typedef struct s_args
 {
-	char	*file_in;
-	char	*file_out;
-	char	*path;
-	char	**envp;
+	char	*infile;
+	char	*outfile;
 	char	**cmd;
-}	t_args;
+	int		nb_cmd;
+	char	**path;
+}			t_args;
 
 
 /** @todo */
@@ -67,7 +67,6 @@ typedef struct s_fork
 	int	pid;
 	int	status;
 }	t_fork;
-
 
 /* -----| Prototype |----- */
 //...

@@ -1,58 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_parsing_env.h                                    :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:20:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 14:21:05 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 09:41:39 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/13 09:52:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_PARSING_ENV_H
-# define I_PARSING_ENV_H
-
-# pragma once
-
 /* -----| Header |----- */
 // Global
-//...
-
-// Local
-//...
+#include "struct.h"
+#include "type.h"
 
 // Modules
 //...
 
-/* -----| Define |----- */
-//...
+// Internes
+# include "interne/_init.h"
 
-/* -----| Macro |----- */
-//...
-
-/* -----| Typedef |----- */
-//...
-
-/* -----| Enum |----- */
-//...
-
-/* -----| Union |----- */
-//...
-
-/* -----| Struct |----- */
-//...
-
-/* -----| Prototype |----- */
-//...
-
-/* -----| Static |----- */
-//...
-
-/* -----| Extern |----- */
-//...
-
-/* -----| Inline |----- */
-//...
-
-#endif	// I_PARSING_ENV_H
+__attribute__((cold, unused)) t_args	*init_args(t_args *args)
+{
+	if (!args)
+		return (NULL);
+	args->file_in = NULL;
+	args->file_out = NULL;
+	args->path = NULL;
+	args->envp = NULL;
+	args->cmd = NULL;
+	return (args);
+}

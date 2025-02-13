@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:10:08 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 14:28:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:21:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ typedef enum e_exit
 	invalid_path,
 	invalid_arg,
 }	t_exit;
+
+typedef	enum e_bool
+{
+	false = 0,
+	true = 1,
+}	t_bool;
 
 /* -----| Union |----- */
 //...

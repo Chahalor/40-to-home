@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_init.h                                           :+:      :+:    :+:   */
+/*   _parsing_env.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:14:44 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 14:14:55 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/11 14:20:57 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/13 10:19:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_INIT_H
-# define I_INIT_H
+#ifndef I_PARSING_ENV_H
+# define I_PARSING_ENV_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Global
-//...
+#include "libft.h"
 
 // Local
 //...
@@ -55,4 +55,4 @@
 /* -----| Inline |----- */
 //...
 
-#endif	// I_INIT_H
+#endif	// I_PARSING_ENV_H

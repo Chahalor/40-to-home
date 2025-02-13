@@ -14,7 +14,7 @@
 # ║                                                                               ║
 # ╚═══════════════════════════════════════════════════════════════════════════════╝
 
-MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
+# MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 
 # ***************************************************** #
 # *                VARIABLES                          * #
@@ -51,13 +51,13 @@ MOD_ALL :=		$(MOD_FORK) $(MOD_INIT) $(MOD_PARS) $(MOD_PROC) $(MOD_PIPE) $(MOD_UT
 
 # Includes
 INC_GLOBAL :=	Global
-INCLUDES :=		$(DIR_LIBFT) $(INC_GLOBAL) $(foreach dir, $(MOD_ALL) , -I$(dir)/$(DIR_INTERFACE))
+INCLUDES :=		-I$(DIR_LIBFT) -I$(INC_GLOBAL) $(foreach dir, $(MOD_ALL) ,-I$(DIR_SRC)/$(dir)/$(DIR_INTERFACE))
 
 # SRC
 
 SRC_FORK :=		$(MOD_FORK)/
 
-SRC_INIT :=		$(MOD_INIT)/
+SRC_INIT :=		$(MOD_INIT)/init.c
 
 SRC_PARS :=		$(MOD_PARS)/parsing_args.c
 
@@ -72,7 +72,7 @@ SRC_DEBUG :=	$(MOD_DEBUG)/print_struct.c
 SRC_MAIN :=		pipex.c
 
 
-SRC := $(SRC_ALGO) $(SRC_CMD) $(SRC_DEBUG) $(SRC_GRAPH) $(SRC_INIT) $(SRC_UTILS)
+SRC := $(SRC_MAIN) $(SRC_INIT) $(SRC_PARS) $(SRC_UTILS) $(SRC_DEBUG)
 
 # All object files
 OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
@@ -91,7 +91,7 @@ $(NAME): $(LIBFT) compile
 
 .PHONY: compile
 
-compile: $(DIR_OBJ) $(OBJ)
+compile: libft $(DIR_OBJ) $(OBJ)
 	@printf "\n"
 	@echo "\033[32m ✅ Compilation done\033[0m"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) -o $(NAME)
@@ -101,11 +101,12 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
 	@$(call compile_object, $(INCLUDES), $(SRC), $(COLOR_YELLOW))
 
-# $(DIR_OBJ):
-# 	@mkdir -p $(DIR_OBJ)
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
 
-libft: $(LIBFT)
-	@make -C $(DIR_LIBFT)
+$(LIBFT):
+	make -s -C $(DIR_LIBFT)
+	@echo "\033[32m ✅ Libft created\033[0m"
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -148,8 +149,8 @@ run:
 	./$(NAME) $(ARGS)
 
 echo:
-	@echo $(OBJ)
-	@echo $(SRC)
+	@echo "OBJ: $(OBJ)"
+	@echo "SRC: $(SRC)"
 
 write_header:
 	@clear
@@ -192,6 +193,7 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
+	@printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \

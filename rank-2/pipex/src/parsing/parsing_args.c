@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:13:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 15:33:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/13 11:48:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,52 @@
 #include "type.h"
 
 // Modules
-//...
+#include "utils.h"
 
 // Internes
-# include "interne/i_parsing_args.h"
+#include "interne/_parsing_args.h"
 
-/**
- * 
- */
-__attribute__((cold, unused)) static char *p_getenv(const char *envp[],
-	const char *target)
+/* -----| Functions | ----- */
+
+/** */
+__attribute__((cold)) static t_cmd	*parse_cmd(t_args *args, int argc,
+	const char *argv[])
 {
-	char	*path;
+	t_cmd	*cmd;
+	int		i;
+	char	**tmp;
 
-	while (*envp && ft_strncmp(*envp, target, ft_strlen(target)) != 0)
-		envp++;
-	if (!*envp)
+	cmd = (t_cmd *)ft_calloc(argc - 2, sizeof(t_cmd));
+	if (!cmd)
 		return (NULL);
-	path = ft_strdup(*envp + ft_strlen(target) + 1);
-	if (!path)
-		exiting(malloc_error, "Malloc error", NULL, NULL);
-	return (path);
+	i = 1;
+	while (++i < argc - 1)
+	{
+		tmp = ft_split(argv[i], ' ');
+		if (!tmp)
+			return (NULL);
+		cmd[i].bin = NULL;
+		cmd[i].cmd = tmp[0];
+		cmd[i].args = tmp + 1;
+	}
 }
 
-__attribute__((cold)) t_args	parse_args(int argc, const char *argv[],
+/** */
+__attribute__((cold)) t_args	*parse_args(int argc, const char *argv[],
 	const char *envp[])
 {
-	t_args	args;
+	t_args	*args;
 
-	if (argc < 5)
-		exiting(invalid_arg, "Invalid arguments", NULL, NULL);
-	args.file_in = argv[1];
-	args.file_out = argv[argc - 1];
-	args.path = p_getenv(envp ,"PATH");
-	args.envp = envp;
-	args.cmd = argv + 2;
+	args = (t_args *)ft_calloc(1, sizeof(t_args));
+	if (!args)
+		exiting(malloc_error, "parse_args: cannot allocate memory", NULL, NULL);
+	args = &(t_args){
+		.infile = argv[1],
+		.outfile = argv[argc - 1],
+		.cmd = NULL,
+		.nb_cmd = argc - 3,
+		.path = ft_getenv(envp, "PATH"),
+	};
+	parse_cmd(args, argc, argv);
 	return (args);
 }
