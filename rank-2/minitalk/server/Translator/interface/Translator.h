@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Translator.h                                      :+:      :+:    :+:   */
+/*   Translator.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:52:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/14 13:56:21 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 15:51:25 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/14 16:04:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _TRANSLATOR_H
-# define _TRANSLATOR_H
-
+#ifndef TRANSLATOR_H
+# define TRANSLATOR_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Libs
-#include "libft.h"
-#include <signal.h>
-#include <unistd.h>
+//...
 
 // Global
-#include "types.h"
-#include "config.h"
-#include "struct.h"
+# include "config.h"
 
 // Modules
 //...
@@ -49,7 +44,8 @@
 //...
 
 /* -----| Prototype |----- */
-//...
+
+void	translator(const int buff[HEAR_BUFF], const int count);
 
 /* -----| Static |----- */
 //...
@@ -60,4 +56,4 @@
 /* -----| Inline |----- */
 //...
 
-#endif	// _TRANSLATOR_H
+#endif	// TRANSLATOR_H

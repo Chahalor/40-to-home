@@ -165,20 +165,20 @@ $(NAME): compile
 
 .PHONY: compile
 
-compile: echo $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
+compile: $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@echo "\033[32m ✅ Compilation done\033[0m"
 
 $(DIR_OBJ)/%.o: $(DIR_LIBFT)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_PRINTF)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_GNL)/%.c | $(DIR_OBJ)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
@@ -190,7 +190,6 @@ $(DIR_OBJ):
 .PHONY: clean fclean re
 
 clean:
-	@rm -f $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
 	@rm -rf $(DIR_OBJ)
 
 fclean: clean

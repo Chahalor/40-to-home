@@ -29,7 +29,8 @@
  - [ ] make sur unicode is handled
 
 ## Other
- - [ ] Makefile, need compile (my isus)
+ - [X] Makefile, need compile (my isus)
+ - [ ] mute the libft header && norminette
 
 ## Rendu
 

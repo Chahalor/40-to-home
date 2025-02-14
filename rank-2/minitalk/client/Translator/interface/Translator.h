@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:36:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:37:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 13:55:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 /* -----| Prototype |----- */
 
-t_byte	*translator(const char *msg);
+t_bool	translator(const char *msg, const int pid);
 
 /* -----| Static |----- */
 //...

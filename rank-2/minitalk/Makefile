@@ -1,25 +1,28 @@
-# ╔═══════════════════════════════════════════════════════════════════════════════╗
-# ║                                                                               ║
-# ║   ________        ___          ________        _______           ___    ___   ║
-# ║  |\   __  \      |\  \        |\   __  \      |\  ___ \         |\  \  /  /|  ║
-# ║  \ \  \|\  \     \ \  \       \ \  \|\  \     \ \   __/|        \ \  \/  / /  ║
-# ║   \ \   ____\     \ \  \       \ \   ____\     \ \  \_|/__       \ \    / /   ║
-# ║    \ \  \___|      \ \  \       \ \  \___|      \ \  \_|\ \       /     \/    ║
-# ║     \ \__\          \ \__\       \ \__\          \ \_______\     /  /\   \    ║
-# ║      \|__|           \|__|        \|__|           \|_______|    /__/ /\ __\   ║
-# ║                                                                 |__|/ \|__|   ║
-# ║                                                                               ║
-# ╚═══════════════════════════════════════════════════════════════════════════════╝
+# ╔════════════════════════════════════════════════════════════════════════════════════╗
+# ║                                                                                    ║
+# ║                                                                                    ║
+# ║  _____ ______   ___  ________   ___  _________  ________  ___       ___  __        ║
+# ║ |\   _ \  _   \|\  \|\   ___  \|\  \|\___   ___\\   __  \|\  \     |\  \|\  \      ║
+# ║ \ \  \\\__\ \  \ \  \ \  \\ \  \ \  \|___ \  \_\ \  \|\  \ \  \    \ \  \/  /|_    ║
+# ║  \ \  \\|__| \  \ \  \ \  \\ \  \ \  \   \ \  \ \ \   __  \ \  \    \ \   ___  \   ║
+# ║   \ \  \    \ \  \ \  \ \  \\ \  \ \  \   \ \  \ \ \  \ \  \ \  \____\ \  \\ \  \  ║
+# ║    \ \__\    \ \__\ \__\ \__\\ \__\ \__\   \ \__\ \ \__\ \__\ \_______\ \__\\ \__\ ║
+# ║     \|__|     \|__|\|__|\|__| \|__|\|__|    \|__|  \|__|\|__|\|_______|\|__| \|__| ║
+# ║                                                                                    ║
+# ║  by nduvoid                                                                        ║
+# ║                                                                                    ║
+# ╚════════════════════════════════════════════════════════════════════════════════════╝
 
-AKEFLAGS += --no-print-directory	# no Entering / Leaving messages
+MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 
 # ***************************************************** #
 # *                VARIABLES                          * #
 # ***************************************************** #
 
 # Name of the executable
-NAME_CLIENT :=	client
-NAME_SERVER :=	server
+NAME :=			minitalk
+NAME_CLIENT :=	client.out
+NAME_SERVER :=	server.out
 
 CC :=			cc
 CFLAGS =		-Wall -Wextra -Werror
@@ -27,7 +30,7 @@ DEBUGFLAGS =
 ARGS =
 
 # Directories
-DIR_SRC :=			.
+DIR_SRC :=
 DIR_OBJ :=			.obj
 DIR_LIBFT :=		libft
 DIR_CLIENT :=		client
@@ -44,43 +47,42 @@ C_MOD_HEAR :=		Hear
 C_MOD_TALK :=		Talker
 C_MOD_TRAN :=		Translator
 C_MOD_UTILS :=		Utils
-C_MOD_ALL :=		$(C_MOD_HEART) $(C_MOD_TALK) $(C_MOD_TRAN) $(C_MOD_UTILS)
+C_MOD_ALL :=		$(C_MOD_HEAR) $(C_MOD_TALK) $(C_MOD_TRAN) $(C_MOD_UTILS)
 
  # Server
 S_MOD_HEAR :=		Listener
 S_MOD_TALK :=		Talker
 S_MOD_TRAN :=		Translator
 S_MOD_UTILS :=		Utils
-S_MOD_ALL :=		$(S_MOD_HEART) $(S_MOD_TALK) $(S_MOD_TRAN) $(S_MOD_UTILS)
+S_MOD_ALL :=		$(S_MOD_HEAR) $(S_MOD_TALK) $(S_MOD_TRAN) $(S_MOD_UTILS)
 
 ALL_MOD :=		$(C_MOD_ALL) $(S_MOD_ALL)
 
 # Includes
 INC_GLOBAL :=	Global
-INC_CLIENT :=	$(foreach dir, $(C_MOD_ALL) ,-I$(DIR_SRC)/$(dir)/$(DIR_INTERFACE))
-INC_SERVER :=	$(foreach dir, $(S_MOD_ALL) ,-I$(DIR_SRC)/$(dir)/$(DIR_INTERFACE))
-INCLUDES :=		-I$(INC_GLOBAL) -I$(DIR_LIBFT) $(INC_CLIENT) $(INC_SERVER)
+INC_CLIENT :=	$(foreach dir, $(C_MOD_ALL) ,-I$(DIR_CLIENT)/$(dir)/$(DIR_INTERFACE))
+INC_SERVER :=	$(foreach dir, $(S_MOD_ALL) ,-I$(DIR_SERVER)/$(dir)/$(DIR_INTERFACE))
+INCLUDES :=		-I$(INC_GLOBAL) -I$(DIR_LIBFT) #$(INC_CLIENT) $(INC_SERVER)
 
 # -----| Sources |----- #
  # Client
-C_SRC_HEAR :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_HEAR)/hear.c
-C_SRC_TALK :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
-C_SRC_TRAN :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
-C_SRC_UTILS :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
-C_SRC_ALL :=		$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_SRC)/$(DIR_CLIENT)client.c
+C_SRC_HEAR :=		#$(DIR_CLIENT)/$(C_MOD_HEAR)/hear.c
+C_SRC_TALK :=		$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
+C_SRC_TRAN :=		$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
+C_SRC_UTILS :=		$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
+CLIENT_SRC_ALL :=		$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
 
-OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(C_SRC_ALL:.c=.o))
 
  # Server
-S_SRC_HEAR :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
-S_SRC_TALK :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
-S_SRC_TRAN :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
-# S_SRC_UTILS :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
-S_SRC_ALL :=		$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(DIR_SRC)/$(DIR_SERVER)server.c
+S_SRC_HEAR :=		$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
+S_SRC_TALK :=		$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
+S_SRC_TRAN :=		$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
+S_SRC_UTILS :=		$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
+SERVER_SRC_ALL :=		$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(DIR_SERVER)/server.c
 
-OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(S_SRC_ALL:.c=.o))
-
-ALL_OBJ :=			$(OBJ_CLIENT) $(OBJ_SERVER)
+OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(CLIENT_SRC_ALL:.c=.o))
+OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(SERVER_SRC_ALL:.c=.o))
+ALL_OBJ :=		$(OBJ_CLIENT) $(OBJ_SERVER)
 
 # ***************************************************** #
 # *                      Main Rules                   * #
@@ -88,13 +90,9 @@ ALL_OBJ :=			$(OBJ_CLIENT) $(OBJ_SERVER)
 
 .PHONY: all name
 
-all: write_header norm name $(NAME)
-
-name: $(LIBFT) compile
-	@echo "NAME slag"
+all: write_header norm $(NAME)
 
 $(NAME): $(LIBFT) compile
-	@echo "NAME"
 
 # ***************************************************** #
 # *                 Compile Rule                      * #
@@ -102,23 +100,28 @@ $(NAME): $(LIBFT) compile
 
 .PHONY: compile client server
 
-compile: client server
-	@echo "\033[32m ✅ Compilation done\033[0m"
+compile: client reset_count server
 
-client: $(LIBFT) $(OBJ_CLIENT)
+client: reset_count $(LIBFT) $(OBJ_CLIENT)
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $() $(OBJ_CLIENT) $(LIBFT) -o $(NAME_CLIENT)
-	@echo "\033[32m ✅ Client created\033[0m"
+	@echo "\n\033[32m ✅ Client created\033[0m"
 
-server: $(LIBFT) $(OBJ_SERVER)
+server: reset_count $(LIBFT) $(OBJ_SERVER)
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDES) $(OBJ_SERVER) $(LIBFT) -o $(NAME_SERVER)
 	@echo "\033[32m ✅ Server created\033[0m"
 
+COMPILE_FLAG =	$(if $(filter client/%,$<),$(INC_CLIENT),$(INC_SERVER))
+COMPILE_SRC =	$(if $(filter client/%,$<),$(CLIENT_SRC_ALL),$(SERVER_SRC_ALL))
 $(DIR_OBJ)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(call compile_object, $(INCLUDES), $(ALL_OBJ), $(NAME))
+	$(call compile_object, $(INCLUDES) $(COMPILE_FLAG), $(COMPILE_SRC), $(COLOR_YELLOW))
+
+# $(DIR_OBJ)/%.o: %.c
+# 	@mkdir -p $(dir $@)
+# 	$(call compile_object, $(INCLUDES), $(ALL_OBJ), $(COLOR_GREEN))
 
 $(LIBFT):
-	@make -C -s $(DIR_LIBFT)
+	-@make -C $(DIR_LIBFT)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -155,32 +158,25 @@ debug.fs: debug.fsanitize
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: run write_header norm reset_count make_norm compile_object write_goals
-
-run:
-	./$(NAME) $(ARGS)
+.PHONY: write_header echo norm reset_count make_norm compile_object write_goals
 
 echo:
-	@echo "Client: $(OBJ_CLIENT)\n $(C_SRC_ALL)"
-	@echo "Server: $(OBJ_SERVER)\n $(S_SRC_ALL)"
+	@echo "Client: $(OBJ_CLIENT)\n $(CLIENT_SRC_ALL)"
+	@echo "Server: $(OBJ_SERVER)\n $(SERVER_SRC_ALL)"
+	@echo "flag: $(COMPILE_FLAG)"
+	@echo "src: $(COMPILE_SRC)"
 
 write_header:
 	@clear
 	@printf "\n/* Big Header */\n"
 
 norm:
-	@$(call make_norm)
-
-define make_norm
-	@norminette > /tmp/norm_output.txt; \
-	if grep -q " Error!" /tmp/norm_output.txt; then \
-		cat /tmp/norm_output.txt | grep "Error"; \
-		echo " ❌ \e[31mNorminette failed\e[0m"; \
+	@if norminette | grep "Error" > /dev/null; then \
+		norminette | grep "Error" > /dev/null; \
+		echo "\033[31m ❌ Norminette errors found \033[0m"; \
 	else \
-		echo " ✅ \e[32mNorminette passed\e[0m"; \
-	fi; \
-	rm -- /tmp/norm_output.txt
-endef
+		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
+	fi
 
 define write_goals
 	line_size=97; \
@@ -205,7 +201,6 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	@printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \
@@ -213,6 +208,8 @@ define compile_object
 		$(shell printf '=%.0s' $$(seq 1 $$(echo "$$(( $(BAR_LENGTH) * $(COUNT) / $(words $(2)) ))"))) \
 		$(COUNT) \
 		$(words $(2))
-		printf " "
+		@printf " "
 	@true
 endef
+
+# 	@printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"

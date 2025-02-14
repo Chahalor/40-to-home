@@ -6,20 +6,11 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 17:41:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 14:54:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* -----| Headers |----- */
-// Libs
-//...
-
-// Global
-#include "types.h"
-#include "libft.h"
-
-// Modules
-
 #include "interne/_Listener.h"
 
 /* -----| Functions |----- */
@@ -30,7 +21,9 @@ __attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
 {
 	static int	count = 0;
 	static int	buffer[HEAR_BUFF] = {0};
-	
+
+	(void)siginfo;
+	(void)context;
 	if (signum == SIGUSR1)
 		buffer[count++] = 0;
 	else if (signum == SIGUSR2)
@@ -43,34 +36,16 @@ __attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
 	}
 }
 
-void	signal_handler2(int signum, siginfo_t *siginfo, void *context)
-{
-	static int	count = 0;
-	static char	buffer[HEAR_BUFF] = {'\0'};
-
-	if (signum == SIGUSR1)
-		buffer[count / 8] = buffer[count] << 1;
-	else if (signum == SIGUSR2)
-		buffer[count / 8] = (buffer[count] << 1) | 1;
-	++count;
-	if (count == HEAR_BUFF * 8 - 2)
-	{
-		ft_printf("%s\n", buffer);
-		ft_memset(buffer, 0, HEAR_BUFF);
-		count = 0;
-	}
-}
-
 /** */
-__attribute__((cold, unsused)) t_bool	setup_signal()
+__attribute__((cold, unused)) t_bool	setup_signal(void)
 {
 	struct sigaction	handler;
 
-	handler.sa_sigaction = signal_handler2;
-	sygemtyset(&handler.sa_mask);
-	if (sigaction(SIGUSR1, &handler, NULL) == SIG_ERR)
+	handler.sa_sigaction = signal_handler;
+	sigemptyset(&handler.sa_mask);
+	if (sigaction(SIGUSR1, &handler, NULL) == -1)
 		return (FALSE);
-	if (sigaction(SIGUSR2, &handler, NULL) == SIG_ERR)
+	if (sigaction(SIGUSR2, &handler, NULL) == -1)
 		return (FALSE);
 	return (TRUE);
 }

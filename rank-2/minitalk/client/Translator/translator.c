@@ -6,40 +6,36 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:20:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:36:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 15:02:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* -----| Headers |----- */
-// Libs
-#include <stdlib.h>
-
-// Global
-#include "types.h"
-#include "config.h"
-#include "struct.h"
-
-// Modules
+/* -----| Modules |----- */
 #include "interne/_Translator.h"
 
 /* -----| Functions |----- */
 
 /** */
-__attribute__((cold)) t_byte	*translator(const char *msg)
+__attribute__((cold)) t_bool	translator(const char *msg, const int pid)
 {
-	t_byte	*msg_bin;
-	int		i;
-	int		nb_bit;
+	int	i;
+	int	bit;
+	int	ret;
 
-	msg_bin = (t_byte *)ft_calloc(ft_strlen(msg) * 8, sizeof(t_byte));
-	if (!msg_bin)
-		exiting(1, "translator: msg: Malloc failed\n", NULL);
 	i = -1;
 	while (msg[++i])
 	{
-		nb_bit = -1;
-		while (++nb_bit < 8)
-			msg_bin[i * 8 + nb_bit] = (msg[i] >> nb_bit) & 1;
+		bit = -1;
+		while (++bit < 8)
+		{
+			if (msg[i] >> bit & 1)
+				ret = kill(pid, SIGUSR2);
+			else
+				ret = kill(pid, SIGUSR1);
+			if (ret == -1)
+				return (FALSE);
+			usleep(1);
+		}
 	}
-	return (msg_bin);
+	return (TRUE);
 }

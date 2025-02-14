@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Listener.h                                        :+:      :+:    :+:   */
+/*   _Translator.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 14:19:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 15:36:25 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/14 16:05:33 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/14 16:28:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _LISTENER_H
-# define _LISTENER_H
+#ifndef _TRANSLATOR_H
+# define _TRANSLATOR_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Libs
-# include <unistd.h>
-# include <signal.h>
-# include <sys/types.h>
-#include <asm-generic/siginfo.h>
+#include "libft.h"
+#include <signal.h>
+#include <stdlib.h>
 
 // Global
-# include "config.h"
+#include "types.h"
+#include "config.h"
 
 // Modules
-//...
+#include "Listener.h"
+#include "Translator.h"
+#include "Talker.h"
+#include "utils.h"
 
 /* -----| Define |----- */
 //...
@@ -56,21 +59,6 @@
 //...
 
 /* -----| Inline |----- */
+//...
 
-/** */
-__attribute__((hot)) static inline	int	is_EOT(const int *buffer,
-	const int count)
-{
-	int	i;
-	int	c;
-
-	if (count < 9)
-		return (0);
-	i = count - 8;
-	c = 0;
-	while (i < count)
-		c = (c << 1) | buffer[i++];
-	return (c == 4);
-}
-
-#endif	// _LISTENER_H
+#endif	// _TRANSLATOR_H

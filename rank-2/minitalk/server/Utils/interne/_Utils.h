@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Translator.h                                      :+:      :+:    :+:   */
+/*   _Utils.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:52:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/14 13:56:21 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/14 15:04:39 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/14 15:05:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _TRANSLATOR_H
-# define _TRANSLATOR_H
+#ifndef _UTILS_H
+# define _UTILS_H
 
 
 # pragma once
 
 /* -----| Header |----- */
 // Libs
-#include "libft.h"
-#include <signal.h>
 #include <unistd.h>
 
 // Global
-#include "types.h"
-#include "config.h"
 #include "struct.h"
 
 // Modules
@@ -60,4 +56,4 @@
 /* -----| Inline |----- */
 //...
 
-#endif	// _TRANSLATOR_H
+#endif	// _UTILS_H

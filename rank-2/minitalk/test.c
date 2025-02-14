@@ -1,10 +1,8 @@
 #include <signal.h>
-#include <asm-generic/signal.h>
+// #include <asm-generic/signal.h>
 #include <stdlib.h>
-
-#include "Talker.h"
-#include "Translator.h"
-// #include "Hear.h"
+#include <unistd.h>
+#include <stdio.h>
 
 void	handler(int sig)
 {
@@ -16,6 +14,7 @@ void	handler(int sig)
 
 int	main(void)
 {
+	printf("PID: %d\n", getpid());
 	struct sigaction	act;
 	act.sa_handler = handler;
 	act.sa_flags = 0;
@@ -26,3 +25,4 @@ int	main(void)
 		pause();
 	}
 }
+

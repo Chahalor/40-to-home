@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:44:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:16:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 16:31:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* -----| Header |----- */
 // Libs
 # include <signal.h>
-# include <asm-generic/siginfo.h>
+// # include <asm-generic/siginfo.h>
 
 // Global
 #include "types.h"
@@ -47,19 +47,19 @@ typedef struct s_client
 {
 	int		server_pid;
 	char	*msg;
-	void	*(*hear)(int, const char **);
-	void	*(*translator)(char *);
-	void	*(*talker)(int, int *);
-	void	*(*callback)(int, siginfo_t *, void *);
-}			t_client;
+	void	(*hear)(const int, const char **, struct s_client *);
+	t_bool	(*translator)(const char *, const int);
+	t_bool	(*talker)(const int, t_byte *);
+	void	*(*callback)(void);
+}	t_client;
 
 typedef struct s_serveur
 {
 	int		serveur_pid;
-	void	*(*hear)(int, char **);
-	void	*(*translator)(int *, int);
-	void	*(*talker)();
-};
+	void	(*hear)(int, siginfo_t *, void *);
+	void	(*translator)(const int [], const int);
+	int		(*talker)(const char *, ...);
+}	t_serveur;
 
 
 /* -----| Prototype |----- */

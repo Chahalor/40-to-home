@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:34:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:34:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 11:27:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@
 
 /* -----| Prototype |----- */
 
-t_bool	talker(const int serv_pid, const t_byte *msg);
+t_bool	talker(const int serv_pid, t_byte *msg);
+void	sig_bit(int bit, int pid);
 
 /* -----| Static |----- */
 //...

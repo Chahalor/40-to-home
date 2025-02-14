@@ -6,13 +6,13 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:42:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:39:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/14 09:14:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* -----| Headers |----- */
 // Libs
-//...
+#include <stdio.h>
 
 // Global
 #include "types.h"
@@ -49,13 +49,15 @@ t_client	parsing_args(const int argc, const char *argv[])
 
 #else
 
-t_client	parsing_args(const int argc, const char *argv[], t_client *client)
+void	parsing_args(int argc, const char *argv[], t_client *client)
 {
-
-	if (argc != 2)
-		exiting(1, "Usage: ./client [pid]\n", NULL);
+	printf("argc: %d\n", argc);
+	printf("argv: %p\n", argv);
+	printf("client: %p\n", client);
+	if (!argv || !client)
+		exiting(1, "Arguments invalides\n", NULL);
 	client->server_pid = ft_atoi(argv[1]);
-	client->msg = argv[2];
+	client->msg = (char *)argv[2];
 	client->hear = parsing_args;
 	client->translator = translator;
 	client->talker = talker;
