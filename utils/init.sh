@@ -13,7 +13,7 @@ for dir in */; do
 
 	# Définit les chemins des fichiers
 	interface_file="$dir/interface/$dir.h"
-	interne_file="$dir/interne/i_$dir.h"
+	interne_file="$dir/internal/_$dir.h"
 
 	# Crée les fichiers uniquement s'ils n'existent pas
 	[ -f "$interface_file" ] || touch "$interface_file"
