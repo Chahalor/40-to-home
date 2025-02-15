@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/14 14:54:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/15 13:22:39 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ __attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
 
 	(void)siginfo;
 	(void)context;
+	ft_printf("signum: %d\n", signum);
 	if (signum == SIGUSR1)
 		buffer[count++] = 0;
 	else if (signum == SIGUSR2)
 		buffer[count++] = 1;
+	ft_printf("count: %d\n", count);
 	if (count == 1023 || is_EOT(buffer, count))
 	{
 		translator(buffer, count);	// @todo

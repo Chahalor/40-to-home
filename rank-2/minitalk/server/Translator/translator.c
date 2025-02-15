@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:47:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/14 16:44:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/15 12:07:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_char_size(const int buff[HEAR_BUFF], const int count, int start)
 	return (size);
 }
 
-__attribute__((unused)) void	translator(const int buff[HEAR_BUFF],
+__attribute__((hot)) char	*translator(const int buff[HEAR_BUFF],
 	const int count)
 {
 	char	*msg;
@@ -51,7 +51,7 @@ __attribute__((unused)) void	translator(const int buff[HEAR_BUFF],
 
 	msg = (char *)malloc(sizeof(char) * count + 1);
 	if (msg == NULL)
-		return ;
+		return (NULL);
 	i = -1;
 	j = 0;
 	while (++i < count)
@@ -65,4 +65,5 @@ __attribute__((unused)) void	translator(const int buff[HEAR_BUFF],
 		j++;
 	}
 	msg[j] = '\0';
+	return (msg);
 }

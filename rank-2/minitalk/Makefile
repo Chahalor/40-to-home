@@ -70,15 +70,15 @@ C_SRC_HEAR :=		#$(DIR_CLIENT)/$(C_MOD_HEAR)/hear.c
 C_SRC_TALK :=		$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
 C_SRC_TRAN :=		$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
 C_SRC_UTILS :=		$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
-CLIENT_SRC_ALL :=		$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
+CLIENT_SRC_ALL :=	$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
 
 
  # Server
 S_SRC_HEAR :=		$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
 S_SRC_TALK :=		$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
 S_SRC_TRAN :=		$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
-S_SRC_UTILS :=		$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
-SERVER_SRC_ALL :=		$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(DIR_SERVER)/server.c
+S_SRC_UTILS :=		#$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
+SERVER_SRC_ALL :=	$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(S_SRC_UTILS) $(DIR_SERVER)/serveur.c
 
 OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(CLIENT_SRC_ALL:.c=.o))
 OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(SERVER_SRC_ALL:.c=.o))
