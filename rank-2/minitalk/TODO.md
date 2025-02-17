@@ -38,3 +38,7 @@
  - [ ] do ```funcheck ./client``` et ```funcheck ./serveur```
  - [ ] valgrind client et serveur
 
+Si 0xxxxxxx → ASCII (fin du caractère ici).
+Si 110xxxxx → UTF-8 2 octets.
+Si 1110xxxx → UTF-8 3 octets.
+Si 11110xxx → UTF-8 4 octets.

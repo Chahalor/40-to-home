@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/15 13:22:39 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:08:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* -----| Functions |----- */
 
 /** */
-__attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
+__attribute__((unused)) void	signal_handler(int signum, siginfo_t *siginfo,
 	void *context)
 {
 	static int	count = 0;
@@ -38,12 +38,63 @@ __attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
 	}
 }
 
+char	reverse_bits(char c)
+{
+	char	r = 0;
+	int		i = 0;
+
+	while (i < 8)
+	{
+		r = r << 1;
+		r = r | (c & 1);
+		c = c >> 1;
+		++i;
+	}
+	return (r);
+}
+//*
+int	get_char_size(char c)
+{
+	int	size = 0;
+
+	while (c >> 1)77
+	{
+		++size;
+		c >>= 1;
+	}
+	return (size);
+}
+
+void	signal_handler2(int signum, siginfo_t *siginfo,
+	void *context)
+{
+	static char	letter = 0;
+	static int	count = 0;
+	int			size;
+
+	(void)siginfo;
+	(void)context;
+	if (signum == SIGUSR1)
+		letter = (letter << 1) | 0;
+	else if (signum == SIGUSR2)
+		letter = (letter << 1) | 1;
+	++count;
+	if (count == 8)
+		size = get_char_size(letter);
+	{
+		letter = reverse_bits(letter);
+		write(1, &letter, 1);
+		letter = 0;
+		count = 0;
+	}
+}
+
 /** */
 __attribute__((cold, unused)) t_bool	setup_signal(void)
 {
 	struct sigaction	handler;
 
-	handler.sa_sigaction = signal_handler;
+	handler.sa_sigaction = signal_handler2;
 	sigemptyset(&handler.sa_mask);
 	if (sigaction(SIGUSR1, &handler, NULL) == -1)
 		return (FALSE);

@@ -25,7 +25,7 @@ NAME_CLIENT :=	client.out
 NAME_SERVER :=	server.out
 
 CC :=			cc
-CFLAGS =		-Wall -Wextra -Werror
+CFLAGS =		#-Wall -Wextra -Werror
 DEBUGFLAGS =
 ARGS =
 
@@ -70,7 +70,7 @@ C_SRC_HEAR :=		#$(DIR_CLIENT)/$(C_MOD_HEAR)/hear.c
 C_SRC_TALK :=		$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
 C_SRC_TRAN :=		$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
 C_SRC_UTILS :=		$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
-CLIENT_SRC_ALL :=	$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
+SRC_CLIENT_ALL :=	$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
 
 
  # Server
@@ -78,10 +78,10 @@ S_SRC_HEAR :=		$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
 S_SRC_TALK :=		$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
 S_SRC_TRAN :=		$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
 S_SRC_UTILS :=		#$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
-SERVER_SRC_ALL :=	$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(S_SRC_UTILS) $(DIR_SERVER)/serveur.c
+SRC_SERVER_ALL :=	$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(S_SRC_UTILS) $(DIR_SERVER)/serveur.c
 
-OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(CLIENT_SRC_ALL:.c=.o))
-OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(SERVER_SRC_ALL:.c=.o))
+OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(SRC_CLIENT_ALL:.c=.o))
+OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(SRC_SERVER_ALL:.c=.o))
 ALL_OBJ :=		$(OBJ_CLIENT) $(OBJ_SERVER)
 
 # ***************************************************** #
@@ -111,7 +111,7 @@ server: reset_count $(LIBFT) $(OBJ_SERVER)
 	@echo "\033[32m ✅ Server created\033[0m"
 
 COMPILE_FLAG =	$(if $(filter client/%,$<),$(INC_CLIENT),$(INC_SERVER))
-COMPILE_SRC =	$(if $(filter client/%,$<),$(CLIENT_SRC_ALL),$(SERVER_SRC_ALL))
+COMPILE_SRC =	$(if $(filter client/%,$<),$(SRC_CLIENT_ALL),$(SRC_SERVER_ALL))
 $(DIR_OBJ)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(call compile_object, $(INCLUDES) $(COMPILE_FLAG), $(COMPILE_SRC), $(COLOR_YELLOW))
@@ -161,8 +161,8 @@ debug.fs: debug.fsanitize
 .PHONY: write_header echo norm reset_count make_norm compile_object write_goals
 
 echo:
-	@echo "Client: $(OBJ_CLIENT)\n $(CLIENT_SRC_ALL)"
-	@echo "Server: $(OBJ_SERVER)\n $(SERVER_SRC_ALL)"
+	@echo "Client: $(OBJ_CLIENT)\n $(SRC_CLIENT_ALL)"
+	@echo "Server: $(OBJ_SERVER)\n $(SRC_SERVER_ALL)"
 	@echo "flag: $(COMPILE_FLAG)"
 	@echo "src: $(COMPILE_SRC)"
 
