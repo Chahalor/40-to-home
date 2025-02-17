@@ -25,7 +25,7 @@ NAME_CLIENT :=	client.out
 NAME_SERVER :=	server.out
 
 CC :=			cc
-CFLAGS =		#-Wall -Wextra -Werror
+CFLAGS =		-Wall -Wextra -Werror
 DEBUGFLAGS =
 ARGS =
 

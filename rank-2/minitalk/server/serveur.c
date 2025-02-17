@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:10:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/17 08:20:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:47:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(void)
 {
 	if (!setup_signal())
 		return (err_signal);
-	ft_printf("serveur PID: %d\n", getpid());
+	ft_printf("serveur PID: %d \n", getpid());
 	while (1)
 	{
 		pause();

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:47:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/15 12:07:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:32:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ __attribute__((hot))	t_serveur	*get_serveur(void)
 	if (serveur.serveur_pid == 0)
 		serveur = (t_serveur){
 			.serveur_pid = getpid(),
-			.hear = signal_handler,
+			.hear = NULL,
 			.translator = translator,
 			.talker = ft_printf,
 		};
