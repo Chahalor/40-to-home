@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/17 09:56:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/18 15:01:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* -----| Functions |----- */
 
+/** */
 char	reverse_bits(char c, int base)
 {
 	char	r = 0;
@@ -81,14 +82,13 @@ void	signal_handler_ascii(int signum, siginfo_t *siginfo,
 	}
 }
 
-__attribute__((hot)) void	signal_handler3(int signum, siginfo_t *siginfo,
+__attribute__((hot)) void	get_and_response(int signum, siginfo_t *siginfo,
 	void *context)
 {
 	static int	count = 0;
 	static char	letter = 0;
 	int			size = 0;
 
-	(void)siginfo;
 	(void)context;
 	if (signum == SIGUSR1)
 		letter = (letter << 1) | 0;
@@ -96,15 +96,16 @@ __attribute__((hot)) void	signal_handler3(int signum, siginfo_t *siginfo,
 		letter = (letter << 1) | 1;
 	++count;
 	if (count % 8 != 0)
-		return ;
+		return ((void)kill(siginfo->si_pid, SIGUSR1));
 	size = get_char_header(letter);
 	// ft_printf("size: %d, cout: %d\n", size, count);
 	if (count != 8 * size)
-		return ;
+		return ((void)kill(siginfo->si_pid, SIGUSR1));
 	letter = reverse_bits(letter, size);
 	write(1, &letter, 1);
 	letter = 0;
 	count = 0;
+	kill(siginfo->si_pid, SIGUSR1);
 }
 
 /** */
