@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:39:34 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:51:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:33:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,12 @@ __attribute__((hot)) static inline void	draw_last_line(t_fdf *fdf)
 	{
 		current = calc_c(fdf->map->iso_map[fdf->map->height - 1][y], fdf->pos);
 		next = calc_c(fdf->map->iso_map[fdf->map->height - 1][y + 1], fdf->pos);
+		draw_line(fdf, current, next, fdf->img->addr);
+	}
+	if (fdf->map->height == 1 && fdf->map->width == 1)
+	{
+		current = calc_c(fdf->map->iso_map[0][0], fdf->pos);
+		next = (t_point){current.x + 1, current.y, current.z};
 		draw_line(fdf, current, next, fdf->img->addr);
 	}
 }

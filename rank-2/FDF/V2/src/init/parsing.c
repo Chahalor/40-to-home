@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:48:47 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 16:52:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:27:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_line_size(const char *line)
 			size++;
 		i++;
 	}
-	return (size);
+	return (size + 1);
 }
 
 /**

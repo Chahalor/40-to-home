@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:22:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 09:53:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/19 15:27:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ __attribute__((cold, unused)) static inline int	get_nb_high(t_map *map)
 			if (map->map[x][y] > 0)
 				nb_high++;
 	}
+	if (nb_high == 0)
+		return (1);
 	return (nb_high);
 }
 
