@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/18 15:01:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/19 09:10:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ __attribute__((hot)) void	get_and_response(int signum, siginfo_t *siginfo,
 	if (count % 8 != 0)
 		return ((void)kill(siginfo->si_pid, SIGUSR1));
 	size = get_char_header(letter);
-	// ft_printf("size: %d, cout: %d\n", size, count);
 	if (count != 8 * size)
 		return ((void)kill(siginfo->si_pid, SIGUSR1));
 	letter = reverse_bits(letter, size);
@@ -113,7 +112,7 @@ __attribute__((cold, unused)) t_bool	setup_signal(void)
 {
 	struct sigaction	handler;
 
-	handler.sa_sigaction = signal_handler3;
+	handler.sa_sigaction = get_and_response;
 	sigemptyset(&handler.sa_mask);
 	if (sigaction(SIGUSR1, &handler, NULL) == -1)
 		return (FALSE);
