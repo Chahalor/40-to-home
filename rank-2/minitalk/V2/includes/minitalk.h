@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/19 09:47:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/19 11:18:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <stdio.h>
+# include <sys/types.h>
 
 // Local
 # include "libft.h"
 
 /* -----| Define |----- */
-//...
+
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 /* -----| Macro |----- */
 //...
@@ -34,7 +39,16 @@
 //...
 
 /* -----| Enum |----- */
-//...
+
+typedef enum e_error
+{
+	err_none = 0,
+	err_argc,
+	err_arg,
+	err_pid,
+	err_malloc,
+	err_signal,
+}	t_error;
 
 /* -----| Union |----- */
 //...
