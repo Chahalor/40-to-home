@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:45:06 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/19 15:35:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 09:22:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ __attribute__((hot)) void	draw_line(t_fdf *fdf, t_point start, t_point end,
 	while (cur.x != end.x || cur.y != end.y)
 	{
 		if (is_valid_pixel(cur, fdf->img))
-			*(int *)(ptr + calc_pixel(cur, fdf->img)) = fdf->pos->color1
-				- cur.z;
+			*(int *)(ptr + calc_pixel(cur, fdf->img)) = fdf->pos->color1 \
+		- cur.z;
 		error[1] = error[0] * 2;
 		if (error[1] > -abs(end.y - start.y))
 		{

@@ -1,47 +1,97 @@
 <mxfile host="65bd71144e">
     <diagram id="FJC2MeTrbpjg4HZ2YD0v" name="Page-1">
-        <mxGraphModel dx="2266" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1518" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="Vertical Container" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry width="850" height="1100" as="geometry"/>
+                <mxCell id="14" value="MiniTalk" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry width="840" height="1100" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="" style="edgeStyle=none;html=1;" edge="1" parent="2" source="3" target="4">
+                <mxCell id="15" value="Client&amp;nbsp;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="14">
+                    <mxGeometry x="10" y="30" width="410" height="1060" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="edgeStyle=none;html=1;" edge="1" parent="15" source="17" target="20">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="read argv" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+                <mxCell id="17" value="get pid &amp;amp;&amp;amp; message" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="15">
                     <mxGeometry x="10" y="30" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="" style="edgeStyle=none;html=1;" edge="1" parent="2" source="4" target="6">
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;" edge="1" parent="15" source="20" target="22">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="send strlen(msg)" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="2">
+                <mxCell id="20" value="send ptr" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="15">
                     <mxGeometry x="210" y="30" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="bit by bit send msg" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="2">
-                    <mxGeometry x="410" y="30" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="10" value="" style="edgeStyle=none;html=1;" edge="1" parent="2" source="8" target="9">
+                <mxCell id="25" value="" style="edgeStyle=none;html=1;" edge="1" parent="15" source="22" target="24">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="wait signal" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2">
-                    <mxGeometry x="10" y="120" width="120" height="60" as="geometry"/>
+                <mxCell id="22" value="set 1024 bit of message into buffer" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="15">
+                    <mxGeometry x="210" y="170" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="" style="edgeStyle=none;html=1;" edge="1" parent="2" source="9" target="11">
+                <mxCell id="37" value="" style="edgeStyle=none;html=1;" edge="1" parent="15" source="24" target="36">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="get msg size" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="2">
-                    <mxGeometry x="210" y="120" width="120" height="60" as="geometry"/>
+                <mxCell id="24" value="signal buffer update" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="15">
+                    <mxGeometry x="210" y="310" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="" style="edgeStyle=none;html=1;" edge="1" parent="2" source="11" target="13">
+                <mxCell id="38" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="15" source="36" target="22">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="70" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;wait server signal&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="15">
+                    <mxGeometry x="10" y="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Serveur" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="14">
+                    <mxGeometry x="425" y="30" width="405" height="1060" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="edgeStyle=none;html=1;" edge="1" parent="16" source="27" target="28">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="alloc it" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="2">
-                    <mxGeometry x="410" y="120" width="120" height="60" as="geometry"/>
+                <mxCell id="27" value="send pid into stdout" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="16">
+                    <mxGeometry x="15" y="30" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="get_msg" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="2">
-                    <mxGeometry x="610" y="120" width="120" height="60" as="geometry"/>
+                <mxCell id="31" value="" style="edgeStyle=none;html=1;" edge="1" parent="16" source="28" target="30">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="wait signal" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="16">
+                    <mxGeometry x="215" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="" style="edgeStyle=none;html=1;" edge="1" parent="16" source="30" target="39">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="get buffer addr" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="16">
+                    <mxGeometry x="215" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="" style="edgeStyle=none;html=1;" edge="1" parent="16" source="39" target="41">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="wait client signal" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="16">
+                    <mxGeometry x="215" y="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="" style="edgeStyle=none;html=1;" edge="1" parent="16" source="41" target="43">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="read buffer" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="16">
+                    <mxGeometry x="215" y="450" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="16" source="43" target="39">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="75" y="340"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" value="signal read finish" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="16">
+                    <mxGeometry x="15" y="450" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="14" source="43" target="36">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" style="edgeStyle=none;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="14" source="24" target="39">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:34:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 08:19:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 09:17:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // Global
 # include "libft.h"
 # include <math.h>
+# include <limits.h>
 
 // Local
 # include "struct.h"

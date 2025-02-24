@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:13:41 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:27:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 09:29:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,28 @@ int		is_valid_soption(const int argc, const char *argv[], int pos,
 //...
 
 /* -----| Inline |----- */
-//...
 
+__attribute__((cold, unused)) static inline int ask_validation(void)
+{
+	char	buff[2];
+
+	ft_printf("Do you want to validate the arguments? [Y/n] ");
+	read(0, buff, 2);
+	if (buff[0] != 'Y' && buff[0] != 'y')
+		return (1);
+	return (0);
+}
+
+__attribute__((cold, unused)) static inline int	is_fdf_file(const char *file)
+{
+	int		i;
+
+	i = ft_strlen(file);
+	if (i < 5)
+		return (0);
+	if (file[i - 1] != 'f' || file[i - 2] != 'd' || file[i - 3] != 'f'
+		|| file[i - 4] != '.')
+		return (ask_validation());
+	return (1);
+}
 #endif	// INTERNAL_ARGS_H

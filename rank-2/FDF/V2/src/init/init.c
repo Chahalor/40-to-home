@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:05:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 09:50:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 09:22:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,6 @@ t_fdf	*init_fdf(t_args *args)
 	fdf->mlx = (t_mlx *)(fdf + 1);
 	fdf->img = (t_image *)(fdf->mlx + 1);
 	fdf->pos = (t_pos *)(fdf->img + 1);
-	init_mlx(fdf->mlx, args, fdf);
-	init_img(fdf);
-	init_pos(fdf, args->color1, args->color2);
 	if (!fdf->mlx || !fdf->img || !fdf->pos)
 		exiting(fdf, mlx_error, "cannot initialize fdf");
 	fdf->map = parse_map(args->file);
@@ -157,6 +154,9 @@ t_fdf	*init_fdf(t_args *args)
 		fdf->algo = calculate_iso;
 	else
 		fdf->algo = calculate_rev;
+	init_mlx(fdf->mlx, args, fdf);
+	init_img(fdf);
+	init_pos(fdf, args->color1, args->color2);
 	return (fdf);
 }
 

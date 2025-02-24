@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 08:49:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 12:24:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 09:30:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ enum e_error
 	mlx_error,
 	mlx_window_error,
 	mlx_image_error,
-	malloc_error
+	malloc_error,
+	file_error,
 };
 # endif	// E_ERROR
 

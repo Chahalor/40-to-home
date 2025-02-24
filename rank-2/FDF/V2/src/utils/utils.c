@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 09:50:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:27:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 08:43:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ __attribute__((unused, cold, noreturn)) void	exiting(t_fdf *fdf,
 				mlx_destroy_window(fdf->mlx->mlx, fdf->mlx->win);
 			if (fdf->mlx->mlx)
 				mlx_destroy_display(fdf->mlx->mlx);
+			free(fdf->mlx->mlx);
 		}
 		free(fdf);
 	}
-	if (message)
+	if (message && code)
 		perror(message);
+	else if (message)
+		ft_printf("%s\n", message);
 	exit(code);
 }
 

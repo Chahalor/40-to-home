@@ -18,7 +18,7 @@
  - [X] finish separing all nodule in is own module
  - [X] afficher les toutes petites map
  - [X] verifier que nb_high de fdf.map != 0
- - [ ] rotation sur les toute petite map avec de petite valeurs
+ - [X] rotation sur les toute petite map avec de petite valeurs
 
 ### Headers
 

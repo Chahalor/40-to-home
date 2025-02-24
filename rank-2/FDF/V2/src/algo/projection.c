@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:44:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 11:33:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/24 11:27:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 	centered_i = i - map->height / 2;
 	centered_j = j - map->width / 2;
 	z = -centered_j * sin(fdf->pos->rotationx) + map->map[i][j]
-		* cos(fdf->pos->rotationx) / 2;
+		* cos(fdf->pos->rotationx) / 2 + 1;
+	if (z > 10000)
+		z = 10000;
+	else if (z < -10000)
+		z = -10000;
 	return ((t_point){
 		.x = centered_j * cos(fdf->pos->rotationx) + map->map[i][j]
 			* sin(fdf->pos->rotationx) / 2,
@@ -73,7 +77,7 @@ __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
  * 
  * @return t_point** The points array.
  */
-__attribute__((hot)) t_point	**projection(t_fdf *fdf, t_map *map,
+__attribute__((hot, malloc)) t_point	**projection(t_fdf *fdf, t_map *map,
 	t_point **points)
 {
 	int		i;
