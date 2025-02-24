@@ -21,8 +21,8 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 
 # Name of the executable
 NAME :=			minitalk
-NAME_CLIENT :=	client.out
-NAME_SERVER :=	server.out
+NAME_CLIENT :=	client
+NAME_SERVER :=	server
 
 CC :=			cc
 CFLAGS =		-Wall -Wextra -Werror
@@ -30,7 +30,7 @@ DEBUGFLAGS =
 ARGS =
 
 # Directories
-DIR_SRC :=
+DIR_SRC :=			src
 DIR_OBJ :=			.obj
 DIR_LIBFT :=		libft
 DIR_CLIENT :=		client
@@ -60,25 +60,25 @@ ALL_MOD :=		$(C_MOD_ALL) $(S_MOD_ALL)
 
 # Includes
 INC_GLOBAL :=	Global
-INC_CLIENT :=	$(foreach dir, $(C_MOD_ALL) ,-I$(DIR_CLIENT)/$(dir)/$(DIR_INTERFACE))
-INC_SERVER :=	$(foreach dir, $(S_MOD_ALL) ,-I$(DIR_SERVER)/$(dir)/$(DIR_INTERFACE))
+INC_CLIENT :=	$(foreach dir, $(C_MOD_ALL) ,-I$(DIR_SRC)/$(DIR_CLIENT)/$(dir)/$(DIR_INTERFACE))
+INC_SERVER :=	$(foreach dir, $(S_MOD_ALL) ,-I$(DIR_SRC)/$(DIR_SERVER)/$(dir)/$(DIR_INTERFACE))
 INCLUDES :=		-I$(INC_GLOBAL) -I$(DIR_LIBFT) #$(INC_CLIENT) $(INC_SERVER)
 
 # -----| Sources |----- #
  # Client
 C_SRC_HEAR :=		#$(DIR_CLIENT)/$(C_MOD_HEAR)/hear.c
-C_SRC_TALK :=		$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
-C_SRC_TRAN :=		$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
-C_SRC_UTILS :=		$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
-SRC_CLIENT_ALL :=	$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_CLIENT)/client.c
+C_SRC_TALK :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_TALK)/talker.c
+C_SRC_TRAN :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_TRAN)/translator.c
+C_SRC_UTILS :=		$(DIR_SRC)/$(DIR_CLIENT)/$(C_MOD_UTILS)/utils.c
+SRC_CLIENT_ALL :=	$(C_SRC_HEAR) $(C_SRC_TALK) $(C_SRC_TRAN) $(C_SRC_UTILS) $(DIR_SRC)/$(DIR_CLIENT)/client.c
 
 
  # Server
-S_SRC_HEAR :=		$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
-S_SRC_TALK :=		$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
-S_SRC_TRAN :=		$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
-S_SRC_UTILS :=		#$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
-SRC_SERVER_ALL :=	$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(S_SRC_UTILS) $(DIR_SERVER)/serveur.c
+S_SRC_HEAR :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_HEAR)/signal.c
+S_SRC_TALK :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_TALK)/talker.c
+S_SRC_TRAN :=		$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_TRAN)/translator.c
+S_SRC_UTILS :=		#$(DIR_SRC)/$(DIR_SERVER)/$(S_MOD_UTILS)/utils.c
+SRC_SERVER_ALL :=	$(S_SRC_HEAR) $(S_SRC_TALK) $(S_SRC_TRAN) $(S_SRC_UTILS) $(DIR_SRC)/$(DIR_SERVER)/serveur.c
 
 OBJ_CLIENT :=	$(addprefix $(DIR_OBJ)/, $(SRC_CLIENT_ALL:.c=.o))
 OBJ_SERVER :=	$(addprefix $(DIR_OBJ)/, $(SRC_SERVER_ALL:.c=.o))
@@ -110,8 +110,8 @@ server: reset_count $(LIBFT) $(OBJ_SERVER)
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDES) $(OBJ_SERVER) $(LIBFT) -o $(NAME_SERVER)
 	@echo "\033[32m ✅ Server created\033[0m"
 
-COMPILE_FLAG =	$(if $(filter client/%,$<),$(INC_CLIENT),$(INC_SERVER))
-COMPILE_SRC =	$(if $(filter client/%,$<),$(SRC_CLIENT_ALL),$(SRC_SERVER_ALL))
+COMPILE_FLAG =	$(if $(filter $(DIR_SRC)/$(DIR_CLIENT)/%,$<),$(INC_CLIENT),$(INC_SERVER))
+COMPILE_SRC =	$(if $(filter $(DIR_SRC)/$(DIR_CLIENT)/%,$<),$(SRC_CLIENT_ALL),$(SRC_SERVER_ALL))
 $(DIR_OBJ)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(call compile_object, $(INCLUDES) $(COMPILE_FLAG), $(COMPILE_SRC), $(COLOR_YELLOW))

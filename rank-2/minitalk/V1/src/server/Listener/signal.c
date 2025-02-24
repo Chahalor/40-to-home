@@ -6,12 +6,13 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/19 09:10:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/24 15:59:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* -----| Headers |----- */
 #include "interne/_Listener.h"
+#include "utils.h"
 
 /* -----| Functions |----- */
 
@@ -45,7 +46,7 @@ char	reverse_bits(char c, int base)
  */
 int	get_char_header(char c)
 {
-	c = reverse_bits(c, 1);
+	// c = reverse_bits(c, 1);
 	if ((c & 0x80) == 0)
 		return (1);
 	else if ((c & 0xE0) == 0xC0)
@@ -68,43 +69,19 @@ void	signal_handler_ascii(int signum, siginfo_t *siginfo,
 
 	(void)siginfo;
 	(void)context;
+	// ft_printf("%d", signum == SIGUSR1 ? 0 : 1);	//rm
 	if (signum == SIGUSR1)
 		letter = (letter << 1) | 0;
-	else if (signum == SIGUSR2)
+	else
 		letter = (letter << 1) | 1;
 	++count;
-	if (count >= 8)
+	if (count / 8 == get_char_header(letter))
 	{
-		letter = reverse_bits(letter, 1);
 		write(1, &letter, 1);
-		letter = 0;
 		count = 0;
+		letter = '\0';
 	}
-}
-
-__attribute__((hot)) void	get_and_response(int signum, siginfo_t *siginfo,
-	void *context)
-{
-	static int	count = 0;
-	static char	letter = 0;
-	int			size = 0;
-
-	(void)context;
-	if (signum == SIGUSR1)
-		letter = (letter << 1) | 0;
-	else if (signum == SIGUSR2)
-		letter = (letter << 1) | 1;
-	++count;
-	if (count % 8 != 0)
-		return ((void)kill(siginfo->si_pid, SIGUSR1));
-	size = get_char_header(letter);
-	if (count != 8 * size)
-		return ((void)kill(siginfo->si_pid, SIGUSR1));
-	letter = reverse_bits(letter, size);
-	write(1, &letter, 1);
-	letter = 0;
-	count = 0;
-	kill(siginfo->si_pid, SIGUSR1);
+	// kill(siginfo->si_pid, SIGUSR1);
 }
 
 /** */
@@ -112,11 +89,14 @@ __attribute__((cold, unused)) t_bool	setup_signal(void)
 {
 	struct sigaction	handler;
 
-	handler.sa_sigaction = get_and_response;
+	handler.sa_sigaction = signal_handler_ascii;
+	handler.sa_flags = SA_SIGINFO;
 	sigemptyset(&handler.sa_mask);
 	if (sigaction(SIGUSR1, &handler, NULL) == -1)
-		return (FALSE);
+		exiting(err_signal, "sigaction error\n", NULL);
 	if (sigaction(SIGUSR2, &handler, NULL) == -1)
-		return (FALSE);
+		exiting(err_signal, "sigaction error\n", NULL);
 	return (TRUE);
 }
+
+// "Lorem ipsum odor amet, consectetuer adipiscing elit. Diam fusce faucibus aliquam netus vivamus condimentum convallis porttitor libero. Ornare inceptos consectetur, curae ligula lacus enim sem. Id ridiculus gravida fusce ante sodales, efficitur elit pellentesque proin. Semper rutrum viverra ante porta ultrices class vitae. Facilisi justo consectetur elit libero mi accumsan massa libero. Mi aliquam sapien neque nam inceptos proin. Amet dolor erat nullam rhoncus; facilisi iaculis. Rutrum non consequat metus felis nulla molestie?"

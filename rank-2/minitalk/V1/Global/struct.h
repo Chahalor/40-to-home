@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:44:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/15 12:06:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/24 10:26:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_client
 	int		server_pid;
 	char	*msg;
 	void	(*hear)(const int, const char **, struct s_client *);
-	t_bool	(*translator)(const char *, const int);
+	t_bool	(*translator)(char *, const int);
 	t_bool	(*talker)(const int, t_byte *);
 	void	*(*callback)(void);
 }	t_client;

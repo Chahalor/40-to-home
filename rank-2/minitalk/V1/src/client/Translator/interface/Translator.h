@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   Translator.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 16:06:28 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/14 16:07:12 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/13 18:36:15 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/24 10:13:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef TRANSLATOR_H
+# define TRANSLATOR_H
 
 # pragma once
 
@@ -20,7 +20,7 @@
 //...
 
 // Global
-#include "struct.h"
+#include "types.h"
 
 // Modules
 //...
@@ -45,7 +45,7 @@
 
 /* -----| Prototype |----- */
 
-t_serveur	*get_serveur(void);
+t_bool	translator(char *msg, const int pid);
 
 /* -----| Static |----- */
 //...
@@ -56,4 +56,4 @@ t_serveur	*get_serveur(void);
 /* -----| Inline |----- */
 //...
 
-#endif	// UTILS_H
+#endif	// TRANSLATOR_H

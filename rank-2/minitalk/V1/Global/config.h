@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:34:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:02:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/24 15:31:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # ifndef BONUS
 #  define BONUS 0
 # endif
+
+# define EOT 0x0
+# define SLEEP_TIME 10
 
 /* -----| Macro |----- */
 //...

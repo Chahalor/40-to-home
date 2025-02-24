@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:26:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/19 11:37:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/24 11:31:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ __attribute__((cold)) t_bool	talker(const int serv_pid, t_byte *msg)
 	int		i;
 
 	if (!msg)
-	return (FALSE);
+		return (FALSE);
 	tmp = msg;
 	i = -1;
 	while (msg[++i] != 2)
