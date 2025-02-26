@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:21:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:46:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ typedef enum e_error
 	err_argv,
 	//...
 }	t_error;
+
+typedef enum e_mode
+{
+	alloc = 0,
+	add_char,
+	print_str,
+}	t_mode;
 
 /* -----| Union |----- */
 //...

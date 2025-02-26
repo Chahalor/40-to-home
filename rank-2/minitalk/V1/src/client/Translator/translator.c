@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:20:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/24 15:31:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:01:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ __attribute__((hot)) t_bool	translator(char *msg, const int pid)
 	int	i;
 	int	bit;
 	int	ret;
-	// int	count;
 
 	i = -1;
 	while (msg[++i])
@@ -47,17 +46,17 @@ __attribute__((hot)) t_bool	translator(char *msg, const int pid)
 				ret = kill(pid, SIGUSR2);
 			else
 				ret = kill(pid, SIGUSR1);
-			if (ret == -1)
+			if (ret)
 				return (FALSE);
-			usleep(SLEEP_TIME);
 			msg[i] <<= 1;
 			++bit;
+			usleep(SLEEP_TIME);
 		}
 		while (bit++ % 8)
 		{
 			ret = kill(pid, SIGUSR1);
 			ft_printf("0");	//rm
-			if (ret == -1)
+			if (ret)
 				return (FALSE);
 			usleep(SLEEP_TIME);
 		}

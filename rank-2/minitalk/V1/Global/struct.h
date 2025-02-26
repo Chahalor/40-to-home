@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:44:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/24 10:26:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:48:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ typedef struct s_serveur
 	char	*(*translator)(const int [], const int);
 	int		(*talker)(const char *, ...);
 }	t_serveur;
+
+typedef struct s_str
+{
+	char	*str;	// string
+	int		len;	// nb of char
+	int		size;	// size alloc
+}	t_str;
 
 
 /* -----| Prototype |----- */
