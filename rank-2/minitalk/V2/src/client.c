@@ -5,74 +5,108 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:26:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/24 10:07:35 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/02/27 14:28:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <signal.h>
-#include <errno.h>
 
-__attribute__((cold)) void	send_size(int pid, char *msg)
+__attribute__((cold)) void	send_EOT(const int pid)
 {
-	static int	size = 0;
+	int	i;
 
-	if (msg)
-		size = ft_strlen(msg);
-	ft_printf("size: %d\n", size);
-	kill(pid, bit_to_sig((size >> 31) & 1));
-	size <<= 1;
-}
-
-__attribute__((hot)) void	send_message(int pid, char *message)
-{
-	static char	*msg = NULL;
-	static int	i = 0;
-
-	if (message)
-		msg = message;
-	if (msg[i] >> 1)
-		kill(pid, SIGUSR2);
-	else
+	i = -1;
+	while (++i < 8)
+	{
 		kill(pid, SIGUSR1);
-	msg[i] <<= 1;
-	if (!msg[i])
-		++i;
-	if (!msg[i])
-		send_message(pid, "\4");
+		usleep(SLEEP_TIME);
+	}
 }
 
-__attribute__((hot)) void	client_signal_handler(int signum, siginfo_t *info, void *context)
+/** */
+__attribute__((hot)) void	send_msg(char *msg, const int pid)
 {
-	(void)context;
-	ft_printf("signum: %d\n", signum);
-	if (signum == SIGUSR1)
-		send_size(info->si_pid, NULL);
-	else if (signum == SIGUSR2)
-		send_message(info->si_pid, NULL);
+	int	i;
+	int	bit;
+	int	ret;
+
+	i = -1;
+	while (msg[++i])
+	{
+		bit = 0;
+		while (msg[i])
+		{
+			ft_printf("%d ", msg[i] >> 7 & 1);	//rm
+			if (kill(pid, SIGUSR1 + 2 * (msg[i] >> 7 & 1)))
+				return ;
+			msg[i] <<= 1;
+			++bit;
+			usleep(SLEEP_TIME);
+		}
+		while (bit++ < 8)
+		{
+			ret = kill(pid, SIGUSR1);
+			ft_printf("0");	//rm
+			if (ret)
+				return ;
+			usleep(SLEEP_TIME);
+		}
+		ft_printf(" ");	//rm
+	}
+	send_EOT(pid);
 }
 
-__attribute__((cold, unused)) void	setup_signal(void)
+__attribute__((cold)) void	handler(int signal, siginfo_t *info, void *context)
+{
+	(void)info;
+	(void)context;
+	if (signal == SIGUSR1)
+		ft_printf("Message received\n");
+	else if (signal == SIGUSR2)
+		ft_printf("Message not received\n");
+}
+
+__attribute__((unused, cold)) int	setup_signal(void)
 {
 	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = client_signal_handler;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	sa.sa_sigaction = &handler;
+	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
+		return (1);
+	else
+		return (0);
+}
+
+__attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
+{
+	t_args	args;
+
+	if (argc != 3)
+	{
+		args.err = EINVAL;
+		return (args);
+	}
+	args.pid = ft_atoi(argv[1]);
+	if (args.pid <= 0)
+	{
+		args.err = EINVAL;
+		return (args);
+	}
+	args.msg = argv[2];
+	args.err = 0;
+	return (args);
 }
 
 int	main(int argc, char *argv[])
 {
-	int	pid;
+	t_args	args;
 
-	if (argc != 3)
-		exiting(EINVAL, "Usage: ./client [PID] [Message]\n");
-	pid = ft_atoi(argv[1]);
-	ft_printf("pid: %d\n", getpid());
-	if (pid < 1)
-		exiting(EINVAL, "Invalid PID\n");
+	args = parse_args(argc, argv);
+	if (args.err)
+		exiting(args.err, "parse_args:");
 	setup_signal();
-	send_size(pid, (argv[2]));
+	send_msg(args.msg, args.pid);
+	return (0);
 }

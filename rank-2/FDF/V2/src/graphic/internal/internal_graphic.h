@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:39:34 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/19 15:33:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:45:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "utils.h"
 # include "algo.h"
 # include "cmd.h"
+# include "graphic.h"
 
 // modules
 //...
@@ -39,12 +40,6 @@
 //...
 
 /* -----| Macro |----- */
-//...
-
-/* -----| Typedef |----- */
-//...
-
-/* -----| Enum |----- */
 //...
 
 /* -----| Union |----- */
@@ -85,7 +80,9 @@ void	translat_model(t_fdf *fdf, int x, int y);
 __attribute__((hot)) static inline int	is_valid_pixel(t_point point,
 	t_image *img)
 {
-	return (point.x >= 0 && point.x < img->width && point.y >= 0
+	return (point.x >= 0
+		&& point.x < img->width
+		&& point.y >= 0
 		&& point.y < img->height);
 }
 

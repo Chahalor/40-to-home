@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:31:07 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/21 09:31:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:53:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ __attribute__((unused, cold)) t_args	*parse_args(int argc,
 	args->help = 0;
 	parseur_v2(argc, argv, args);
 	if (!is_fdf_file(args->file))
-		return (free(args), exiting(NULL, file_error, "invalid file"), NULL);
+		return (free(args), exiting(NULL, file_error, "not an .fdf file"),
+			NULL);
 	return (args);
 }

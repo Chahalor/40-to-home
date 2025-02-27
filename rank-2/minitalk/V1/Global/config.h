@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:34:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/26 12:17:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:23:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@
 
 # define EOT 0x0
 # define SLEEP_TIME 100
+
+// params area
+
+# ifndef ALLOW_BUFF
+#  define ALLOW_BUFF 1	// @todo change to 0
+# endif
 
 /* -----| Macro |----- */
 //...

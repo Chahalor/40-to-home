@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:44:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/24 11:27:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:51:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
 	int y)
 {
 	return ((t_point){
-		.x = map->map[x][y] * fdf->pos->rotationx / 2 + y * fdf->pos->rotationy,
-		.y = x * fdf->pos->rotationy + y * fdf->pos->rotationx / 2,
+		.x = map->map[x][y] * fdf->pos->rotationx * 0.5 + y
+			* fdf->pos->rotationy,
+		.y = x * fdf->pos->rotationy + y * fdf->pos->rotationx * 0.5,
 		.z = map->map[x][y]
 	});
 }
@@ -41,6 +42,8 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
  * @param i The x position of the point.
  * @param j The y position of the point.
  * 
+ * @storage cos(fdf->pos->rotationy) - z * sin(fdf->pos->rotationy),
+ * 
  * @return t_point The isometric coordinates of the point.
  */
 __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
@@ -50,17 +53,39 @@ __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 	int	centered_i;
 	int	centered_j;
 
-	centered_i = i - map->height / 2;
-	centered_j = j - map->width / 2;
+	centered_i = i - (map->height >> 1);
+	centered_j = j - (map->width >> 1);
 	z = -centered_j * sin(fdf->pos->rotationx) + map->map[i][j]
-		* cos(fdf->pos->rotationx) / 2 + 1;
+		* cos(fdf->pos->rotationx) * 0.5 + 1;
 	if (z > 10000)
 		z = 10000;
 	else if (z < -10000)
 		z = -10000;
 	return ((t_point){
 		.x = centered_j * cos(fdf->pos->rotationx) + map->map[i][j]
-			* sin(fdf->pos->rotationx) / 2,
+			* sin(fdf->pos->rotationx) * 0.5,
+		.y = centered_i,
+		.z = fdf->map->map[i][j]
+	});
+}
+
+__attribute__((cold)) t_point	init_iso(t_fdf *fdf, t_map *map, int i, int j)
+{
+	int	z;
+	int	centered_i;
+	int	centered_j;
+
+	centered_i = i - map->height * 0.5;
+	centered_j = j - map->width * 0.5;
+	z = -centered_j * sin(fdf->pos->rotationx) + map->map[i][j]
+		* cos(fdf->pos->rotationx) * 0.5 + 1;
+	if (z > 10000)
+		z = 10000;
+	else if (z < -10000)
+		z = -10000;
+	return ((t_point){
+		.x = centered_j * cos(fdf->pos->rotationx) + map->map[i][j]
+			* sin(fdf->pos->rotationx) * 0.5,
 		.y = centered_i * cos(fdf->pos->rotationy) - z
 			* sin(fdf->pos->rotationy),
 		.z = fdf->map->map[i][j]
@@ -89,7 +114,6 @@ __attribute__((hot, malloc)) t_point	**projection(t_fdf *fdf, t_map *map,
 				+ sizeof(t_point) * map->width);
 		if (!points)
 			exiting(fdf, malloc_error, "projection(): cannot allocate memory");
-		map->iso_map = points;
 	}
 	i = -1;
 	while (++i < map->height)

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:42:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 10:33:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:40:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	translat_model(t_fdf *fdf, int x, int y);
 // window.c
 
 void	draw_line(t_fdf *fdf, t_point start, t_point end, void *ptr);
+void	draw_line2(t_image *img, t_point start, t_point end);
 
 /* -----| Static |----- */
 //...

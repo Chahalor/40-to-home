@@ -22,7 +22,7 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 NAME :=			fdf
 
 CC :=			cc
-CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL)
+CFLAGS =		-Wall -Wextra -Werror -I./$(DIR_INCL) 
 INCFLAGS = 		-I./$(DIR_INCL)
 MLXFLAGS :=		-Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 INCMLXFLAGS :=	-I/usr/include -Imlx
@@ -144,6 +144,9 @@ debug.fsanitize: debug
 
 debug.fs: debug.fsanitize
 
+debug.pg:
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -pg)
+
 # ***************************************************** #
 # *                      Utils                        * #
 # ***************************************************** #
@@ -152,6 +155,9 @@ debug.fs: debug.fsanitize
 
 run:
 	./$(NAME) $(ARGS)
+
+fast:
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -Ofast)
 
 echo:
 	@echo $(OBJ)

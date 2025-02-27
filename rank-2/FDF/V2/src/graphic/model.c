@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:53:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 08:30:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:08:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void	zoom_model(t_fdf *fdf, int zoom)
 		ft_printf("zoom: %d\n", zoom);
 	if (zoom == 0 || fdf->pos->zoom + zoom <= 0)
 		return ;
-	fdf->pos->zoom += zoom;
-	draw_projection(fdf);
+	else
+	{
+		fdf->pos->zoom += zoom;
+		draw_projection(fdf);
+	}
 }
 
 /** 
@@ -82,10 +85,13 @@ void	rotate_model(t_fdf *fdf, double rotationx, double rotationy)
 		ft_printf("rotationx: %f, rotationy: %f\n", rotationx, rotationy);
 	if (rotationx == 0 && rotationy == 0)
 		return ;
-	fdf->pos->rotationx += rotationx / 100;
-	fdf->pos->rotationy += rotationy / 100;
-	projection(fdf, fdf->map, fdf->map->iso_map);
-	draw_projection(fdf);
+	else
+	{
+		fdf->pos->rotationx += rotationx / 100;
+		fdf->pos->rotationy += rotationy / 100;
+		projection(fdf, fdf->map, fdf->map->iso_map);
+		draw_projection(fdf);
+	}
 }
 
 /**

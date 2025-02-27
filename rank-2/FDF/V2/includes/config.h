@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 08:14:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/21 09:33:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 08:33:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define DEFAULT_TITLE "FdF"
 # define DEFAULT_TYPE -1
 # define DEFAULT_ZOOM 1
-# define DEFAULT_ROTATIONX 0
-# define DEFAULT_ROTATIONY 20
+# define DEFAULT_ROTATIONX 120
+# define DEFAULT_ROTATIONY -75
 # define DEFAULT_COLOR1 0xFFFFFF
 # define DEFAULT_COLOR2 0xFF0000
 

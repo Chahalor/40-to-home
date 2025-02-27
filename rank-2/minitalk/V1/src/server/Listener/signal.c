@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:17:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/26 12:34:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:53:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,45 +72,78 @@ __attribute__((hot)) void	manager(char c, t_mode mode)
 	else
 	{
 		manager('\n', add_char);
-		write(1, str.str, str.len);
+		// write(1, str.str, str.len);
 		free(str.str);
 		str = (t_str){0};
 		manager(0, alloc);
 	}
+	// ft_printf("manager: %s\n", str.str);	//rm
 }
 
-/** */
-void	signal_handler_ascii(int signum, siginfo_t *siginfo,
+#if ALLOW_BUFF == 1
+
+__attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
 	void *context)
 {
-	static char		letter = 0;
-	static int		count = 0;
+	static char	buff[HEAR_BUFF] = {0};
+	static int	count = 0;
+	static int	i = 0;
+	static int nb_sig = 0;
+
+	++nb_sig;
+	(void)siginfo;
+	(void)context;
+	buff[i] = (buff[i] << 1) | (signum == SIGUSR2);
+	if (++count == 8)
+	{
+		count = 0;
+		++i;
+	}
+	if (i >= HEAR_BUFF || buff[i - 1] == EOT)
+	{
+		write(1, buff, i);
+		i = 0;
+		ft_memset(buff, 0, HEAR_BUFF);
+		count = 0;
+	}
+	ft_printf("nb_sig: %d\n", nb_sig);	//rm
+}
+
+#else
+
+/** */
+__attribute__((hot)) void	signal_handler(int signum, siginfo_t *siginfo,
+	void *context)
+{
+	static char	letter = 0;
+	static int	count = 0;
 
 	(void)siginfo;
 	(void)context;
-	if (signum == SIGUSR1)
-		letter = (letter << 1) | 0;
-	else
-		letter = (letter << 1) | 1;
+	ft_printf("%d", signum == SIGUSR2);	//rm
+	letter = (letter << 1) | (signum == SIGUSR2);
 	++count;
-	ft_printf("letter: %c, count: %d, header: %d\n", letter, count, get_char_header(letter));
-	if (count / 8 == get_char_header(letter))
+	if (count >= 8)
 	{
+		ft_printf(" ");	//rm
 		if (letter == EOT)
 			manager('\0', print_str);
 		else
 			manager(letter, add_char);
-		count = 0;
 		letter = '\0';
+		count = 0;
+		
 	}
 }
+
+#endif
 
 /** */
 __attribute__((cold, unused)) t_bool	setup_signal(void)
 {
 	struct sigaction	handler;
 
-	handler.sa_sigaction = signal_handler_ascii;
+	handler.sa_sigaction = signal_handler;
 	handler.sa_flags = SA_SIGINFO;
 	sigemptyset(&handler.sa_mask);
 	if (sigaction(SIGUSR1, &handler, NULL) == -1)

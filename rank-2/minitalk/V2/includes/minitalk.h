@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/24 09:34:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 14:35:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@
 #  define BONUS 0
 # endif
 
-# define EOT 4
+# define EOT 0x0
+
+# define SLEEP_TIME 100
 
 /* -----| Macro |----- */
 //...
@@ -194,7 +196,13 @@ typedef enum e_error
 //...
 
 /* -----| Struct |----- */
-//...
+
+typedef struct s_args
+{
+	pid_t	pid;
+	char	*msg;
+	t_error	err;
+}	t_args;
 
 /* -----| Prototype |----- */
 //...
@@ -206,28 +214,6 @@ typedef enum e_error
 //...
 
 /* -----| Inline |----- */
-
-__attribute__((hot)) static inline int	translate(int signal)
-{
-	if (signal == SIGUSR1)
-	{
-		ft_printf("0");
-		return (0);
-	}
-	else
-	{
-		ft_printf("1");
-		return (1);
-	}
-}
-
-__attribute__((cold)) static inline int bit_to_sig(int bit)
-{
-	if (bit)
-		return (SIGUSR1);
-	else
-		return (SIGUSR2);
-}
 
 __attribute__((cold, unused, noreturn)) static inline void	exiting(
 	const t_error code, const char *msg)

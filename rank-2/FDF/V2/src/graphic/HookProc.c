@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:01:17 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/11 08:18:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:10:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ __attribute__((hot)) int	key_up_hook(int keycode, t_fdf *data)
 		data->pos->zoom = DEFAULT_ZOOM;
 		data->pos->rotationx = DEFAULT_ROTATIONX;
 		data->pos->rotationy = DEFAULT_ROTATIONY;
-		data->pos->paddingx = data->mlx->width / 2;
-		data->pos->paddingy = data->mlx->height / 2;
+		data->pos->paddingx = data->mlx->width * 0.5;
+		data->pos->paddingy = data->mlx->height * 0.5;
 		projection(data, data->map, data->map->iso_map);
 		draw_projection(data);
 	}
