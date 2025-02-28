@@ -6,11 +6,14 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/28 15:21:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:20:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+/**  */
+t_status	g_status = no_status;
 
 __attribute__((cold)) void	send_EOT(const int pid)
 {
@@ -59,15 +62,31 @@ __attribute__((hot)) void	send_msg(char *msg, const int pid)
 
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
+	char	c;
+
 	(void)context;
-	if (signal == SIGUSR2)
-		exiting
+	if (g_status == conn)
+	{
+		if (signal == SIGUSR1)
+			g_status = sending;
+		else
+			g_status = error;
+	}
+	else if (g_status == sending)
+	{
+		if (signal == SIGUSR1)
+			send_char(info.si_pid, get_char());
+		else
+			g_status = error;
+	}
+	
 }
 
 __attribute__((unused, cold)) int	connection(const int pid)
 {
 	struct sigaction	sa;
 
+	g_status = conn;
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/28 15:14:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:12:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,15 @@ typedef enum e_error
 	enoprotoopt,		// Protocol not available
 	eprotonosupport		// Protocol not supported
 }	t_error;
+
+typedef enum e_status
+{
+	no_status,
+	conn,
+	sending,
+	end,
+	error
+}	t_status;
 
 /* -----| Union |----- */
 //...
