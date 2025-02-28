@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:44:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/27 11:51:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/28 09:04:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,6 @@ __attribute__((hot)) t_point	calculate_rev(t_fdf *fdf, t_map *map, int x,
  */
 __attribute__((hot)) t_point	calculate_iso(t_fdf *fdf, t_map *map, int i,
 	int j)
-{
-	int	z;
-	int	centered_i;
-	int	centered_j;
-
-	centered_i = i - (map->height >> 1);
-	centered_j = j - (map->width >> 1);
-	z = -centered_j * sin(fdf->pos->rotationx) + map->map[i][j]
-		* cos(fdf->pos->rotationx) * 0.5 + 1;
-	if (z > 10000)
-		z = 10000;
-	else if (z < -10000)
-		z = -10000;
-	return ((t_point){
-		.x = centered_j * cos(fdf->pos->rotationx) + map->map[i][j]
-			* sin(fdf->pos->rotationx) * 0.5,
-		.y = centered_i,
-		.z = fdf->map->map[i][j]
-	});
-}
-
-__attribute__((cold)) t_point	init_iso(t_fdf *fdf, t_map *map, int i, int j)
 {
 	int	z;
 	int	centered_i;
