@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/27 14:28:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/28 15:21:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,22 @@ __attribute__((hot)) void	send_msg(char *msg, const int pid)
 	send_EOT(pid);
 }
 
-__attribute__((cold)) void	handler(int signal, siginfo_t *info, void *context)
+__attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
-	(void)info;
 	(void)context;
-	if (signal == SIGUSR1)
-		ft_printf("Message received\n");
-	else if (signal == SIGUSR2)
-		ft_printf("Message not received\n");
+	if (signal == SIGUSR2)
+		exiting
 }
 
-__attribute__((unused, cold)) int	setup_signal(void)
+__attribute__((unused, cold)) int	connection(const int pid)
 {
 	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		return (1);
-	else
-		return (0);
+		return (SIG_ERR);
+	return (kill(pid, SIGUSR1));
 }
 
 __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
@@ -106,7 +102,9 @@ int	main(int argc, char *argv[])
 	args = parse_args(argc, argv);
 	if (args.err)
 		exiting(args.err, "parse_args:");
-	setup_signal();
-	send_msg(args.msg, args.pid);
+	if (connection(args.pid))
+		exiting(SIG_ERR, "connection:");
+	while (1)
+		pause();
 	return (0);
 }

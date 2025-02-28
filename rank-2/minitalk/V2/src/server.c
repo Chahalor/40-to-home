@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/27 14:34:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/28 08:08:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,7 @@
 
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
-	static char	buffer[1024] = {0};
-	static int	pos = 0;
-	static int	bit = 0;
 
-	(void)info;
-	(void)context;
-	buffer[pos] = (buffer[pos] << 1) | (signal != SIGUSR1);
-	if (++bit == 7)
-		++pos;
-	if (pos == 1024 || buffer[pos - 1] == EOT)
-	{
-		write(1, buffer, pos);
-		pos = 0;
-	}
-	else
-		bit = 0;
 }
 
 __attribute__((unused, cold)) int	setup_signal(void)
