@@ -1,6 +1,11 @@
 # Big Header
 
+# ***************************************************** #
+# *                 Configuation                      * #
+# ***************************************************** #
+
 MAKEFLAGS += --no-print-directory
+NO_NOM := $(findstring --no-norm,$(MAKEFLAGS))
 
 # ***************************************************** #
 # *                    Variables                      * #
@@ -35,25 +40,25 @@ DEBUGFLAGS =
 
 all: header norm compile
 
-compile: server client
+compile: _server _client
 
-client: $(LIBFT) $(NAME_CLIENT)
+_client: $(LIBFT) $(NAME_CLIENT)
 
-server: $(LIBFT) $(NAME_SERVER)
+_server: $(LIBFT) $(NAME_SERVER)
 
 # ***************************************************** #
 # *                  Compiling                        * #
 # ***************************************************** #
 
 $(NAME_SERVER): $(OBJ_SERVER)
-	$(CC) $(CFLAGS) $(IFLAGS) $(DEBUG) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
 $(NAME_CLIENT): $(OBJ_CLIENT)
-	$(CC) $(CFLAGS) $(IFLAGS) $(DEBUG) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(DIR_OBJ)
-	$(call compile_object, $(IFLAGS), $(OBJ_SERVER) $(OBJ_CLIENT), $(COLOR_YELLOW))
+	$(call compile_object, $(IFLAGS) $(DEBUGFLAGS), $(OBJ_SERVER) $(OBJ_CLIENT), $(COLOR_YELLOW))
 
 $(LIBFT):
 	-@make -C $(DIR_LIBFT)
@@ -104,8 +109,9 @@ header:
 	@printf "\n/* Big Header */\n"
 
 norm:
-	@if norminette | grep "Error" > /dev/null; then \
-		norminette | grep "Error" > /dev/null; \
+	@errors=$$(norminette | grep "Error"); \
+	if [ -n "$$errors" ]; then \
+		echo "$$errors"; \
 		echo "\033[31m ❌ Norminette errors found \033[0m"; \
 	else \
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
@@ -134,7 +140,6 @@ reset_count:
 
 define compile_object
 	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	@printf "$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
 	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
 	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
 		"$<" \

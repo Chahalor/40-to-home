@@ -6,94 +6,57 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/28 17:20:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:44:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 /**  */
-t_status	g_status = no_status;
+int	g_pid = 0;
 
-__attribute__((cold)) void	send_EOT(const int pid)
+int	killing(const int pid, const int signal)
 {
-	int	i;
-
-	i = -1;
-	while (++i < 8)
-	{
-		kill(pid, SIGUSR1);
-		usleep(SLEEP_TIME);
-	}
+	ft_printf("%d", signal == SIGUSR2);
+	return (kill(pid, signal));
 }
 
 /** */
-__attribute__((hot)) void	send_msg(char *msg, const int pid)
+__attribute__((hot)) void	manager(t_mode mode, char *msg)
 {
-	int	i;
-	int	bit;
-	int	ret;
+	static int	i = 0;
+	static char	*buff = NULL;
+	static int	bit = 0;
 
-	i = -1;
-	while (msg[++i])
+	if (mode == alloc)
+		buff = msg;
+	else if (mode == send)
 	{
-		bit = 0;
-		while (msg[i])
+		if (!buff[i])
+			killing(g_pid, SIGUSR1);
+		else if (killing(g_pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
+			exit(0);
+		if (++bit == 8)
 		{
-			ft_printf("%d ", msg[i] >> 7 & 1);	//rm
-			if (kill(pid, SIGUSR1 + 2 * (msg[i] >> 7 & 1)))
-				return ;
-			msg[i] <<= 1;
-			++bit;
-			usleep(SLEEP_TIME);
+			if (!buff[i])
+				exit(0);
+			bit = 0;
+			++i;
 		}
-		while (bit++ < 8)
-		{
-			ret = kill(pid, SIGUSR1);
-			ft_printf("0");	//rm
-			if (ret)
-				return ;
-			usleep(SLEEP_TIME);
-		}
-		ft_printf(" ");	//rm
 	}
-	send_EOT(pid);
 }
 
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
-	char	c;
-
+	(void)info;
 	(void)context;
-	if (g_status == conn)
-	{
-		if (signal == SIGUSR1)
-			g_status = sending;
-		else
-			g_status = error;
-	}
-	else if (g_status == sending)
-	{
-		if (signal == SIGUSR1)
-			send_char(info.si_pid, get_char());
-		else
-			g_status = error;
-	}
-	
+	if (signal == SIGUSR1)
+		manager(send, NULL);
+	else
+		ft_printf("Error: message not received\n");
 }
 
-__attribute__((unused, cold)) int	connection(const int pid)
-{
-	struct sigaction	sa;
-
-	g_status = conn;
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &handler;
-	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		return (SIG_ERR);
-	return (kill(pid, SIGUSR1));
-}
-
+/** */
 __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 {
 	t_args	args;
@@ -104,7 +67,7 @@ __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 		return (args);
 	}
 	args.pid = ft_atoi(argv[1]);
-	if (args.pid <= 0)
+	if (args.pid < 0)
 	{
 		args.err = EINVAL;
 		return (args);
@@ -116,13 +79,19 @@ __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 
 int	main(int argc, char *argv[])
 {
-	t_args	args;
+	const t_args			args = parse_args(argc, argv);
+	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
+		.sa_sigaction = handler, .sa_mask = {0}};
 
-	args = parse_args(argc, argv);
 	if (args.err)
-		exiting(args.err, "parse_args:");
-	if (connection(args.pid))
-		exiting(SIG_ERR, "connection:");
+		exiting(args.err, "parse_args: invalid arguments");
+	g_pid = args.pid;
+	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
+		exiting(errno, "sigaction: unable to setup signal handler");
+	if (kill(g_pid, 0) == -1)
+		exiting(errno, "kill: no such process");
+	manager(alloc, args.msg);
+	manager(send, NULL);
 	while (1)
 		pause();
 	return (0);

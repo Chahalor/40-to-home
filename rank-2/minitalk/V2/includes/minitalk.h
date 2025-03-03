@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/02/28 17:12:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:50:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@
 #  define BONUS 0
 # endif
 
-# define EOT 0x0
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
-# define SLEEP_TIME 100
+# define BUFF_MODE 0	// 0: buffered, 1: reallocing
+# define BUFF_SIZE 1024
+
+# define EOT 0x0
 
 /* -----| Macro |----- */
 //...
@@ -52,10 +57,16 @@ typedef enum e_bool
 	true
 }	t_bool;
 
+typedef enum e_mode
+{
+	alloc,
+	send
+}	t_mode;
+
 /**
  * @brief literaly an enum of errno.h error code
  */
-typedef enum e_error
+enum		e_error
 {
 	eperm	= 1,		// Operation not permitted
 	enoent,				// No such file or directory
@@ -189,18 +200,8 @@ typedef enum e_error
 	emsgsize,			// Message too long
 	eprototype,			// Protocol wrong type for socket
 	enoprotoopt,		// Protocol not available
-	eprotonosupport		// Protocol not supported
-}	t_error;
-
-typedef enum e_status
-{
-	no_status,
-	conn,
-	sending,
-	end,
-	error
-}	t_status;
-
+	eprotonosupport // Protocol not supported
+};
 /* -----| Union |----- */
 //...
 
@@ -224,8 +225,10 @@ typedef struct s_args
 
 /* -----| Inline |----- */
 
-__attribute__((cold, unused, noreturn)) static inline void	exiting(
-	const t_error code, const char *msg)
+// __attribute__((cold, unused, noreturn))	/* hate you so much norminette */
+static inline void	exiting(
+	const t_error code,
+	const char *msg)
 {
 	if (msg)
 		write(2, msg, ft_strlen(msg));
