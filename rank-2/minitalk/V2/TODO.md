@@ -1,0 +1,3 @@
+ - the other server mode: with allocation for one write
+ - the bonus, the server should send a SIGUSR2 at EOT
+ - manage the client to send propetly unicode char
