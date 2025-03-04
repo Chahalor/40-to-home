@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/03 15:47:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 09:10:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,12 @@ void	manager(int val)
 }
 #endif
 
+#include <string.h>
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
+	// ft_printf("%d", signal == SIGUSR2);
 	manager(signal == SIGUSR2);
 	kill(info->si_pid, SIGUSR1);
 }

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/03 15:50:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 08:25:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef enum e_mode
 /**
  * @brief literaly an enum of errno.h error code
  */
-enum		e_error
+typedef enum		e_error
 {
 	eperm	= 1,		// Operation not permitted
 	enoent,				// No such file or directory
@@ -201,7 +201,7 @@ enum		e_error
 	eprototype,			// Protocol wrong type for socket
 	enoprotoopt,		// Protocol not available
 	eprotonosupport // Protocol not supported
-};
+}	t_error;
 /* -----| Union |----- */
 //...
 
