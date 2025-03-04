@@ -58,6 +58,9 @@ _client: $(LIBFT) $(NAME_CLIENT)
 
 _server: $(LIBFT) $(NAME_SERVER)
 
+bonus:
+	$(MAKE) all CFLAGS="$(CFLAGS) -D BONUS=1"
+
 # ***************************************************** #
 # *                  Compiling                        * #
 # ***************************************************** #

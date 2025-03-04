@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 10:47:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 15:16:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,29 @@
 /**  */
 int	g_pid = 0;
 
-int	killing(const int pid, const int signal)
-{
-	if (DEBUG)
-		ft_printf("%d", signal == SIGUSR2);
-	return (kill(pid, signal));
-}
-
 /** */
-__attribute__((hot)) void	manager(t_mode mode, char *msg)
+__attribute__((hot)) void	manager(const t_mode mode, char *msg)
 {
-	static int	i = 0;
 	static char	*buff = NULL;
-	static int	bit = 0;
+	static int	i = 0, bit = 0;
 
 	if (mode == alloc)
 		buff = msg;
 	else if (mode == send)
 	{
-		if (!buff[i])
-			killing(g_pid, SIGUSR1);
-		else if (killing(g_pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
+		if (!buff[i] && kill(g_pid, SIGUSR1))
+			exit(0);
+		else if (kill(g_pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
 			exit(0);
 		if (++bit == 8)
 		{
-			if (!buff[i])
-				exit(0);
 			bit = 0;
 			++i;
 		}
 	}
 }
+
+#if BONUS == 0
 
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
@@ -54,8 +46,25 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	if (signal == SIGUSR1)
 		manager(send, NULL);
 	else
-		ft_printf("Error: message not received\n");
+		exit(0);
 }
+
+#else
+
+__attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
+{
+	(void)info;
+	(void)context;
+	if (signal == SIGUSR1)
+		manager(send, NULL);
+	else
+	{
+		ft_printf("message successfully delivered\n");
+		exit(0);
+	}
+}
+
+#endif
 
 /** */
 __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])

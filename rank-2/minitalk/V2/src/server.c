@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 10:45:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 15:24:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 #if BUFF_MODE == 0
 
-__attribute__((hot)) void	manager(int val)
+__attribute__((hot)) void	manager(const int val, const int pid)
 {
 	static char	buff[BUFF_SIZE] = {0};
-	static int	i = 0;
-	static int	bit = 0;
+	static int	i = 0, bit = 0;
 
-	buff[i] <<= 1;
-	buff[i] += val;
+	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
 		if (buff[i] == EOT)
@@ -29,6 +27,7 @@ __attribute__((hot)) void	manager(int val)
 			write(1, buff, i);
 			i = 0;
 			ft_memset(buff, 0, BUFF_SIZE);
+			kill(pid, SIGUSR2);
 		}
 		else
 			++i;
@@ -39,14 +38,15 @@ __attribute__((hot)) void	manager(int val)
 		write(1, buff, BUFF_SIZE);
 		i = 0;
 	}
+	kill(pid, SIGUSR1);
 }
 
 #else
 
-void	manager(int val)
+__attribute__((hot)) void	manager(const int val, const int pid)
 {
 	static char	*buff = NULL;
-	static int	nb_alloc = 0;
+	static int	nb_alloc = 0,
 	static int	i = 0;
 	static int	bit = 0;
 
@@ -58,10 +58,8 @@ void	manager(int val)
 		if (buff[i] == EOT)
 		{
 			write(1, buff, i);
-			free(buff);
-			buff = NULL;
-			i = 0;
-			nb_alloc = 0;
+			(free(buff), buff = NULL, i = 0, nb_alloc = 0);
+			kill(pid, SIGUSR2);
 		}
 		else
 			++i;
@@ -69,6 +67,7 @@ void	manager(int val)
 	}
 	if (i == nb_alloc * BUFF_SIZE && buff)
 		buff = (char *)reallocator(buff, &nb_alloc);
+	kill(pid, SIGUSR1);
 }
 #endif
 
@@ -76,8 +75,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	manager(signal == SIGUSR2);
-	kill(info->si_pid, SIGUSR1);
+	manager(signal == SIGUSR2, info->si_pid);
 }
 
 __attribute__((unused, cold)) int	setup_signal(
