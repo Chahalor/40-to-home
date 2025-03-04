@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 08:17:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 10:47:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	g_pid = 0;
 
 int	killing(const int pid, const int signal)
 {
-	ft_printf("%d", signal == SIGUSR2);
+	if (DEBUG)
+		ft_printf("%d", signal == SIGUSR2);
 	return (kill(pid, signal));
 }
 
@@ -87,7 +88,7 @@ int	main(int argc, char *argv[])
 		exiting(args.err, "parse_args: invalid arguments");
 	g_pid = args.pid;
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		exiting(errno, "sigaction: unable to setup signal handler");
+		exiting(errno, "client: sigaction: unable to setup signal handler");
 	if (kill(g_pid, 0) == -1)
 		exiting(errno, "kill: no such process");
 	manager(alloc, args.msg);

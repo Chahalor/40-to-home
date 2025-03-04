@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 09:10:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 10:45:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,18 @@ void	manager(int val)
 	static int	nb_alloc = 0;
 	static int	i = 0;
 	static int	bit = 0;
-	char	*tmp;
 
 	if (!buff)
-	{
-		buff = (char *)malloc(BUFF_SIZE * sizeof(char));
-		if (!buff)
-			return ;
-		nb_alloc = 1;
-	}
-	buff[i] <<= 1;
-	buff[i] += val;
+		buff = (char *)allocator(buff, &nb_alloc);
+	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
 		if (buff[i] == EOT)
 		{
 			write(1, buff, i);
 			free(buff);
-			i = 0;
 			buff = NULL;
+			i = 0;
 			nb_alloc = 0;
 		}
 		else
@@ -75,23 +68,14 @@ void	manager(int val)
 		bit = 0;
 	}
 	if (i == nb_alloc * BUFF_SIZE && buff)
-	{
-		tmp = buff;
-		buff = (char *)malloc(++nb_alloc * BUFF_SIZE);
-		if (!buff)
-			return ;
-		ft_memcpy(buff, tmp, (nb_alloc - 1) * BUFF_SIZE);
-		free(tmp);
-	}
+		buff = (char *)reallocator(buff, &nb_alloc);
 }
 #endif
 
-#include <string.h>
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	// ft_printf("%d", signal == SIGUSR2);
 	manager(signal == SIGUSR2);
 	kill(info->si_pid, SIGUSR1);
 }
