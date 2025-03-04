@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:24:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 15:44:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 #if BUFF_MODE == 0
 
+/**
+ * @brief this function stores the received bits in a buffer, and flushes
+ * the buffer when it is full or when the end of transmission is received.
+ * 
+ * @param val the value of the received signal
+ * @param pid the pid of the sender
+ * @return void
+ * 
+ * @note: the buffer is flushed when the end of transmission is received
+ */
 __attribute__((hot)) void	manager(const int val, const int pid)
 {
 	static char	buff[BUFF_SIZE] = {0};
@@ -43,10 +53,21 @@ __attribute__((hot)) void	manager(const int val, const int pid)
 
 #else
 
+/**
+ * @brief this function stores the received bits in a heap-allocated buffer,
+ * and writes the buffer when it is full or when the end of transmission is
+ * received.
+ * 
+ * @param val the value of the received signal
+ * @param pid the pid of the sender
+ * @return void
+ * 
+ * @note the buffer is freed when the end of transmission is received
+ */
 __attribute__((hot)) void	manager(const int val, const int pid)
 {
 	static char	*buff = NULL;
-	static int	nb_alloc = 0,
+	static int	nb_alloc = 0;
 	static int	i = 0;
 	static int	bit = 0;
 
@@ -71,6 +92,17 @@ __attribute__((hot)) void	manager(const int val, const int pid)
 }
 #endif
 
+/**
+ * @brief this function handles the signals received from the client.
+ * 
+ * @param signal the signal received
+ * @param info the info of the signal
+ * @param context the context of the signal	
+ * 
+ * @note: the function is called when a signal is received in a speparate
+ * thread
+ * @note: this function only call the manager function
+ */
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
@@ -78,6 +110,14 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	manager(signal == SIGUSR2, info->si_pid);
 }
 
+/**
+ * @brief this function setup the signal handler for the server
+ * 
+ * @param hand the handler function
+ * @return int
+ * 
+ * @note: the function is called when the server is started
+ */
 __attribute__((unused, cold)) int	setup_signal(
 	void (*hand)(int, siginfo_t *, void *))
 {
@@ -91,7 +131,9 @@ __attribute__((unused, cold)) int	setup_signal(
 }
 
 /**
- * @todo: add the args handler to handler the different modes of the server
+ * @brief this function is the main function of the server
+ * 
+ * @return int
  */
 int	main(void)
 {

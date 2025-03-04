@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 14:50:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 15:46:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@
 /* -----| Define |----- */
 
 # ifndef BONUS
-#  define BONUS 0
+#  define BONUS 0		// lock/unlock bonus functionality
 # endif
 
 # ifndef DEBUG
-#  define DEBUG 0
+#  define DEBUG 0		// lock/unlock debug functionality
 # endif
 
 # define BUFF_MODE 0	// 0: buffered, 1: reallocing
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 1024	// size of the buffer for buffering/allocating
 
-# define EOT 0x0
+# define EOT 0x0		// end of transmission character used here (yes not 0x4)
 
 /* -----| Macro |----- */
 //...
@@ -51,12 +51,18 @@ typedef unsigned int	t_uint;
 
 /* -----| Enum |----- */
 
+/**
+ * @brief a basic enum for boolean values
+ */
 typedef enum e_bool
 {
 	false,
 	true
 }	t_bool;
 
+/**
+ * @brief define the two different modes of the client manager function
+ */
 typedef enum e_mode
 {
 	alloc,
@@ -65,6 +71,9 @@ typedef enum e_mode
 
 /**
  * @brief literaly an enum of errno.h error code
+ * 
+ * @note in fault of the norminette i had to cut all other cause it is code
+ * with the ass.
  */
 typedef enum e_error
 {
@@ -76,6 +85,15 @@ typedef enum e_error
 
 /* -----| Struct |----- */
 
+/**
+ * @brief a struct to store the different available args to the programme
+ * 
+ * - pid: the server's pid
+ * 
+ * - msg: the msg we have to send to the server
+ * 
+ * - err: if any error occured will parsing args set  it to the rigth errno code
+ */
 typedef struct s_args
 {
 	pid_t	pid;
@@ -94,8 +112,17 @@ typedef struct s_args
 
 /* -----| Inline |----- */
 
-// __attribute__((cold, unused, noreturn))	/* hate you so much norminette */
-static inline void	exiting(
+
+/**
+ * @brief this function exit the programme with the code code (nooo way) 
+ * and if any message is given to it print it.
+ * 
+ * @param code the error code
+ * @param msg the msg to print (should not be allocated)
+ * 
+ * @return no return, this function exit any way
+ */
+__attribute__((cold, unused, noreturn)) static inline void	exiting(
 	const t_error code,
 	const char *msg)
 {
@@ -106,6 +133,14 @@ static inline void	exiting(
 	exit(code);
 }
 
+/**
+ * @brief this function realloc the buffer to the next size
+ * 
+ * @param buff the buffer to realloc
+ * @param nb_alloc the number of allocation done
+ * 
+ * @return the new buffer
+ */
 __attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
 {
 	char	*tmp;
@@ -119,6 +154,14 @@ __attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
 	return (buff);
 }
 
+/**
+ * @brief this function allocate the buffer to the first size
+ * 
+ * @param buff the buffer to allocate
+ * @param nb_alloc the number of allocation done
+ * 
+ * @return the new buffer
+ */
 __attribute__((hot)) static inline void	*allocator(char *buff, int *nb_alloc)
 {
 	buff = (char *)malloc(++(*nb_alloc) * BUFF_SIZE);

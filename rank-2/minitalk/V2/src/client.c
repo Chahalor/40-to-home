@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:16:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/04 15:37:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,24 @@
 /**  */
 int	g_pid = 0;
 
-/** */
+/**
+ * @brief this function manages the sending of the message to the server.
+ * 
+ * @param mode the mode of the function
+ * @param msg the message to send
+ * 
+ * 
+ * @note: this function as two modes:
+ * 
+ * - alloc: copy the message ptr to the buffer ptr
+ * 
+ * - send: send the message to the server
+*/
 __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 {
 	static char	*buff = NULL;
-	static int	i = 0, bit = 0;
+	static int	i = 0;
+	static int	bit = 0;
 
 	if (mode == alloc)
 		buff = msg;
@@ -39,6 +52,17 @@ __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 
 #if BONUS == 0
 
+/**
+ * @brief this function handles the signals received from the server.
+ * 
+ * @param signal the signal received
+ * @param info the info of the signal
+ * @param context the context of the signal
+ * 
+ * @return void
+ * 
+ * @note: this function print nothing when SIGUSR2 is received
+ */
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
@@ -51,6 +75,17 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 
 #else
 
+/**
+ * @brief this function handles the signals received from the server.
+ * 
+ * @param signal the signal received
+ * @param info the info of the signal
+ * @param context the context of the signal
+ * 
+ * @return void
+ * 
+ * @note: this function print a message when SIGUSR2 is received
+ */
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
@@ -66,7 +101,14 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 
 #endif
 
-/** */
+/**
+ * @brief this function parse the arguments of the program.
+ * 
+ * @param argc the number of arguments
+ * @param argv the arguments
+ * 
+ * @return t_args the parsed arguments
+ */
 __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 {
 	t_args	args;
@@ -87,6 +129,11 @@ __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 	return (args);
 }
 
+/**
+ * @brief this function is the main function of the client
+ * 
+ * @return int
+ */
 int	main(int argc, char *argv[])
 {
 	const t_args			args = parse_args(argc, argv);
