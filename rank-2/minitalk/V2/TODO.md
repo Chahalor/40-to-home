@@ -1,3 +1,3 @@
- - [X] the other server mode: with allocation for one write
- - [X] the bonus, the server should send a SIGUSR2 at EOT
- - [x] manage the client to send propetly unicode char
+ - [ ] change makefile
+ - [ ] test client/server
+
