@@ -30,14 +30,22 @@ DIR_LIBFT = libft
 DIR_INC = includes
 DIR_SRC = src
 DIR_OBJ = .obj
+DIR_SERVER = server
+DIR_CLIENT = client
 
-SRC_SERVER = server.c
+SRC_SERVER = server.c args.c handler.c 
 SRC_CLIENT = client.c
+
+INC_SERVER = $(DIR_INC)/$(DIR_SERVER)
+INC_CLIENT = $(DIR_INC)/$(DIR_CLIENT)
 
 LIBFT = $(DIR_LIBFT)/libft.a
 
-OBJ_SERVER = $(addprefix $(DIR_OBJ)/, $(SRC_SERVER:.c=.o))
-OBJ_CLIENT = $(addprefix $(DIR_OBJ)/, $(SRC_CLIENT:.c=.o))
+SERV_FILES = $(addprefix $(DIR_SRC)/$(DIR_SERVER)/, $(SRC_SERVER))
+CLIE_FILES = $(addprefix $(DIR_SRC)/$(DIR_CLIENT)/, $(SRC_CLIENT))
+
+OBJ_SERVER = $(patsubst $(DIR_SRC)/$(DIR_SERVER)/%.c, $(DIR_OBJ)/%.o, $(SERV_FILES))
+OBJ_CLIENT = $(patsubst $(DIR_SRC)/$(DIR_CLIENT)/%.c, $(DIR_OBJ)/%.o, $(CLIE_FILES))
 
 CC =		cc
 CFLAGS =	-Wall -Wextra -Werror
@@ -66,14 +74,26 @@ bonus:
 # ***************************************************** #
 
 $(NAME_SERVER): $(OBJ_SERVER)
-	@$(CC) $(CFLAGS) $(IFLAGS) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_SERVER) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
 $(NAME_CLIENT): $(OBJ_CLIENT)
-	@$(CC) $(CFLAGS) $(IFLAGS) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_CLIENT) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
-$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
+# $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
+# 	@mkdir -p $(DIR_OBJ)
+# 	@mkdir -p $(DIR_OBJ)/$(DIR_SERVER)
+# 	@mkdir -p $(DIR_OBJ)/$(DIR_CLIENT)
+# 	$(call compile_object, $(IFLAGS) $(DEBUGFLAGS), $(OBJ_SERVER) $(OBJ_CLIENT), $(COLOR_YELLOW))
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_SERVER)/%.c
 	@mkdir -p $(DIR_OBJ)
-	$(call compile_object, $(IFLAGS) $(DEBUGFLAGS), $(OBJ_SERVER) $(OBJ_CLIENT), $(COLOR_YELLOW))
+	$(call compile_object, $(IFLAGS) -I$(INC_SERVER) $(DEBUGFLAGS) -D SERVER, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_CLIENT)/%.c
+	@mkdir -p $(DIR_OBJ)
+	$(call compile_object, $(IFLAGS) -I$(INC_CLIENT) $(DEBUGFLAGS) -D CLIENT, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
+
+
 
 $(LIBFT):
 	-@make -C $(DIR_LIBFT) NO_HEADER=true
@@ -115,9 +135,11 @@ debug.fs: debug.fsanitize
 
 .PHONY: write_header echo norm reset_count make_norm compile_object write_goals
 
-echo:
-	@echo "Client: $(OBJ_CLIENT)\n $(SRC_CLIENT)"
-	@echo "Server: $(OBJ_SERVER)\n $(SRC_SERVER)"
+info:
+	$(info SERV_FILES = $(SERV_FILES))
+	$(info CLIE_FILES = $(CLIE_FILES))
+	$(info OBJ_SERVER = $(OBJ_SERVER))
+	$(info OBJ_CLIENT = $(OBJ_CLIENT))
 
 header:
 	@clear

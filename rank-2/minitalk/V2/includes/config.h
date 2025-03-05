@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:58:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/05 11:08:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/05 13:58:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,10 @@
 
 /* -----| Typedef |----- */
 
-typedef enum e_connection	t_connection;
+typedef t_comm	t_connection;
 
 /* -----| Enum |----- */
 
-enum e_connection
-{
-	ack,
-	nack,
-	acknack
-};
 
 /* -----| Union |----- */
 //...
