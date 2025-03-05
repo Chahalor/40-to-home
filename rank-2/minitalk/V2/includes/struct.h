@@ -1,66 +1,100 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 08:58:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/05 15:36:11 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/05 08:50:14 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/05 15:43:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
-# define CONFIG_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Glibc
-# include <unistd.h>
-# include <stdlib.h>
+//...
 
 // Libs
-# include "libft.h"
+//...
 
 // Local
 //...
 
 /* -----| Define |----- */
-
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
-
-# define BUFF_MODE 0	// 0: buffered, 1: reallocing
-# define BUFF_SIZE 1024
-
-# define EOT 0x0
-
-# define EXPECTED 1
-# define UNEXPECTED 0
-
-# define SLEEP 100
+//...
 
 /* -----| Macro |----- */
 //...
 
 /* -----| Typedef |----- */
 
-typedef t_comm	t_connection;
+typedef unsigned int	t_uint;
+
+typedef struct s_args	t_args;
+typedef enum e_bool		t_bool;
+typedef enum e_print	t_print;
+typedef enum e_comm		t_comm;
+
 
 /* -----| Enum |----- */
 
+enum e_bool
+{
+	false,
+	true
+};
+
+enum e_print
+{
+	buffered,
+	reallocing
+};
+
+enum e_comm
+{
+	ack,
+	nack
+};
 
 /* -----| Union |----- */
 //...
 
 /* -----| Struct |----- */
-//...
+
+# ifdef SERVER
+
+struct s_args
+{
+	t_print	print;
+	t_comm	comm;
+	// const char *key;
+	// t_bool	crypted	: 1;	// need more informations
+	t_bool	err		: 1;
+	t_bool	help	: 1;
+};
+
+# elif (defined CLIENT)
+
+struct s_args
+{
+	int		pid;
+	char	*msg;
+	t_comm	comm;
+	// const char *key;
+	// t_bool	crypted	: 1;	// need more informations
+	t_bool	err		: 1;
+};
+
+# else
+
+#  error "No target defined"
+
+# endif
 
 /* -----| Prototype |----- */
 //...
@@ -72,15 +106,6 @@ typedef t_comm	t_connection;
 //...
 
 /* -----| Inline |----- */
+//...
 
-__attribute__((cold, unused, noreturn)) static inline void	exiting(int code,
-	char *msg, void *ptr)
-{
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	if (ptr)
-		free(ptr);
-	exit(code);
-}
-
-#endif	/* CONFIG_H */
+#endif	/* STRUCT_H */
