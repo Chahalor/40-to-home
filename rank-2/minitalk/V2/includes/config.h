@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:58:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/05 15:36:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:12:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 #  define DEBUG 0
 # endif
 
-# define BUFF_MODE 0	// 0: buffered, 1: reallocing
+# define BUFF_MODE 1	// 0: buffered, 1: reallocing
 # define BUFF_SIZE 1024
 
 # define EOT 0x0
@@ -44,7 +44,7 @@
 # define EXPECTED 1
 # define UNEXPECTED 0
 
-# define SLEEP 100
+# define SLEEP 500
 
 /* -----| Macro |----- */
 //...

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:16:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/06 08:19:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	g_pid = 0;
 __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 {
 	static char	*buff = NULL;
-	static int	i = 0, bit = 0;
+	static int	i = 0;
+	static int	bit = 0;
 
 	if (mode == alloc)
 		buff = msg;

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:50:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/05 15:43:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/06 13:17:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_args	t_args;
 typedef enum e_bool		t_bool;
 typedef enum e_print	t_print;
 typedef enum e_comm		t_comm;
-
 
 /* -----| Enum |----- */
 

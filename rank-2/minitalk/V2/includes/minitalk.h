@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 14:50:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/06 13:37:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ typedef struct s_args
 
 /* -----| Inline |----- */
 
-// __attribute__((cold, unused, noreturn))	/* hate you so much norminette */
-static inline void	exiting(
+__attribute__((cold, unused, noreturn)) static inline void	exiting(
 	const t_error code,
 	const char *msg)
 {

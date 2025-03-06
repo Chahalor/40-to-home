@@ -33,8 +33,8 @@ DIR_OBJ = .obj
 DIR_SERVER = server
 DIR_CLIENT = client
 
-SRC_SERVER = server.c args.c handler.c 
-SRC_CLIENT = client.c
+SRC_SERVER = server.c args.c server_handler.c 
+SRC_CLIENT = client.c client_handler.c
 
 INC_SERVER = $(DIR_INC)/$(DIR_SERVER)
 INC_CLIENT = $(DIR_INC)/$(DIR_CLIENT)
