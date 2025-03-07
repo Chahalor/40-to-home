@@ -30,26 +30,32 @@ DIR_LIBFT = libft
 DIR_INC = includes
 DIR_SRC = src
 DIR_OBJ = .obj
+
 DIR_SERVER = server
 DIR_CLIENT = client
+DIR_CRYPTO = cryptography
 
 SRC_SERVER = server.c args.c server_handler.c 
-SRC_CLIENT = client.c client_handler.c
+SRC_CLIENT = client.c client_handler.c client_args.c
+SRC_CRYPTO = rc4.c
 
 INC_SERVER = $(DIR_INC)/$(DIR_SERVER)
 INC_CLIENT = $(DIR_INC)/$(DIR_CLIENT)
+INC_CRYPTO = $(DIR_INC)/$(DIR_CRYPTO)
 
 LIBFT = $(DIR_LIBFT)/libft.a
 
 SERV_FILES = $(addprefix $(DIR_SRC)/$(DIR_SERVER)/, $(SRC_SERVER))
 CLIE_FILES = $(addprefix $(DIR_SRC)/$(DIR_CLIENT)/, $(SRC_CLIENT))
+CRYP_FILES = $(addprefix $(DIR_SRC)/$(DIR_CRYPTO)/, $(SRC_CRYPTO))
 
 OBJ_SERVER = $(patsubst $(DIR_SRC)/$(DIR_SERVER)/%.c, $(DIR_OBJ)/%.o, $(SERV_FILES))
 OBJ_CLIENT = $(patsubst $(DIR_SRC)/$(DIR_CLIENT)/%.c, $(DIR_OBJ)/%.o, $(CLIE_FILES))
+OBJ_CRYPTO = $(patsubst $(DIR_SRC)/$(DIR_CRYPTO)/%.c, $(DIR_OBJ)/%.o, $(CRYP_FILES))
 
 CC =		cc
 CFLAGS =	-Wall -Wextra -Werror
-IFLAGS =	-I$(DIR_INC) -I$(DIR_LIBFT)
+IFLAGS =	-I$(DIR_INC) -I$(DIR_LIBFT) -I$(INC_CRYPTO)
 DEBUGFLAGS =
 
 # ***************************************************** #
@@ -73,10 +79,10 @@ bonus:
 # *                  Compiling                        * #
 # ***************************************************** #
 
-$(NAME_SERVER): $(OBJ_SERVER)
+$(NAME_SERVER): $(OBJ_SERVER) $(OBJ_CRYPTO)
 	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_SERVER) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
-$(NAME_CLIENT): $(OBJ_CLIENT)
+$(NAME_CLIENT): $(OBJ_CLIENT) $(OBJ_CRYPTO)
 	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_CLIENT) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
 
 # $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
@@ -93,7 +99,9 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_CLIENT)/%.c
 	@mkdir -p $(DIR_OBJ)
 	$(call compile_object, $(IFLAGS) -I$(INC_CLIENT) $(DEBUGFLAGS) -D CLIENT, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
 
-
+$(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_CRYPTO)/%.c
+	@mkdir -p $(DIR_OBJ)
+	$(call compile_object, $(IFLAGS) -I$(INC_CRYPTO) $(DEBUGFLAGS) -D CRYPTO, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
 
 $(LIBFT):
 	-@make -C $(DIR_LIBFT) NO_HEADER=true

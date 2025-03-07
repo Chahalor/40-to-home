@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   cryptography.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 08:58:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/07 08:56:14 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/07 13:34:57 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/07 13:40:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
-# define CONFIG_H
+#ifndef CRYPTOGRAPHY_H
+# define CRYPTOGRAPHY_H
 
 # pragma once
 
 /* -----| Header |----- */
 // Glibc
-# include <unistd.h>
-# include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 // Libs
 # include "libft.h"
@@ -28,37 +28,16 @@
 
 /* -----| Define |----- */
 
-// Compilation config
-
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
-
-# define EXPECTED 1
-# define UNEXPECTED 0
-
-// in-App config
-
-# define BUFF_MODE 0	// 0: buffered, 1: reallocing
-# define BUFF_SIZE 1024
-
-# define EOT 0x0
-
-# define SLEEP 500
+# define S_BOX_SIZE 256
 
 /* -----| Macro |----- */
 //...
 
 /* -----| Typedef |----- */
-
-typedef t_comm	t_connection;
+//...
 
 /* -----| Enum |----- */
-
+//...
 
 /* -----| Union |----- */
 //...
@@ -67,7 +46,8 @@ typedef t_comm	t_connection;
 //...
 
 /* -----| Prototype |----- */
-//...
+
+char	*f_rc4(char *key, char *msg, int len_msg);
 
 /* -----| Static |----- */
 //...
@@ -76,15 +56,6 @@ typedef t_comm	t_connection;
 //...
 
 /* -----| Inline |----- */
+//...
 
-__attribute__((cold, unused, noreturn)) static inline void	exiting(int code,
-	char *msg, void *ptr)
-{
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	if (ptr)
-		free(ptr);
-	exit(code);
-}
-
-#endif	/* CONFIG_H */
+#endif	/* HANDLER_H */
