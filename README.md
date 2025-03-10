@@ -21,6 +21,6 @@
 | [Minitalk](https://github.com/Chahalor/40-to-home/tree/main/rank-2/minitalk/V2)		| TODO	| yes	| ??? |
 
 
-|							Begining										|		coding	|								Passing Moulinette 🪢							|
-|:-------------------------------------------------------------------------:|:-------------:|:-----------------------------------------------------------------------------:|
+|							Begining										|										coding										|								Passing Moulinette 🪢							|
+|:-------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
 ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![Try-hard](https://media1.tenor.com/m/0CXQArozOAEAAAAd/sweaty-speedruner.gif)	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
