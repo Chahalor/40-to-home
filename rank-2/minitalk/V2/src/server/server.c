@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:44:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 11:33:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@
 __attribute__((hot)) void	manager(const int val, const int pid)
 {
 	static char	buff[BUFF_SIZE] = {0};
-	static int	i = 0, bit = 0;
+	static int	i = 0;
+	static int	bit = 0;
 
 	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
-		if (buff[i] == EOT)
+		if (__builtin_expect(buff[i] == EOT, UNEXPECTED))
 		{
 			write(1, buff, i);
 			i = 0;
@@ -76,7 +77,7 @@ __attribute__((hot)) void	manager(const int val, const int pid)
 	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
-		if (buff[i] == EOT)
+		if (__builtin_expect(buff[i] == EOT, UNEXPETED))
 		{
 			write(1, buff, i);
 			(free(buff), buff = NULL, i = 0, nb_alloc = 0);
@@ -124,10 +125,7 @@ __attribute__((unused, cold)) int	setup_signal(
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = hand};
 
-	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		return (1);
-	else
-		return (0);
+	return (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL));
 }
 
 /**
@@ -135,15 +133,20 @@ __attribute__((unused, cold)) int	setup_signal(
  * 
  * @return int
  */
-int	main(void)
+int	main(int argc, const char *argv[])
 {
-	int	setup_status;
+	int				setup_status;
+	const t_args	args = parse_args(argc, argv);
 
-	ft_printf("PID: %d \n", getpid());
-	setup_status = setup_signal(handler);
-	if (setup_status)
-		exiting(errno, "setup_signal");
-	while (1)
-		pause();
+	if (args.err)
+		exiting(args.err, "parse_args: invalid arguments", NULL);
+	else if (setup_signal(handler))
+		exiting(errno, "setup_signal", NULL);
+	else
+	{
+		ft_printf("PID: %d \n", getpid());
+		while (1)
+			pause();
+	}
 	return (0);
 }
