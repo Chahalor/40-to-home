@@ -23,4 +23,4 @@
 
 |							Begining										|		coding	|								Passing Moulinette 🪢							|
 |:-------------------------------------------------------------------------:|:-------------:|:-----------------------------------------------------------------------------:|
-![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![arrow]()	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
+![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![Try-hard](https://media1.tenor.com/m/0CXQArozOAEAAAAd/sweaty-speedruner.gif)	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
