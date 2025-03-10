@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:46:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:13:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,24 @@
 /* -----| Define |----- */
 
 # ifndef BONUS
-#  define BONUS 0		// lock/unlock bonus functionality
+#  define BONUS 0				// lock/unlock bonus functionality
 # endif
 
 # ifndef DEBUG
-#  define DEBUG 0		// lock/unlock debug functionality
+#  define DEBUG 0				// lock/unlock debug functionality
 # endif
 
-# define BUFF_MODE 0	// 0: buffered, 1: reallocing
-# define BUFF_SIZE 1024	// size of the buffer for buffering/allocating
+# define BUFF_MODE 0			// 0: buffered, 1: reallocing
+# define BUFF_SIZE 1024			// size of the buffer for buffering/allocating
+# define MAX_NAME_SIZE 32		// max size of client name
 
-# define EOT 0x0		// end of transmission character used here (yes not 0x4)
+# define EOT 0x0				// end of transmission character used here (yes not 0x4)
+
+# define RED "\033[0;31m"		// red color for the client name
+# define GREEN "\033[0;32m"		// green color for the client name
+# define BLUE "\033[0;34m"		// blue color for the client name
+# define YELLOW "\033[0;33m"	// yellow color for the client name
+# define RESET "\033[0m"		// reset color
 
 /* -----| Macro |----- */
 //...
@@ -96,10 +103,24 @@ typedef enum e_error
  */
 typedef struct s_args
 {
-	pid_t	pid;
 	char	*msg;
+	char	*name;
+	int		pid;
 	t_error	err;
 }	t_args;
+
+typedef struct t_server
+{
+	char	*client_name;
+	int		status;
+}	t_server;
+
+typedef struct t_client
+{
+	char	*name;
+	char	*msg;
+	int		server_pid;
+}	t_client;
 
 /* -----| Prototype |----- */
 //...

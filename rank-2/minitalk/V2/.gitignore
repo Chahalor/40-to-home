@@ -2,5 +2,4 @@
 .vscode
 .test
 
-client
-server
+tester

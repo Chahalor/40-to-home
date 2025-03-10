@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/04 15:37:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:37:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 /**  */
-int	g_pid = 0;
+t_client	g_client = {0};
 
 /**
  * @brief this function manages the sending of the message to the server.
@@ -24,29 +24,24 @@ int	g_pid = 0;
  * 
  * @note: this function as two modes:
  * 
- * - alloc: copy the message ptr to the buffer ptr
+ * - alloc: copy the message ptr to the g_client.msger ptr
  * 
  * - send: send the message to the server
 */
-__attribute__((hot)) void	manager(const t_mode mode, char *msg)
+__attribute__((hot)) void	manager(void)
 {
-	static char	*buff = NULL;
 	static int	i = 0;
 	static int	bit = 0;
 
-	if (mode == alloc)
-		buff = msg;
-	else if (mode == send)
+	if (!g_client.msg[i] && kill(g_client.server_pid, SIGUSR1))
+		exiting(1, "kill: unable to send signal");
+	else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.msg[i] \
+		>> (7 - bit) & 1)))
+		exiting(1, "kill: unable to send signal");
+	else if (++bit == 8)
 	{
-		if (!buff[i] && kill(g_pid, SIGUSR1))
-			exit(0);
-		else if (kill(g_pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
-			exit(0);
-		if (++bit == 8)
-		{
-			bit = 0;
-			++i;
-		}
+		bit = 0;
+		++i;
 	}
 }
 
@@ -68,7 +63,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager(send, NULL);
+		manager();
 	else
 		exit(0);
 }
@@ -91,7 +86,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager(send, NULL);
+		manager();
 	else
 	{
 		ft_printf("message successfully delivered\n");
@@ -99,7 +94,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	}
 }
 
-#endif
+#endif	/* BONUS */
 
 /**
  * @brief this function parse the arguments of the program.
@@ -115,15 +110,16 @@ __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		args.err = EINVAL;
+		args.err = 1;
 		return (args);
 	}
 	args.pid = ft_atoi(argv[1]);
 	if (args.pid < 0)
 	{
-		args.err = EINVAL;
+		args.err = 1;
 		return (args);
 	}
+	args.name = ft_strdup("RED IS SUS");
 	args.msg = argv[2];
 	args.err = 0;
 	return (args);
@@ -142,13 +138,15 @@ int	main(int argc, char *argv[])
 
 	if (args.err)
 		exiting(args.err, "parse_args: invalid arguments");
-	g_pid = args.pid;
+	g_client.server_pid = args.pid;
+	g_client.name = args.name;
+	g_client.msg = args.msg;
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
 		exiting(errno, "client: sigaction: unable to setup signal handler");
-	if (kill(g_pid, 0) == -1)
+	else if (kill(g_client.server_pid, 0))
 		exiting(errno, "kill: no such process");
-	manager(alloc, args.msg);
-	manager(send, NULL);
+	// kill(g_client.server_pid, SIGUSR1);
+	manager();
 	while (1)
 		pause();
 	return (0);
