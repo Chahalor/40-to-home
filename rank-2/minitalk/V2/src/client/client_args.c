@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:09:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/07 14:55:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 09:19:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,6 @@ __attribute__((unused, cold)) void	print_help(void)
 		"\nDeveloped By: nduvoid <nduvoid@42mulhouse.fr>\n");
 }
 
-void	print_args(const t_args *args)
-{
-	ft_printf("PID: %d\n", args->pid);
-	ft_printf("Message: %s\n", args->msg);
-	ft_printf("Key: %s\n", args->key);
-	ft_printf("Crypt: %d\n", args->crypt);
-	ft_printf("Comm: %d\n", args->comm);
-	ft_printf("Error: %d\n", args->err);
-	ft_printf("Help: %d\n", args->help);
-}
-
 __attribute__((unused, cold, pure)) t_args	parse_args(const int argc,
 	const char *argv[])
 {
@@ -108,8 +97,9 @@ __attribute__((unused, cold, pure)) t_args	parse_args(const int argc,
 		args.err = true;
 		return (args);
 	}
-	args = (t_args){args .msg = (char *)argv[argc - 1], .key = NULL, .pid = ft_atoi(argv[argc - 2]),
-		.crypt = none, .comm = ack, .err = false, .help = false};
+	args = (t_args){args .msg = (char *)argv[argc - 1], .key = NULL,
+		.pid = ft_atoi(argv[argc - 2]),		.crypt = none, .comm = nack,
+		.err = false, .help = false};
 	i = -1;
 	while (++i < argc)
 	{
@@ -124,6 +114,5 @@ __attribute__((unused, cold, pure)) t_args	parse_args(const int argc,
 	if ((args.key == NULL && args.crypt != none) || args.pid == 0
 		|| args.msg == NULL)
 		args.err = true;
-	print_args(&args);	//rm
 	return (args);
 }

@@ -8,7 +8,7 @@
 # ║     \ \__\    \ \__\   \ \__\     \ \__\\ \__\   \ \__\       \ \__\     \ \__\ \__\     \ \_______\    \ \__\\ \__\  ║
 # ║      \|__|     \|__|    \|__|      \|__| \|__|    \|__|        \|__|      \|__|\|__|      \|_______|     \|__| \|__|  ║
 # ║                                                                                                                       ║
-# ║   by nduvoid@student.42mulhouse.fr                                                                                    ║
+# ║   by <nduvoid@student.42mulhouse.fr>                                                                                  ║
 # ║                                                                                                                       ║
 # ║                                                                                                                       ║
 # ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
@@ -37,7 +37,7 @@ DIR_CRYPTO = cryptography
 
 SRC_SERVER = server.c server_args.c
 SRC_CLIENT = client.c client_args.c
-SRC_CRYPTO = rc4.c
+SRC_CRYPTO = cryptographe.c
 
 INC_SERVER = $(DIR_INC)/$(DIR_SERVER)
 INC_CLIENT = $(DIR_INC)/$(DIR_CLIENT)
@@ -73,7 +73,8 @@ _client: $(LIBFT) $(NAME_CLIENT)
 _server: $(LIBFT) $(NAME_SERVER)
 
 bonus:
-	$(MAKE) all CFLAGS="$(CFLAGS) -D BONUS=1"
+	-@$(MAKE) $(MAKEFLAGS) CFLAGS="$(CFLAGS) -D BONUS=1"
+	@exit 0
 
 # ***************************************************** #
 # *                  Compiling                        * #
@@ -84,12 +85,6 @@ $(NAME_SERVER): $(OBJ_SERVER) $(OBJ_CRYPTO)
 
 $(NAME_CLIENT): $(OBJ_CLIENT) $(OBJ_CRYPTO)
 	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_CLIENT) $(DEBUGFLAGS) -o $@ $^ $(LIBFT)
-
-# $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
-# 	@mkdir -p $(DIR_OBJ)
-# 	@mkdir -p $(DIR_OBJ)/$(DIR_SERVER)
-# 	@mkdir -p $(DIR_OBJ)/$(DIR_CLIENT)
-# 	$(call compile_object, $(IFLAGS) $(DEBUGFLAGS), $(OBJ_SERVER) $(OBJ_CLIENT), $(COLOR_YELLOW))
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_SERVER)/%.c
 	@mkdir -p $(DIR_OBJ)
@@ -160,12 +155,11 @@ header:
 	 ║   \ \  \\|__| \   \   \ \  \     \ \  \\ \  \    \ \  \       \ \  \     \ \   __  \     \ \  \        \ \   ___  \     ║ \n \
 	 ║    \ \  \    \ \  \   \ \  \     \ \  \\ \  \    \ \  \       \ \  \     \ \  \ \  \     \ \  \____    \ \  \\  \  \    ║ \n \
 	 ║     \ \__\    \ \__\   \ \__\     \ \__\\ \__\    \ \__\       \ \__\     \ \__\ \__\     \ \_______\   \ \__\\  \__\   ║ \n \
-	 ║      \|__|     \|__|    \|__|      \|__| \|__|    \|__|        \|__|      \|__|\|__|      \|_______|   \|__|   \__|   ║ \n \
+	 ║      \|__|     \|__|    \|__|      \|__| \|__|    \|__|        \|__|      \|__|\|__|      \|_______|    \|__|   \__|  ║ \n \
 	 ║                                                                                                                       ║ \n \
-	 ║    by nduvoid@student.42mulhouse.fr                                                                                   ║ \n"
+	 ║    by <nduvoid@student.42mulhouse.fr>                                                                                 ║ \n"
 	@$(call write_goals)
 	@printf " \
-	 ║                                                                                                                       ║ \n \
 	 ║                                                                                                                       ║ \n \
 	 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝\n"
 

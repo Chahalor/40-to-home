@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/07 16:33:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 11:25:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "args.h"
+#include "config.h"
+#include "struct.h"
+#include "cryptography.h"
+#include <signal.h>
+#include <stdlib.h>
 
 /**  */
 int	g_pid = 0;
@@ -34,19 +39,25 @@ __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 	static int	i = 0;
 	static int	bit = 0;
 
-	if (mode == alloc)
-		buff = msg;
-	else if (mode == send)
+	if (mode == send)
 	{
 		if (!buff[i] && kill(g_pid, SIGUSR1))
-			exit(0);
+			exiting(0, "client: kill: unable to send the message", NULL);
 		else if (kill(g_pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
-			exit(0);
+			exiting(0, "client: kill: unable to send the message", NULL);
 		if (++bit == 8)
 		{
 			bit = 0;
 			++i;
 		}
+	}
+	else if (mode == alloc)
+		buff = msg;
+	else if (mode == freeing)
+	{
+		if (buff)
+			free(buff);
+		buff = NULL;
 	}
 }
 
@@ -70,7 +81,10 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	if (signal == SIGUSR1)
 		manager(send, NULL);
 	else
+	{
+		manager(freeing, NULL);
 		exit(0);
+	}
 }
 
 #else
@@ -95,59 +109,41 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	else
 	{
 		ft_printf("message successfully delivered\n");
+		manager(freeing, NULL);
 		exit(0);
 	}
 }
 
 #endif
 
-// /**
-//  * @brief this function parse the arguments of the program.
-//  * 
-//  * @param argc the number of arguments
-//  * @param argv the arguments
-//  * 
-//  * @return t_args the parsed arguments
-//  */
-// __attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
-// {
-// 	t_args	args;
-
-// 	if (argc != 3)
-// 	{
-// 		args.err = EINVAL;
-// 		return (args);
-// 	}
-// 	args.pid = ft_atoi(argv[1]);
-// 	if (args.pid < 0)
-// 	{
-// 		args.err = EINVAL;
-// 		return (args);
-// 	}
-// 	args.msg = argv[2];
-// 	args.err = 0;
-// 	return (args);
-// }
-
 /**
  * @brief this function is the main function of the client
  * 
  * @return int
  */
-int	main(int argc, char *argv[])
+int	main(int argc, const char *argv[])
 {
 	const t_args			args = parse_args(argc, argv);
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = handler, .sa_mask = {0}};
+	char					*msg;
 
 	if (args.err)
-		exiting(args.err, "parse_args: invalid arguments");
+		exiting(args.err, "parse_args: invalid arguments", NULL);
 	g_pid = args.pid;
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		exiting(errno, "client: sigaction: unable to setup signal handler");
+		exiting(0, "client: sigaction: unable to setup signal handler", NULL);
 	if (kill(g_pid, 0) == -1)
-		exiting(errno, "kill: no such process");
-	manager(alloc, args.msg);
+		exiting(0, "kill: no such process", NULL);
+	if (args.key)
+	{
+		msg = encode_xor(args.msg, args.key);
+		if (!msg)
+			exiting(0, "client: encode_xor: unable to encode the message", NULL);
+	}
+	else
+		msg = ft_strdup(args.msg);
+	manager(alloc, msg);
 	manager(send, NULL);
 	while (1)
 		pause();

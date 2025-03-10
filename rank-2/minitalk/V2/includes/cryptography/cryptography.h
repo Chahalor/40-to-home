@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:34:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/07 13:40:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 11:02:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 /* -----| Define |----- */
 
-# define S_BOX_SIZE 256
+# define S_BOX_SIZE 256	// size of the s-box used in rc4
 
 /* -----| Macro |----- */
 //...
@@ -37,7 +37,13 @@
 //...
 
 /* -----| Enum |----- */
-//...
+
+enum e_code
+{
+	XOR,
+	AND,
+	RC4,
+};
 
 /* -----| Union |----- */
 //...
@@ -47,7 +53,8 @@
 
 /* -----| Prototype |----- */
 
-char	*f_rc4(char *key, char *msg, int len_msg);
+char	*encode_xor(const char *str, const char *key);
+char	*decode_xor(const char *str, const char *key);
 
 /* -----| Static |----- */
 //...

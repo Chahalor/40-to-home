@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:58:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/07 08:56:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 10:45:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 //...
 
 /* -----| Define |----- */
-
-// Compilation config
+	// Compilation config
 
 # ifndef BONUS
 #  define BONUS 0
@@ -41,7 +40,7 @@
 # define EXPECTED 1
 # define UNEXPECTED 0
 
-// in-App config
+	// in-App config
 
 # define BUFF_MODE 0	// 0: buffered, 1: reallocing
 # define BUFF_SIZE 1024
@@ -51,29 +50,35 @@
 # define SLEEP 500
 
 /* -----| Macro |----- */
-//...
+	//...
 
 /* -----| Typedef |----- */
 
-typedef t_comm	t_connection;
+typedef t_comm					t_connection;
+typedef enum e_builtin_expected	t_builtin_expected;
 
 /* -----| Enum |----- */
 
+enum e_builtin_expected
+{
+	unexpected,
+	expected
+};
 
 /* -----| Union |----- */
-//...
+	//...
 
 /* -----| Struct |----- */
-//...
+	//...
 
 /* -----| Prototype |----- */
-//...
+	//...
 
 /* -----| Static |----- */
-//...
+	//...
 
 /* -----| Extern |----- */
-//...
+	//...
 
 /* -----| Inline |----- */
 
