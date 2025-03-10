@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 16:52:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 18:08:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ __attribute__((hot)) void	manager(int mode)
 	}
 	else if (mode == name)
 	{
-		if (!g_client.name[i] && kill(g_client.server_pid, SIGUSR1))
+		if ((!g_client.name[i] && bit == 8) || i >= MAX_NAME_SIZE)
+		{
 			g_client.mode = msg;
+			i = 0;
+			bit = 0;
+		}
 		else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.name[i] \
 			>> (7 - bit) & 1)))
 			exiting(1, "kill: unable to send signal");

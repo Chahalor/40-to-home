@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 17:05:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 18:05:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ __attribute__((hot)) void	manager_name(const int val, const int pid)
 			ft_memset(buff, 0, MAX_NAME_SIZE);
 			g_server.mode = msg;
 			g_server.status = 0;
-			kill(pid, SIGUSR2);
+			kill(pid, SIGUSR1);
 		}
 		else
 			++i;
@@ -169,6 +169,7 @@ int	main(void)
 		exiting(errno, "sigaction");
 	ft_printf("PID: %d \n", getpid());
 	g_server.status = 1;
+	g_server.mode = name;
 	while (1)
 		pause();
 	return (0);
