@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 15:13:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 17:00:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define BUFF_SIZE 1024			// size of the buffer for buffering/allocating
 # define MAX_NAME_SIZE 32		// max size of client name
 
-# define EOT 0x0				// end of transmission character used here (yes not 0x4)
+# define EOT 0x0		// end of transmission character used here (yes not 0x4)
 
 # define RED "\033[0;31m"		// red color for the client name
 # define GREEN "\033[0;32m"		// green color for the client name
@@ -72,8 +72,8 @@ typedef enum e_bool
  */
 typedef enum e_mode
 {
-	alloc,
-	send
+	name,
+	msg,
 }	t_mode;
 
 /**
@@ -111,8 +111,9 @@ typedef struct s_args
 
 typedef struct t_server
 {
-	char	*client_name;
+	char	client_name[MAX_NAME_SIZE];
 	int		status;
+	t_mode	mode;
 }	t_server;
 
 typedef struct t_client
@@ -120,6 +121,7 @@ typedef struct t_client
 	char	*name;
 	char	*msg;
 	int		server_pid;
+	t_mode	mode;
 }	t_client;
 
 /* -----| Prototype |----- */
@@ -132,7 +134,6 @@ typedef struct t_client
 //...
 
 /* -----| Inline |----- */
-
 
 /**
  * @brief this function exit the programme with the code code (nooo way) 

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 15:37:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/10 16:52:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,32 @@ t_client	g_client = {0};
  * 
  * - send: send the message to the server
 */
-__attribute__((hot)) void	manager(void)
+__attribute__((hot)) void	manager(int mode)
 {
 	static int	i = 0;
 	static int	bit = 0;
 
-	if (!g_client.msg[i] && kill(g_client.server_pid, SIGUSR1))
-		exiting(1, "kill: unable to send signal");
-	else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.msg[i] \
-		>> (7 - bit) & 1)))
-		exiting(1, "kill: unable to send signal");
-	else if (++bit == 8)
+	if (mode == msg)
 	{
-		bit = 0;
-		++i;
+		if (!g_client.msg[i] && kill(g_client.server_pid, SIGUSR1))
+			exiting(1, "kill: unable to send signal");
+		else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.msg[i] \
+			>> (7 - bit) & 1)))
+			exiting(1, "kill: unable to send signal");
+		else if (++bit == 8)
+			bit = ++i * 0;
 	}
+	else if (mode == name)
+	{
+		if (!g_client.name[i] && kill(g_client.server_pid, SIGUSR1))
+			g_client.mode = msg;
+		else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.name[i] \
+			>> (7 - bit) & 1)))
+			exiting(1, "kill: unable to send signal");
+		else if (++bit == 8)
+			bit = ++i * 0;
+	}
+	
 }
 
 #if BONUS == 0
@@ -63,7 +74,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager();
+		manager(g_client.mode);
 	else
 		exit(0);
 }
@@ -86,7 +97,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager();
+		manager(g_client.mode);
 	else
 	{
 		ft_printf("message successfully delivered\n");
@@ -145,8 +156,7 @@ int	main(int argc, char *argv[])
 		exiting(errno, "client: sigaction: unable to setup signal handler");
 	else if (kill(g_client.server_pid, 0))
 		exiting(errno, "kill: no such process");
-	// kill(g_client.server_pid, SIGUSR1);
-	manager();
+	manager(name);
 	while (1)
 		pause();
 	return (0);
