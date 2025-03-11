@@ -6,16 +6,15 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 18:05:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/11 16:03:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-/** */
-t_server	g_server = {0};
-
 #if BUFF_MODE == 0
+
+t_server	g_server = {.buff = {0}, .name_client = {0}, .status = name};
 
 /**
  * @brief this function stores the received bits in a buffer, and flushes
@@ -27,61 +26,36 @@ t_server	g_server = {0};
  * 
  * @note: the buffer is flushed when the end of transmission is received
  */
-__attribute__((hot)) void	manager(const int val, const int pid)
+__attribute__((hot)) void	manager(const int val, const int pid,
+	const int mode)
 {
-	static char	buff[BUFF_SIZE] = {0};
+	char	*buff;
 	static int	i = 0;
 	static int	bit = 0;
 
+	buff = g_server.buff + BUFF_SIZE * (mode == name);
 	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
 		bit = 0;
 		if (buff[i] == EOT)
 		{
-			write(1, buff, i);
-			i = 0;
-			ft_memset(buff, 0, BUFF_SIZE);
+			g_server.status = (mode == name) * print_name;
+			write(1, buff, i * (mode != name));
+			i *= (mode == name);
+			ft_memset(buff, 0, BUFF_SIZE * (mode != name));
 			kill(pid, SIGUSR2);
-			g_server.status = 0;
 		}
-		else
-			++i;
+		i += 1 * (buff[i] != EOT);
 	}
-	if (i == BUFF_SIZE)
-	{
-		write(1, buff, BUFF_SIZE);
-		i = 0;
-	}
-	kill(pid, SIGUSR1);
-}
-
-__attribute__((hot)) void	manager_name(const int val, const int pid)
-{
-	static char buff[MAX_NAME_SIZE] = {0};
-	static int	i = 0;
-	static int	bit = 0;
-
-	buff[i] = (buff[i] << 1) + val;
-	if (++bit == 8)
-	{
-		bit = 0;
-		if (buff[i] == '\0' || i + 1 == MAX_NAME_SIZE)
-		{
-			i = 0;
-			ft_memcpy(g_server.client_name, buff, MAX_NAME_SIZE);
-			ft_memset(buff, 0, MAX_NAME_SIZE);
-			g_server.mode = msg;
-			g_server.status = 0;
-			kill(pid, SIGUSR1);
-		}
-		else
-			++i;
-	}
+	write(1, buff, i * (mode != name) * (i == BUFF_SIZE));
+	i *= (i != BUFF_SIZE);
 	kill(pid, SIGUSR1);
 }
 
 #else
+
+t_server	g_server = {.buff = NULL, .name_client = NULL, .status = name};
 
 /**
  * @brief this function stores the received bits in a heap-allocated buffer,
@@ -93,36 +67,67 @@ __attribute__((hot)) void	manager_name(const int val, const int pid)
  * @return void
  * 
  * @note the buffer is freed when the end of transmission is received
+ * 
+ * // (&g_server.name_client - &g_server.buff); <- if pragma pack isn t used
  */
-__attribute__((hot)) void	manager(const int val, const int pid)
+__attribute__((hot)) void	manager(const int val, const int pid,
+	const int mode)
 {
-	static char	*buff = NULL;
+	char		*buff;
+	char		**tmp;
 	static int	nb_alloc = 0;
 	static int	i = 0;
 	static int	bit = 0;
 
-	if (!buff)
-		buff = (char *)allocator(buff, &nb_alloc);
+	tmp = &g_server.buff + (mode == name);
+	if (i == nb_alloc * BUFF_SIZE || !*tmp)
+		*tmp = (char *)reallocator(*tmp, &nb_alloc);
+	buff = *tmp;
 	buff[i] = (buff[i] << 1) + val;
 	if (++bit == 8)
 	{
 		bit = 0;
+		// if (buff[i] == EOT)
+		// {
+		// 	g_server.status = (mode == name) * print_name;
+		// 	write(1, buff, i * (mode != name));
+		// 	i = 0;
+		// 	nb_alloc = 0;
+		// 	kill(pid, SIGUSR2);
+		// }
 		if (buff[i] == EOT)
 		{
-			write(1, buff, i);
-			(free(buff), buff = NULL, i = 0, nb_alloc = 0);
+			g_server.status = (mode == name) * print_name;
+			write(1, buff, i * (mode != name));
+			free(buff);   // 🔥 Libération mémoire
+			*tmp = NULL;  // 🔄 Évite de garder un pointeur dangling
+			i = 0;
+			nb_alloc = 0;
 			kill(pid, SIGUSR2);
-			g_server.status = 0;
 		}
 		else
 			++i;
 	}
-	if (i == nb_alloc * BUFF_SIZE && buff)
-		buff = (char *)reallocator(buff, &nb_alloc);
 	kill(pid, SIGUSR1);
 }
 
-#endif	/* BUFF_MODE */
+#endif
+
+__attribute__((destructor)) void	cleanup(void)
+{
+	if (BUFF_MODE == 0)
+		return ;
+	if (g_server.buff)
+	{
+		free(g_server.buff);
+		g_server.buff = NULL;
+	}
+	if (g_server.name_client)
+	{
+		free(g_server.name_client);
+		g_server.name_client = NULL;
+	}
+}
 
 /**
  * @brief this function handles the signals received from the client.
@@ -139,20 +144,15 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	if (!g_server.status)
+	if (g_server.status == print_name)
 	{
-		if (g_server.client_name[0])
-			ft_printf(GREEN "\n[%s]" RESET " : \n", g_server.client_name);
+		if (!g_server.name_client && g_server.name_client[0] == 0)
+			ft_printf(GREEN "\n[%d] : \n" RESET, info->si_pid);
 		else
-			ft_printf(GREEN "\n[%d]" RESET " : \n", info->si_pid);
-		g_server.status = 1;
+			ft_printf(GREEN "\n[%s] : \n" RESET,g_server.name_client);
+		g_server.status = msg;
 	}
-	if (g_server.mode == msg)
-		manager(signal == SIGUSR1, info->si_pid);
-	else if (g_server.mode == name)
-		manager_name(signal == SIGUSR1, info->si_pid);
-	else
-		manager(signal == SIGUSR2, info->si_pid);
+	manager(signal == SIGUSR2, info->si_pid, g_server.status);
 }
 
 /**
@@ -163,14 +163,12 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 int	main(void)
 {
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
-		.sa_sigaction = handler, .sa_mask = {0}};
+		.sa_sigaction = handler};
 
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
-		exiting(errno, "sigaction");
+		exiting(errno, "server: sigaction: unable to setup signal handler");
 	ft_printf("PID: %d \n", getpid());
-	g_server.status = 1;
-	g_server.mode = name;
 	while (1)
 		pause();
-	return (0);
+	return (0);	//attention le projet leak de batard
 }

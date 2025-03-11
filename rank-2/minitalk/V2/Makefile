@@ -31,12 +31,12 @@ DIR_INC = includes
 DIR_SRC = src
 DIR_OBJ = .obj
 
-DIR_SERVER = server
-DIR_CLIENT = client
-DIR_CRYPTO = cryptography
+DIR_SERVER =
+DIR_CLIENT =
+DIR_CRYPTO =
 
 SRC_SERVER = server.c
-SRC_CLIENT = client.c
+SRC_CLIENT = client.c args.c
 SRC_CRYPTO =
 
 INC_SERVER = $(DIR_INC)/$(DIR_SERVER)

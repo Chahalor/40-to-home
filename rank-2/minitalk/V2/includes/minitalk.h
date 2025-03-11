@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 17:00:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/11 15:44:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,24 @@
 /* -----| Define |----- */
 
 # ifndef BONUS
-#  define BONUS 0				// lock/unlock bonus functionality
+#  define BONUS 0		// lock/unlock bonus functionality
 # endif
 
 # ifndef DEBUG
-#  define DEBUG 0				// lock/unlock debug functionality
+#  define DEBUG 0		// lock/unlock debug functionality
 # endif
 
-# define BUFF_MODE 0			// 0: buffered, 1: reallocing
-# define BUFF_SIZE 1024			// size of the buffer for buffering/allocating
-# define MAX_NAME_SIZE 32		// max size of client name
+# define BUFF_MODE 1		// 0: buffered, 1: reallocing
+# define BUFF_SIZE 1024		// size of the buffer for buffering/allocating
+# define MAX_NAME_SIZE 32	// max size of the name of the client
 
 # define EOT 0x0		// end of transmission character used here (yes not 0x4)
 
-# define RED "\033[0;31m"		// red color for the client name
-# define GREEN "\033[0;32m"		// green color for the client name
-# define BLUE "\033[0;34m"		// blue color for the client name
-# define YELLOW "\033[0;33m"	// yellow color for the client name
-# define RESET "\033[0m"		// reset color
+# define GREEN "\033[0;32m"
+# define RED "\033[0;31m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define RESET "\033[0m"
 
 /* -----| Macro |----- */
 //...
@@ -72,8 +72,9 @@ typedef enum e_bool
  */
 typedef enum e_mode
 {
-	name,
-	msg,
+	alloc,
+	send,
+	reset,
 }	t_mode;
 
 /**
@@ -87,6 +88,14 @@ typedef enum e_error
 	enomen = ENOMEM,
 	einval = EINVAL,	
 }	t_error;
+
+typedef enum e_status
+{
+	name,
+	print_name,
+	msg,
+}	t_status;
+
 /* -----| Union |----- */
 //...
 
@@ -105,27 +114,50 @@ typedef struct s_args
 {
 	char	*msg;
 	char	*name;
-	int		pid;
+	pid_t	pid;
 	t_error	err;
+	t_uint	help	: 1;
 }	t_args;
 
-typedef struct t_server
+# if (BUFF_MODE == 0)
+
+#  pragma pack(push, 1)
+
+typedef struct s_server
 {
-	char	client_name[MAX_NAME_SIZE];
-	int		status;
-	t_mode	mode;
+	char		buff[BUFF_SIZE];
+	char		name_client[BUFF_SIZE];
+	t_status	status;
 }	t_server;
 
-typedef struct t_client
+#  pragma pack(pop)
+
+# else
+
+#  pragma pack(push, 1)
+
+typedef struct s_server
 {
-	char	*name;
-	char	*msg;
-	int		server_pid;
-	t_mode	mode;
+	char		*buff;
+	char		*name_client;
+	t_status	status;
+}	t_server;
+
+#  pragma pack(pop)
+
+# endif
+
+typedef struct s_client
+{
+	char		*name;
+	char		*msg;
+	pid_t		pid;
+	t_status	status;
 }	t_client;
 
 /* -----| Prototype |----- */
-//...
+
+t_args	parse_args(int argc, char *argv[]);
 
 /* -----| Static |----- */
 //...
@@ -156,27 +188,6 @@ __attribute__((cold, unused, noreturn)) static inline void	exiting(
 }
 
 /**
- * @brief this function realloc the buffer to the next size
- * 
- * @param buff the buffer to realloc
- * @param nb_alloc the number of allocation done
- * 
- * @return the new buffer
- */
-__attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
-{
-	char	*tmp;
-
-	tmp = buff;
-	buff = (char *)malloc(++(*nb_alloc) * BUFF_SIZE);
-	if (!buff)
-		exiting(enomen, "Error: reallocation failed\n");
-	ft_memcpy(buff, tmp, (*nb_alloc - 1) * BUFF_SIZE);
-	free(tmp);
-	return (buff);
-}
-
-/**
  * @brief this function allocate the buffer to the first size
  * 
  * @param buff the buffer to allocate
@@ -189,7 +200,35 @@ __attribute__((hot)) static inline void	*allocator(char *buff, int *nb_alloc)
 	buff = (char *)malloc(++(*nb_alloc) * BUFF_SIZE);
 	if (!buff)
 		exiting(enomen, "Error: malloc failed\n");
+	ft_memset(buff, 0, BUFF_SIZE * *nb_alloc);
+	// ft_printf("Allocating buffer at address: %p, size: %d\n", (void *)buff, *nb_alloc * BUFF_SIZE);	//rm
 	return (buff);
 }
+
+/**
+ * @brief this function realloc the buffer to the next size
+ * 
+ * @param buff the buffer to realloc
+ * @param nb_alloc the number of allocation done
+ * 
+ * @return the new buffer
+ */
+__attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
+{
+	char	*tmp;
+
+	tmp = buff;
+	// ft_printf("Reallocating buffer at address: %p, size: %d\n", (void *)tmp, *nb_alloc * BUFF_SIZE);	//rm
+	buff = (char *)allocator(buff, nb_alloc);
+	ft_memcpy(buff, tmp, (*nb_alloc - 1) * BUFF_SIZE);
+	if (tmp)
+	{
+		free(tmp);
+		tmp = NULL;
+	}
+	// ft_printf("New buffer address: %p, new size: %d\n", (void *)buff, *nb_alloc * BUFF_SIZE);	//rm
+	return (buff);
+}
+
 
 #endif	/* MINITALK_H */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/10 18:08:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/11 13:42:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,37 @@ t_client	g_client = {0};
  * 
  * @note: this function as two modes:
  * 
- * - alloc: copy the message ptr to the g_client.msger ptr
+ * - alloc: copy the message ptr to the buffer ptr
  * 
  * - send: send the message to the server
 */
-__attribute__((hot)) void	manager(int mode)
+__attribute__((hot)) void	manager(const t_mode mode, char *msg)
 {
+	static char	*buff = NULL;
 	static int	i = 0;
 	static int	bit = 0;
 
-	if (mode == msg)
+	if (mode == alloc)
+		buff = msg;
+	else if (mode == send)
 	{
-		if (!g_client.msg[i] && kill(g_client.server_pid, SIGUSR1))
-			exiting(1, "kill: unable to send signal");
-		else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.msg[i] \
-			>> (7 - bit) & 1)))
-			exiting(1, "kill: unable to send signal");
-		else if (++bit == 8)
-			bit = ++i * 0;
-	}
-	else if (mode == name)
-	{
-		if ((!g_client.name[i] && bit == 8) || i >= MAX_NAME_SIZE)
+		if (!buff[i] && kill(g_client.pid, SIGUSR1))
+			exit(0);
+		else if (kill(g_client.pid, SIGUSR1 + 2 * (buff[i] >> (7 - bit) & 1)))
+			exit(0);
+		if (++bit == 8)
 		{
-			g_client.mode = msg;
-			i = 0;
 			bit = 0;
+			++i;
 		}
-		else if (kill(g_client.server_pid, SIGUSR1 + 2 * (g_client.name[i] \
-			>> (7 - bit) & 1)))
-			exiting(1, "kill: unable to send signal");
-		else if (++bit == 8)
-			bit = ++i * 0;
 	}
-	
+	else
+	{
+		if (buff)
+			free(buff);
+		buff = NULL;
+		i = 0;
+	}
 }
 
 #if BONUS == 0
@@ -78,9 +75,18 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager(g_client.mode);
+		manager(send, NULL);
 	else
-		exit(0);
+	{
+		if (g_client.status == name)
+		{
+			g_client.status = msg;
+			manager(reset, NULL);
+			manager(alloc, g_client.msg);
+		}
+		else
+			exit(0);
+	}
 }
 
 #else
@@ -101,7 +107,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (signal == SIGUSR1)
-		manager(g_client.mode);
+		manager(send, NULL);
 	else
 	{
 		ft_printf("message successfully delivered\n");
@@ -109,36 +115,7 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	}
 }
 
-#endif	/* BONUS */
-
-/**
- * @brief this function parse the arguments of the program.
- * 
- * @param argc the number of arguments
- * @param argv the arguments
- * 
- * @return t_args the parsed arguments
- */
-__attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
-{
-	t_args	args;
-
-	if (argc != 3)
-	{
-		args.err = 1;
-		return (args);
-	}
-	args.pid = ft_atoi(argv[1]);
-	if (args.pid < 0)
-	{
-		args.err = 1;
-		return (args);
-	}
-	args.name = ft_strdup("RED IS SUS");
-	args.msg = argv[2];
-	args.err = 0;
-	return (args);
-}
+#endif
 
 /**
  * @brief this function is the main function of the client
@@ -151,17 +128,23 @@ int	main(int argc, char *argv[])
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = handler, .sa_mask = {0}};
 
-	if (args.err)
-		exiting(args.err, "parse_args: invalid arguments");
-	g_client.server_pid = args.pid;
-	g_client.name = args.name;
-	g_client.msg = args.msg;
+	if (args.err == einval)
+		exiting(args.err, "usage: ./client [options] <pid> <message>");
+	g_client = (t_client){.pid = args.pid, .msg = args.msg,
+		.name = args.name, .status = msg};
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
 		exiting(errno, "client: sigaction: unable to setup signal handler");
-	else if (kill(g_client.server_pid, 0))
+	if (kill(g_client.pid, 0) == -1)
 		exiting(errno, "kill: no such process");
-	manager(name);
+	if (args.name)
+	{
+		manager(alloc, args.name);
+		manager(send, NULL);
+		g_client.status = name;
+	}
+	else
+		g_client.status = msg;
 	while (1)
 		pause();
-	return (0);
+	return (0);	//attention le projet leak de batard
 }
