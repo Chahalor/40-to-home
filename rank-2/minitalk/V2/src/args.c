@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:14:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/11 12:08:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/12 11:58:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ __attribute__((cold)) static void	parse_short_args(const int argc,
 	else
 		args->err = einval;
 	*i += 1 * (args->err == 0);
-	return ;
-	
 }
 
 /** */
@@ -73,7 +71,6 @@ __attribute__((cold)) static void	parse_long_option(const int argc,
 	else
 		args->err = einval;
 	*i += 1 * (args->err == 0);
-	return ;
 }
 
 /** */

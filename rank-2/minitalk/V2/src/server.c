@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/11 16:03:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/12 14:01:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_server	g_server = {.buff = {0}, .name_client = {0}, .status = name};
 __attribute__((hot)) void	manager(const int val, const int pid,
 	const int mode)
 {
-	char	*buff;
+	char		*buff;
 	static int	i = 0;
 	static int	bit = 0;
 
@@ -87,35 +87,30 @@ __attribute__((hot)) void	manager(const int val, const int pid,
 	if (++bit == 8)
 	{
 		bit = 0;
-		// if (buff[i] == EOT)
-		// {
-		// 	g_server.status = (mode == name) * print_name;
-		// 	write(1, buff, i * (mode != name));
-		// 	i = 0;
-		// 	nb_alloc = 0;
-		// 	kill(pid, SIGUSR2);
-		// }
 		if (buff[i] == EOT)
 		{
 			g_server.status = (mode == name) * print_name;
 			write(1, buff, i * (mode != name));
-			free(buff);   // 🔥 Libération mémoire
-			*tmp = NULL;  // 🔄 Évite de garder un pointeur dangling
-			i = 0;
-			nb_alloc = 0;
-			kill(pid, SIGUSR2);
+			(kill(pid, SIGUSR2), i = 0, nb_alloc = 0);
 		}
 		else
 			++i;
 	}
 	kill(pid, SIGUSR1);
 }
+kill(pid, SIGUSR1);
+}
 
-#endif
-
-__attribute__((destructor)) void	cleanup(void)
+__attribute__((destructor)) void	cleanup_server(int signal, siginfo_t *info,
+	void *context)
 {
-	if (BUFF_MODE == 0)
+	(void)info;
+	(void)context;
+	if (signal == SIGCHLD || signal == SIGWINCH)
+		return ;
+	else if (signal == SIGINT)
+		exiting(0, "\n");
+	else if (BUFF_MODE == 0)
 		return ;
 	if (g_server.buff)
 	{
@@ -127,7 +122,10 @@ __attribute__((destructor)) void	cleanup(void)
 		free(g_server.name_client);
 		g_server.name_client = NULL;
 	}
+	exit(errno);
 }
+
+#endif
 
 /**
  * @brief this function handles the signals received from the client.
@@ -146,10 +144,10 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 	(void)context;
 	if (g_server.status == print_name)
 	{
-		if (!g_server.name_client && g_server.name_client[0] == 0)
+		if (g_server.name_client[0] == 0)
 			ft_printf(GREEN "\n[%d] : \n" RESET, info->si_pid);
 		else
-			ft_printf(GREEN "\n[%s] : \n" RESET,g_server.name_client);
+			ft_printf(GREEN "\n[%s] : \n" RESET, g_server.name_client);
 		g_server.status = msg;
 	}
 	manager(signal == SIGUSR2, info->si_pid, g_server.status);
@@ -164,11 +162,15 @@ int	main(void)
 {
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = handler};
+	const struct sigaction	sa2 = {.sa_flags = SA_SIGINFO,
+		.sa_sigaction = cleanup_server};
 
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
+		exiting(errno, "server: sigaction: unable to setup signal handler");
+	else if (sigaction(SIGINT, &sa2, NULL) || sigaction(SIGQUIT, &sa2, NULL))
 		exiting(errno, "server: sigaction: unable to setup signal handler");
 	ft_printf("PID: %d \n", getpid());
 	while (1)
 		pause();
-	return (0);	//attention le projet leak de batard
+	return (0);	// @todo: il y a un decalage dans la chaine de msg = au nombre de char dans name, dans les deux manager.
 }

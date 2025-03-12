@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/11 15:44:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/12 13:54:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,9 +201,10 @@ __attribute__((hot)) static inline void	*allocator(char *buff, int *nb_alloc)
 	if (!buff)
 		exiting(enomen, "Error: malloc failed\n");
 	ft_memset(buff, 0, BUFF_SIZE * *nb_alloc);
-	// ft_printf("Allocating buffer at address: %p, size: %d\n", (void *)buff, *nb_alloc * BUFF_SIZE);	//rm
 	return (buff);
 }
+// ft_printf(RED "\nAllocating buffer at address: %p, size: %d\n" RESET,
+//(void *)buff, *nb_alloc * BUFF_SIZE);
 
 /**
  * @brief this function realloc the buffer to the next size
@@ -218,7 +219,6 @@ __attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
 	char	*tmp;
 
 	tmp = buff;
-	// ft_printf("Reallocating buffer at address: %p, size: %d\n", (void *)tmp, *nb_alloc * BUFF_SIZE);	//rm
 	buff = (char *)allocator(buff, nb_alloc);
 	ft_memcpy(buff, tmp, (*nb_alloc - 1) * BUFF_SIZE);
 	if (tmp)
@@ -226,9 +226,23 @@ __attribute__((hot)) static inline void	*reallocator(char *buff, int *nb_alloc)
 		free(tmp);
 		tmp = NULL;
 	}
-	// ft_printf("New buffer address: %p, new size: %d\n", (void *)buff, *nb_alloc * BUFF_SIZE);	//rm
 	return (buff);
 }
 
+# if (BUFF_MODE == 0)
+
+void	cleanup_server(int signal, siginfo_t *info, void *context)
+{
+	(void)info;
+	(void)context;
+	if (signal == SIGCHLD || signal == SIGWINCH)
+		return ;
+	else if (signal == SIGINT)
+		exiting(0, "\n");
+	else
+		exit(errno);
+}
+
+# endif
 
 #endif	/* MINITALK_H */

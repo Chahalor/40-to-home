@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/11 13:42:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/12 13:48:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,7 @@ __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 		}
 	}
 	else
-	{
-		if (buff)
-			free(buff);
-		buff = NULL;
-		i = 0;
-	}
+		return ;
 }
 
 #if BONUS == 0
@@ -110,12 +105,30 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 		manager(send, NULL);
 	else
 	{
-		ft_printf("message successfully delivered\n");
-		exit(0);
+		if (g_client.status == name)
+		{
+			g_client.status = msg;
+			manager(reset, NULL);
+			manager(alloc, g_client.msg);
+		}
+		else
+		{
+			ft_printf("Message succesfully send\n");
+			exit(0);
+		}
 	}
 }
 
 #endif
+
+__attribute__((destructor))	void	cleanup(void)
+{
+	if (g_client.name)
+	{
+		free(g_client.name);
+		g_client.name = NULL;
+	}
+}
 
 /**
  * @brief this function is the main function of the client
@@ -126,7 +139,7 @@ int	main(int argc, char *argv[])
 {
 	const t_args			args = parse_args(argc, argv);
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
-		.sa_sigaction = handler, .sa_mask = {0}};
+		.sa_sigaction = handler};
 
 	if (args.err == einval)
 		exiting(args.err, "usage: ./client [options] <pid> <message>");
@@ -146,5 +159,5 @@ int	main(int argc, char *argv[])
 		g_client.status = msg;
 	while (1)
 		pause();
-	return (0);	//attention le projet leak de batard
+	return (0);
 }
