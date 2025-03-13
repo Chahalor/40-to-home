@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/12 14:01:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 08:50:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ __attribute__((hot)) void	manager(const int val, const int pid,
 	}
 	kill(pid, SIGUSR1);
 }
-kill(pid, SIGUSR1);
-}
 
 __attribute__((destructor)) void	cleanup_server(int signal, siginfo_t *info,
 	void *context)
@@ -172,5 +170,5 @@ int	main(void)
 	ft_printf("PID: %d \n", getpid());
 	while (1)
 		pause();
-	return (0);	// @todo: il y a un decalage dans la chaine de msg = au nombre de char dans name, dans les deux manager.
+	return (0);
 }

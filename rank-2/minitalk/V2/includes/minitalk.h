@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:26:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/12 13:54:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 08:48:18 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #  define DEBUG 0		// lock/unlock debug functionality
 # endif
 
-# define BUFF_MODE 1		// 0: buffered, 1: reallocing
+# define BUFF_MODE 0		// 0: buffered, 1: reallocing
 # define BUFF_SIZE 1024		// size of the buffer for buffering/allocating
 # define MAX_NAME_SIZE 32	// max size of the name of the client
 

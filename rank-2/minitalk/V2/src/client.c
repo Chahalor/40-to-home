@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/12 13:48:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 08:45:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 			bit = 0;
 			++i;
 		}
+	}
+	else if (mode == reset)
+	{
+		i = 0;
+		bit = 0;
 	}
 	else
 		return ;
