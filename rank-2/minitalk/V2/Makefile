@@ -33,10 +33,11 @@ DIR_OBJ = .obj
 
 DIR_SERVER =
 DIR_CLIENT =
-DIR_CRYPTO =
+DIR_UTILS =
 
-SRC_SERVER = server.c
-SRC_CLIENT = client.c args.c
+SRC_SERVER = server.c args_server.c
+SRC_CLIENT = client.c args_client.c
+SRC_UTILS = utils.c
 
 INC_SERVER = $(DIR_INC)/$(DIR_SERVER)
 INC_CLIENT = $(DIR_INC)/$(DIR_CLIENT)
@@ -45,9 +46,11 @@ LIBFT = $(DIR_LIBFT)/libft.a
 
 SERV_FILES = $(addprefix $(DIR_SRC)/$(DIR_SERVER)/, $(SRC_SERVER))
 CLIE_FILES = $(addprefix $(DIR_SRC)/$(DIR_CLIENT)/, $(SRC_CLIENT))
+UTIL_FILES = $(addprefix $(DIR_SRC)/$(DIR_UTILS)/, $(SRC_UTILS))
 
 OBJ_SERVER = $(patsubst $(DIR_SRC)/$(DIR_SERVER)/%.c, $(DIR_OBJ)/%.o, $(SERV_FILES))
 OBJ_CLIENT = $(patsubst $(DIR_SRC)/$(DIR_CLIENT)/%.c, $(DIR_OBJ)/%.o, $(CLIE_FILES))
+OBJ_UTILS = $(patsubst $(DIR_SRC)/$(DIR_UTILS)/%.c, $(DIR_OBJ)/%.o, $(UTIL_FILES))
 
 CC =		cc
 CFLAGS =	-Wall -Wextra -Werror
@@ -76,19 +79,23 @@ bonus:
 # *                  Compiling                        * #
 # ***************************************************** #
 
-$(NAME_SERVER): $(OBJ_SERVER)
-	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_SERVER) $(DEBUGFLAGS) -D SERVER -o $@ $^ $(LIBFT)
+$(NAME_SERVER): $(OBJ_UTILS) $(OBJ_SERVER)
+	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_SERVER) $(DEBUGFLAGS) -D SERVER=1 -o $@ $^ $(LIBFT)
 
-$(NAME_CLIENT): $(OBJ_CLIENT)
-	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_CLIENT) $(DEBUGFLAGS) -D CLIENT -o $@ $^ $(LIBFT)
+$(NAME_CLIENT): $(OBJ_UTILS) $(OBJ_CLIENT)
+	@$(CC) $(CFLAGS) $(IFLAGS) -I$(DIR_INC)/$(DIR_CLIENT) $(DEBUGFLAGS) -D CLIENT=1 -o $@ $^ $(LIBFT)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_SERVER)/%.c
 	@mkdir -p $(DIR_OBJ)
-	$(call compile_object, $(IFLAGS) -I$(INC_SERVER) $(DEBUGFLAGS) -D SERVER, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
+	$(call compile_object, $(IFLAGS) -I$(INC_SERVER) $(DEBUGFLAGS) -D SERVER=1, $(DIR_OBJ)/$(notdir $@), $(COLOR_YELLOW))
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_CLIENT)/%.c
 	@mkdir -p $(DIR_OBJ)
-	$(call compile_object, $(IFLAGS) -I$(INC_CLIENT) $(DEBUGFLAGS) -D CLIENT, $(DIR_OBJ)/$(notdir $@), $(COLOR_CYAN))
+	$(call compile_object, $(IFLAGS) -I$(INC_CLIENT) $(DEBUGFLAGS) -D CLIENT=1, $(DIR_OBJ)/$(notdir $@), $(COLOR_YELLOW))
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/$(DIR_UTILS)/%.c
+	@mkdir -p $(DIR_OBJ)
+	$(call compile_object, $(IFLAGS) -I$(DIR_INC) $(DEBUGFLAGS), -D INLINE=1 $(DIR_OBJ)/$(notdir $@), $(COLOR_YELLOW))
 
 $(LIBFT):
 	-@make -C $(DIR_LIBFT) NO_HEADER=true

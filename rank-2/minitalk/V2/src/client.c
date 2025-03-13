@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:03:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/13 08:45:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 09:29:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_client	g_client = {0};
  * - alloc: copy the message ptr to the buffer ptr
  * 
  * - send: send the message to the server
+ * 
+ * - reset: i and bit are set to 0
 */
 __attribute__((hot)) void	manager(const t_mode mode, char *msg)
 {
@@ -100,7 +102,8 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
  * 
  * @return void
  * 
- * @note: this function print a message when SIGUSR2 is received
+ * @note: this function print a message when SIGUSR2 is received and BONUS
+ *  is set to 1
  */
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
@@ -126,6 +129,13 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 
 #endif
 
+/**
+ * @brief this function is called when the program exits.
+ * 
+ * @return void
+ * 
+ * @note: this function is also called when a quit signal is received
+ */
 __attribute__((destructor))	void	cleanup(void)
 {
 	if (g_client.name)
@@ -136,13 +146,19 @@ __attribute__((destructor))	void	cleanup(void)
 }
 
 /**
+ * @author: nduvoid
+ * @date: 2025/03/13
+ * 
  * @brief this function is the main function of the client
+ * 
+ * @param argc the number of arguments
+ * @param argv the arguments
  * 
  * @return int
  */
 int	main(int argc, char *argv[])
 {
-	const t_args			args = parse_args(argc, argv);
+	const t_args			args = parse_args_client(argc, argv);
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = handler};
 

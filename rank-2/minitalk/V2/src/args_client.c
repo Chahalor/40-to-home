@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.c                                             :+:      :+:    :+:   */
+/*   args_client.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:14:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/12 11:58:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 09:27:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-/** */
-__attribute__((unused, cold, noreturn)) void	show_help(void)
+/**
+ * * @brief this function shows the help message and exits the program.
+ * 
+ * * @param void
+ * 
+ * * @return void
+ */
+__attribute__((unused, cold, noreturn)) static inline void	show_help(void)
 {
 	ft_printf("usage: ./client [options] <pid> <message>\n");
 	ft_printf("options:\n");
@@ -27,7 +33,16 @@ __attribute__((unused, cold, noreturn)) void	show_help(void)
 	exit(0);
 }
 
-/** */
+/**
+ * * @brief this function parses the short options of the client.
+ * 
+ * * @param argc the number of arguments
+ * * @param argv the arguments
+ * * @param args the arguments struct
+ * * @param i the index of the current argument
+ * 
+ * * @return void
+ */
 __attribute__((cold)) static void	parse_short_args(const int argc,
 	char *argv[], t_args *args, int *i)
 {
@@ -51,7 +66,16 @@ __attribute__((cold)) static void	parse_short_args(const int argc,
 	*i += 1 * (args->err == 0);
 }
 
-/** */
+/**
+ * * @brief this function parses the long options of the client.
+ * 
+ * * @param argc the number of arguments
+ * * @param argv the arguments
+ * * @param args the arguments struct
+ * * @param i the index of the current argument
+ * 
+ * * @return void
+ */
 __attribute__((cold)) static void	parse_long_option(const int argc,
 	char *argv[], t_args *args, int *i)
 {
@@ -73,8 +97,20 @@ __attribute__((cold)) static void	parse_long_option(const int argc,
 	*i += 1 * (args->err == 0);
 }
 
-/** */
-__attribute__((unused, cold)) t_args	parse_args(int argc, char *argv[])
+/**
+ * @brief this function parses the arguments of the client.
+ * 
+ * @param argc the number of arguments
+ * @param argv the arguments
+ * 
+ * @return t_args the arguments struct
+ * 
+ * @note: the function will exit if any error occurs or if the help
+ * flag is set.
+ * @note: this function alloc any way the name of the client.
+ */
+__attribute__((unused, cold)) t_args	parse_args_client(int argc,
+	char *argv[])
 {
 	t_args	args;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:56:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/13 08:50:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/13 09:23:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_server	g_server = {.buff = {0}, .name_client = {0}, .status = name};
  * @return void
  * 
  * @note: the buffer is flushed when the end of transmission is received
+ * 
+ * @example manager(1, 868889, name); -> add the bit 1 to the name buffer
+ * @example manager(0, 868889, msg); -> add the bit 0 to the msg buffer
+ * @example manager(0, 868889, 3); -> should segfault, or have an strange
+ *  memory access
  */
 __attribute__((hot)) void	manager(const int val, const int pid,
 	const int mode)
@@ -66,9 +71,12 @@ t_server	g_server = {.buff = NULL, .name_client = NULL, .status = name};
  * @param pid the pid of the sender
  * @return void
  * 
- * @note the buffer is freed when the end of transmission is received
+ * @note the buffer is not freed when the end of transmission is received
  * 
- * // (&g_server.name_client - &g_server.buff); <- if pragma pack isn t used
+ * @example manager(1, 868889, name); -> add the bit 1 to the name buffer
+ * @example manager(0, 868889, msg); -> add the bit 0 to the msg buffer
+ * @example manager(0, 868889, 3); -> should segfault, or have an strange
+ *  memory access
  */
 __attribute__((hot)) void	manager(const int val, const int pid,
 	const int mode)
@@ -99,30 +107,6 @@ __attribute__((hot)) void	manager(const int val, const int pid,
 	kill(pid, SIGUSR1);
 }
 
-__attribute__((destructor)) void	cleanup_server(int signal, siginfo_t *info,
-	void *context)
-{
-	(void)info;
-	(void)context;
-	if (signal == SIGCHLD || signal == SIGWINCH)
-		return ;
-	else if (signal == SIGINT)
-		exiting(0, "\n");
-	else if (BUFF_MODE == 0)
-		return ;
-	if (g_server.buff)
-	{
-		free(g_server.buff);
-		g_server.buff = NULL;
-	}
-	if (g_server.name_client)
-	{
-		free(g_server.name_client);
-		g_server.name_client = NULL;
-	}
-	exit(errno);
-}
-
 #endif
 
 /**
@@ -132,9 +116,7 @@ __attribute__((destructor)) void	cleanup_server(int signal, siginfo_t *info,
  * @param info the info of the signal
  * @param context the context of the signal	
  * 
- * @note: the function is called when a signal is received in a speparate
- * thread
- * @note: this function only call the manager function
+ * @note: the function is called in a speparate thread when a signal is received
  */
 __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 {
@@ -152,17 +134,24 @@ __attribute__((hot)) void	handler(int signal, siginfo_t *info, void *context)
 }
 
 /**
+ * @author: nduvoid <nduvoid@student.42mulhouse.fr>
+ * @date: 2025/03/13
+ * 
  * @brief this function is the main function of the server
+ * 
+ * @param argc the number of arguments
+ * @param argv the arguments
  * 
  * @return int
  */
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	const struct sigaction	sa = {.sa_flags = SA_SIGINFO | SA_RESTART,
 		.sa_sigaction = handler};
 	const struct sigaction	sa2 = {.sa_flags = SA_SIGINFO,
 		.sa_sigaction = cleanup_server};
 
+	parse_args_server(argc, argv);
 	if (sigaction(SIGUSR1, &sa, NULL) || sigaction(SIGUSR2, &sa, NULL))
 		exiting(errno, "server: sigaction: unable to setup signal handler");
 	else if (sigaction(SIGINT, &sa2, NULL) || sigaction(SIGQUIT, &sa2, NULL))
