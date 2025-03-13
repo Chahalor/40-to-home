@@ -1,6 +1,10 @@
 .obj
 .vscode
 .test
+
 *.o
 *.out
 *.txt
+
+./push_swap
+./tester

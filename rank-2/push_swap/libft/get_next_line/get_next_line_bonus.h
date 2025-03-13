@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/20 12:41:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 13:05:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 1024
 # endif
 
 # ifndef MAX_FD
 #  define MAX_FD 1024
 # endif
 
-size_t	ft_strlen(const char *s);
+size_t	gnl_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*str_join(char *s1, char *s2);
 

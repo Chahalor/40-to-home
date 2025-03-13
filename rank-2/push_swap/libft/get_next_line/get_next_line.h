@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:35:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/19 15:05:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/02/21 13:06:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 1024
 # endif
 
 # ifndef MAX_FD

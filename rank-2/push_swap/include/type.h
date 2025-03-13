@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 09:08:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/13 13:24:07 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/13 14:25:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef TYPE_H
+# define TYPE_H
 
 # pragma once
 
 /* -----| Header |----- */
 // System
-# include <errno.h>
-# include <limits.h>
-# include <stdlib.h>
-# include <unistd.h>
+//...
 
-// libs
-# include "libft.h"
+// Libs
+//...
 
-// local
+// Local
 //...
 
 /* -----| Define |----- */
-
-# define RED	"\033[31m"
-# define GREEN	"\033[32m"
-# define BLUE	"\033[34m"
-# define YELLOW	"\033[33m"
-# define RESET	"\033[0m"
+//...
 
 /* -----| Macro |----- */
 //...
@@ -43,18 +35,26 @@
 
 typedef unsigned int	t_uint;
 
+typedef int				t_stack;
+
+typedef enum e_choose	t_choose;
 typedef enum e_bool		t_bool;
 typedef enum e_error	t_error;
 typedef enum e_algo		t_algo;
-
-typedef struct s_args	t_args;
+typedef enum e_pos		t_pos;
 
 /* -----| Enum |----- */
 
+enum e_choose
+{
+	STACK_A,
+	STACK_B,
+};
+
 enum e_bool
 {
-	false,
-	true,
+	FALSE,
+	TRUE,
 };
 
 /** */
@@ -73,6 +73,12 @@ enum e_algo
 	miracle,
 };
 
+enum	e_pos
+{
+	top,
+	bottom,,
+}
+
 /* -----| Union |----- */
 //...
 
@@ -89,6 +95,17 @@ struct s_args
 	t_bool		help	: 1;
 };
 
+struct s_stack
+{
+	void		(*const swap)(void);
+	void		(*const push)(t_stack **, const t_pos);
+	void		(*const rotate)(int);
+	int			size;
+	int			*array;
+	const char	*name;	// "a" or "b", use for print the action
+};
+stack_a.swap()
+
 /* -----| Prototype |----- */
 //...
 
@@ -101,4 +118,4 @@ struct s_args
 /* -----| Inline |----- */
 //...
 
-#endif	/* PUSH_SWAP_H */
+#endif	/* TYPE_H */
