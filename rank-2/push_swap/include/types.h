@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/13 14:25:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:25:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#ifndef TYPES_H
+# define TYPES_H
 
-# pragma once
+#pragma once
 
 /* -----| Header |----- */
 // System
@@ -43,6 +43,9 @@ typedef enum e_error	t_error;
 typedef enum e_algo		t_algo;
 typedef enum e_pos		t_pos;
 
+typedef struct s_nb		t_nb;
+typedef struct s_args	t_args;
+
 /* -----| Enum |----- */
 
 enum e_choose
@@ -60,9 +63,10 @@ enum e_bool
 /** */
 enum e_error
 {
-	succes,
+	succes = 0,
 	invalid_argument,
 	invalid_number,
+	malloc_failed,
 };
 
 /** */
@@ -76,8 +80,8 @@ enum e_algo
 enum	e_pos
 {
 	top,
-	bottom,,
-}
+	bottom,
+};
 
 /* -----| Union |----- */
 //...
@@ -95,17 +99,6 @@ struct s_args
 	t_bool		help	: 1;
 };
 
-struct s_stack
-{
-	void		(*const swap)(void);
-	void		(*const push)(t_stack **, const t_pos);
-	void		(*const rotate)(int);
-	int			size;
-	int			*array;
-	const char	*name;	// "a" or "b", use for print the action
-};
-stack_a.swap()
-
 /* -----| Prototype |----- */
 //...
 
@@ -118,4 +111,4 @@ stack_a.swap()
 /* -----| Inline |----- */
 //...
 
-#endif	/* TYPE_H */
+#endif	/* TYPES_H */
