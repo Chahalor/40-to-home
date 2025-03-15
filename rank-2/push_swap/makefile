@@ -80,7 +80,7 @@ DEBUGFLAGS =
 
 all: header norm compile
 
-compile: $(NAME) $(LIBFT)
+compile: $(LIBFT) $(NAME)
 
 bonus:
 	-@$(MAKE) -C $(DIR_BONUS) $(MAKEFLAGS)

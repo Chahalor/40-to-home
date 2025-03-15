@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _stack.h                                           :+:      :+:    :+:   */
+/*   stack.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 14:33:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/15 13:56:54 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/15 14:03:19 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _STACK_H
-# define _STACK_H
+#ifndef STACK_H
+# define STACK_H
 
-# include <stdlib.h>
-# include <unistd.h>
 
-typedef struct s_nb		t_nb;
-typedef struct s_stack	t_stack;
+typedef e_instruct t_instruct;
 
-struct s_nb
+enum e_instruct
 {
-	int	value;	// the nb value in the stack
-	int	index;	// the index of the nb in the sorted stack
-};
-
-struct s_stack
-{
-	t_nb		*array;	// the array of nb
-	int	size;	// the size of the stack
-	char	name;	// the name of the stack
+	PA,
+	PB,
+	SA,
+	SB,
+	SS,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR
 };
 
 #endif	/* STACK_H */

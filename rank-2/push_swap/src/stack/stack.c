@@ -6,11 +6,40 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/14 15:49:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/15 14:03:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/_stack.h"
+#include "instruct/instruct.h"
+#include "stack.h"
+
+void	interaction(const t_instruct instruct, t_stack *stack_a,
+	t_stack *stack_b)
+{
+	if (instruct == PA)
+		push(stack_a, stack_b);
+	else if (instruct == PB)
+		push(stack_b, stack_a);
+	else if (instruct == SA)
+		swap(stack_a);
+	else if (instruct == SB)
+		swap(stack_b);
+	else if (instruct == SS)
+		swap_both(stack_a, stack_b);
+	else if (instruct == RA)
+		rotate(stack_a);
+	else if (instruct == RB)
+		rotate(stack_b);
+	else if (instruct == RR)
+		rotate_both(stack_a, stack_b);
+	else if (instruct == RRA)
+		reverse_rotate(stack_a);
+	else if (instruct == RRB)
+		reverse_rotate(stack_b);
+	else if (instruct == RRR)
+		reverse_rotate_both(stack_a, stack_b);
+}
 
 /** */
 __attribute__((cold))
@@ -32,6 +61,8 @@ t_stack	*new(const char name, const int size)
 	stack = (t_stack *)malloc(sizeof(t_stack) + sizeof(t_nb) * size);
 	if (stack == NULL)
 		return (NULL);
-	*stack = (t_stack){.array = (t_nb *)(stack + 1), .size = size, .name = name};
+	stack->array = (t_nb *)(stack + 1);
+	stack->size = size;
+	stack->name = name;
 	return (stack);
 }
