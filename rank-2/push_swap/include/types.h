@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/14 15:25:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/18 16:17:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,17 @@
 
 typedef unsigned int	t_uint;
 
-typedef int				t_stack;
-
-typedef enum e_choose	t_choose;
 typedef enum e_bool		t_bool;
 typedef enum e_error	t_error;
+typedef enum e_expect	t_expect;
 typedef enum e_algo		t_algo;
-typedef enum e_pos		t_pos;
+typedef enum e_instruct	t_instruct;
 
 typedef struct s_nb		t_nb;
+typedef struct s_stack	t_stack;
 typedef struct s_args	t_args;
 
 /* -----| Enum |----- */
-
-enum e_choose
-{
-	STACK_A,
-	STACK_B,
-};
 
 enum e_bool
 {
@@ -69,18 +62,36 @@ enum e_error
 	malloc_failed,
 };
 
+enum e_expect
+{
+	unexpected,
+	expected,
+};
+
 /** */
 enum e_algo
 {
-	turkish,
-	random,
-	miracle,
+	e_invalide = -1,
+	e_turkish,
+	e_random,
+	e_miracle,
 };
 
-enum	e_pos
+/** */
+enum e_instruct
 {
-	top,
-	bottom,
+	PA,
+	PB,
+	SA,
+	SB,
+	SS,
+	RB,
+	RA,
+	RR,
+	RRA,
+	RRB,
+	RRR,
+	NONE
 };
 
 /* -----| Union |----- */
@@ -88,15 +99,31 @@ enum	e_pos
 
 /* -----| Struct |----- */
 
+
 /** */
 struct s_args
 {
 	int			argc;
 	const char	**argv;
-	const char	*stack;
+	int			*stack;
+	int			len_stack;
 	t_algo		algo;
 	t_error		error;
 	t_bool		help	: 1;
+};
+
+struct s_nb
+{
+	int	value;	// the nb value in the stack
+	int	index;	// the index of the nb in the sorted stack
+};
+
+struct s_stack
+{
+	t_nb	*array;		// the array of nb
+	char	name;		// the name of the stack
+	int		size;		// the size of the stack
+	int		max_size;	// the max size of the stack
 };
 
 /* -----| Prototype |----- */

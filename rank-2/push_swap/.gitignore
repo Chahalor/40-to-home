@@ -5,6 +5,7 @@
 *.o
 *.out
 *.txt
+*.sh
 
 ./push_swap
 ./tester

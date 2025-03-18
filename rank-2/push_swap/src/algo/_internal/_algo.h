@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   _algo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 12:24:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/13 13:27:34 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/18 10:55:53 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/18 15:18:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef _ALGO_H
+# define _ALGO_H
 
 # pragma once
 
 /* -----| Header |----- */
-// Systeme
-//...
+// System
+# include <stdlib.h>
 
-// Libs
-//...
-
-// Local
+// Global
 # include "types.h"
-# include "config.h"
+# include "libft.h"
+
+// Modules
+//...
 
 /* -----| Define |----- */
 //...
@@ -46,7 +46,7 @@
 
 /* -----| Prototype |----- */
 
-t_args	parse_args(const int argc, const char *argv[]);
+int	_turkish(t_stack *stack_a, t_stack *stack_b);
 
 /* -----| Static |----- */
 //...
@@ -57,4 +57,4 @@ t_args	parse_args(const int argc, const char *argv[]);
 /* -----| Inline |----- */
 //...
 
-#endif	/* PARSING_H */
+#endif	/* _ALGO_H */

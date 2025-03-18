@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 15:14:51 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/13 12:24:56 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/18 15:08:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_H
-# define STACK_H
+#ifndef PARSING_H
+# define PARSING_H
 
 # pragma once
 
 /* -----| Header |----- */
-// System
+// Systeme
 //...
 
-// Global
+// Libs
 //...
 
-// Modules
-# include "parsing.h"
+// Local
+# include "config.h"
+# include "types.h"
+# include "algo.h"
 
 /* -----| Define |----- */
 //...
@@ -45,19 +47,7 @@
 
 /* -----| Prototype |----- */
 
-//stack.c
-
-void	interaction(const t_instruct instruct, t_stack *stack_a,
-	t_stack *stack_b);
-void	*destroyer(t_stack *stack);
-t_stack	*new(const char name, const int size);
-t_stack	*args_to_stack(const char name, const t_args *args);
-
-//information.c
-
-t_bool	is_sorted(const t_stack *stack);
-int		get_max_pos(const t_stack *stack);
-int		get_right_index(const t_nb nb, const t_stack *stack);
+t_args	parse_args(const int argc, const char *argv[]);
 
 /* -----| Static |----- */
 //...
@@ -68,4 +58,4 @@ int		get_right_index(const t_nb nb, const t_stack *stack);
 /* -----| Inline |----- */
 //...
 
-#endif	/* STACK_H */
+#endif	/* PARSING_H */
