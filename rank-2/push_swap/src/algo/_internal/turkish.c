@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:27:41 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 15:21:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 14:39:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 
 // Global
-//...
+#include "libft.h"
 
 // Modules
 #include "stack.h"
@@ -61,6 +61,7 @@ static void	sort_one(t_stack *stack_a, t_stack *stack_b)
 	a_curent_pos = get_max_pos(stack_a);
 	b_curent_pos = 0;
 	b_wanted_pos = get_right_index(stack_b->array[b_curent_pos], stack_b);
+	ft_printf("a_curent_pos: %d, a_wanted= %d, b_current = %d, b_wanted = %d\n", a_curent_pos, a_wanted_pos, b_curent_pos, b_wanted_pos);	// rm
 	while (a_curent_pos != a_wanted_pos && b_curent_pos != b_wanted_pos)
 	{
 		if (a_curent_pos != a_wanted_pos && b_curent_pos != b_wanted_pos)
@@ -83,7 +84,7 @@ static void	sort_one(t_stack *stack_a, t_stack *stack_b)
 			else
 				interaction(RA, stack_a, stack_b);
 		}
-		else if (b_curent_pos != b_wanted_pos)
+		else
 		{
 			if (b_wanted_pos < stack_b->size / 2)
 				interaction(RB, stack_a, stack_b);
@@ -103,7 +104,9 @@ int	_turkish(t_stack *stack_a, t_stack *stack_b)
 	interaction(PB, stack_a, stack_b);
 	while (!is_sorted(stack_a) && stack_a->size > 0)
 		sort_one(stack_a, stack_b);
+	ft_printf("after sort_one\n");		// rm
 	quick_sort(stack_b);
+	ft_printf("after quick_sort\n");	// rm
 	while (stack_b->size > 0)
 		interaction(PA, stack_a, stack_b);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:17:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:20:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static inline  void	show_help(void)
 {
 	ft_printf( BLUE "usage: ./push_swap [options] [stack]\n" RESET);
 	ft_printf( YELLOW "options:\n" RESET);
-	ft_printf( GREEN "  -h, --help\t\tshow this help\n" RESET);
-	ft_printf( GREEN "  -s, --stack <stack>\tset the stack to sort\n" RESET);
-	ft_printf( GREEN "  -a, --algo <algo>\tset the algorithm to use\n" RESET);
+	ft_printf("  -h, --help\t\tshow this help\n" RESET);
+	ft_printf("  -s, --stack <stack>\tset the stack to sort\n" RESET);
+	ft_printf("  -a, --algo <algo>\tset the algorithm to use\n" RESET);
 	ft_printf( YELLOW "\nalgorithms:\n" RESET);
-	ft_printf( GREEN "  1. turkish\n" RESET);
-	ft_printf( GREEN "  2. random\n" RESET);
-	ft_printf( GREEN "  3. miracle\n" RESET);
+	ft_printf("  1. turkish\n" RESET);
+	ft_printf("  2. random\n" RESET);
+	ft_printf("  3. miracle\n" RESET);
 	exit(EXIT_FAILURE);	/** @todo: change exit code when finish */
 }
 

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:17:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:16:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ struct s_args
 {
 	int			argc;
 	const char	**argv;
-	int			*stack;
+	t_nb		*stack;
 	int			len_stack;
 	t_algo		algo;
 	t_error		error;

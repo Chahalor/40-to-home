@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:29:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:13:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:16:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parse_long_options(const int argc, const char **argv,
 			int *i, t_args *args);
 t_error	check_stack(const char *stack);
 
-int	*_parse_stack(const int argc, const char **argv, int *i, t_args *args);
+t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args);
 
 /* -----| Static |----- */
 //...

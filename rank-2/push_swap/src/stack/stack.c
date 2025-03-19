@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:34:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:53:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*destroyer(t_stack *stack)
 {
 	if (stack == NULL)
 		return (NULL);
+	free(stack->array);
 	free(stack);
 	return (NULL);
 }
@@ -56,11 +57,18 @@ t_stack	*new(const char name, const int size)
 {
 	t_stack	*stack;
 
-	stack = (t_stack *)malloc(sizeof(t_stack) + sizeof(t_nb) * size);
+	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (stack == NULL)
 		return (NULL);
-	stack->array = (t_nb *)(stack + 1);
-	stack->size = size;
+	if (size > 0)
+		stack->array = (t_nb *)malloc(sizeof(t_nb) * size);
+	if (stack->array == NULL && size > 0)
+	{
+		free(stack);
+		return (NULL);
+	}
+	stack->size = 0;
+	stack->max_size = size;
 	stack->name = name;
 	return (stack);
 }
@@ -69,19 +77,13 @@ __attribute__((cold, malloc))
 t_stack *args_to_stack(const char name, const t_args *args)
 {
 	t_stack		*stack;
-	int			i;
 	
-	stack = new(name, args->len_stack);
+	stack = new(name, 0);
 	if (__builtin_expect(stack == NULL, unexpected))
 		return (NULL);
 	stack->max_size = args->len_stack;
-	i = -1;
-	while (++i < args->len_stack)
-	{
-		stack->array[i].value = args->stack[i];
-		stack->array[i].index = -1;
-	}
-	free(args->stack);
+	stack->size = args->len_stack;
+	stack->array = args->stack;
 	get_index(stack->array, stack->max_size);
 	return (stack);
 }

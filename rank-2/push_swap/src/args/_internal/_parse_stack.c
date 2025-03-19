@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:18:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 14:25:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,45 +24,79 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((cold, pure, leaf))
-int	len(const char *str)
+__attribute__((hot, pure))
+static inline int	is_valid_number(const char *str)
 {
 	int	i;
-	int	result;
 
-	result = 0;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	if (str[i] != '\0')
+		return (0);
+	return (1);
+}
+
+__attribute__((cold, pure))
+static inline int	is_array_valid(const t_nb *array, const int size)
+{
+	int	i;
+	int	j;
+
 	i = -1;
-	while (str[++i])
-		if (str[i] != ' ' && str[i + 1] == ' ')
-			++result;
-	return (result);
+	while (++i < size)
+	{
+		j = i;
+		while (++j < size)
+			if (array[i].value == array[j].value)
+				return (0);
+	}
+	return (1);
+}
+
+/** */
+__attribute__((cold))
+static inline int	argv_to_array(const char **argv, const int max, t_nb *dest)
+{
+	int	i;
+
+	i = -1;
+	while (++i < max)
+	{
+		if (!is_valid_number(argv[i]))
+			return (0);
+		dest[i].value = ft_atoi(argv[i]);
+		dest[i].index = -1;
+		if (dest[i].value == 0 && (argv[i][0] != '0' && argv[i][1] != '\0'))
+			return (0);
+	}
+	if (!is_array_valid(dest, i))
+		return (0);
+	return (i);
 }
 
 /** */
 __attribute__((cold, malloc))
-int	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
+t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 {
-	int		*result;
-	int		j;
+	t_nb	*result;
 
-	result = (int *)malloc(sizeof(int) * (argc - *i));
-	if (!result)
+	result = (t_nb *)malloc(sizeof(t_nb) * (argc - *i));
+	if (__builtin_expect(!result, unexpected))
 	{
 		args->error = malloc_failed;
 		return (NULL);
 	}
-	j = -1;
-	while (++(*i) < argc)
+	args->len_stack = argv_to_array(&argv[*i], argc - *i, result);
+	if (__builtin_expect(!args->len_stack, unexpected))
 	{
-		result[j] = ft_atoi(argv[*i]);
-		if (result[j] == 0 && (argv[*i][0] != '0' && argv[*i][1] != '\0'))
-		{
-			args->error = invalid_number;
-			return (free(result), NULL);
-		}
-		++j;
+		free(result);
+		args->error = invalid_number;
+		return (NULL);
 	}
-	args->len_stack = j;
+	*i += args->len_stack;
 	return (result);
 }
 

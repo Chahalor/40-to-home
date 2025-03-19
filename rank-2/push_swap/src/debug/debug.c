@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:53:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 16:17:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:57:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ void	print_stack(const t_stack *stack)
 	while (++i < stack->size)
 	{
 		if (i == stack->size - 1)
-			ft_printf("└──");
+			ft_printf("   └──");
 		else
-			ft_printf("├──");
-		ft_printf("stack->array[%d] = %p\n", i, &stack->array[i]);
+			ft_printf("   ├──");
+		ft_printf("stack->array[%d] = {.value=%d, .index=%d}\n", i, stack->array[i].value,
+			stack->array[i].index);
 	}
 }
 
@@ -79,6 +80,7 @@ void	print_args(const t_args *args)
 	ft_printf("├──args->argc = %d\n", args->argc);
 	ft_printf("├──args->argv = %p\n", args->argv);
 	ft_printf("├──args->stack = %p\n", args->stack);
+	ft_printf("├──args->len_stack = %d\n", args->len_stack);
 	ft_printf("├──args->algo = %d\n", args->algo);
 	ft_printf("├──args->error = %d\n", args->error);
 	ft_printf("└──args->help = %d\n", args->help);

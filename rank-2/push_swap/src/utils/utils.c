@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:22:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 15:46:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:15:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((cold, unused, noreturn, pure))
+__attribute__((cold, unused, noreturn))
 void	exiting(const int error, const char *message)
 {
 	if (message)
