@@ -17,19 +17,19 @@ CFLAGS		:= -Wall -Wextra -Werror
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
-INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils
+INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils -I$(DIR_SRC)/vizualizer
 
 DIR_LIBFT	:= libft
 LIBFT		:= $(DIR_LIBFT)/libft.a
 
 # Here we include all the makefile.supp files
-include  src/algo/makefile.supp src/args/makefile.supp src/debug/makefile.supp src/stack/makefile.supp src/utils/makefile.supp
+include  src/algo/makefile.supp src/args/makefile.supp src/debug/makefile.supp src/stack/makefile.supp src/utils/makefile.supp src/vizualizer/makefile.supp
 
 SRC_MAIN	:= push_swap.c
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ_MAIN)
+OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ_VIZUALIZER) $(OBJ_MAIN)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -37,7 +37,7 @@ OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ
 
 .PHONY: all
 
-all: header norm $(NAME)
+all: header norm $(NAME) install
 
 # ***************************************************** #
 # *                  Compiling                        * #
@@ -90,6 +90,8 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
+.PHONY: header norm install uninstall update
+
 header:
 	@echo "# Big Header #"
 
@@ -101,3 +103,29 @@ norm:
 	else \
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
+
+INSTALL_DIR = $(HOME)/.local/bin
+
+install:
+	mkdir -p $(INSTALL_DIR)
+	cp $(NAME) $(INSTALL_DIR)/
+	chmod +x $(INSTALL_DIR)/$(NAME)
+	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
+
+uninstall:
+	rm -rf $(INSTALL_DIR)/$(NAME)
+	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
+
+update:
+	if [ -f ./auto.sh ]; then \
+		echo "\033[1;33m Updating Makefile... \033[0m"; \
+	else \
+		echo "\033[1;31m auto.sh not found, please add the script to automate the update \033[0m"; \
+		exit 1; \
+	fi
+	./auto.sh
+	echo "\033[1;32m ✅ Makefile updated \033[0m";
+
+.SILENT:
+	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m
+

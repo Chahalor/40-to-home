@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   vizualizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 08:35:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 12:23:53 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/20 12:29:34 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/20 14:22:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_internal/_stack.h"
+#pragma region "Header"
 
-/** */
-__attribute__((hot, leaf))
-void	swap(t_stack **stackp)
+// Global
+#include "vizualizer.h"
+
+// Modules
+	//...
+
+#pragma endregion	/* Header */
+#pragma region "Functions"
+
+#include <stdio.h>
+#include <unistd.h> // Pour sleep()
+
+// "\033[%d;15H%s";
+void	show_stacks(const t_stack *stack_a, const t_stack *stack_b)
 {
-	register t_nb	tmp;
-	t_stack			*stack;
+	int	i;
+	int	j;
+	int	max_size;
 
-	stack = *stackp;
-	if (stack == NULL || stack->size < 2)
-		return ;
-	tmp = stack->array[0];
-	stack->array[0] = stack->array[1];
-	stack->array[1] = tmp;
+	
 }
 
-/** */
-__attribute__((hot))
-void	swap_both(t_stack **stack_a, t_stack **stack_b)
-{
-	swap(stack_a);
-	swap(stack_b);
-}
+#pragma endregion	/* Functions */

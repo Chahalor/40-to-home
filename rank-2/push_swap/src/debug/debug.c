@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:53:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/19 13:57:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/20 12:24:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_stack(const t_stack *stack)
 	ft_printf("stack %c (%p):\n", stack->name, stack);
 	ft_printf("├──stack->size = %d\n", stack->size);
 	ft_printf("├──stack->max_size = %d\n", stack->max_size);
-	ft_printf("├──stack->array = %p\n", stack->array);
+	ft_printf("└──stack->array = %p\n", stack->array);
 	i = -1;
 	while (++i < stack->size)
 	{

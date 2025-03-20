@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:39:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/17 09:09:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/20 12:22:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 /** */
 __attribute__((hot, leaf))
-void	rotate(t_stack *stack)
+void	rotate(t_stack **stackp)
 {
 	register t_nb	tmp;
 	register int	i;
+	t_stack			*stack;
 
+	stack = *stackp;
 	if (stack == NULL || stack->size < 2)
 		return ;
 	tmp = stack->array[0];
@@ -30,7 +32,7 @@ void	rotate(t_stack *stack)
 
 /** */
 __attribute__((hot))
-void	rotate_both(t_stack *stack_a, t_stack *stack_b)
+void	rotate_both(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate(stack_a);
 	rotate(stack_b);
@@ -38,11 +40,13 @@ void	rotate_both(t_stack *stack_a, t_stack *stack_b)
 
 /** */
 __attribute__((hot, leaf))
-void	reverse_rotate(t_stack *stack)
+void	reverse_rotate(t_stack **stackp)
 {
 	register t_nb	tmp;
 	register int	i;
+	t_stack			*stack;
 
+	stack = *stackp;
 	if (stack == NULL || stack->size < 2)
 		return ;
 	tmp = stack->array[stack->size - 1];
@@ -54,7 +58,7 @@ void	reverse_rotate(t_stack *stack)
 
 /** */
 __attribute__((hot))
-void	reverse_rotate_both(t_stack *stack_a, t_stack *stack_b)
+void	reverse_rotate_both(t_stack **stack_a, t_stack **stack_b)
 {
 	reverse_rotate(stack_a);
 	reverse_rotate(stack_b);

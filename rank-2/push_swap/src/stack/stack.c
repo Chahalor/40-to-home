@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/19 13:53:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/20 12:25:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 /** */
 __attribute__((hot))
-void	interaction(const t_instruct instruct, t_stack *stack_a,
-	t_stack *stack_b)
+void	interaction(const t_instruct instruct, t_stack **stack_a,
+	t_stack **stack_b)
 {
 	static void (*const actions[])() = {
 		[PA] = push, [PB] = push, [SA] = swap, [SB] = swap,
@@ -30,14 +30,13 @@ void	interaction(const t_instruct instruct, t_stack *stack_a,
 		[SS] = "ss\n", [RA] = "ra\n", [RB] = "rb\n", [RR] = "rr\n",
 		[RRA] = "rra\n", [RRB] = "rrb\n", [RRR] = "rrr\n"};
 
-	if (stack_a == NULL || stack_b == NULL || instruct < PA	|| instruct > RRR)
+	if (*stack_a == NULL || *stack_b == NULL || instruct < PA	|| instruct > RRR)
 		return ;
-	// if (instruct == PB || instruct == SB || instruct == RB || instruct == RRB)
-	if (instruct % 2 == 1)
+	else if (instruct % 2 == 1)
 		actions[instruct](stack_b, stack_a);
 	else
 		actions[instruct](stack_a, stack_b);
-	write(1, actions_to_print[instruct], ft_strlen(actions_to_print[instruct]));
+	write(1, actions_to_print[instruct], 3 + (instruct > RR));
 }
 
 /** */

@@ -1,62 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.h                                             :+:      :+:    :+:   */
+/*   vizualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 13:37:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 12:42:42 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/03/20 12:38:30 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/20 12:41:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGO_H
-# define ALGO_H
+#ifndef VIZUALIZER_H
+# define VIZUALIZER_H
 
-# pragma once
+#pragma once
 
 /* -----| Header |----- */
-// System
-//...
+	// System
+		//...
 
-// Global
-# include "config.h"
-# include "types.h"
+	// Libs
+		# include "libft.h"
 
-// Modules
-# include "stack.h"
+	// Local
+		# include "types.h"
+		# include "config.h"
+		# include "stack.h"
 
 /* -----| Define |----- */
-//...
+	//...
 
 /* -----| Macro |----- */
-//...
+	//...
 
 /* -----| Typedef |----- */
-//...
+	//...
 
 /* -----| Enum |----- */
-//...
-
-/* -----| Union |----- */
-//...
+	//...
 
 /* -----| Struct |----- */
-//...
+	//...
 
 /* -----| Prototype |----- */
 
-t_error	turkish(t_stack **stack_a, t_stack **stack_b);
-t_error	mein_random(t_stack **stack_a, t_stack **stack_b);
-t_error	miracle(t_stack **stack_a, t_stack **stack_b);
+void	show_stacks(const t_stack *stack_a, const t_stack *stack_b);
 
 /* -----| Static |----- */
-//...
+	//...
 
 /* -----| Extern |----- */
-//...
+	//...
 
 /* -----| Inline |----- */
-//...
+	//...
 
-#endif	/* ALGO_H */
+#endif	/* VIZUALIZER_H */
