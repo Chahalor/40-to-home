@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+         #
+#    By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 09:06:20 by nduvoid           #+#    #+#              #
-#    Updated: 2024/11/21 09:32:50 by nduvoid          ###   ########.fr        #
+#    Updated: 2025/03/21 12:36:15 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ LIBFTDIR =	../src
 OBJDIR =	./.obj
 LIBFT =		$(LIBFTDIR)/libft.a
 
-SRCS =		ft_printf.c \
+SRCS =		interface.c \
+			ft_printf.c \
 			put_func.c \
 			put_func2.c \
 			put_func3.c \

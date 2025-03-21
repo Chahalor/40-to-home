@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 08:33:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 15:19:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	get_max_pos(const t_stack *stack)
 	while (++i < stack->size)
 		if (stack->array[i].value > max)
 			max = stack->array[i].value;
-	return (max);
+	return (i);
 }
 
 /** */

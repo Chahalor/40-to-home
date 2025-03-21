@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:37:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/10/30 14:31:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 12:48:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # define LST_INC "cspdiuxX%"
 # define LHEX_CHAR "0123456789abcdef"
 # define UHEX_CHAR "0123456789ABCDEF"
+
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 enum	e_bool
 {
@@ -40,7 +44,8 @@ int				writelhex(int nb);
 int				writeuhex(int nb);
 
 enum e_bool		in_lst(const void *lst, unsigned char item, size_t lstlen);
-int				ft_printf(const char *str, ...)
-				__attribute__ ((format(printf, 1, 2)));
+int				ft_printf(const char *str, ...);
+int				dbg_printf(const char *str, ...);
+int				ft_va_printf(const char *s, va_list args);
 
 #endif

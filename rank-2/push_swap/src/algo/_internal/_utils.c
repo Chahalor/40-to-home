@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:29:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 12:46:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 11:09:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,28 @@
 #include "types.h"
 
 // Modules
-	//...
+#include "_algo.h"
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
+
+/** */
+__attribute__((always_inline, used))
+inline int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+/** */
+__attribute__((always_inline, used))
+inline int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 /** */
 __attribute__((hot))

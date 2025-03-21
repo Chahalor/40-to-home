@@ -23,7 +23,7 @@ DIR_LIBFT	:= libft
 LIBFT		:= $(DIR_LIBFT)/libft.a
 
 # Here we include all the makefile.supp files
-include  src/algo/makefile.supp src/args/makefile.supp src/debug/makefile.supp src/stack/makefile.supp src/utils/makefile.supp src/vizualizer/makefile.supp
+include  src/algo/makefile.supp src/args/makefile.supp src/debug/makefile.supp src/stack/makefile.supp src/utils/makefile.supp #src/vizualizer/makefile.supp
 
 SRC_MAIN	:= push_swap.c
 

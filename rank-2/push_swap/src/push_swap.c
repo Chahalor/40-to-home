@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:11:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 13:32:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 14:47:06 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ int	main(int argc, const char *argv[])
 		exiting(args.error, "Error: invalid argument");
 	stack_a = args_to_stack('A', &args);
 	stack_b = new('B', stack_a->max_size);
-	// print_stack(stack_a);	// rm
-	// print_stack(stack_b);	// rm
+	print_stack(stack_a);	// rm
+	print_stack(stack_b);	// rm
 	if (!stack_a || !stack_b)
 	{
 		destroyer(stack_a);
 		destroyer(stack_b);
 		exiting(malloc_failed, "Error: malloc failed");
 	}
-	(void)algo[args.algo];
-	interaction(PB, &stack_a, &stack_b);	//rm
-	// algo[args.algo](&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
+	ft_printf("main: %p\n", stack_a);
+	algo[args.algo](&stack_a, &stack_b);
+	// show_stacks(stack_a, stack_b);
+	print_stack(stack_a);	// rm
+	print_stack(stack_b);	// rm
 	stack_a = destroyer(stack_a);
 	stack_b = destroyer(stack_b);
 	return (succes);

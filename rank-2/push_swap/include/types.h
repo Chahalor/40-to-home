@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/19 13:16:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 14:53:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_args	t_args;
 
 /* -----| Enum |----- */
 
+/** */
 enum e_bool
 {
 	FALSE,
@@ -71,27 +72,27 @@ enum e_expect
 /** */
 enum e_algo
 {
-	e_invalide = -1,
-	e_turkish,
-	e_random,
-	e_miracle,
+	e_invalide = -1,	/* unvaide algorithme */
+	e_turkish,			/* turkish sort */
+	e_random,			/* random sort */
+	e_miracle,			/* miracle sort */
 };
 
 /** */
 enum e_instruct
 {
-	PA,
-	PB,
-	SA,
-	SB,
-	SS,
-	RB,
-	RA,
-	RR,
-	RRA,
-	RRB,
-	RRR,
-	NONE
+	PA,		/* push the first element of B to A*/
+	PB,		/* push the first element of A to B*/
+	SA,		/* swap the first two elements of A*/
+	SB,		/* swap the first two elements of B*/
+	SS,		/* swap the first two elements of A and B*/
+	RB,		/* rotate the stack B*/
+	RA,		/* rotate the stack A*/
+	RR,		/* rotate the stack A and B*/
+	RRA,	/* reverse rotate the stack A*/
+	RRB,	/* reverse rotate the stack B*/
+	RRR,	/* reverse rotate the stack A and B*/
+	NONE	/* no action */
 };
 
 /* -----| Union |----- */
@@ -103,26 +104,28 @@ enum e_instruct
 /** */
 struct s_args
 {
-	int			argc;
-	const char	**argv;
-	t_nb		*stack;
-	int			len_stack;
-	t_algo		algo;
-	t_error		error;
-	t_bool		help	: 1;
+	int			argc;			/* the bumber of args passed to the programme */
+	const char	**argv;			/* all args passed to the programmes */
+	t_nb		*stack;			/* the parsed and alloced stack */
+	int			len_stack;		/*the length of the stack (no way) */
+	t_algo		algo;			/* the algo choose by the user */
+	t_error		error;			/* the error code */
+	t_bool		help	: 1;	/* the help flag (0 or 1) */
 };
 
+/** */
 struct s_nb
 {
 	int	value;	// the nb value in the stack
 	int	index;	// the index of the nb in the sorted stack
 };
 
+/** */
 struct s_stack
 {
 	t_nb	*array;		// the array of nb
 	char	name;		// the name of the stack
-	int		size;		// the size of the stack
+	int		size;		// the number of nb in the stack
 	int		max_size;	// the max size of the stack
 };
 

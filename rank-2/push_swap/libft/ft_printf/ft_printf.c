@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:36:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 10:43:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/21 12:34:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,33 +78,4 @@ static int	write_loop(const char *s, va_list args, __uint32_t strlen,
 		i++;
 	}
 	return (*nb_char);
-}
-
-/**
- * @file ft_printf.c
- * @dir ft_printf
- * @brief ft_printf is a function that will print a formatted string
- * to the standard output (aka printf of wish)
- * @author nduvoid
- * 
- * @param s the string to print
- * @param ... the arguments to print
- * @return int the number of characters printed
- */
-int	ft_printf(const char *s, ...)
-{
-	va_list		args;
-	__uint32_t	strlen;
-	int			nb_char;
-
-	if (write(1, "", 0) == -1)
-		return (-1);
-	else if (!s)
-		return (-1);
-	va_start(args, s);
-	nb_char = 0;
-	strlen = ft_strlen(s);
-	nb_char = write_loop(s, args, strlen, &nb_char);
-	va_end(args);
-	return (nb_char);
 }

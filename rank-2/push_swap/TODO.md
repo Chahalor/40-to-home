@@ -6,7 +6,7 @@
  - sa me petes les couille donc je vais faire FDF.
 
 ### Code : 
- - [ ] ...
+ - [ ] optimize memmove with some SIMD
 
 ### Make : 
  - [ ] ...
