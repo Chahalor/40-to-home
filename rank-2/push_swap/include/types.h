@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 14:53:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/24 10:42:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ enum e_expect
 /** */
 enum e_algo
 {
-	e_invalide = -1,	/* unvaide algorithme */
+	e_invalide = -1,	/* invalide algorithme */
 	e_turkish,			/* turkish sort */
 	e_random,			/* random sort */
 	e_miracle,			/* miracle sort */
@@ -99,7 +99,6 @@ enum e_instruct
 //...
 
 /* -----| Struct |----- */
-
 
 /** */
 struct s_args

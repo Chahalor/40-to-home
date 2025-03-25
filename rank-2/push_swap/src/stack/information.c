@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 15:19:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:36:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 // System
 #include <stdbool.h>
 #include <stdlib.h>
+#include "libft.h"
 
 // Global
 //...
@@ -43,17 +44,24 @@ t_bool	is_sorted(const t_stack *stack)
 __attribute__((hot))
 int	get_max_pos(const t_stack *stack)
 {
-	int	i;
 	int	max;
+	int	max_pos;
+	int	i;
 
 	if (stack == NULL)
 		return (0);
+	max = stack->array[0].value;
+	max_pos = 0;
 	i = -1;
-	max = 0;
 	while (++i < stack->size)
+	{
 		if (stack->array[i].value > max)
+		{
 			max = stack->array[i].value;
-	return (i);
+			max_pos = i;
+		}
+	}
+	return (max_pos);
 }
 
 /** */
@@ -66,7 +74,7 @@ int	get_right_index(const t_nb nb, const t_stack *stack)
 		return (0);
 	i = -1;
 	while (++i < stack->size)
-		if (stack->array[i].index > nb.index)
+		if (stack->array[i].index < nb.index)
 			return (i);
 	return (i);
 }

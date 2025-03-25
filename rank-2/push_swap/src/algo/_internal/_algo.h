@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:55:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 11:07:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/24 10:42:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ struct s_actions
 	{
 		t_instruct	instuct;
 		int			number;
-	} multiple;
-	struct s_action only_a;
-	struct s_action only_b;
+	}				multiple;
+	struct s_action	only_a;
+	struct s_action	only_b;
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:11:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 14:47:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:23:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "parsing.h"
 #include "stack.h"
 #include "algo.h"
-#include "vizualizer.h"
 #include "utils.h"
 #include "debug.h"
 
@@ -52,9 +51,10 @@ int	main(int argc, const char *argv[])
 		destroyer(stack_b);
 		exiting(malloc_failed, "Error: malloc failed");
 	}
-	ft_printf("main: %p\n", stack_a);
+	(void)algo; // rm
 	algo[args.algo](&stack_a, &stack_b);
 	// show_stacks(stack_a, stack_b);
+	// ft_printf("max_pos: %d\n", get_max_pos(stack_a));	// rm
 	print_stack(stack_a);	// rm
 	print_stack(stack_b);	// rm
 	stack_a = destroyer(stack_a);

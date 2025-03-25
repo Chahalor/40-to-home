@@ -17,19 +17,19 @@ CFLAGS		:= -Wall -Wextra -Werror
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
-INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils -I$(DIR_SRC)/vizualizer
+INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils
 
 DIR_LIBFT	:= libft
 LIBFT		:= $(DIR_LIBFT)/libft.a
 
-# Here we include all the makefile.supp files
-include  src/algo/makefile.supp src/args/makefile.supp src/debug/makefile.supp src/stack/makefile.supp src/utils/makefile.supp #src/vizualizer/makefile.supp
+# Here we include all the makefile.mk files
+include  src/algo/makefile.mk src/args/makefile.mk src/debug/makefile.mk src/stack/makefile.mk src/utils/makefile.mk
 
 SRC_MAIN	:= push_swap.c
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ_VIZUALIZER) $(OBJ_MAIN)
+OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ_MAIN)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -96,7 +96,7 @@ header:
 	@echo "# Big Header #"
 
 norm:
-	@errors=$$(norminette | grep "Error"); \
+	@errors=$$(norminette --use-gitignore | grep "Error"); \
 	if [ -n "$$errors" ]; then \
 		echo "$$errors"; \
 		echo "\033[31m ❌ Norminette errors found \033[0m"; \
