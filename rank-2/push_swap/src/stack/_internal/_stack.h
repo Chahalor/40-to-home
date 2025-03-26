@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 12:19:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:56:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 #include "types.h"
 #include "libft.h"
 
-// memory
+// utils
 
-void	*destroyer(t_stack *stack);
-t_stack	*new(const char name, const int size);
 void	get_index(t_nb *array, const int size);
+void	_sort_stack(t_stack **stack);
 
 // stack manipulation
 

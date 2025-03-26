@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:29:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 14:10:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:35:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,16 @@ t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 {
 	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
 		return (0);
-	return (_turkish(stack_a, stack_b));
+	else
+		return (_turkish(stack_a, stack_b));
+}
+
+t_error	da_fuck(t_stack **stack_a, t_stack **stack_b)
+{
+	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
+		return (0);
+	else
+		return (_da_fuck(stack_a, stack_b));
 }
 
 /** */

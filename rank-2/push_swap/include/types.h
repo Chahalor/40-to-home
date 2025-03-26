@@ -6,14 +6,14 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/24 10:42:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:53:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-#pragma once
+# pragma once
 
 /* -----| Header |----- */
 // System
@@ -74,6 +74,7 @@ enum e_algo
 {
 	e_invalide = -1,	/* invalide algorithme */
 	e_turkish,			/* turkish sort */
+	e_da_fuck,
 	e_random,			/* random sort */
 	e_miracle,			/* miracle sort */
 };
@@ -81,18 +82,19 @@ enum e_algo
 /** */
 enum e_instruct
 {
-	PA,		/* push the first element of B to A*/
-	PB,		/* push the first element of A to B*/
-	SA,		/* swap the first two elements of A*/
-	SB,		/* swap the first two elements of B*/
-	SS,		/* swap the first two elements of A and B*/
-	RB,		/* rotate the stack B*/
-	RA,		/* rotate the stack A*/
-	RR,		/* rotate the stack A and B*/
-	RRA,	/* reverse rotate the stack A*/
-	RRB,	/* reverse rotate the stack B*/
-	RRR,	/* reverse rotate the stack A and B*/
-	NONE	/* no action */
+	PA = 0,		/* push the first element of B to A*/
+	PB = 1,		/* push the first element of A to B*/
+	SA = 2,		/* swap the first two elements of A*/
+	SB = 3,		/* swap the first two elements of B*/
+	SS = 4,		/* swap the first two elements of A and B*/
+	RB = 5,		/* rotate the stack B*/
+	RA = 6,		/* rotate the stack A*/
+	RR = 7,		/* rotate the stack A and B*/
+	RRA = 8,	/* reverse rotate the stack A*/
+	RRB = 9,	/* reverse rotate the stack B*/
+	RRR = 10,	/* reverse rotate the stack A and B*/
+	SORT = 11,	/* ask to sort the first stack */
+	NONE = 12	/* no action */
 };
 
 /* -----| Union |----- */

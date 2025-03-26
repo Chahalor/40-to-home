@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/20 13:09:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:47:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	t_args	args;
 	int		i;
 
-	args = (t_args){argc, argv, NULL, 0, e_turkish, succes, false};
+	args = (t_args){argc, argv, NULL, 0, e_da_fuck, succes, false};
 	if (argc < 2)
 		exiting(EINVAL, "  usage: ./push_swap [options] [stack]\n");
 	i = 0;

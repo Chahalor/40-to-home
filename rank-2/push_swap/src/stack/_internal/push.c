@@ -6,12 +6,11 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:45:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/24 08:44:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:54:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/_stack.h"
-#include "debug.h"
 
 /**
  * @brief Push the first element of stack_1 to the top of stack_2.

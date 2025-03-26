@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/25 15:36:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 08:39:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,30 @@ t_bool	is_sorted(const t_stack *stack)
 
 /** */
 __attribute__((hot))
+int	get_min_pos(const t_stack *stack)
+{
+	int	min;
+	int	min_pos;
+	int	i;
+
+	if (stack == NULL)
+		return (-1);
+	min = stack->array[0].value;
+	min_pos = 0;
+	i = -1;
+	while (++i < stack->size)
+	{
+		if (stack->array[i].value < min)
+		{
+			min = stack->array[i].value;
+			min_pos = i;
+		}
+	}
+	return (min_pos);
+}
+
+/** */
+__attribute__((hot))
 int	get_max_pos(const t_stack *stack)
 {
 	int	max;
@@ -49,7 +73,7 @@ int	get_max_pos(const t_stack *stack)
 	int	i;
 
 	if (stack == NULL)
-		return (0);
+		return (-1);
 	max = stack->array[0].value;
 	max_pos = 0;
 	i = -1;
@@ -71,11 +95,30 @@ int	get_right_index(const t_nb nb, const t_stack *stack)
 	int	i;
 
 	if (stack == NULL)
-		return (0);
+		return (-1);
 	i = -1;
 	while (++i < stack->size)
-		if (stack->array[i].index < nb.index)
+		if (stack->array[i].index > nb.index)
 			return (i);
+	return (i);
+}
+/** */
+__attribute__((hot))
+int	reverse_get_index(const t_nb nb, const t_stack *stack)
+{
+	int	i;
+
+	if (stack == NULL)
+		return (-1);
+	i = -1;
+	while (++i < stack->size)
+	{
+		// ft_printf("i: %d | index: %d | nb.index: %d\n", i, stack->array[i].index, nb.index);	// rm
+		if (stack->array[i].index == nb.index && stack->array[i + 1].index < nb.index)
+			return (i);
+		else if (stack->array[i].index < nb.index)
+			return (i);
+	}
 	return (i);
 }
 

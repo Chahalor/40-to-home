@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/24 09:12:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:59:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ void	interaction(const t_instruct instruct, t_stack **stack_a,
 		[PA] = push, [PB] = push, [SA] = swap, [SB] = swap,
 		[SS] = swap_both, [RA] = rotate, [RB] = rotate,
 		[RR] = rotate_both, [RRA] = reverse_rotate, [RRB] = reverse_rotate,
-		[RRR] = reverse_rotate_both};
+		[RRR] = reverse_rotate_both, [SORT] = _sort_stack};
 	static const char *actions_to_print[] = {
 		[PA] = "pa\n", [PB] = "pb\n", [SA] = "sa\n", [SB] = "sb\n",
 		[SS] = "ss\n", [RA] = "ra\n", [RB] = "rb\n", [RR] = "rr\n",
 		[RRA] = "rra\n", [RRB] = "rrb\n", [RRR] = "rrr\n"};
 
-	if (*stack_a == NULL || *stack_b == NULL || instruct < PA || instruct > RRR)
+	if (*stack_a == NULL || *stack_b == NULL || instruct < PA || instruct > SORT)
 		return ;
 	else if (instruct == PA)
 		actions[instruct](stack_b, stack_a);
 	else
 		actions[instruct](stack_a, stack_b);
-	write(1, actions_to_print[instruct], 3 + (instruct > RR));
+	if (instruct < SORT)
+		write(1, actions_to_print[instruct], 3 + (instruct > RR));
 }
 
 /** */
@@ -85,4 +86,18 @@ t_stack *args_to_stack(const char name, const t_args *args)
 	stack->array = args->stack;
 	get_index(stack->array, stack->max_size);
 	return (stack);
+}
+
+__attribute__((hot, malloc))
+t_stack	*copy_stack(const t_stack *stack)
+{
+	t_stack *cpy;
+
+	cpy = new(stack->name, stack->max_size);
+	if (cpy == NULL)
+		return (NULL);
+	cpy->size = stack->size;
+	cpy->max_size = stack->max_size;
+	ft_memcpy(cpy->array, stack->array, sizeof(t_nb) * stack->size);
+	return (cpy);
 }
