@@ -39,3 +39,6 @@
 	b. move it
 4. put the min to the top
 5. re do all previous step (tkt)
+
+
+[ntm](https://github.com/fdiaz-ca/42Push_Swap)
