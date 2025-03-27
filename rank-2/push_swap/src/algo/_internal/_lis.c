@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 11:51:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 12:49:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/27 16:29:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	push_not_lis(t_stack **stack_a, t_stack **stack_b, t_lis bigest_lis)
 
 int	_lis(t_stack **stack_a, t_stack **stack_b)
 {
-	const t_lis	bigest_lis = get_lis(*stack_a);	// something like that {.start, .size}
+	const t_lis	bigest_lis = get_lis(*stack_a);
 	int			i;
 	t_instruct	instuct;
 
@@ -77,13 +77,10 @@ int	_lis(t_stack **stack_a, t_stack **stack_b)
 			interaction(instuct, stack_a, stack_b);
 		interaction(PA, stack_a, stack_b);
 	}
-	if (get_min_pos(*stack_a) != 0)
-	{
-		i = get_min_pos(*stack_a);
-		instuct = RA + 4 * (i > (*stack_a)->size / 2);
-		while (i-- > 0)
-			interaction(instuct, stack_a, stack_b);
-	}
+	i = get_min_pos(*stack_a);
+	instuct = RA + 4 * (i > (*stack_a)->size / 2);
+	while (i-- > 0)
+		interaction(instuct, stack_a, stack_b);
 	return (0);
 }
 

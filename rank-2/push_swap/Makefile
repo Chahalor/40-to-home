@@ -104,6 +104,12 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
+test: all
+	bash ./benchmark.sh 10
+	bash ./benchmark.sh 100
+	bash ./benchmark.sh 500
+	@echo "\033[1;32m ✅ Test completed \033[0m"
+
 INSTALL_DIR = $(HOME)/.local/bin
 
 install:
