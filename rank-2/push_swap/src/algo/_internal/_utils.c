@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:29:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 14:05:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/27 08:53:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 // Modules
 #include "_algo.h"
+#include "stack.h"
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
@@ -83,6 +84,21 @@ t_stack	**quick_acces(t_stack **stack, const char who)
 	else
 		return (NULL);
 	return (NULL);
+}
+
+/** */
+__attribute__((always_inline, cold, used))
+inline void	sort_3(t_stack **stack_a, t_stack **stack_b)
+{
+	const int			top = (*stack_a)->array[0].value;
+	const int			mid = (*stack_a)->array[1].value;
+	const int			bot = (*stack_a)->array[2].value;
+	const int			swap = ((top > mid) << 2) | ((mid > bot) << 1)
+		| (top > bot);
+	const t_instruct	moves[8][2] = {{NONE, NONE}, {SA, NONE}, {RRA, SA},
+		{RRA, NONE}, {SA, NONE}, {RA, NONE}, {RRA, NONE}, {SA, RRA}};
+	interaction(moves[swap][0], stack_a, stack_b);
+	interaction(moves[swap][1], stack_a, stack_b);
 }
 
 #pragma endregion	/* Functions */

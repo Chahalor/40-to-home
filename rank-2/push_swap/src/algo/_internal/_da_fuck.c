@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:59:02 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 14:30:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/27 09:52:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_centile(const t_stack *stack, const int magic)
 
 	if (!stack || stack->size == 0)
 		return (0);
-	index = (magic / 100) * (stack->size - 1);
+	index = (int)((magic / 100.0) * (stack->size - 1));
 	if (!is_sorted(stack))
 	{
 		cpy = copy_stack(stack);
@@ -63,17 +63,19 @@ int	get_centile(const t_stack *stack, const int magic)
 
 void	first_stage(t_stack **stack_a, t_stack **stack_b, const t_magic magic_nb)
 {
-	int		i;
-	int		percentil;
-	t_nb	to_push;
+	int			i;
+	int			percentil;
+	t_nb		to_push;
+	t_instruct	instruction;
 
 	percentil = get_centile(*stack_a, magic_nb.val1);
 	i = 0;
 	while (i < (*stack_a)->size - 1 && (*stack_a)->array[i].value > percentil)
 		++i;
 	to_push = (*stack_a)->array[i];
+	instruction = RA - (i < (*stack_a)->size / 2);
 	while (i-- > 0)
-		interaction(RA - (i < (*stack_a)->size / 2), stack_a, stack_b);
+		interaction(instruction, stack_a, stack_b);
 	percentil = get_centile(*stack_a, magic_nb.val2);
 	if (to_push.value > percentil)
 	{
@@ -104,9 +106,20 @@ void	push_to_a(t_stack **stack_a, t_stack **stack_b)
 int	_da_fuck(t_stack **stack_a, t_stack **stack_b)
 {
 	const t_magic magic_nb = get_magic(*stack_a);
-	
-	while ((*stack_a)->size > 0)
+
+	if ((*stack_a)->size <= 3)
+	{
+		print_stack(*stack_a);
+		if ((*stack_a)->size == 2)
+			interaction(SA, stack_a, stack_b);
+		else
+			sort_3(stack_a, stack_b);
+		print_stack(*stack_a);
+		return (1);
+	}
+	while ((*stack_a)->size > 3)
 		first_stage(stack_a, stack_b, magic_nb);
+	sort_3(stack_a, stack_b);
 	push_to_a(stack_a, stack_b);
 	return (1);
 }

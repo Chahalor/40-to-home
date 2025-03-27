@@ -6,13 +6,14 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 13:59:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/27 09:53:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/_stack.h"
 #include "stack.h"
 #include "parsing.h"
+#include "utils.h"
 #include <stdbool.h>
 
 /** */
@@ -93,9 +94,9 @@ t_stack	*copy_stack(const t_stack *stack)
 {
 	t_stack *cpy;
 
-	cpy = new(stack->name, stack->max_size);
+	cpy = new(stack->name, stack->max_size - 1);
 	if (cpy == NULL)
-		return (NULL);
+		exiting(malloc_failed, RED "Error" RESET ":copy_stack(): malloc failed\n");
 	cpy->size = stack->size;
 	cpy->max_size = stack->max_size;
 	ft_memcpy(cpy->array, stack->array, sizeof(t_nb) * stack->size);
