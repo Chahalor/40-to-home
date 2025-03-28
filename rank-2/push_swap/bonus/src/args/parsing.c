@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/03/28 10:16:22 by nduvoid          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "_parsing.h"
+#include "parsing.h"
+#include "utils.h"
+
+/** */
+__attribute__((unused, cold, noreturn))
+static inline  void	show_help(void)
+{
+	ft_printf( BLUE "usage: ./push_swap [options] [stack]\n" RESET);
+	ft_printf( YELLOW "options:\n" RESET);
+	ft_printf("  -h, --help\t\tshow this help\n" RESET);
+	ft_printf("  -s, --stack <stack>\tset the stack to sort\n" RESET);
+	exit(EXIT_FAILURE);	/** @todo: change exit code when finish */
+}
+
+/** */
+__attribute__((unused, cold)) t_args	parse_args(const int argc,
+	const char *argv[])
+{
+	t_args	args;
+	int		i;
+
+	args = (t_args){argc, argv, NULL, 0, 0, false};
+	if (argc < 2)
+		exiting(EINVAL, "  usage: ./checker [options] [stack]\n");
+	i = 0;
+	while (++i < argc && !args.error && !args.help)
+	{
+		if (argv[i][0] == '-')
+		{
+			if (argv[i][1] == '-')
+				parse_long_options(argc, argv, &i, &args);
+			else
+				parse_short_options(argc, argv, &i, &args);
+		}
+		else
+			args.stack = _parse_stack(argc, argv, &i, &args);
+	}
+	if (args.help)
+		show_help();
+	else
+		return (args);
+}
