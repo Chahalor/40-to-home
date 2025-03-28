@@ -18,9 +18,8 @@
 |:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:-----:|:---:|
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/rank-2/push_swap)		| understannding complexity in sorting algorithm									| yes	| ??? |
 | [FdF](https://github.com/Chahalor/40-to-home/tree/main/rank-2/FDF/V2)					| descovering graphique aplication by building a wire frame representation of a map	| yes	| 125 |
-| [Minitalk](https://github.com/Chahalor/40-to-home/tree/main/rank-2/minitalk/V2)		| TODO	| yes	| ??? |
+| [Minitalk](https://github.com/Chahalor/40-to-home/tree/main/rank-2/minitalk/V2)		| A bit-by-bit communication between a client and a server using Unix signals		| yes	| 125 |
 
-
-|							Begining										|										coding										|								Passing Moulinette 🪢							|
+|							Beginning										|										Coding										|								Passing Moulinette 🪢							|
 |:-------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
 ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)	| ![Try-hard](https://media1.tenor.com/m/0CXQArozOAEAAAAd/sweaty-speedruner.gif)	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
