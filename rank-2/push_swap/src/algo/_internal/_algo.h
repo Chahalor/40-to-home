@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:55:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 12:45:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 13:14:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ struct s_lis
 
 /* -----| Prototype |----- */
 
-int				_turkish(t_stack **stack_a, t_stack **stack_b);
-int				_da_fuck(t_stack **stack_a, t_stack **stack_b);
-int				_lis(t_stack **stack_a, t_stack **stack_b);
+int	_turkish(t_stack **stack_a, t_stack **stack_b);
+int	_radix(t_stack **stack_a, t_stack **stack_b);
 
 // _utils.c
 

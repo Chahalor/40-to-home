@@ -3,7 +3,7 @@ DIR_INTERFACE_STACK	:= $(DIR_MODULE_STACK)
 DIR_INTERNAL_STACK	:= $(DIR_MODULE_STACK)/_internal
 
 SRC_INTERFACE_STACK	:= information.c stack.c 
-SRC_INTERNAL_STACK	:= push.c swap.c rotate.c utils.c 
+SRC_INTERNAL_STACK	:= push.c rotate.c swap.c utils.c 
 
 OBJ_STACK			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_STACK)/, $(SRC_INTERFACE_STACK:.c=.o))
 OBJ_STACK			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_STACK)/, $(SRC_INTERNAL_STACK:.c=.o))

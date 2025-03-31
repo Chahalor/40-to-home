@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:27:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/17 12:23:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 13:21:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # endif	/* DEBUG */
 
 # define NB_ALGO	3	// number of algorithms
+
+# define PARSING_ALLOC_SIZE	64
 
 // miscellaneous define
 

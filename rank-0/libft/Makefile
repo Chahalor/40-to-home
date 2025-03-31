@@ -21,7 +21,7 @@ MAKEFLAGS += --no-print-directory	# no Entering / Leaving messages
 NAME = libft.a
 
 CC :=		cc
-CFLAGS :=	-Wall -Wextra -Werror -I./ -Ift_printf -Iget_next_line
+CFLAGS :=	-Wall -Wextra -Werror -I./ -Ift_printf -Iget_next_line -Ofast
 DEBUGFLAGS :=
 AR :=		ar
 ARFLAGS :=	rcs

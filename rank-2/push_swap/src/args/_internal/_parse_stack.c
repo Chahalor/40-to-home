@@ -6,25 +6,37 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/19 14:25:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:39:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Header"
 // System
-//...
+	//...
 
 // Global
-#include "_parsing.h"
+	//...
 
 // Modules
-//...
+#include "_parsing.h"
+#include "utils.h"
+#include "libft.h"
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
-__attribute__((hot, pure))
+/**
+ * @brief	Checks if the string is a valid number.
+ *
+ * @param	str	The string to check.
+ * 
+ * @return	1 if the string is a valid number, 0 otherwise.
+ * 
+ * @exemple
+ *		is_valid_number("123");	// returns 1
+ *		is_valid_number("12a3");	// returns 0
+*/
+__attribute__((hot, pure, unused))
 static inline int	is_valid_number(const char *str)
 {
 	int	i;
@@ -39,7 +51,20 @@ static inline int	is_valid_number(const char *str)
 	return (1);
 }
 
-__attribute__((cold, pure))
+/**
+ * @brief	Checks if the array is valid (no duplicates).
+ * 
+ * @param	array	The array to check.
+ * @param	size	The size of the array.
+ * 
+ * @return	1 if the array is valid, 0 otherwise.
+ * 
+ * 
+ * @exemple
+ * 		is_array_valid({1, 2, 3}, 3);	// returns 1
+ * 		is_array_valid({1, 1, 2}, 3);	// returns 0
+ */
+__attribute__((cold, pure, unused))
 static inline int	is_array_valid(const t_nb *array, const int size)
 {
 	int	i;
@@ -56,48 +81,78 @@ static inline int	is_array_valid(const t_nb *array, const int size)
 	return (1);
 }
 
-/** */
+/**
+ * @brief	Parses a string and fills the destination array with numbers.	
+ * 
+ * @param	str	The string to parse.
+ * @param	dest	The destination array to fill.	
+ * @param	start	The starting index in the destination array.
+ * @param	max	The maximum size of the destination array.
+ * 
+ * @return	The number of elements added to the destination array.
+*/
 __attribute__((cold))
-static inline int	argv_to_array(const char **argv, const int max, t_nb *dest)
+int	multiple_atoi(char *str, t_nb *dest, const int start, int *max)
 {
-	int	i;
+	char	**splited;
+	int		i;
 
+	splited = ft_split(str, ' ');
+	if (!splited)
+		return (-1);
 	i = -1;
-	while (++i < max)
+	while (splited[++i])
 	{
-		if (!is_valid_number(argv[i]))
-			return (0);
-		dest[i].value = ft_atoi(argv[i]);
-		dest[i].index = -1;
-		if (dest[i].value == 0 && (argv[i][0] != '0' && argv[i][1] != '\0'))
-			return (0);
+		if (!is_valid_number(splited[i]))
+			return (freeing_array(splited), -1);
+		if (start + i >= *max)
+		{
+			dest = reallocing(dest, (*max) * sizeof(t_nb),
+					((*max) + PARSING_ALLOC_SIZE) * sizeof(t_nb));
+			if (!dest)
+				return (freeing_array(splited), -1);
+			(*max) += PARSING_ALLOC_SIZE;
+		}
+		dest[start + i].value = ft_atoi(splited[i]);
+		dest[start + i].index = -1;
 	}
-	if (!is_array_valid(dest, i))
-		return (0);
+	freeing_array(splited);
 	return (i);
 }
 
-/** */
+/**
+ * @brief	Parses the stack from the command line arguments.
+ * 
+ * @param	argc	The number of arguments.
+ * @param	argv	The arguments.
+ * @param	i		The index of the current argument.
+ * @param	args	The arguments structure.
+ * 
+ * @return	The parsed stack.
+ */
 __attribute__((cold, malloc))
 t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 {
 	t_nb	*result;
+	int		ret;
+	int		alloced;
 
-	result = (t_nb *)malloc(sizeof(t_nb) * (argc - *i));
+	alloced = PARSING_ALLOC_SIZE;
+	result = (t_nb *)mallocing(sizeof(t_nb) * alloced);
 	if (__builtin_expect(!result, unexpected))
+		return (args->error = 1, NULL);
+	while ((*i) < argc && ret != -1)
 	{
-		args->error = malloc_failed;
-		return (NULL);
+		ret = multiple_atoi((char *)argv[(*i)++], result, args->len_stack,
+				&alloced);
+		args->len_stack += ret;
 	}
-	args->len_stack = argv_to_array(&argv[*i], argc - *i, result);
 	if (__builtin_expect(!args->len_stack, unexpected))
-	{
-		free(result);
-		args->error = invalid_number;
-		return (NULL);
-	}
-	*i += args->len_stack;
-	return (result);
+		return (args->error = 1, free(result), NULL);
+	else if (!is_array_valid(result, args->len_stack))
+		return (args->error = 1, free(result), NULL);
+	else
+		return (result);
 }
 
 #pragma endregion	/* Functions */

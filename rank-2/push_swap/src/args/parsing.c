@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 13:47:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 13:16:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@
 __attribute__((unused, cold, noreturn))
 static inline  void	show_help(void)
 {
-	ft_printf( BLUE "usage: ./push_swap [options] [stack]\n" RESET);
+	ft_printf(BLUE "usage: ./push_swap [options] [stack]\n" RESET);
 	ft_printf( YELLOW "options:\n" RESET);
-	ft_printf("  -h, --help\t\tshow this help\n" RESET);
-	ft_printf("  -s, --stack <stack>\tset the stack to sort\n" RESET);
-	ft_printf("  -a, --algo <algo>\tset the algorithm to use\n" RESET);
-	ft_printf( YELLOW "\nalgorithms:\n" RESET);
-	ft_printf("  1. turkish\n" RESET);
-	ft_printf("  2. random\n" RESET);
-	ft_printf("  3. miracle\n" RESET);
+	ft_printf("  -h, --help\t\tshow this help\n");
+	ft_printf("  -s, --stack <stack>\tset the stack to sort\n");
+	ft_printf("  -a, --algo <algo>\tset the algorithm to use\n");
+	ft_printf(YELLOW "\nalgorithms:\n" RESET);
+	ft_printf("  1. turkish\n");
+	ft_printf("  2. radix\n");
+	ft_printf("  3. random\n");
+	ft_printf("  4. miracle\n");
+	ft_printf(YELLOW "\nauthor:\n" RESET);
+	ft_printf("  - nduvoid <nduvoid@student.42mulhouse.fr>\n");
 	exit(EXIT_FAILURE);	/** @todo: change exit code when finish */
 }
 
@@ -37,7 +40,7 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	t_args	args;
 	int		i;
 
-	args = (t_args){argc, argv, NULL, 0, e_da_fuck, succes, false};
+	args = (t_args){argc, argv, NULL, 0, e_radix, succes, false};
 	if (argc < 2)
 		exiting(EINVAL, "  usage: ./push_swap [options] [stack]\n");
 	i = 0;
