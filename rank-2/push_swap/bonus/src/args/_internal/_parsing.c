@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:39:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 09:19:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:39:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief	Parses the short options from the command line arguments.
+ * 
+ * @param	argc	The number of arguments.
+ * @param	argv	The arguments.
+ * @param	i		The index of the current argument.
+ * @param	args	The arguments structure.
+ * 
+ * @return	void
+ */
 __attribute__((cold))
 void	parse_short_options(const int argc, const char **argv,
 	int *i, t_args *args)
@@ -35,7 +44,16 @@ void	parse_short_options(const int argc, const char **argv,
 		args->error = EINVAL;
 }
 
-/** */
+/**
+ * @brief	Parses the long options from the command line arguments.
+ * 
+ * @param	argc	The number of arguments.
+ * @param	argv	The arguments.
+ * @param	i		The index of the current argument.
+ * @param	args	The arguments structure.
+ * 
+ * @return	void
+*/
 __attribute__((cold))
 void	parse_long_options(const int argc, const char **argv,
 	int *i, t_args *args)
@@ -51,6 +69,7 @@ void	parse_long_options(const int argc, const char **argv,
 	else
 		args->error = EINVAL;
 }
+
 /** */
 __attribute__((cold))
 int	check_stack(const char *stack)

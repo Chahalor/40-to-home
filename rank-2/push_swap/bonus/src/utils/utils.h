@@ -6,12 +6,12 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 09:15:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 12:06:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:28:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _UTILS_H
-# define _UTILS_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # pragma once
 
@@ -39,6 +39,7 @@
 /* -----| Typedef |----- */
 
 typedef enum e_expect	t_expect;
+typedef void			(*t_fuck_the_norm)();
 
 /* -----| Enum |----- */
 
@@ -57,6 +58,8 @@ enum e_expect
 /* -----| Prototype |----- */
 
 void	exiting(const int error, const char *message);
+void	freeing_array(char **array);
+void	*mallocing(const size_t size);
 void	*reallocing(void *ptr, const size_t old, const size_t new);
 
 /* -----| Static |----- */
@@ -68,4 +71,4 @@ void	*reallocing(void *ptr, const size_t old, const size_t new);
 /* -----| Inline |----- */
 //...
 
-#endif	/* _UTILS_H */
+#endif	/* UTILS_H */

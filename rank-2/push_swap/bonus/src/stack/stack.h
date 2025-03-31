@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 09:14:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 08:46:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ struct s_stack
 //stack.c
 
 void	interaction(const t_instruct instruct, t_stack **stack_a,
-	t_stack **stack_b);
+			t_stack **stack_b);
 void	*destroyer(t_stack *stack);
 t_stack	*new(const char name, const int size);
 t_stack	*args_to_stack(const char name, const t_args *args);

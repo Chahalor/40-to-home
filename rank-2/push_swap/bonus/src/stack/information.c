@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 09:25:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 08:30:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	get_right_index(const t_nb nb, const t_stack *stack)
 			return (i);
 	return (i);
 }
+
 /** */
 __attribute__((hot))
 int	reverse_get_index(const t_nb nb, const t_stack *stack)
@@ -113,8 +114,8 @@ int	reverse_get_index(const t_nb nb, const t_stack *stack)
 	i = -1;
 	while (++i < stack->size)
 	{
-		// ft_printf("i: %d | index: %d | nb.index: %d\n", i, stack->array[i].index, nb.index);	// rm
-		if (stack->array[i].index == nb.index && stack->array[i + 1].index < nb.index)
+		if (stack->array[i].index == nb.index && stack->array[i + 1].index \
+			< nb.index)
 			return (i);
 		else if (stack->array[i].index < nb.index)
 			return (i);

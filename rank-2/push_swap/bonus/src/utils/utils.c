@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:22:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 12:08:46 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:14:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,32 @@ __attribute__((cold, unused, noreturn))
 void	exiting(const int error, const char *message)
 {
 	if (message)
-	{
-		if (error)
-			ft_printf(RED "%s\n" RESET, message);
-		else
-			ft_printf("%s\n", message);
-	}
+		ft_printf("%s\n", message);
 	exit(error);
+}
+
+/** */
+__attribute__((cold, unused))
+void	freeing_array(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = -1;
+	while (array[++i])
+		free(array[i]);
+	free(array);
+}
+
+void	*mallocing(const size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		exiting(21, RED "Error" RESET ": while allocating memory");
+	return (ptr);
 }
 
 /** */

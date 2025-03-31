@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:21:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 11:15:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:29:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 /* -----| Header |----- */
 // System
-//...
+	//...
 
 // Global
-#include "libft.h"
+# include "libft.h"
 
 // Modules
-#include "stack.h"
-#include "parsing.h"
+# include "stack.h"
+# include "parsing.h"
 
 /* -----| Define |----- */
 

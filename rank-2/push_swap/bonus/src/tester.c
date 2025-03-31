@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:34:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 10:15:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 08:29:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 int	main(int argc, const char *argv[])
 {
 	const t_args	args = parse_args(argc, argv);
-	t_stack		*stack_a;
-	t_stack		*stack_b;
-	t_instruct	*inst;
+	t_stack			*stack_a;
+	t_stack			*stack_b;
+	t_instruct		*inst;
 
 	if (args.error)
 		exiting(args.error, RED "Error" RESET ": while parsing args");
@@ -48,6 +48,5 @@ int	main(int argc, const char *argv[])
 	}
 	return (do_test(stack_a, stack_b, inst));
 }
-
 
 #pragma endregion	/* Functions */

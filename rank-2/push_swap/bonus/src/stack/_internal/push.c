@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:45:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 12:31:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 08:49:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  *  or if stack_2 is full.
 */
 __attribute__((hot))
-void push(t_stack **stack_1, t_stack **stack_2)
+void	push(t_stack **stack_1, t_stack **stack_2)
 {
 	if (!stack_1 || !stack_2 || !(*stack_1) || !(*stack_2))
 		return ;

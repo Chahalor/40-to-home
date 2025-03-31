@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 12:28:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 11:15:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:29:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "stack.h"
 # include "parsing.h"
 # include "utils.h"
-#include "debug.h"
+# include "debug.h"
 
 /* -----| Define |----- */
 //...

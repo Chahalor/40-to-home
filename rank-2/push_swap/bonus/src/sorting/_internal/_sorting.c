@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:52:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 10:59:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 10:15:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
+/**
+ * @brief	Converts a string to an instruction.
+ * 
+ * @param	s	The string to convert.
+ * 
+ * @return	The instruction corresponding to the string.
+ */
+__attribute__((hot, pure))
 t_instruct	str_to_instruction(const char *s)
 {
 	static const char	*list_inst[] = {"pa\n", "pb\n", "sa\n", "sb\n", "ss\n",

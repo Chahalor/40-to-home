@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:24:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 09:13:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 09:41:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,25 @@ typedef struct s_args	t_args;
 
 /* -----| Struct |----- */
 
-/** */
+/**
+ * * @brief	Structure to store the number and its index in the stack.
+*/
 struct s_nb
 {
 	int	value;	// the nb value in the stack
 	int	index;	// the index of the nb in the sorted stack
 };
 
-/** */
+/**
+ * * @brief	Structure to store the arguments passed to the programme.
+ * 
+ * * @param	argc	The number of arguments passed to the programme.
+ * * @param	argv	The arguments passed to the programme.
+ * * @param	stack	The parsed and alloced stack.
+ * * @param	len_stack	The length of the stack.
+ * * @param	error	The error code.
+ * * @param	help	The help flag (0 or 1).
+*/
 struct s_args
 {
 	int			argc;			/* the bumber of args passed to the programme */

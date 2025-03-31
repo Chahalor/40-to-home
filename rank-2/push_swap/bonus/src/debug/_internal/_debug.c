@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 12:28:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/28 11:08:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/03/31 10:13:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@
 	ft_printf("└──map->height = %d\n", map->height);
 */
 
-/** */
+/**
+ * @brief	Prints the stack.
+ * 
+ * @param	stack	The stack to print.
+ * 
+ * @return	void
+ */
 __attribute__((cold, unused))
 void	_print_stack(const t_stack *stack)
 {
@@ -46,12 +52,18 @@ void	_print_stack(const t_stack *stack)
 			ft_printf("   └──");
 		else
 			ft_printf("   ├──");
-		ft_printf("stack->array[%d] = {.value=%d, .index=%d}\n", i, stack->array[i].value,
-			stack->array[i].index);
+		ft_printf("stack->array[%d] = {.value=%d, .index=%d}\n", i,
+			stack->array[i].value, stack->array[i].index);
 	}
 }
 
-/** */
+/**
+ * * @brief	Prints the arguments.
+ * 
+ * * @param	args	The arguments to print.
+ * 
+ * * * @return	void
+ */
 __attribute__((cold, unused))
 void	_print_args(const t_args *args)
 {
