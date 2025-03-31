@@ -13,7 +13,7 @@ MAKEFLAGS += --no-print-directory
 NAME		:= push_swap
 
 CC			:= cc
-CFLAGS		:= -Wall -Wextra -Werror
+CFLAGS		:= -Wall -Wextra -Werror -MMD
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
@@ -74,7 +74,7 @@ re: fclean all
 .PHONY: debug debug.fsanitize debug.fs debug.pg
 
 debug:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -O0 -D DEBUG=1)
 	@echo "\033[1;33m DEBUG MODE ACTIVATED \033[0m"
 
 
