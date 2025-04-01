@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:27:41 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 15:37:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 11:35:40 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "stack.h"
 #include "_algo.h"
 #include "debug.h"
+#include "utils.h"
 
 #pragma endregion	/* Header */
 #pragma region "Functions"

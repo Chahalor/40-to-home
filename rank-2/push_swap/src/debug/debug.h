@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:21:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/17 13:23:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 13:32:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 
 void	print_stack(const t_stack *stack);
 void	print_args(const t_args *args);
+void	print_debug(const char *str);
 
 /* -----| Static |----- */
 //...

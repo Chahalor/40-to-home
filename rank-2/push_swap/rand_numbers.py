@@ -9,4 +9,4 @@ args = parser.parse_args()
 random_numbers = random.sample(range(-500, 1000), args.count)
 
 for n in random_numbers:
-    print(n, end=" ")
+	print(n, end=" ")

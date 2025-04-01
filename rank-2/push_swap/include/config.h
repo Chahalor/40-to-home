@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:27:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:21:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 15:53:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,28 @@
 
 # define NB_ALGO	3	// number of algorithms
 
-# define PARSING_ALLOC_SIZE	64
+# define PARSING_ALLOC_SIZE	1024
 
 // miscellaneous define
 
-# define RED	"\033[31m"	// color for printf
-# define GREEN	"\033[32m"
-# define BLUE	"\033[34m"
-# define YELLOW	"\033[33m"
-# define RESET	"\033[0m"
+# define ALLOW_COLOR	0	// 1 to allow color in printf
+# if ALLOW_COLOR == 1
+
+#  define RED		"\033[31m"	/* 255;0;0 */
+#  define GREEN		"\033[32m"	/* 0;255;0 */
+#  define BLUE		"\033[34m"	/* 0;0;255 */
+#  define YELLOW	"\033[33m"	/* 255;255;0 */
+#  define RESET		"\033[0m"	/* 255;255;255 */
+
+# else
+
+#  define RED		""	/* 255;0;0 */
+#  define GREEN		""	/* 0;255;0 */
+#  define BLUE		""	/* 0;0;255 */
+#  define YELLOW	""	/* 255;255;0 */
+#  define RESET		""	/* 255;255;255 */
+
+# endif	/* ALLOW_COLOR */
 
 # define STDIN	0			// standard input
 # define STDOUT	1

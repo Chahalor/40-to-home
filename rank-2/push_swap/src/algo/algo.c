@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:29:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:11:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:39:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((hot))
+__attribute__((cold))
 t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 {
 	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
@@ -34,12 +34,14 @@ t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 		return (_turkish(stack_a, stack_b));
 }
 
-t_error	radix(t_stack **stack_a, t_stack **stack_b)
+/** */
+__attribute__((cold))
+t_error turk(t_stack **stack_a, t_stack **stack_b)
 {
 	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
 		return (0);
 	else
-		return (_radix(stack_a, stack_b));
+		return (_turk(stack_a, stack_b));
 }
 
 /** */

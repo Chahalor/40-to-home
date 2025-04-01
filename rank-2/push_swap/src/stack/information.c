@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 08:39:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:03:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
+
+int	find_index(const t_stack *stack, const t_nb number)
+{
+	int	i;
+
+	if (!stack)
+		return (-1);
+	i = -1;
+	while (++i < stack->size)
+		if (stack->array[i].value == number.value)
+			return (i);
+	return (-1);
+}
 
 /** */
 __attribute__((hot))

@@ -6,7 +6,7 @@
 #    By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 09:06:20 by nduvoid           #+#    #+#              #
-#    Updated: 2025/03/21 12:36:15 by nduvoid          ###   ########.fr        #
+#    Updated: 2025/04/01 14:28:50 by nduvoid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =		interface.c \
 			put_func2.c \
 			put_func3.c \
 			utils.c
+
 SRC =		$(addprefix $(SRCDIR)/, $(SRCS))
 SRCOBJ =	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 

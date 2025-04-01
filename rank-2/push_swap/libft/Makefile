@@ -1,153 +1,33 @@
-# ╔════════════════════════════════════════════════════════════════════════════════╗
-# ║                                                                                ║
-# ║   ___               ___          ________          ________      _________     ║
-# ║  |\  \             |\  \        |\   __  \        |\  _____\    |\___   ___\   ║
-# ║  \ \  \            \ \  \       \ \  \|\ /_       \ \  \__/     \|___ \  \_|   ║
-# ║   \ \  \            \ \  \       \ \   __  \       \ \   __\         \ \  \    ║
-# ║    \ \  \____        \ \  \       \ \  \|\  \       \ \  \_|          \ \  \   ║
-# ║     \ \_______\       \ \__\       \ \_______\       \ \__\            \ \__\  ║
-# ║      \|_______|        \|__|        \|_______|        \|__|             \|__|  ║
-# ║                                                                                ║
-# ║  by nduvoid                                                                    ║
-# ║                                                                                ║
-# ╚════════════════════════════════════════════════════════════════════════════════╝
-
-MAKEFLAGS +=	--no-print-directory	# no Entering / Leaving messages
-NO_NORME =		false					# no norminette
-NO_HEADER =		false					# no header
+# Big Header #
 
 # ***************************************************** #
-# *                 Variable                          * #
+# *                 Configuation                      * #
 # ***************************************************** #
 
-NAME = libft.a
-
-CC :=		cc
-CFLAGS :=	-Wall -Wextra -Werror -I./ -Ift_printf -Iget_next_line
-DEBUGFLAGS :=
-AR :=		ar
-ARFLAGS :=	rcs
-
-DIR_LIBFT =		src
-DIR_PRINTF =	ft_printf
-DIR_GNL =		get_next_line
-
-INCFLAGS :=	-I./ -I$(DIR_PRINTF) -I$(DIR_GNL)
-
-# achive
-#...
+MAKEFLAGS += --no-print-directory
 
 # ***************************************************** #
-# *                    DIR                            * #
+# *                    Variables                      * #
 # ***************************************************** #
 
-# dir libft
+NAME		:= libft.a
 
-FT_DIR_CHAR_CHANGE = char-change
-FT_DIR_IS = is
-FT_DIR_LINKED_LIST = linked-list
-FT_DIR_MEMORY = memory
-FT_DIR_PUT = put
-FT_DIR_STR = str
-FT_DIR_STR_CHANGE = str-change
+CC			:= cc
+CFLAGS		:= -Wall -Wextra -Werror -MMD
+DEBUGFLAGS	:= 
+DIR_SRC		:= src
+DIR_OBJ		:= .obj
+DIR_BONUS	:= bonus
+INCLUDE_ALL	:=-I./ -Ilibft -I$(DIR_SRC)/char-change -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change
 
-FT_DIR_ALL = $(FT_DIR_CHAR_CHANGE) $(FT_DIR_IS) $(FT_DIR_LINKED_LIST) $(FT_DIR_MEMORY) $(FT_DIR_PUT) $(FT_DIR_STR) $(FT_DIR_STR_CHANGE)
+# Here we include all the makefile.mk files
+include  src/char-change/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk
 
-# ***************************************************** #
-# *                    SRC                            * #
-# ***************************************************** #
+SRC_MAIN	:=
 
-# libft
-
-SRC_IS = $(addprefix $(DIR_LIBFT)/$(FT_DIR_IS)/, \
-	ft_isalnum.c \
-	ft_isalpha.c \
-	ft_isascii.c \
-	ft_isdigit.c \
-	ft_isprint.c \
-)
-
-SRC_CHAR_CHANGE = $(addprefix $(DIR_LIBFT)/$(FT_DIR_CHAR_CHANGE)/, \
-	ft_toupper.c \
-	ft_tolower.c \
-)
-
-SRC_LINKED_LIST = $(addprefix $(DIR_LIBFT)/$(FT_DIR_LINKED_LIST)/, \
-	ft_lstadd_back.c \
-	ft_lstadd_front.c \
-	ft_lstclear.c \
-	ft_lstdelone.c \
-	ft_lstiter.c \
-	ft_lstlast.c \
-	ft_lstmap.c \
-	ft_lstnew.c \
-	ft_lstsize.c \
-)
-
-SRC_MEMORY = $(addprefix $(DIR_LIBFT)/$(FT_DIR_MEMORY)/, \
-	ft_calloc.c \
-	ft_bzero.c \
-	ft_memchr.c \
-	ft_memcmp.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_memset.c \
-)
-
-SRC_PUT = $(addprefix $(DIR_LIBFT)/$(FT_DIR_PUT)/, \
-	ft_putchar_fd.c \
-	ft_putendl_fd.c \
-	ft_putstr_fd.c \
-	ft_putnbr_fd.c \
-)
-
-SRC_STR = $(addprefix $(DIR_LIBFT)/$(FT_DIR_STR)/, \
-	ft_strchr.c \
-	ft_strdup.c \
-	ft_striteri.c \
-	ft_strjoin.c \
-	ft_strlcat.c \
-	ft_strlcpy.c \
-	ft_strlen.c \
-	ft_strmapi.c \
-	ft_strncmp.c \
-	ft_strnstr.c \
-	ft_strrchr.c \
-	ft_strtrim.c \
-	ft_substr.c \
-)
-
-SRC_STR_CHANGE = $(addprefix $(DIR_LIBFT)/$(FT_DIR_STR_CHANGE)/, \
-	ft_atoi.c \
-	ft_itoa.c \
-	ft_split.c \
-)
-
-SRC_LIBFT = $(SRC_IS) $(SRC_CHAR_CHANGE) $(SRC_LINKED_LIST) $(SRC_MEMORY) $(SRC_PUT) $(SRC_STR) $(SRC_STR_CHANGE)
-
-# printf
-
-SRC_PRINTF = $(addprefix $(DIR_PRINTF)/, \
-	ft_printf.c \
-	put_func.c \
-	put_func2.c \
-	put_func3.c \
-)
-
-# gnl
-
-SRC_GNL = $(addprefix $(DIR_GNL)/, \
-	get_next_line_bonus.c \
-	get_next_line_utils_bonus.c \
-)
-
-# ***************************************************** #
-# *                    OBJ                            * #
-# ***************************************************** #
-
-OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
-OBJ_PRINTF = $(SRC_PRINTF:.c=.o)
-OBJ_GNL = $(SRC_GNL:.c=.o)
+# all object files for the modules
+OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
+OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_MAIN)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -155,35 +35,19 @@ OBJ_GNL = $(SRC_GNL:.c=.o)
 
 .PHONY: all
 
-all: header $(NAME)
-
-$(NAME): compile
-	@$(AR) $(ARFLAGS) $(NAME) $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
-	@echo "\033[32m ✅ $(NAME) created\033[0m"
+all: header norm $(NAME) install
 
 # ***************************************************** #
-# *                 Compile Rule                      * #
+# *                  Compiling                        * #
 # ***************************************************** #
 
-.PHONY: compile
+$(NAME): $(OBJ_ALL)
+	@ar rcs $(NAME) $(OBJ_ALL)
+	@ranlib $(NAME)
 
-compile: $(OBJ_LIBFT) $(OBJ_PRINTF) $(OBJ_GNL)
-	@echo "\033[32m ✅ Compilation done\033[0m"
-
-$(DIR_OBJ)/%.o: $(DIR_LIBFT)/%.c | $(DIR_OBJ)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
-
-$(DIR_OBJ)/%.o: $(DIR_PRINTF)/%.c | $(DIR_OBJ)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
-
-$(DIR_OBJ)/%.o: $(DIR_GNL)/%.c | $(DIR_OBJ)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) -c $< -o $@
-
-$(DIR_OBJ):
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(DIR_OBJ)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -c $< -o $@
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -192,10 +56,14 @@ $(DIR_OBJ):
 .PHONY: clean fclean re
 
 clean:
-	@rm -rf $(DIR_OBJ)
+	rm -rf $(DIR_OBJ)
+	@make clean -C $(DIR_LIBFT)
+	@make clean -C $(DIR_BONUS)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
+	@make fclean -C $(DIR_LIBFT)
+	@make fclean -C $(DIR_BONUS)
 
 re: fclean all
 
@@ -203,85 +71,80 @@ re: fclean all
 # *                    Debug Rules                    * #
 # ***************************************************** #
 
-.PHONY: debug
+.PHONY: debug debug.fsanitize debug.fs debug.pg
 
-debug: 
-	@$(eval DEBUGFLAGS = -g)
-# @echo "\033[32m ✅ Debug mode activated\033[0m"
-#@make all
+debug:
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
+	@echo "\033[1;33m DEBUG MODE ACTIVATED \033[0m"
+
+
+debug.fsanitize: debug
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=address)
+
+debug.fs: debug.fsanitize
+
+debug.pg:
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -pg)
 
 # ***************************************************** #
-# *                    Utils                          * #
+# *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: norm header
-
-echo:
-	@echo "SRC_LIBFT: $(SRC_LIBFT)\n"
-	@echo "OBJ_LIBFT: $(OBJ_LIBFT)\n"
-	@echo "INCLUDES: $(INCFLAGS)\n"
-
-norm:
-	@if norminette $(DIR_LIBFT) $(DIR_PRINTF) $(DIR_GNL) | grep "Error" > /dev/null; then \
-		norminette $(DIR_LIBFT) $(DIR_PRINTF) $(DIR_GNL) | grep "Error" > /dev/null; \
-		echo "\033[1;32m Norminette errors found \033[0m"; \
-	else \
-		echo "norminette Ok ✅"; \
-	fi
+.PHONY: header norm crazy test install uninstall update
 
 header:
-	@if $(NO_HEADER) == true; then \
-		echo ""; \
+	@echo "# Big Header #"
+
+norm:
+	@errors=$$(norminette --use-gitignore | grep "Error"); \
+	if [ -n "$$errors" ]; then \
+		echo "$$errors"; \
+		echo "\033[31m ❌ Norminette errors found \033[0m"; \
 	else \
-		@clear; \
-		@echo "\n" \
-		@echo "╔════════════════════════════════════════════════════════════════════════════════╗" \
-		@echo "║   ___               ___          ________          ________      _________     ║" \
-		@echo "║  |\  \             |\  \        |\   __  \        |\  _____\    |\___   ___\   ║" \
-		@echo "║  \ \  \            \ \  \       \ \  \|\ /_       \ \  \__/     \|___ \  \_|   ║" \
-		@echo "║   \ \  \            \ \  \       \ \   __  \       \ \   __\         \ \  \    ║" \
-		@echo "║    \ \  \            \ \  \       \ \  \|\  \       \ \  \_|          \ \  \   ║" \
-		@echo "║     \ \  \____        \ \  \       \ \  \|\  \       \ \  \_|          \ \  \  ║" \
-		@echo "║      \ \_______\       \ \__\       \ \_______\       \ \__\            \ \__\ ║" \
-		@echo "║       \|_______|        \|__|        \|_______|        \|__|             \|__| ║" \
-		@echo "║                                                                                ║" \
-		@echo "║  by nduvoid                                                                    ║" \
-		@echo "║                                                                                ║" \
-		@echo "╚════════════════════════════════════════════════════════════════════════════════╝" \
-		@echo "\n"; \
-	fi \
+		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
+	fi
 
-# ***************************************************** #
-# *                    Functions                      * #
-# ***************************************************** #
+CRAZY=0
+crazy:
+	
 
-.PHONY: reset_count
+test: bonus
+	bash ./benchmark.sh 0   10
+	bash ./benchmark.sh 1   10
+	bash ./benchmark.sh 3   100
+	bash ./benchmark.sh 5   100
+	bash ./benchmark.sh 10  500
+	bash ./benchmark.sh 100 500
+	bash ./benchmark.sh 500 500
+	@if [ $(CRAZY) -eq 1 ]; then \
+		bash ./benchmark.sh 1000 500; \
+		bash ./benchmark.sh 10000 500; \
+		bash ./benchmark.sh 100000 500; \
+	fi
+	@echo "\033[1;32m ✅ Test completed \033[0m"
 
-# Helper function to print a progress bar
-# Credits: ugwentzi@student.42mulhouse.fr
-#=- Progress Bar -=#
-BAR_LENGTH =	42
-PADDING =		10
-COLOR_YELLOW =	\033[1;33m
-COLOR_GREEN =	\033[1;32m
-COLOR_CYAN =	\033[1;36m
-COLOR_RED =		\033[31m
-COLOR_RESET =	\033[0m
+INSTALL_DIR = $(HOME)/.local/bin
 
-reset_count:
-	$(eval COUNT := 0)
+install:
+	mkdir -p $(INSTALL_DIR)
+	cp $(NAME) $(INSTALL_DIR)/
+	chmod +x $(INSTALL_DIR)/$(NAME)
+	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
 
-define compile_object
-	$(eval COUNT := $(shell echo $$(( $(COUNT) + 1 ))))
-	printf "	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@\n"
-	$(CC) $(CFLAGS) $(INCFLAGS) $(DEBUGFLAGS) $(1) -c $< -o $@
-	@printf "\r$(3)\bCompiling %s%*s[%-$(BAR_LENGTH)s] %d/%d$(COLOR_RESET)" \
-		"$<" \
-		$$(($(PADDING) - $$(echo -n "$(NAME)" | wc -c))) "" \
-		$(shell printf '=%.0s' $$(seq 1 $$(echo "$$(( $(BAR_LENGTH) * $(COUNT) / $(words $(2)) ))"))) \
-		$(COUNT) \
-		$(words $(2))
-		printf " "
-	@true
-endef
+uninstall:
+	rm -rf $(INSTALL_DIR)/$(NAME)
+	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
+
+update:
+	if [ -f ./auto.sh ]; then \
+		echo "\033[1;33m Updating Makefile... \033[0m"; \
+	else \
+		echo "\033[1;31m auto.sh not found, please add the script to automate the update \033[0m"; \
+		exit 1; \
+	fi
+	./auto.sh
+	echo "\033[1;32m ✅ Makefile updated \033[0m";
+
+.SILENT:
+	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m
 

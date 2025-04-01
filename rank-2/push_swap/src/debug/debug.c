@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:53:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 12:38:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 13:32:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,26 @@ void	print_args(const t_args *args)
 {
 	return (_print_args(args));
 }
+
+#if DEBUG == 1
+
+/** */
+__attribute__((cold, unused))
+void	print_debug(const char *str)
+{
+	ft_printf("%s\n", str);
+}
+
+#else
+
+/** */
+__attribute__((cold, unused))
+void	print_debug(const char *str)
+{
+	(void)str;
+}
+
+#endif
+
+
 #pragma endregion	/* Functions */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 13:50:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:04:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //...
 
 // Modules
-# include "parsing.h"
+# include "../args/parsing.h"
 
 /* -----| Define |----- */
 //...
@@ -56,6 +56,7 @@ t_stack	*copy_stack(const t_stack *stack);
 
 //information.c
 
+int		find_index(const t_stack *stack, const t_nb number);
 t_bool	is_sorted(const t_stack *stack);
 int		get_min_pos(const t_stack *stack);
 int		get_max_pos(const t_stack *stack);

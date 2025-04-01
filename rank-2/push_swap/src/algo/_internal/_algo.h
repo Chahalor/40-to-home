@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:55:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:14:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 09:42:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@
 # include "types.h"
 # include "libft.h"
 
-// Modules
-//...
+	// Modules
+		//...
 
 /* -----| Define |----- */
 //...
 
 /* -----| Macro |----- */
-
-# define NB_CHUNK	5
+//...
 
 /* -----| Typedef |----- */
 
@@ -47,6 +46,7 @@ typedef struct s_lis		t_lis;
 
 /* -----| Struct |----- */
 
+// turkish
 struct s_actions
 {
 	struct s_action
@@ -58,28 +58,12 @@ struct s_actions
 	struct s_action	only_b;
 };
 
-struct s_magic
-{
-	double	val1;
-	double	val2;
-};
-
-struct s_lis
-{
-	int		start;
-	int		size;
-};
-
 /* -----| Prototype |----- */
 
 int	_turkish(t_stack **stack_a, t_stack **stack_b);
-int	_radix(t_stack **stack_a, t_stack **stack_b);
+int	_turk(t_stack **stack_a, t_stack **stack_b);
 
 // _utils.c
-
-extern int		max(int a, int b);
-extern int		min(int a, int b);
-extern t_magic	get_magic(const t_stack *stack);
 t_stack			**quick_acces(t_stack **stack, const char who);
 void			sort_3(t_stack **stack_a, t_stack **stack_b);
 

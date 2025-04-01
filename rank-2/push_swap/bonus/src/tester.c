@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:34:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 08:29:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:39:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "parsing.h"
 #include "sorting.h"
 #include "utils.h"
+#include "libft.h"
 
 #pragma endregion	/* Header */
 #pragma region "Functions"

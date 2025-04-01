@@ -17,6 +17,7 @@ CFLAGS		:= -Wall -Wextra -Werror -MMD
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
+DIR_BONUS	:= bonus
 INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils
 
 DIR_LIBFT	:= libft
@@ -53,6 +54,9 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 $(LIBFT):
 	@make -C $(DIR_LIBFT) NO_HEADER=true
 
+bonus: all
+	@make -C $(DIR_BONUS) NO_HEADER=true MAKEFLAGS=$(MAKEFLAGS)
+
 # ***************************************************** #
 # *                    Clean Rules                    * #
 # ***************************************************** #
@@ -61,9 +65,13 @@ $(LIBFT):
 
 clean:
 	rm -rf $(DIR_OBJ)
+	@make clean -C $(DIR_LIBFT)
+	@make clean -C $(DIR_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
+	@make fclean -C $(DIR_LIBFT)
+	@make fclean -C $(DIR_BONUS)
 
 re: fclean all
 
@@ -74,7 +82,7 @@ re: fclean all
 .PHONY: debug debug.fsanitize debug.fs debug.pg
 
 debug:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -O0 -D DEBUG=1)
+	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
 	@echo "\033[1;33m DEBUG MODE ACTIVATED \033[0m"
 
 
@@ -90,7 +98,7 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: header norm install uninstall update
+.PHONY: header norm crazy test install uninstall update
 
 header:
 	@echo "# Big Header #"
@@ -104,10 +112,23 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-test: all
-	bash ./benchmark.sh 10
-	bash ./benchmark.sh 100
-	bash ./benchmark.sh 500
+CRAZY=0
+crazy:
+	
+
+test: bonus
+	bash ./benchmark.sh 0   10
+	bash ./benchmark.sh 1   10
+	bash ./benchmark.sh 3   100
+	bash ./benchmark.sh 5   100
+	bash ./benchmark.sh 10  500
+	bash ./benchmark.sh 100 500
+	bash ./benchmark.sh 500 500
+	@if [ $(CRAZY) -eq 1 ]; then \
+		bash ./benchmark.sh 1000 500; \
+		bash ./benchmark.sh 10000 500; \
+		bash ./benchmark.sh 100000 500; \
+	fi
 	@echo "\033[1;32m ✅ Test completed \033[0m"
 
 INSTALL_DIR = $(HOME)/.local/bin

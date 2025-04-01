@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 10:11:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:41:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 		else
 			args.stack = _parse_stack(argc, argv, &i, &args);
 	}
-	if (args.help)
+	else if (args.help)
 		show_help();
-	else
-		return (args);
+	return (args);
 }

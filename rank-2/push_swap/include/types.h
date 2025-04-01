@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:29:27 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:11:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 11:54:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ enum e_algo
 {
 	e_invalide = -1,	/* invalide algorithme */
 	e_turkish,			/* turkish sort */
-	e_radix,			/* radix sort */
+	e_turk,				/* turkish sort 2 (tkt) */
 	e_random,			/* random sort */
 	e_miracle,			/* miracle sort */
 };

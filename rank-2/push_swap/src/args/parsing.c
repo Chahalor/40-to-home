@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:16:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:23:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	t_args	args;
 	int		i;
 
-	args = (t_args){argc, argv, NULL, 0, e_radix, succes, false};
+	args = (t_args){argc, argv, NULL, 0, e_turk, succes, false};	// change the e_algo the right one
 	if (argc < 2)
 		exiting(EINVAL, "  usage: ./push_swap [options] [stack]\n");
 	i = 0;
@@ -58,6 +58,5 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	}
 	if (args.help)
 		show_help();
-	else
-		return (args);
+	return (args);
 }

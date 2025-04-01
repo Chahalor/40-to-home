@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 09:39:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:28:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static inline int	is_array_valid(const t_nb *array, const int size)
  * @return	The number of elements added to the destination array.
 */
 __attribute__((cold))
-int	multiple_atoi(char *str, t_nb *dest, const int start, int *max)
+int	multiple_atoi(char *str, t_nb **dest, const int start, int *max)
 {
 	char	**splited;
 	int		i;
@@ -104,17 +104,20 @@ int	multiple_atoi(char *str, t_nb *dest, const int start, int *max)
 	while (splited[++i])
 	{
 		if (!is_valid_number(splited[i]))
+		{
+			ft_printf(RED "Error" RESET ": invalid number\n└──%s\n", splited[i]);	//rm
 			return (freeing_array(splited), -1);
+		}
 		if (start + i >= *max)
 		{
-			dest = reallocing(dest, (*max) * sizeof(t_nb),
+			*dest = reallocing(*dest, (*max) * sizeof(t_nb),
 					((*max) + PARSING_ALLOC_SIZE) * sizeof(t_nb));
-			if (!dest)
+			if (!*dest)
 				return (freeing_array(splited), -1);
 			(*max) += PARSING_ALLOC_SIZE;
 		}
-		dest[start + i].value = ft_atoi(splited[i]);
-		dest[start + i].index = -1;
+		(*dest)[start + i].value = ft_atoi(splited[i]);
+		(*dest)[start + i].index = -1;
 	}
 	freeing_array(splited);
 	return (i);
@@ -140,17 +143,26 @@ t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 	alloced = PARSING_ALLOC_SIZE;
 	result = (t_nb *)mallocing(sizeof(t_nb) * alloced);
 	if (__builtin_expect(!result, unexpected))
-		return (args->error = 1, NULL);
+	{
+		ft_printf(RED "Error" RESET ": while allocating memory\n");	//rm
+		return (args->error = 21, NULL);
+	}
 	while ((*i) < argc && ret != -1)
 	{
-		ret = multiple_atoi((char *)argv[(*i)++], result, args->len_stack,
+		ret = multiple_atoi((char *)argv[(*i)++], &result, args->len_stack,
 				&alloced);
 		args->len_stack += ret;
 	}
 	if (__builtin_expect(!args->len_stack, unexpected))
-		return (args->error = 1, free(result), NULL);
+	{
+		ft_printf(RED "Error" RESET ": empty stack\n");	//rm
+		return (args->error = EINVAL, free(result), NULL);
+	}
 	else if (!is_array_valid(result, args->len_stack))
-		return (args->error = 1, free(result), NULL);
+	{
+		ft_printf(RED "Error" RESET ": invalid stack\n");	//rm
+		return (args->error = EINVAL, free(result), NULL);
+	}
 	else
 		return (result);
 }

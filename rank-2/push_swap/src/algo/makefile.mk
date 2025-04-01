@@ -3,7 +3,7 @@ DIR_INTERFACE_ALGO	:= $(DIR_MODULE_ALGO)
 DIR_INTERNAL_ALGO	:= $(DIR_MODULE_ALGO)/_internal
 
 SRC_INTERFACE_ALGO	:= algo.c 
-SRC_INTERNAL_ALGO	:= _turkish.c _utils.c _radix.c 
+SRC_INTERNAL_ALGO	:= _turkish.c _utils.c turk/pass.c turk/solver_a.c turk/solver_b.c turk/utils.c turk/_turk.c 
 
 OBJ_ALGO			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_ALGO)/, $(SRC_INTERFACE_ALGO:.c=.o))
 OBJ_ALGO			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_ALGO)/, $(SRC_INTERNAL_ALGO:.c=.o))

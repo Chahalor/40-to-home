@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 09:39:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:13:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static inline int	is_array_valid(const t_nb *array, const int size)
  * @return	The number of elements added to the destination array.
 */
 __attribute__((cold))
-int	multiple_atoi(char *str, t_nb *dest, const int start, int *max)
+static int	multiple_atoi(char *str, t_nb **dest, const int start, int *max)
 {
 	char	**splited;
 	int		i;
@@ -107,14 +107,14 @@ int	multiple_atoi(char *str, t_nb *dest, const int start, int *max)
 			return (freeing_array(splited), -1);
 		if (start + i >= *max)
 		{
-			dest = reallocing(dest, (*max) * sizeof(t_nb),
+			*dest = reallocing(*dest, (*max) * sizeof(t_nb),
 					((*max) + PARSING_ALLOC_SIZE) * sizeof(t_nb));
-			if (!dest)
+			if (!*dest)
 				return (freeing_array(splited), -1);
 			(*max) += PARSING_ALLOC_SIZE;
 		}
-		dest[start + i].value = ft_atoi(splited[i]);
-		dest[start + i].index = -1;
+		(*dest)[start + i].value = ft_atoi(splited[i]);
+		(*dest)[start + i].index = -1;
 	}
 	freeing_array(splited);
 	return (i);
@@ -143,7 +143,7 @@ t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 		return (args->error = 1, NULL);
 	while ((*i) < argc && ret != -1)
 	{
-		ret = multiple_atoi((char *)argv[(*i)++], result, args->len_stack,
+		ret = multiple_atoi((char *)argv[(*i)++], &result, args->len_stack,
 				&alloced);
 		args->len_stack += ret;
 	}

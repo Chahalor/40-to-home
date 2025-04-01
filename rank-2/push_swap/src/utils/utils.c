@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:22:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 13:22:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 15:58:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ void	*reallocing(void *ptr, const size_t old, const size_t new)
 {
 	void	*new_ptr;
 
-	new_ptr = malloc(new);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, old);
+	if (new == 0)
+		return (free(ptr), NULL);
+	else if (ptr == NULL)
+		return (mallocing(new));
+	else if (old == new)
+		return (ptr);
+	new_ptr = mallocing(new);
+	ft_memcpy(new_ptr, ptr, old * (old < new) + new * (old > new));
 	free(ptr);
-	ptr = NULL;
 	return (new_ptr);
 }
 

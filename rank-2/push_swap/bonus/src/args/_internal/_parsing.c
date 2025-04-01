@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:39:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 09:39:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 16:34:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	parse_short_options(const int argc, const char **argv,
 
 	if (c == 'h')
 		args->help = true;
+	else if (ft_isdigit(c))
+		args->stack = _parse_stack(argc, argv, i, args);
 	else if (*i + 1 <= argc)
 		args->error = EINVAL;
 	else if (c == 's')

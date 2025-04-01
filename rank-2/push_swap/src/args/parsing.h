@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:24:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/18 15:08:30 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/01 08:57:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // Local
 # include "config.h"
 # include "types.h"
-# include "algo.h"
+# include "../algo/algo.h"
 
 /* -----| Define |----- */
 //...
