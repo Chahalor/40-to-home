@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:37:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 17:04:46 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 17:48:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,6 @@
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
-
-__attribute__((always_inline, used))
-static inline int	_rotation_cost(const unsigned int pos,
-	const unsigned int len)
-{
-	if (pos <= len / 2)
-		return (pos);
-	return (-(len - pos));
-}
 
 __attribute__((always_inline, used))
 static inline int	_find_pos(t_stack **stack, const int val)
@@ -71,8 +62,8 @@ t_cost	_best(t_stack **stack_a, t_stack **stack_b)
 		(*stack_b)->array[0].value, 
 		pos_a,
 		0,
-		_rotation_cost(pos_a, (*stack_a)->size),
-		_rotation_cost(0, (*stack_b)->size),
+		get_rotation_cost(pos_a, (*stack_a)->size),
+		get_rotation_cost(0, (*stack_b)->size),
 		0
 	};
 	best.total = (best.cost_a * (-1 * (best.cost_a > 0)) \
@@ -86,8 +77,8 @@ t_cost	_best(t_stack **stack_a, t_stack **stack_b)
 			.val = (*stack_b)->array[i].value,
 			.pos_a = pos_a,
 			.pos_b = i,
-			.cost_a = _rotation_cost(pos_a, (*stack_a)->size),
-			.cost_b = _rotation_cost(i, (*stack_b)->size),
+			.cost_a = get_rotation_cost(pos_a, (*stack_a)->size),
+			.cost_b = get_rotation_cost(i, (*stack_b)->size),
 			0
 		};
 		cost.total = (cost.cost_a * (-1 * (cost.cost_a > 0)) \
