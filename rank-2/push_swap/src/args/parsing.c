@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 16:23:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:56:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 
 /** */
 __attribute__((unused, cold, noreturn))
-static inline  void	show_help(void)
+static inline void	show_help(void)
 {
 	ft_printf(BLUE "usage: ./push_swap [options] [stack]\n" RESET);
-	ft_printf( YELLOW "options:\n" RESET);
+	ft_printf(YELLOW "options:\n" RESET);
 	ft_printf("  -h, --help\t\tshow this help\n");
 	ft_printf("  -s, --stack <stack>\tset the stack to sort\n");
 	ft_printf("  -a, --algo <algo>\tset the algorithm to use\n");
 	ft_printf(YELLOW "\nalgorithms:\n" RESET);
 	ft_printf("  1. turkish\n");
-	ft_printf("  2. radix\n");
+	ft_printf("  2. radix\n");	// change here
 	ft_printf("  3. random\n");
 	ft_printf("  4. miracle\n");
 	ft_printf(YELLOW "\nauthor:\n" RESET);
@@ -40,7 +40,7 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	t_args	args;
 	int		i;
 
-	args = (t_args){argc, argv, NULL, 0, e_turk, succes, false};	// change the e_algo the right one
+	args = (t_args){argc, argv, NULL, 0, e_chunk, succes, false};
 	if (argc < 2)
 		exiting(EINVAL, "  usage: ./push_swap [options] [stack]\n");
 	i = 0;

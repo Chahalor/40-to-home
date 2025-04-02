@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 16:28:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:39:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ int	multiple_atoi(char *str, t_nb **dest, const int start, int *max)
 	while (splited[++i])
 	{
 		if (!is_valid_number(splited[i]))
-		{
-			ft_printf(RED "Error" RESET ": invalid number\n└──%s\n", splited[i]);	//rm
 			return (freeing_array(splited), -1);
-		}
 		if (start + i >= *max)
 		{
 			*dest = reallocing(*dest, (*max) * sizeof(t_nb),
@@ -143,10 +140,7 @@ t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 	alloced = PARSING_ALLOC_SIZE;
 	result = (t_nb *)mallocing(sizeof(t_nb) * alloced);
 	if (__builtin_expect(!result, unexpected))
-	{
-		ft_printf(RED "Error" RESET ": while allocating memory\n");	//rm
 		return (args->error = 21, NULL);
-	}
 	while ((*i) < argc && ret != -1)
 	{
 		ret = multiple_atoi((char *)argv[(*i)++], &result, args->len_stack,
@@ -154,15 +148,9 @@ t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 		args->len_stack += ret;
 	}
 	if (__builtin_expect(!args->len_stack, unexpected))
-	{
-		ft_printf(RED "Error" RESET ": empty stack\n");	//rm
 		return (args->error = EINVAL, free(result), NULL);
-	}
 	else if (!is_array_valid(result, args->len_stack))
-	{
-		ft_printf(RED "Error" RESET ": invalid stack\n");	//rm
 		return (args->error = EINVAL, free(result), NULL);
-	}
 	else
 		return (result);
 }

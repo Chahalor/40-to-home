@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:53:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 13:32:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:57:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
-
 
 /** */
 __attribute__((cold, unused))
@@ -51,6 +50,4 @@ void	print_debug(const char *str)
 }
 
 #endif
-
-
 #pragma endregion	/* Functions */

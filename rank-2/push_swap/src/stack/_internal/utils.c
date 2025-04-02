@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:37:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/26 13:56:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:26:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	get_index(t_nb *array, const int size)
 
 /** */
 __attribute__((hot, leaf))
-void	_sort_stack(t_stack **stack)
+int	_sort_stack(t_stack **stack)
 {
 	t_nb	tmp;
 	int		i;
@@ -67,6 +67,7 @@ void	_sort_stack(t_stack **stack)
 			}
 		}
 	}
+	return (0);
 }
 
 #pragma endregion	/* Functions */

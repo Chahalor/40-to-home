@@ -17,17 +17,17 @@ CFLAGS		:= -Wall -Wextra -Werror -MMD
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
-DIR_BONUS	:= bonus
-INCLUDE_ALL	:=-I./ -Ilibft -I$(DIR_SRC)/char-change -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change
+DIR_BONUS	:= 
+INCLUDE_ALL	:=-I./ -I -I$(DIR_SRC)/char-change -I$(DIR_SRC)/ft_printf -I$(DIR_SRC)/get_next_line -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change
 
 # Here we include all the makefile.mk files
-include  src/char-change/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk
+include  src/char-change/makefile.mk src/ft_printf/makefile.mk src/get_next_line/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk
 
 SRC_MAIN	:=
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_MAIN)
+OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_FT_PRINTF) $(OBJ_GET_NEXT_LINE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_MAIN)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -35,7 +35,7 @@ OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_
 
 .PHONY: all
 
-all: header norm $(NAME) install
+all: header norm $(NAME)
 
 # ***************************************************** #
 # *                  Compiling                        * #
@@ -57,13 +57,13 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 
 clean:
 	rm -rf $(DIR_OBJ)
-	@make clean -C $(DIR_LIBFT)
-	@make clean -C $(DIR_BONUS)
+# @make clean -C $(DIR_LIBFT)
+# @make clean -C $(DIR_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
-	@make fclean -C $(DIR_LIBFT)
-	@make fclean -C $(DIR_BONUS)
+# @make fclean -C $(DIR_LIBFT)
+# @make fclean -C $(DIR_BONUS)
 
 re: fclean all
 
@@ -90,7 +90,7 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: header norm crazy test install uninstall update
+.PHONY: header norm crazy test update # install uninstall
 
 header:
 	@echo "# Big Header #"
@@ -104,36 +104,17 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-CRAZY=0
-crazy:
-	
+# INSTALL_DIR = $(HOME)/.local/bin
 
-test: bonus
-	bash ./benchmark.sh 0   10
-	bash ./benchmark.sh 1   10
-	bash ./benchmark.sh 3   100
-	bash ./benchmark.sh 5   100
-	bash ./benchmark.sh 10  500
-	bash ./benchmark.sh 100 500
-	bash ./benchmark.sh 500 500
-	@if [ $(CRAZY) -eq 1 ]; then \
-		bash ./benchmark.sh 1000 500; \
-		bash ./benchmark.sh 10000 500; \
-		bash ./benchmark.sh 100000 500; \
-	fi
-	@echo "\033[1;32m ✅ Test completed \033[0m"
+# install:
+# 	mkdir -p $(INSTALL_DIR)
+# 	cp $(NAME) $(INSTALL_DIR)/
+# 	chmod +x $(INSTALL_DIR)/$(NAME)
+# 	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
 
-INSTALL_DIR = $(HOME)/.local/bin
-
-install:
-	mkdir -p $(INSTALL_DIR)
-	cp $(NAME) $(INSTALL_DIR)/
-	chmod +x $(INSTALL_DIR)/$(NAME)
-	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
-
-uninstall:
-	rm -rf $(INSTALL_DIR)/$(NAME)
-	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
+# uninstall:
+# 	rm -rf $(INSTALL_DIR)/$(NAME)
+# 	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
 
 update:
 	if [ -f ./auto.sh ]; then \

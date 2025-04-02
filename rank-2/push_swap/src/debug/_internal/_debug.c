@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 12:28:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 12:50:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:57:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	_print_stack(const t_stack *stack)
 			ft_printf("   └──");
 		else
 			ft_printf("   ├──");
-		ft_printf("stack->array[%d] = {.value=%d, .index=%d}\n", i, stack->array[i].value,
-			stack->array[i].index);
+		ft_printf("stack->array[%d] = {.value=%d, .index=%d}\n", i,
+			stack->array[i].value, stack->array[i].index);
 	}
 }
 

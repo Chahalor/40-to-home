@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:11:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 11:54:44 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:43:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@
 int	main(int argc, const char *argv[])
 {
 	const t_args	args = parse_args(argc, argv);
-	t_error			(*const algo[])(t_stack **, t_stack **) = {
-		[e_turkish] = turkish,
-		[e_turk] = turk,
-		[e_random] = mein_random,
-		[e_miracle] = miracle
-	};
 	t_stack			*stack_a;
 	t_stack			*stack_b;
 
+	t_error (*const algo[])(t_stack **, t_stack **) = {
+[e_turkish] = turkish,
+[e_chunk] = chunk_noris,
+[e_random] = mein_random,
+[e_miracle] = miracle
+};
 	if (args.error)
 		exiting(args.error, "Error: invalid argument");
 	stack_a = args_to_stack('A', &args);
@@ -51,6 +51,7 @@ int	main(int argc, const char *argv[])
 		exiting(malloc_failed, "Error: malloc failed");
 	}
 	algo[args.algo](&stack_a, &stack_b);
+	turkish(&stack_a, &stack_b);
 	stack_a = destroyer(stack_a);
 	stack_b = destroyer(stack_b);
 	return (succes);

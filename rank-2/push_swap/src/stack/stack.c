@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 09:53:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:30:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ __attribute__((hot))
 void	interaction(const t_instruct instruct, t_stack **stack_a,
 	t_stack **stack_b)
 {
-	static void (*const actions[])() = {
+	static int (*const actions[])() = {
 		[PA] = push, [PB] = push, [SA] = swap, [SB] = swap,
 		[SS] = swap_both, [RA] = rotate, [RB] = rotate,
 		[RR] = rotate_both, [RRA] = reverse_rotate, [RRB] = reverse_rotate,
@@ -30,14 +30,15 @@ void	interaction(const t_instruct instruct, t_stack **stack_a,
 		[PA] = "pa\n", [PB] = "pb\n", [SA] = "sa\n", [SB] = "sb\n",
 		[SS] = "ss\n", [RA] = "ra\n", [RB] = "rb\n", [RR] = "rr\n",
 		[RRA] = "rra\n", [RRB] = "rrb\n", [RRR] = "rrr\n"};
+	int	output;
 
 	if (*stack_a == NULL || *stack_b == NULL || instruct < PA || instruct > SORT)
 		return ;
-	else if (instruct == PA)
-		actions[instruct](stack_b, stack_a);
+	else if (instruct == PA || instruct == RB || instruct == RRB)
+		output = actions[instruct](stack_b, stack_a);
 	else
-		actions[instruct](stack_a, stack_b);
-	if (instruct < SORT)
+		output = actions[instruct](stack_a, stack_b);
+	if (instruct < SORT && output)
 		write(1, actions_to_print[instruct], 3 + (instruct > RR));
 }
 

@@ -55,7 +55,7 @@ $(LIBFT):
 	@make -C $(DIR_LIBFT) NO_HEADER=true
 
 bonus: all
-	@make -C $(DIR_BONUS) NO_HEADER=true MAKEFLAGS=$(MAKEFLAGS)
+	@make -C $(DIR_BONUS) NO_HEADER=true
 
 # ***************************************************** #
 # *                    Clean Rules                    * #

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:29:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 09:39:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:44:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@
 
 /** */
 __attribute__((cold))
+t_error	chunk_noris(t_stack **stack_a, t_stack **stack_b)
+{
+	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
+		return (0);
+	else
+		return (_chunk(stack_a, stack_b));
+}
+
+/** */
+__attribute__((cold))
 t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 {
 	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
 		return (0);
 	else
 		return (_turkish(stack_a, stack_b));
-}
-
-/** */
-__attribute__((cold))
-t_error turk(t_stack **stack_a, t_stack **stack_b)
-{
-	if ((is_sorted(*stack_a) && (*stack_a)->size > 0) || (*stack_a)->size == 0)
-		return (0);
-	else
-		return (_turk(stack_a, stack_b));
 }
 
 /** */
@@ -55,7 +55,8 @@ t_error	mein_random(t_stack **stack_a, t_stack **stack_b)
 	seed = (size_t)((*stack_a)->array);
 	while (!is_sorted(*stack_a))
 	{
-		seed ^= (seed >> (size_t)&(*stack_a)->array[0]) ^ (seed << 7) ^ (seed >> 4);
+		seed ^= (seed >> (size_t) &(*stack_a)->array[0]) ^ (seed << 7) \
+		^ (seed >> 4);
 		interaction(seed % RRR, stack_a, stack_b);
 		seed = (seed % 10) + 1;
 	}
@@ -70,7 +71,8 @@ t_error	miracle(t_stack **stack_a, t_stack **stack_b)
 	ft_printf("were waiting for the miracle...\n");
 	if (is_sorted(*stack_a) || (*stack_a)->size == 0)
 	{
-		ft_printf("the miracle is here! No, the stack is just already sorted\n");
+		ft_printf("the miracle is here! No, the stack is just already  \
+			sorted\n");
 		return (0);
 	}
 	while (!is_sorted(*stack_a))

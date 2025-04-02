@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:35:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/21 14:01:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:26:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 /** */
 __attribute__((hot, leaf))
-void	swap(t_stack **stackp)
+int	swap(t_stack **stackp)
 {
 	register t_nb	tmp;
 
 	if (!stackp || !*stackp || (*stackp)->size < 2)
-		return ;
+		return (0);
 	tmp = (*stackp)->array[0];
 	(*stackp)->array[0] = (*stackp)->array[1];
 	(*stackp)->array[1] = tmp;
+	return (1);
 }
 
 /** */
 __attribute__((hot))
-void	swap_both(t_stack **stack_a, t_stack **stack_b)
+int	swap_both(t_stack **stack_a, t_stack **stack_b)
 {
-	swap(stack_a);
-	swap(stack_b);
+	return (swap(stack_a) || swap(stack_b));
 }

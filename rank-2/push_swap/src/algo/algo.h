@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:37:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 09:40:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 10:59:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 /* -----| Prototype |----- */
 
 t_error	turkish(t_stack **stack_a, t_stack **stack_b);
-t_error	turk(t_stack **stack_a, t_stack **stack_b);
+t_error	chunk_noris(t_stack **stack_a, t_stack **stack_b);
 t_error	mein_random(t_stack **stack_a, t_stack **stack_b);
 t_error	miracle(t_stack **stack_a, t_stack **stack_b);
 

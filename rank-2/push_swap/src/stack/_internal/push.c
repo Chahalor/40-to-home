@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:45:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/27 12:31:10 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:27:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
  *  or if stack_2 is full.
 */
 __attribute__((hot))
-void push(t_stack **stack_1, t_stack **stack_2)
+int push(t_stack **stack_1, t_stack **stack_2)
 {
 	if (!stack_1 || !stack_2 || !(*stack_1) || !(*stack_2))
-		return ;
+		return (0);
 	if ((*stack_1)->size < 1 || (*stack_2)->size >= (*stack_2)->max_size)
-		return ;
+		return (0);
 	if ((*stack_2)->size > 0)
 		ft_memmove(&(*stack_2)->array[1], &(*stack_2)->array[0],
 			(*stack_2)->size * sizeof(t_nb));
@@ -39,4 +39,5 @@ void push(t_stack **stack_1, t_stack **stack_2)
 			((*stack_1)->size - 1) * sizeof(t_nb));
 	(*stack_1)->size--;
 	(*stack_2)->size++;
+	return (1);
 }
