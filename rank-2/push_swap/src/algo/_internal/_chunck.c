@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:19:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:49:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 17:11:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,27 @@ void	split(t_stack **stack_a, t_stack **stack_b)
 __attribute__((always_inline, used))
 void	big(t_stack **stack_a, t_stack **stack_b)
 {
-	t_cost	cost;
+	// t_cost	cost;
+	int	pos_max;
 
 	while ((*stack_b)->size > 0)
 	{
-		cost = _best(stack_a, stack_b);
+		pos_max = get_max_pos(*stack_b);
+		if (pos_max > (*stack_b)->size / 2)
+		{
+			while (pos_max++ < (*stack_b)->size)
+				interaction(RRB, stack_a, stack_b);
+		}
+		else
+		{
+			while (pos_max-- > 0)
+				interaction(RB, stack_a, stack_b);
+		}
+		interaction(PA, stack_a, stack_b);
+		/*cost = _best(stack_a, stack_b);
+		ft_printf("Cost: {cost_a: %d, cost_b: %d, total: %d, pos_a: %d, pos_b: %d, val: %d}\n",
+			cost.cost_a, cost.cost_b, cost.total, cost.pos_a, cost.pos_b,
+			cost.val);
 		while (cost.cost_a-- > 0 && cost.cost_b-- > 0)
 		{
 			interaction(RA, stack_a, stack_b);
@@ -87,7 +103,7 @@ void	big(t_stack **stack_a, t_stack **stack_b)
 			interaction(RB, stack_a, stack_b);
 		while (cost.cost_b++ < 0)
 			interaction(RRB, stack_a, stack_b);
-		interaction(PA, stack_a, stack_b);
+		interaction(PA, stack_a, stack_b);*/
 	}
 }
 
@@ -118,6 +134,7 @@ int	_chunk(t_stack **stack_a, t_stack **stack_b)
 	else
 	{
 		split(stack_a, stack_b);
+		// ft_printf("separatore\n");
 		big(stack_a, stack_b);
 		correct(stack_a, stack_b);
 	}

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:37:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:55:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/02 17:04:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,30 @@ t_cost	_best(t_stack **stack_a, t_stack **stack_b)
 	int				i;
 
 	pos_a = _find_pos(stack_a, (*stack_b)->array[0].value);
-	best = (t_cost){(*stack_b)->array[0].value, pos_a, 0,
+	best = (t_cost)
+	{
+		(*stack_b)->array[0].value, 
+		pos_a,
+		0,
 		_rotation_cost(pos_a, (*stack_a)->size),
-		_rotation_cost(0, (*stack_b)->size)};
+		_rotation_cost(0, (*stack_b)->size),
+		0
+	};
 	best.total = (best.cost_a * (-1 * (best.cost_a > 0)) \
 				+ best.cost_b * (-1 * (best.cost_b > 0)));
 	i = -1;
 	while (++i < (*stack_b)->size)
 	{
 		pos_a = _find_pos(stack_a, (*stack_b)->array[i].value);
-		cost = (t_cost){.val = (*stack_b)->array[i].value, .pos_a = pos_a,
+		cost = (t_cost)
+		{
+			.val = (*stack_b)->array[i].value,
+			.pos_a = pos_a,
 			.pos_b = i,
 			.cost_a = _rotation_cost(pos_a, (*stack_a)->size),
-			.cost_b = _rotation_cost(i, (*stack_b)->size)};
+			.cost_b = _rotation_cost(i, (*stack_b)->size),
+			0
+		};
 		cost.total = (cost.cost_a * (-1 * (cost.cost_a > 0)) \
 					+ cost.cost_b * (-1 * (cost.cost_b > 0)));
 		if (cost.total < best.total)

@@ -6,7 +6,9 @@ parser.add_argument("count", type=int)
 
 args = parser.parse_args()
 
-random_numbers = random.sample(range(-500, 1000), args.count)
+# random_numbers = random.sample(range(-500, 1000), args.count)
+random_numbers = random.sample(range(0, args.count), args.count)
+
 
 for n in random_numbers:
 	print(n, end=" ")
