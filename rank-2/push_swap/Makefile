@@ -98,7 +98,7 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: header norm crazy test install uninstall update
+.PHONY: header norm crazy test install uninstall update vizualizer
 
 header:
 	@echo "# Big Header #"
@@ -161,6 +161,15 @@ update:
 	fi
 	./auto.sh
 	echo "\033[1;32m ✅ Makefile updated \033[0m";
+
+vizualizer:
+	-@git clone https://github.com/o-reo/push_swap_visualizer.git
+	-@cd push_swap_visualizer
+	-@mkdir build
+	-@cd build
+	-@cmake ..
+	-@make
+
 
 .SILENT:
 	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m
