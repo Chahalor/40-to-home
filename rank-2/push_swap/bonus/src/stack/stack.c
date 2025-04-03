@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/03/31 09:36:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:20:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	interaction(const t_instruct inst, t_stack **stack_a,
 	if (!stack_a || !stack_b || *stack_a == NULL || *stack_b == NULL
 		|| inst < PA || inst > SORT)
 		return ;
-	else if (inst == PA)
+	else if (inst == PA || inst == RB || inst == RRB)
 		actions[inst](stack_b, stack_a);
 	else
 		actions[inst](stack_a, stack_b);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:43:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 14:49:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:22:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_instruct	*read_instructions(void)
 		inst[++i] = str_to_instruction(line);
 		if (inst[i] == NONE)
 			exit_error(line, inst, "invalide instruction");
-		if (i == nb_alloc * 64)
+		if (i == nb_alloc * 64 - 1)
 		{
 			inst = reallocing(inst, sizeof(t_instruct) * nb_alloc * 64,
 					sizeof(t_instruct) * (nb_alloc + 1) * 64);
