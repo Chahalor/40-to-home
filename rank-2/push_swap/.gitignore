@@ -1,12 +1,11 @@
 .obj
 .vscode
 .test
-push_swap_visualizer
+push_swap_visualizer/
 
 *.o
 *.out
 *.txt
-*.sh
 
 push_swap
 tester

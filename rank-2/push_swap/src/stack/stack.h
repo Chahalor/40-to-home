@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 09:04:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:04:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 //stack.c
 
 void	interaction(const t_instruct instruct, t_stack **stack_a,
-	t_stack **stack_b);
+			t_stack **stack_b);
 void	*destroyer(t_stack *stack);
 t_stack	*new(const char name, const int size);
 t_stack	*args_to_stack(const char name, const t_args *args);
@@ -56,7 +56,6 @@ t_stack	*copy_stack(const t_stack *stack);
 
 //information.c
 
-int		find_index(const t_stack *stack, const t_nb number);
 t_bool	is_sorted(const t_stack *stack);
 int		get_min_pos(const t_stack *stack);
 int		get_max_pos(const t_stack *stack);

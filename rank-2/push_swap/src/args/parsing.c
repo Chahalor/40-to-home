@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 15:58:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:24:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,35 @@
 #include "parsing.h"
 #include "debug.h"
 
-/** */
+/**
+ * @brief Show the help message (no need to say more xD)
+ */
 __attribute__((unused, cold, noreturn))
 static inline void	show_help(void)
 {
 	ft_printf(BLUE "usage: ./push_swap [options] [stack]\n" RESET);
-	ft_printf(YELLOW "options:\n" RESET);
+	ft_printf(YELLOW "\noptions:\n" RESET);
 	ft_printf("  -h, --help\t\tshow this help\n");
 	ft_printf("  -s, --stack <stack>\tset the stack to sort\n");
 	ft_printf("  -a, --algo <algo>\tset the algorithm to use\n");
 	ft_printf(YELLOW "\nalgorithms:\n" RESET);
-	ft_printf("  1. turkish\n");
-	ft_printf("  2. radix\n");	// change here
+	ft_printf("  1. chunk\n");
+	ft_printf("  2. simple\n");
 	ft_printf("  3. random\n");
 	ft_printf("  4. miracle\n");
 	ft_printf(YELLOW "\nauthor:\n" RESET);
 	ft_printf("  - nduvoid <nduvoid@student.42mulhouse.fr>\n");
-	exit(EXIT_FAILURE);	/** @todo: change exit code when finish */
+	exit(EXIT_FAILURE);
 }
 
-/** */
+/**
+ * @brief parse the args passed to the programme
+ * 
+ * @param argc the number of args passed to the programme
+ * @param argv the args passed to the programme
+ * 
+ * @return t_args the parsed args
+ */
 __attribute__((unused, cold)) t_args	parse_args(const int argc,
 	const char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:39:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:56:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:26:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,16 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
-__attribute__((unused, cold))
-t_algo	choose_algo(const char *algo, t_error *err)
+/**
+ * @brief parse algorithm
+ * 
+ * @param algo the algo to parse
+ * @param err the error code
+ * 
+ * @return t_algo the parsed algo
+ */
+__attribute__((used, cold, always_inline))
+static inline t_algo	choose_algo(const char *algo, t_error *err)
 {
 	if (ft_strncmp(algo, "turkish", 7) == 0 || (algo[0] == '1'))
 		return (e_turkish);
@@ -37,7 +44,16 @@ t_algo	choose_algo(const char *algo, t_error *err)
 	}
 }
 
-/** */
+/**
+ * @brief parse the short options
+ * 
+ * @param argc the number of args passed to the programme
+ * @param argv the args passed to the programme
+ * @param i the index of the current arg
+ * @param args the args struct
+ * 
+ * @return void
+ */
 __attribute__((cold))
 void	parse_short_options(const int argc, const char **argv,
 	int *i, t_args *args)
@@ -58,7 +74,16 @@ void	parse_short_options(const int argc, const char **argv,
 		args->error = EINVAL;
 }
 
-/** */
+/**
+ * @brief parse long options
+ * 
+ * @param argc the number of args passed to the programme
+ * @param argv the args passed to the programme
+ * @param i the index of the current arg
+ * @param args the args struct
+ * 
+ * @return void
+ */
 __attribute__((cold))
 void	parse_long_options(const int argc, const char **argv,
 	int *i, t_args *args)
@@ -77,11 +102,17 @@ void	parse_long_options(const int argc, const char **argv,
 		args->error = EINVAL;
 }
 
-/** */
+/**
+ * @brief check if the stack is valid
+ * 
+ * @param stack the stack to check
+ * 
+ * @return t_error the error code
+ */
 __attribute__((cold))
 t_error	check_stack(const char *stack)
 {
-	int	i;
+	register int	i;
 
 	if (stack == NULL)
 		return (EINVAL);

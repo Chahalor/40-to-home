@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:32:40 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:50:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:44:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief this function sort 3 elements stack by the most efficient way
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return void
+ */
 __attribute__((cold))
 void	sort_3(t_stack **stack_a, t_stack **stack_b)
 {
@@ -39,8 +46,16 @@ void	sort_3(t_stack **stack_a, t_stack **stack_b)
 	interaction(moves[swap][1], stack_a, stack_b);
 }
 
+/**
+ * @brief this function sort 4 or 5 elements stack by the most efficient way
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return void
+ */
 __attribute__((cold))
-void	_four_or_five(t_stack **stack_a, t_stack **stack_b)
+void	four_or_five(t_stack **stack_a, t_stack **stack_b)
 {
 	int	min;
 

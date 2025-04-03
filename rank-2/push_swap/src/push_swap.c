@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:11:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:43:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:34:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,26 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
+/**
+ * @author nduvoid <nduvoid@student.42mulhouse.fr>
+ * @date 2025/03/13
+ * @details: this program is part of the 42 cursus.
+ * 
+ * @brief The push_swap programis a sorting algorithm that sorts a stack of
+ * integers using a series of operations. The Goal of the program is to sort
+ * the stack in ascending order using the fewest number of operations possible.
+ * 
+ * This Program has 4 algorithms built in:
+ * 
+ * 1. Chunk: This algorithm sorts the stack using a series of chunks. It is
+ *   the most efficient algorithm for sorting large stacks.
+ * 
+ * 2. Simple: This algorithm sorts the stack using a simple sorting algorithm.
+ * 
+ * 3. Random: This algorithm sorts the stack using a random sorting algorithm.
+ * 
+ * 4. Miracle: This algorithm wait a miracle to sort the stack.
+ */
 int	main(int argc, const char *argv[])
 {
 	const t_args	args = parse_args(argc, argv);
@@ -51,7 +70,6 @@ int	main(int argc, const char *argv[])
 		exiting(malloc_failed, "Error: malloc failed");
 	}
 	algo[args.algo](&stack_a, &stack_b);
-	turkish(&stack_a, &stack_b);
 	stack_a = destroyer(stack_a);
 	stack_b = destroyer(stack_b);
 	return (succes);

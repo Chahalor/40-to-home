@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:29:10 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:44:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:37:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief this function is the interface function for the defaut algorithm
+ * of the push_swap project.
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return 0 if the stack is sorted or empty, else the result of the algorithm
+*/
 __attribute__((cold))
 t_error	chunk_noris(t_stack **stack_a, t_stack **stack_b)
 {
@@ -34,7 +42,14 @@ t_error	chunk_noris(t_stack **stack_a, t_stack **stack_b)
 		return (_chunk(stack_a, stack_b));
 }
 
-/** */
+/**
+ * @brief this function is the interface function for the turkish algorithm
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return 0 if the stack is sorted or empty, else the result of the algorithm
+ */
 __attribute__((cold))
 t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 {
@@ -44,7 +59,14 @@ t_error	turkish(t_stack **stack_a, t_stack **stack_b)
 		return (_turkish(stack_a, stack_b));
 }
 
-/** */
+/**
+ * @brief this is a troll function that sort the stack using random instructions
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return 0 if the stack is sorted or empty, else the result of the algorithm
+ */
 __attribute__((hot))
 t_error	mein_random(t_stack **stack_a, t_stack **stack_b)
 {
@@ -63,7 +85,14 @@ t_error	mein_random(t_stack **stack_a, t_stack **stack_b)
 	return (0);
 }
 
-/** */
+/**
+ * @brief this is a serious function that wait a miracle to sort the stack
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return 0 if the stack is sorted or empty, else the result of the algorithm
+ */
 __attribute__((hot))
 t_error	miracle(t_stack **stack_a, t_stack **stack_b)
 {

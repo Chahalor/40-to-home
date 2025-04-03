@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 16:13:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:29:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 __attribute__((hot, pure, unused))
 static inline int	is_valid_number(const char *str)
 {
-	int	i;
+	register int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -67,8 +67,8 @@ static inline int	is_valid_number(const char *str)
 __attribute__((cold, pure, unused))
 static inline int	is_array_valid(const t_nb *array, const int size)
 {
-	int	i;
-	int	j;
+	register int	i;
+	register int	j;
 
 	i = -1;
 	while (++i < size)
@@ -94,8 +94,8 @@ static inline int	is_array_valid(const t_nb *array, const int size)
 __attribute__((cold))
 static int	multiple_atoi(char *str, t_nb **dest, const int start, int *max)
 {
-	char	**splited;
-	int		i;
+	char			**splited;
+	register int	i;
 
 	splited = ft_split(str, ' ');
 	if (!splited)

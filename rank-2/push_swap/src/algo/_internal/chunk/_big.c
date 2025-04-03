@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:37:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 17:48:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 12:56:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,70 +23,57 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-__attribute__((always_inline, used))
-static inline int	_find_pos(t_stack **stack, const int val)
+/** */
+__attribute__((always_inline, used, leaf))
+static inline int	ft_range(t_stack **stack_a)
 {
-	const int		min = (*stack)->array[get_min_pos(*stack)].value;
-	const int		max = (*stack)->array[get_max_pos(*stack)].value;
-	register int	i;
-	register int	j;
-
-	if (val < min || val > max)
-	{
-		i = 0;
-		while (i != (*stack)->size)
-			if ((*stack)->array[i++].value == min)
-				return (i);
-	}
-	i = -1;
-	while (++i != (*stack)->size)
-	{
-		j = (i + 1) % (*stack)->size;
-		if ((*stack)->array[j].value < val && val < (*stack)->array[j].value)
-			return (j);
-	}
-	return (0);
+	if ((*stack_a)->size > 100)
+		return (32);
+	else
+		return (11);
 }
 
-__attribute__((hot))
-t_cost	_best(t_stack **stack_a, t_stack **stack_b)
+/** */
+__attribute__((always_inline, used, leaf))
+static inline int	sorted(t_stack **stack_a)
 {
-	t_cost			best;
-	t_cost			cost;
-	unsigned int	pos_a;
-	int				i;
+	int	i;
+	int	j;
 
-	pos_a = _find_pos(stack_a, (*stack_b)->array[0].value);
-	best = (t_cost)
+	i = 0;
+	j = -1;
+	while (++j < (*stack_a)->size / 2)
 	{
-		(*stack_b)->array[0].value, 
-		pos_a,
-		0,
-		get_rotation_cost(pos_a, (*stack_a)->size),
-		get_rotation_cost(0, (*stack_b)->size),
-		0
-	};
-	best.total = (best.cost_a * (-1 * (best.cost_a > 0)) \
-				+ best.cost_b * (-1 * (best.cost_b > 0)));
-	i = -1;
-	while (++i < (*stack_b)->size)
-	{
-		pos_a = _find_pos(stack_a, (*stack_b)->array[i].value);
-		cost = (t_cost)
-		{
-			.val = (*stack_b)->array[i].value,
-			.pos_a = pos_a,
-			.pos_b = i,
-			.cost_a = get_rotation_cost(pos_a, (*stack_a)->size),
-			.cost_b = get_rotation_cost(i, (*stack_b)->size),
-			0
-		};
-		cost.total = (cost.cost_a * (-1 * (cost.cost_a > 0)) \
-					+ cost.cost_b * (-1 * (cost.cost_b > 0)));
-		if (cost.total < best.total)
-			best = cost;
+		if ((*stack_a)->array[j].value > (*stack_a)->array[j].value)
+			i++;
 	}
-	return (best);
+	return (i);
+}
+
+void	push_to_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_cost	cost;
+
+	cost = (t_cost){.index = 0, .sorted = sorted(stack_a) > \
+		(*stack_a)->size / 3,
+		.range = ft_range(stack_a)
+	};
+	while ((*stack_a)->size > 0)
+	{
+		if ((*stack_a)->array[0].index <= cost.index)
+		{
+			interaction(PB, stack_a, stack_b);
+			++cost.index;
+		}
+		else if ((*stack_a)->array[0].index <= (cost.index + cost.range))
+		{
+			interaction(PB, stack_a, stack_b);
+			interaction(RB, stack_a, stack_b);
+			++cost.index;
+		}
+		else
+			interaction(RA + 2 * (!!cost.sorted), stack_a, stack_b);
+	}
 }
 
 #pragma endregion	/* Functions */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:27:41 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:48:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:49:19 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,17 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-void	extraction(t_stack **stack_a, t_stack **stack_b)
-{
-	int		cost_up;
-	int		cost_down;
-
-	while ((*stack_b)->size > 0)
-	{
-		cost_up = get_right_index((*stack_b)->array[0], *stack_b);
-		cost_down = (*stack_b)->size - cost_up;
-		if (cost_up < cost_down)
-			while (cost_up-- > 0)
-				interaction(RB, stack_a, stack_b);
-		else
-			while (cost_down-- > 0)
-				interaction(RRB, stack_a, stack_b);
-		interaction(PA, stack_a, stack_b);
-	}
-}
-
-/** */
+/**
+ * @brief this function get the cheapest way to push the bigest element of
+ * stack_a to stack_b and sort the elements inside stack_b.
+ * 
+ * @param a_wanted the wanted position of the element in stack_a
+ * @param b_wanted the wanted position of the element in stack_b
+ * @param a_curent_pos the current position of the element in stack_a
+ * @param b_curent_pos the current position of the element in stack_b
+ * 
+ * @return the actions to do to push the bigest element of stack_a to stack_b
+ */
 __attribute__((hot))
 t_actions	get_actions(const int a_wanted, const int b_wanted,
 	const int a_curent_pos, const int b_curent_pos)
@@ -76,7 +67,14 @@ t_actions	get_actions(const int a_wanted, const int b_wanted,
 	});
 }
 
-/** */
+/**
+ * @brief this function psuh the bigest element of stack_a to stack_b
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return void
+*/
 __attribute__((hot))
 static void	sort_one(t_stack **stack_a, t_stack **stack_b)
 {
@@ -97,7 +95,24 @@ static void	sort_one(t_stack **stack_a, t_stack **stack_b)
 	interaction(PB, stack_a, stack_b);
 }
 
-/** */
+/**
+ * @brief this function is the main function of the turkish algorithm
+ * 
+ * @param stack_a the first stack
+ * @param stack_b the second stack
+ * 
+ * @return 0 if the stack is sorted or empty, else the result of the algorithm
+ * 
+ * @details how it works:
+ * 
+ * 1. push two elements from stack_a to stack_b
+ * 
+ * 2. try to find the cheapest way to push the bigest element of stack_a to
+ * 
+ *  stack_b. At the same time sort the elements inside stack_b
+ * 
+ * 3. push the elements of stack_b to stack_a
+ */
 __attribute__((hot))
 int	_turkish(t_stack **stack_a, t_stack **stack_b)
 {

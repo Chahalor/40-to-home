@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:29:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:56:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:34:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 
 /* -----| Prototype |----- */
 
-t_algo	choose_algo(const char *algo, t_error *err);
 void	parse_short_options(const int argc, const char **argv,
 			int *i, t_args *args);
 void	parse_long_options(const int argc, const char **argv,

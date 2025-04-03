@@ -112,22 +112,31 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-CRAZY=0
+BENCHMARK	:= ./benchmark.sh
+CRAZY		 = 0
 crazy:
 	
 
 test: bonus
-	bash ./benchmark.sh 0   10
-	bash ./benchmark.sh 1   10
-	bash ./benchmark.sh 3   100
-	bash ./benchmark.sh 5   100
-	bash ./benchmark.sh 10  500
-	bash ./benchmark.sh 100 500
-	bash ./benchmark.sh 500 500
+	bash $(BENCHMARK) 0   10
+	@sleep 1
+	bash $(BENCHMARK) 1   10
+	@sleep 1
+	bash $(BENCHMARK) 3   100
+	@sleep 1
+	bash $(BENCHMARK) 5   100
+	@sleep 1
+	bash $(BENCHMARK) 10  500
+	@sleep 1
+	bash $(BENCHMARK) 100 500
+	@sleep 1
+	bash $(BENCHMARK) 500 500
 	@if [ $(CRAZY) -eq 1 ]; then \
-		bash ./benchmark.sh 1000 500; \
-		bash ./benchmark.sh 10000 500; \
-		bash ./benchmark.sh 100000 500; \
+		bash $(BENCHMARK) 1000 500; \
+		@sleep 1 \
+		bash $(BENCHMARK) 10000 500; \
+		@sleep 1 \
+		bash $(BENCHMARK) 100000 500; \
 	fi
 	@echo "\033[1;32m ✅ Test completed \033[0m"
 

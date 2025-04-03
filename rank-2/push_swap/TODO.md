@@ -6,7 +6,7 @@
  - sa me petes les couille donc je vais faire FDF.
 
 ### Code : 
- - [ ] optimize memmove with some SIMD
+ - [X] optimize memmove with some SIMD
 
 ### Make : 
  - [ ] ...
@@ -23,8 +23,8 @@
  void
 
 ## Rendu
- - [ ] norm
- - [ ] big test (plusieur a 10, 100, 500 et 1000 (plusieur = au moins 100 et faire une moyenne ))
+ - [X] norm
+ - [X] big test (plusieur a 10, 100, 500 et 1000 (plusieur = au moins 100 et faire une moyenne ))
 
 
 ## __LIS :__

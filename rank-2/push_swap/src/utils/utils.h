@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:24:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 11:00:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:50:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,14 @@ void		*reallocing(void *ptr, const size_t old, const size_t new);
 
 /* -----| Inline |----- */
 
-/** */
+/**
+ * @return the max of a and b
+ * 
+ * @param a the first number
+ * @param b the second number
+ * 
+ * @return the max of a and b
+*/
 __attribute__((always_inline, used, pure, leaf))
 static inline int	max(int a, int b)
 {
@@ -71,7 +78,14 @@ static inline int	max(int a, int b)
 		return (b);
 }
 
-/** */
+/**
+ * @return the min of a and b
+ * 
+ * @param a the first number
+ * @param b the second number
+ * 
+ * @return the min of a and b
+ */
 __attribute__((always_inline, used, pure, leaf))
 static inline int	min(int a, int b)
 {

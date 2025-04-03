@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:37:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 09:03:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:39:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,13 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-int	find_index(const t_stack *stack, const t_nb number)
-{
-	int	i;
-
-	if (!stack)
-		return (-1);
-	i = -1;
-	while (++i < stack->size)
-		if (stack->array[i].value == number.value)
-			return (i);
-	return (-1);
-}
-
-/** */
+/**
+ * * @brief this function check if the stack is sorted
+ * 
+ * * @param stack the stack to check
+ * 
+ * * @return true if the stack is sorted, false otherwise
+*/
 __attribute__((hot))
 t_bool	is_sorted(const t_stack *stack)
 {
@@ -53,7 +46,13 @@ t_bool	is_sorted(const t_stack *stack)
 	return (true);
 }
 
-/** */
+/**
+ * @brief return the position of the minimum value in the stack
+ * 
+ * @param stack the stack to check
+ * 
+ * @return the position of the minimum value in the stack
+ */
 __attribute__((hot))
 int	get_min_pos(const t_stack *stack)
 {
@@ -77,7 +76,13 @@ int	get_min_pos(const t_stack *stack)
 	return (min_pos);
 }
 
-/** */
+/**
+ * @brief return the position of the maximum value in the stack
+ * 
+ * @param stack the stack to check
+ * 
+ * @return the position of the maximum value in the stack
+ */
 __attribute__((hot))
 int	get_max_pos(const t_stack *stack)
 {
@@ -101,7 +106,14 @@ int	get_max_pos(const t_stack *stack)
 	return (max_pos);
 }
 
-/** */
+/**
+ * @brief return the position of the given number in the sorted stack
+ * 
+ * @param nb the number to check
+ * @param stack the stack to check
+ * 
+ * @return the position of the number in the sorted stack
+*/
 __attribute__((hot))
 int	get_right_index(const t_nb nb, const t_stack *stack)
 {
@@ -115,7 +127,15 @@ int	get_right_index(const t_nb nb, const t_stack *stack)
 			return (i);
 	return (i);
 }
-/** */
+
+/**
+ * @brief return the position of the given number in the stack
+ * 
+ * @param nb the number to check
+ * @param stack the stack to check
+ * 
+ * @return the position of the number in the stack
+ */
 __attribute__((hot))
 int	reverse_get_index(const t_nb nb, const t_stack *stack)
 {
@@ -126,8 +146,8 @@ int	reverse_get_index(const t_nb nb, const t_stack *stack)
 	i = -1;
 	while (++i < stack->size)
 	{
-		// ft_printf("i: %d | index: %d | nb.index: %d\n", i, stack->array[i].index, nb.index);	// rm
-		if (stack->array[i].index == nb.index && stack->array[i + 1].index < nb.index)
+		if (stack->array[i].index == nb.index && stack->array[i + 1].index
+			< nb.index)
 			return (i);
 		else if (stack->array[i].index < nb.index)
 			return (i);

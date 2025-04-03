@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 08:29:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 17:48:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:50:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@
 #pragma endregion	/* Header */
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief this function is used to get the address of the stack_a and
+ * stack_b. It act like a singleton.
+ * 
+ * @param stack the stack to store
+ * @param who the stack to store
+ * 
+ * @return the address of the stack
+ */
 __attribute__((hot))
 t_stack	**quick_acces(t_stack **stack, const char who)
 {
@@ -50,7 +58,14 @@ t_stack	**quick_acces(t_stack **stack, const char who)
 	return (NULL);
 }
 
-/** */
+/**
+ * @brief find the cheapest way to push the element at the wanted position
+ * 
+ * @param pos the current position of the element
+ * @param len the length of the stack
+ * 
+ * @return the cost of the rotation
+*/
 __attribute__((hot, leaf, pure))
 int	get_rotation_cost(const int pos, const int len)
 {
