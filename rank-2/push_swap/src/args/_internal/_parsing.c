@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:39:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 13:26:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:38:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 __attribute__((used, cold, always_inline))
 static inline t_algo	choose_algo(const char *algo, t_error *err)
 {
-	if (ft_strncmp(algo, "turkish", 7) == 0 || (algo[0] == '1'))
-		return (e_turkish);
-	else if (ft_strncmp(algo, "turk", 5) == 0 || algo[0] == '0')
+	if (ft_strncmp(algo, "chunk", 7) == 0 || (algo[0] == '1'))
 		return (e_chunk);
-	else if (ft_strncmp(algo, "random", 6) == 0 || algo[0] == '2')
+	else if (ft_strncmp(algo, "turkish", 5) == 0 || algo[0] == '2')
+		return (e_turkish);
+	else if (ft_strncmp(algo, "random", 6) == 0 || algo[0] == '3')
 		return (e_random);
-	else if (ft_strncmp(algo, "miracle", 7) == 0 || algo[0] == '3')
+	else if (ft_strncmp(algo, "miracle", 7) == 0 || algo[0] == '4')
 		return (e_miracle);
 	else
 	{
@@ -64,10 +64,8 @@ void	parse_short_options(const int argc, const char **argv,
 		args->help = true;
 	else if (ft_isdigit(c))
 		args->stack = _parse_stack(argc, argv, i, args);
-	else if (*i + 1 <= argc)
+	else if (*i + 1 >= argc)
 		args->error = EINVAL;
-	else if (c == 's')
-		args->stack = _parse_stack(argc, argv, i, args);
 	else if (c == 'a')
 		args->algo = choose_algo(argv[++(*i)], &args->error);
 	else
@@ -92,10 +90,8 @@ void	parse_long_options(const int argc, const char **argv,
 
 	if (ft_strncmp(option, "--help", 6) == 0)
 		args->help = true;
-	else if (*i + 1 <= argc)
+	else if (*i + 1 >= argc)
 		args->error = EINVAL;
-	else if (ft_strncmp(option, "--stack", 8) == 0)
-		args->stack = _parse_stack(argc, argv, i, args);
 	else if (ft_strncmp(option, "--algo", 6) == 0)
 		args->algo = choose_algo(argv[++(*i)], &args->error);
 	else
