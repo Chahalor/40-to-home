@@ -163,12 +163,13 @@ update:
 	echo "\033[1;32m ✅ Makefile updated \033[0m";
 
 vizualizer:
-	-@git clone https://github.com/o-reo/push_swap_visualizer.git
-	-@cd push_swap_visualizer
-	-@mkdir build
-	-@cd build
-	-@cmake ..
-	-@make
+	if [ -d ./push_swap_visualizer ]; then \
+		echo "\033[1;33m Push_swap visualizer already exists \033[0m"; \
+		exit 1; \
+	fi
+	@git clone https://github.com/o-reo/push_swap_visualizer.git
+	@mkdir -p push_swap_visualizer/build
+	@cd push_swap_visualizer/build && cmake .. && make
 
 
 .SILENT:
