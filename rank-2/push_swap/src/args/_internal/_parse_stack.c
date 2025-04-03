@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 13:29:08 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/03 17:10:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
+
+/** */
+__attribute__(())
+int	check_overflow(const char *str)
+{
+	register int	i;
+	int				sign;
+
+	if (!str)
+		return (0);
+	i = 0;
+	sign = 0;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i] == '-')
+			sign = i++;
+	
+}
 
 /**
  * @brief	Checks if the string is a valid number.

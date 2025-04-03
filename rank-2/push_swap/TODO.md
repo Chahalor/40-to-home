@@ -39,3 +39,7 @@
 	b. move it
 4. put the min to the top
 5. re do all previous step (tkt)
+
+
+ - [ ] tcheck le MAX/MIN int pour le mandatory/bonus
+ - [ ] si le seul args est invalide sa SEG FAULT
