@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 13:32:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 09:01:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	*destroyer(t_stack *stack)
 {
 	if (stack == NULL)
 		return (NULL);
-	free(stack->array);
+	if (stack->array != NULL && stack->max_size > 0)
+		free(stack->array);
 	free(stack);
 	return (NULL);
 }
@@ -110,6 +111,8 @@ t_stack	*args_to_stack(const char name, const t_args *args)
 {
 	t_stack	*stack;
 
+	if (args->len_stack == 0 || args->stack == NULL)
+		return (NULL);
 	stack = new(name, 0);
 	if (__builtin_expect(stack == NULL, unexpected))
 		return (NULL);

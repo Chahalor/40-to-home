@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:15:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 10:27:44 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 08:55:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
 static int	is_space(int c)
 {
@@ -45,9 +46,6 @@ int	ft_atoi(const char *nptr)
 	else if (nptr[i] == '+')
 		i++;
 	while (nptr[i] && ft_isdigit(nptr[i]))
-	{
-		r = r * 10 + (nptr[i] - 48);
-		i++;
-	}
+		r = r * 10 + (nptr[i++] - 48);
 	return (r * neg);
 }

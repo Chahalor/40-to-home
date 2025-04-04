@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 09:57:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 09:23:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ __attribute__((unused, cold, noreturn, always_inline))
 static inline	void	show_help(void)
 {
 	ft_printf(BLUE "usage: ./checker [options] [stack]\n" RESET);
-	ft_printf(YELLOW "options:\n" RESET);
+	ft_printf(YELLOW "\noptions:\n" RESET);
 	ft_printf("  -h, --help\t\tshow this help\n");
-	ft_printf("  -s, --stack <stack>\tset the stack to sort\n");
-	ft_printf(YELLOW "authors:\n" RESET);
+	ft_printf(YELLOW "\nauthors:\n" RESET);
 	ft_printf("  - nduvoid <nduvoid@student.42mulhouse.fr>\n");
 	exit(EXIT_FAILURE);
 }
@@ -63,6 +62,9 @@ __attribute__((unused, cold)) t_args	parse_args(const int argc,
 		else
 			args.stack = _parse_stack(argc, argv, &i, &args);
 	}
+	if (args.error)
+		if (args.stack)
+			free(args.stack);
 	if (args.help)
 		show_help();
 	return (args);

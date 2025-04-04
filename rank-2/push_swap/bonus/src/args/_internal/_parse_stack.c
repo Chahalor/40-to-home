@@ -6,13 +6,13 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:00:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 13:39:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 09:19:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Header"
 // System
-	//...
+#include <limits.h>
 
 // Global
 	//...
@@ -24,6 +24,43 @@
 
 #pragma endregion	/* Header */
 #pragma region "Functions"
+
+/**
+ * @brief	Checks if the string will overflow when converted to an integer.
+ * 
+ * @param	str	The string to check.
+ * 
+ * @return	1 if the string will overflow, 0 otherwise.
+ */
+__attribute__((always_inline, used, pure))
+static inline int	will_overflow(const char *str)
+{
+	int				i;
+	int				sign;
+	unsigned int	r;
+	int				digit;
+
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		++i;
+	sign = 1;
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			sign = -1;
+	while (str[i] == '0')
+		++i;
+	r = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		digit = str[i] - '0';
+		if ((r > (unsigned int)(INT_MAX - digit) / 10 && sign == 1)
+			|| (r > (unsigned int)((unsigned int)INT_MAX + 1 - digit) / 10))
+			return (1);
+		r = r * 10 + digit;
+		++i;
+	}
+	return (0);
+}
 
 /**
  * @brief	Checks if the string is a valid number.
@@ -39,7 +76,7 @@
 __attribute__((hot, pure, unused))
 static inline int	is_valid_number(const char *str)
 {
-	int	i;
+	register int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -47,6 +84,8 @@ static inline int	is_valid_number(const char *str)
 	while (str[i] && ft_isdigit(str[i]))
 		i++;
 	if (str[i] != '\0')
+		return (0);
+	else if (will_overflow(str))
 		return (0);
 	return (1);
 }
@@ -145,7 +184,7 @@ t_nb	*_parse_stack(const int argc, const char **argv, int *i, t_args *args)
 	{
 		ret = multiple_atoi((char *)argv[(*i)++], &result, args->len_stack,
 				&alloced);
-		args->len_stack += ret;
+		args->len_stack = (args->len_stack + ret) * (ret != -1);
 	}
 	if (__builtin_expect(!args->len_stack, unexpected))
 		return (args->error = EINVAL, free(result), NULL);

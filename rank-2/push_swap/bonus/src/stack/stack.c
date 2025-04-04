@@ -6,11 +6,12 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 15:20:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 09:13:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/_stack.h"
+#include "debug.h"
 
 /** */
 __attribute__((hot))
@@ -38,7 +39,9 @@ void	*destroyer(t_stack *stack)
 {
 	if (stack == NULL)
 		return (NULL);
-	free(stack->array);
+	print_stack(stack);
+	if (stack->array && stack->max_size > 0)
+		free(stack->array);
 	free(stack);
 	return (NULL);
 }
@@ -67,6 +70,8 @@ t_stack	*args_to_stack(const char name, const t_args *args)
 {
 	t_stack	*stack;
 
+	if (args->len_stack == 0 || args->stack == NULL)
+		return (NULL);
 	if (__builtin_expect(args == NULL, unexpected))
 		return (NULL);
 	stack = new(name, 0);
