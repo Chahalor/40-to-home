@@ -5,7 +5,7 @@ rm -r **/makefile.mk Makefile
 
 # Main dir && variables definitions
 DIR_SRC="src"
-DIR_OBJ=".obj"
+DIR_OBJ=".build"
 DIR_INTERNAL="_internal"
 DIR_INTERFACE=""
 DIR_INCLUDE="include"
@@ -89,6 +89,7 @@ MAKEFLAGS += --no-print-directory
 # ***************************************************** #
 
 NAME		:= $EXEC_NAME
+BONUS		:= checker
 
 CC			:= $CC
 CFLAGS		:= $CFLAGS
@@ -105,10 +106,12 @@ LIBFT		:= \$(DIR_LIBFT)/libft.a
 include $MAKEFILE_SUPP_LIST
 
 SRC_MAIN	:= push_swap.c
+SRC_BONUS	:= tester.c
 
 # all object files for the modules
 OBJ_MAIN	:= \$(addprefix \$(DIR_OBJ)/, \$(SRC_MAIN:.c=.o))
-OBJ_ALL		:=$OBJ_ALL_LIST \$(OBJ_MAIN)
+OBJ_BONUS	:= \$(addprefix \$(DIR_OBJ)/, \$(SRC_BONUS:.c=.o))
+OBJ_ALL		:=$OBJ_ALL_LIST
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -122,7 +125,7 @@ all: header norm \$(NAME) install
 # *                  Compiling                        * #
 # ***************************************************** #
 
-\$(NAME): \$(LIBFT) \$(OBJ_ALL)
+\$(NAME): \$(LIBFT) \$(OBJ_ALL) \$(OBJ_MAIN)
 	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) \$^ \$(LIBFT) -o \$(NAME)
 
 \$(DIR_OBJ)/%.o: \$(DIR_SRC)/%.c
@@ -132,8 +135,8 @@ all: header norm \$(NAME) install
 \$(LIBFT):
 	@make -C \$(DIR_LIBFT) NO_HEADER=true
 
-bonus: all
-	@make -C \$(DIR_BONUS) NO_HEADER=true
+bonus: \$(LIBFT) \$(OBJ_ALL) \$(OBJ_BONUS)
+	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) \$^ \$(LIBFT) -o \$(BONUS)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -142,14 +145,13 @@ bonus: all
 .PHONY: clean fclean re
 
 clean:
-	rm -rf \$(DIR_OBJ)
+	rm -f \$(OBJ_ALL) \$(OBJ_MAIN) \$(OBJ_BONUS)
 	@make clean -C \$(DIR_LIBFT)
-	@make clean -C \$(DIR_BONUS)
 
-fclean: clean
-	rm -f \$(NAME)
+fclean:
+	rm -rf \$(DIR_OBJ)
+	rm -f \$(NAME) \$(BONUS)
 	@make fclean -C \$(DIR_LIBFT)
-	@make fclean -C \$(DIR_BONUS)
 
 re: fclean all
 

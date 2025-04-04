@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:02:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 13:04:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 13:10:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void	interaction(const t_instruct instruct, t_stack **stack_a,
 void	*destroyer(t_stack *stack);
 t_stack	*new(const char name, const int size);
 t_stack	*args_to_stack(const char name, const t_args *args);
-t_stack	*copy_stack(const t_stack *stack);
+
+// stack_bonus.c
+
+void	interaction2(const t_instruct instruct, t_stack **stack_a,
+			t_stack **stack_b);
 
 //information.c
 

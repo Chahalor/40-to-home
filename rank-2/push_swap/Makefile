@@ -11,26 +11,29 @@ MAKEFLAGS += --no-print-directory
 # ***************************************************** #
 
 NAME		:= push_swap
+BONUS		:= checker
 
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror -MMD
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
-DIR_OBJ		:= .obj
+DIR_OBJ		:= .build
 DIR_BONUS	:= bonus
-INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils
+INCLUDE_ALL	:=-Iinclude -Ilibft -I$(DIR_SRC)/algo -I$(DIR_SRC)/args -I$(DIR_SRC)/debug -I$(DIR_SRC)/sorting -I$(DIR_SRC)/stack -I$(DIR_SRC)/utils
 
 DIR_LIBFT	:= libft
 LIBFT		:= $(DIR_LIBFT)/libft.a
 
 # Here we include all the makefile.mk files
-include  src/algo/makefile.mk src/args/makefile.mk src/debug/makefile.mk src/stack/makefile.mk src/utils/makefile.mk
+include  src/algo/makefile.mk src/args/makefile.mk src/debug/makefile.mk src/sorting/makefile.mk src/stack/makefile.mk src/utils/makefile.mk
 
 SRC_MAIN	:= push_swap.c
+SRC_BONUS	:= tester.c
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_STACK) $(OBJ_UTILS) $(OBJ_MAIN)
+OBJ_BONUS	:= $(addprefix $(DIR_OBJ)/, $(SRC_BONUS:.c=.o))
+OBJ_ALL		:= $(OBJ_ALGO) $(OBJ_ARGS) $(OBJ_DEBUG) $(OBJ_SORTING) $(OBJ_STACK) $(OBJ_UTILS)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -44,7 +47,7 @@ all: header norm $(NAME) install
 # *                  Compiling                        * #
 # ***************************************************** #
 
-$(NAME): $(LIBFT) $(OBJ_ALL)
+$(NAME): $(LIBFT) $(OBJ_ALL) $(OBJ_MAIN)
 	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT) -o $(NAME)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
@@ -54,8 +57,8 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 $(LIBFT):
 	@make -C $(DIR_LIBFT) NO_HEADER=true
 
-bonus: all
-	@make -C $(DIR_BONUS) NO_HEADER=true
+bonus: $(LIBFT) $(OBJ_ALL) $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT) -o $(BONUS)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -64,14 +67,13 @@ bonus: all
 .PHONY: clean fclean re
 
 clean:
-	rm -rf $(DIR_OBJ)
+	rm -f $(OBJ_ALL) $(OBJ_MAIN) $(OBJ_BONUS)
 	@make clean -C $(DIR_LIBFT)
-	@make clean -C $(DIR_BONUS)
 
-fclean: clean
-	rm -f $(NAME)
+fclean:
+	rm -rf $(DIR_OBJ)
+	rm -f $(NAME) $(BONUS)
 	@make fclean -C $(DIR_LIBFT)
-	@make fclean -C $(DIR_BONUS)
 
 re: fclean all
 
@@ -98,7 +100,7 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: header norm crazy test install uninstall update vizualizer
+.PHONY: header norm crazy test install uninstall update
 
 header:
 	@echo "# Big Header #"
@@ -112,31 +114,22 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-BENCHMARK	:= ./benchmark.sh
-CRAZY		 = 0
+CRAZY=0
 crazy:
 	
 
 test: bonus
-	bash $(BENCHMARK) 0   10
-	@sleep 1
-	bash $(BENCHMARK) 1   10
-	@sleep 1
-	bash $(BENCHMARK) 3   100
-	@sleep 1
-	bash $(BENCHMARK) 5   100
-	@sleep 1
-	bash $(BENCHMARK) 10  500
-	@sleep 1
-	bash $(BENCHMARK) 100 500
-	@sleep 1
-	bash $(BENCHMARK) 500 500
+	bash ./benchmark.sh 0   10
+	bash ./benchmark.sh 1   10
+	bash ./benchmark.sh 3   100
+	bash ./benchmark.sh 5   100
+	bash ./benchmark.sh 10  500
+	bash ./benchmark.sh 100 500
+	bash ./benchmark.sh 500 500
 	@if [ $(CRAZY) -eq 1 ]; then \
-		bash $(BENCHMARK) 1000 500; \
-		@sleep 1 \
-		bash $(BENCHMARK) 10000 500; \
-		@sleep 1 \
-		bash $(BENCHMARK) 100000 500; \
+		bash ./benchmark.sh 1000 500; \
+		bash ./benchmark.sh 10000 500; \
+		bash ./benchmark.sh 100000 500; \
 	fi
 	@echo "\033[1;32m ✅ Test completed \033[0m"
 
@@ -161,16 +154,6 @@ update:
 	fi
 	./auto.sh
 	echo "\033[1;32m ✅ Makefile updated \033[0m";
-
-vizualizer:
-	if [ -d ./push_swap_visualizer ]; then \
-		echo "\033[1;33m Push_swap visualizer already exists \033[0m"; \
-		exit 1; \
-	fi
-	@git clone https://github.com/o-reo/push_swap_visualizer.git
-	@mkdir -p push_swap_visualizer/build
-	@cd push_swap_visualizer/build && cmake .. && make
-
 
 .SILENT:
 	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m

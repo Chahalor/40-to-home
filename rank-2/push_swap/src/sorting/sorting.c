@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:43:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/03 15:22:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 13:09:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	do_test(t_stack *stack_a, t_stack *stack_b, t_instruct *instruct)
 
 	i = -1;
 	while (instruct[++i] != NONE)
-		interaction(instruct[i], &stack_a, &stack_b);
+		interaction2(instruct[i], &stack_a, &stack_b);
 	if (is_sorted(stack_a) && stack_b->size == 0)
 		ft_printf(GREEN "OK\n" RESET);
 	else

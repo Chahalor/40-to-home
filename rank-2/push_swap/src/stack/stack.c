@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:33:05 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 09:01:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 13:10:46 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdbool.h>
 
 /**
- * @brief	Perform the action on the stack.
+ * @brief	Perform the action on the stack. And print the action.
  * 
  * @param	instruct	The instruction to perform.
  * @param	stack_a		Pointer to the first stack.
@@ -121,26 +121,4 @@ t_stack	*args_to_stack(const char name, const t_args *args)
 	stack->array = args->stack;
 	get_index(stack->array, stack->max_size);
 	return (stack);
-}
-
-/**
- * @brief	Creates a copy of the stack.
- * 
- * @param	stack	The stack to copy.
- * 
- * @return	The copied stack.
- */
-__attribute__((hot, malloc))
-t_stack	*copy_stack(const t_stack *stack)
-{
-	t_stack	*cpy;
-
-	cpy = new(stack->name, stack->max_size - 1);
-	if (cpy == NULL)
-		exiting(malloc_failed, RED "Error" RESET \
-			":copy_stack(): malloc failed\n");
-	cpy->size = stack->size;
-	cpy->max_size = stack->max_size;
-	ft_memcpy(cpy->array, stack->array, sizeof(t_nb) * stack->size);
-	return (cpy);
 }

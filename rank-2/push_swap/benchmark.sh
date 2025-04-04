@@ -34,7 +34,11 @@ do
 	OK=$(${EXECUTABLE} "${ARG}" | ./checker_linux "${ARG}")
 	COUNT=$(${EXECUTABLE} "${ARG}" | wc -l)
 	if echo "$OK" | grep -q "KO"; then
-		printf "${RED}Error${RESET}: invalide sort for the [$(echo "${ARG}")] list\n"
+		if echo "$OK" | grep -q "Error"; then
+			printf "${RED}Error: ${RESET}invalid argument\n  ${OK}\n"
+		else
+			printf "${RED}Error${RESET}: invalide sort for the [$(echo "${ARG}")] list\n"
+		fi
 		NB_FAIL=$((NB_FAIL + 1))
 	else
 		AVRG=$((AVRG + COUNT))
