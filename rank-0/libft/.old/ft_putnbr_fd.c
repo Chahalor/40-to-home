@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:38:59 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/21 10:35:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 09:56:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	write_logic(int nb, int fd)
  */
 void	ft_putnbr_fd(int nb, int fd)
 {
+	char	r;
+
 	if (fd < 0)
 		return ;
 	if (nb == -2147483648)
