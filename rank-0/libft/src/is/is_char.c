@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 08:24:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 08:30:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 10:15:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	//...
 
 /* Modules */
-	//...
+#include "is.h"
 
 #pragma endregion	/* Includes */
 #pragma region "Functions"

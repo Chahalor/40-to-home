@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 08:44:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/02 08:49:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 10:16:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ __attribute__((malloc)) t_list	*ft_lstlast(const t_list *const lst)
 	if (!lst)
 		return (NULL);
 	if (!lst->next)
-		return (lst);
+		return ((t_list *)lst);
 	next = lst->next;
 	while (next->next)
 		next = next->next;
@@ -50,7 +50,7 @@ __attribute__((malloc)) t_list	*ft_lstlast(const t_list *const lst)
  * @param lst The beginning of the list.
  * @return int The number of elements in the list.
  */
-__attribute__((malloc)) int	ft_lstsize(const t_list *const lst)
+__attribute__((leaf)) int	ft_lstsize(const t_list *const lst)
 {
 	int		size;
 	t_list	*next;
@@ -113,7 +113,7 @@ __attribute__((malloc)) t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),
  * @param f The address of the function used to iterate on the list.
  * @return void
  */
-__attribute__((malloc)) void	ft_lstiter(t_list *lst, void (*f)(void *))
+__attribute__((leaf)) void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*next;
 

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 08:54:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 09:52:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/04 10:23:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 /* Modules */
 #include "memory.h"
-#include "colors.h"
+#include "formating.h"
 
 #pragma endregion	/* Includes */
 #pragma region "Functions"

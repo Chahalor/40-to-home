@@ -18,16 +18,16 @@ DEBUGFLAGS	:=
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
 DIR_BONUS	:= 
-INCLUDE_ALL	:=-I./ -I -I$(DIR_SRC)/char-change -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change -I$(DIR_SRC)/ft_printf -I$(DIR_SRC)/get_next_line
+INCLUDE_ALL	:=-I./ -I -I$(DIR_SRC)/char-change -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/micellaneous -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change -I$(DIR_SRC)/ft_printf -I$(DIR_SRC)/get_next_line
 
 # Here we include all the makefile.mk files
-include  src/char-change/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk ft_printf/makefile.mk get_next_line/makefile.mk
+include  src/char-change/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/micellaneous/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk ft_printf/makefile.mk get_next_line/makefile.mk
 
 SRC_MAIN	:=
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_FT_PRINTF) $(OBJ_GET_NEXT_LINE) $(OBJ_MAIN)
+OBJ_ALL		:= $(OBJ_CHAR-CHANGE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_MICELLANEOUS) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_FT_PRINTF) $(OBJ_GET_NEXT_LINE) $(OBJ_MAIN)
 
 # ***************************************************** #
 # *                    Rules                          * #
