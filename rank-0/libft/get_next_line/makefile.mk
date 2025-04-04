@@ -1,0 +1,13 @@
+DIR_MODULE_GET_NEXT_LINE		:= get_next_line
+DIR_INTERFACE_GET_NEXT_LINE	:= $(DIR_MODULE_GET_NEXT_LINE)
+DIR_INTERNAL_GET_NEXT_LINE	:= $(DIR_MODULE_GET_NEXT_LINE)/_internal
+
+SRC_INTERFACE_GET_NEXT_LINE	:= get_next_line.c get_next_line_bonus.c get_next_line_utils.c get_next_line_utils_bonus.c 
+SRC_INTERNAL_GET_NEXT_LINE	:= 
+
+OBJ_GET_NEXT_LINE			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_GET_NEXT_LINE)/, $(SRC_INTERFACE_GET_NEXT_LINE:.c=.o))
+OBJ_GET_NEXT_LINE			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_GET_NEXT_LINE)/, $(SRC_INTERNAL_GET_NEXT_LINE:.c=.o))
+
+$(DIR_OBJ)/$(DIR_MODULE_GET_NEXT_LINE)/%.o: $(DIR_SRC)/$(DIR_MODULE_GET_NEXT_LINE)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) -I$(DIR_SRC)/$(DIR_MODULE_GET_NEXT_LINE)/_internal $(INCLUDE_ALL) -c $< -o $@
