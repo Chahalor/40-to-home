@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nduvoid <nduvoid@42mulhouse.fr>            +#+  +:+       +#+        */
+/*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:36:25 by nduvoid           #+#    #+#             */
-/*   Updated: 2024/11/21 10:43:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/07 08:17:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	write_arg(const char *s, va_list args)
 		return (0);
 }
 
-static int	write_loop(const char *s, va_list args, __uint32_t strlen,
+int	write_loop(const char *s, va_list args, __uint32_t strlen,
 				int *nb_char)
 {
 	__uint32_t	i;

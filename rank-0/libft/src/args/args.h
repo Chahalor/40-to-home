@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 10:59:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/07 08:14:43 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/07 08:20:14 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/07 08:28:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef ARGS_H
+# define ARGS_H
 
-# define MAX_ERROR_LEVEL	5
+#pragma once
 
-typedef struct s_error_level	t_error_level;
+/* Typedefs */
 
-struct s_error_level
+typedef enum e_types	t_types;
+
+typedef struct s_args	t_args;
+
+/* Enums */
+
+enum e_types
 {
-	char			*message;	/* The error message */
-	t_error_level	*next;		/* Pointer to the next error of the level */
-	int				level;		/* The error level */
-	int				code;		/* The error code */
+	e_none,
+	e_flag,
+	e_int,
+	e_str,
 };
 
-void ft_exit(const int code, const char *msg);
-void exiting(const int errno, const char *msg);
+/* Prototypes */
 
-#endif
+int add_args(t_types type, const char *name, )
+
+#endif	/* ARGS_H */

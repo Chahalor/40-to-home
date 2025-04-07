@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:46:09 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 09:50:11 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/07 08:15:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 }
 
 /** */
-__attribute__((malloc)) void	ft_memdup(const void *src, const size_t n)
+__attribute__((malloc)) void	*ft_memdup(const void *src, const size_t n)
 {
 	void	*dest;
 

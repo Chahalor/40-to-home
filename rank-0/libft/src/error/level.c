@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 10:58:34 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 11:15:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/07 08:13:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_error_level	*get_bottom(t_error_level *list)
 int	add_error(const char *msg, const int code, const int level)
 {
 	t_error_level	*error_list;
-	t_error_level		*new_error;
+	t_error_level	*new_error;
 
 	if (level < 0 || level >= MAX_ERROR_LEVEL)
 		return (-1);
@@ -54,8 +54,9 @@ int	add_error(const char *msg, const int code, const int level)
 		new_error = malloc(sizeof(t_error_level));
 		if (!new_error)
 			return (-1);
-		*new_error = (t_error_level){.message = msg, .next = NULL,
+		*new_error = (t_error_level){.message = (char *)msg, .next = NULL,
 			.level = level, .code = code};
 		get_bottom(error_list)->next = new_error;
 	}
+	return (0);
 }

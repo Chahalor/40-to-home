@@ -10,24 +10,30 @@ MAKEFLAGS += --no-print-directory
 # *                    Variables                      * #
 # ***************************************************** #
 
-NAME		:= libft.a
+NAME		:= philo
+BONUS		:=
 
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror -MMD
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
-DIR_OBJ		:= .obj
+DIR_OBJ		:= .build
 DIR_BONUS	:= 
-INCLUDE_ALL	:=-I./ -I -I$(DIR_SRC)/args -I$(DIR_SRC)/char-change -I$(DIR_SRC)/error -I$(DIR_SRC)/ft_printf -I$(DIR_SRC)/get_next_line -I$(DIR_SRC)/is -I$(DIR_SRC)/linked-list -I$(DIR_SRC)/memory -I$(DIR_SRC)/micellaneous -I$(DIR_SRC)/put -I$(DIR_SRC)/str -I$(DIR_SRC)/str-change
+INCLUDE_ALL	:=-Iglobal -I$(DIR_SRC)/debug -I$(DIR_SRC)/parsing -I$(DIR_SRC)/threading -I$(DIR_SRC)/utils
+
+DIR_LIBFT	:= #
+LIBFT		:= #$(DIR_LIBFT)/libft.a
 
 # Here we include all the makefile.mk files
-include  src/args/makefile.mk src/char-change/makefile.mk src/error/makefile.mk src/ft_printf/makefile.mk src/get_next_line/makefile.mk src/is/makefile.mk src/linked-list/makefile.mk src/memory/makefile.mk src/micellaneous/makefile.mk src/put/makefile.mk src/str/makefile.mk src/str-change/makefile.mk
+include  src/debug/makefile.mk src/parsing/makefile.mk src/threading/makefile.mk src/utils/makefile.mk
 
-SRC_MAIN	:=
+SRC_MAIN	:= philo.c
+SRC_BONUS	:=
 
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_ALL		:= $(OBJ_ARGS) $(OBJ_CHAR-CHANGE) $(OBJ_ERROR) $(OBJ_FT_PRINTF) $(OBJ_GET_NEXT_LINE) $(OBJ_IS) $(OBJ_LINKED-LIST) $(OBJ_MEMORY) $(OBJ_MICELLANEOUS) $(OBJ_PUT) $(OBJ_STR) $(OBJ_STR-CHANGE) $(OBJ_MAIN)
+OBJ_BONUS	:= $(addprefix $(DIR_OBJ)/, $(SRC_BONUS:.c=.o))
+OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_PARSING) $(OBJ_THREADING) $(OBJ_UTILS)
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -41,13 +47,18 @@ all: header norm $(NAME) install
 # *                  Compiling                        * #
 # ***************************************************** #
 
-$(NAME): $(OBJ_ALL)
-	@ar rcs $(NAME) $(OBJ_ALL)
-	@ranlib $(NAME)
+$(NAME):  $(LIBFT) $(OBJ_ALL) $(OBJ_MAIN)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT) -o $(NAME) 
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(DIR_OBJ)
 	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -c $< -o $@
+
+# $(LIBFT):
+# 	@make -C $(DIR_LIBFT) NO_HEADER=true
+
+bonus: $(LIBFT) $(OBJ_ALL) $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT)  -o $(BONUS)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -56,14 +67,13 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 .PHONY: clean fclean re
 
 clean:
-	rm -rf $(DIR_OBJ)
-# @make clean -C $(DIR_LIBFT)
-# @make clean -C $(DIR_BONUS)
+	rm -f $(OBJ_ALL) $(OBJ_MAIN) $(OBJ_BONUS)
+#@make clean -C $(DIR_LIBFT)
 
-fclean: clean
-	rm -f $(NAME)
-# @make fclean -C $(DIR_LIBFT)
-# @make fclean -C $(DIR_BONUS)
+fclean:
+	rm -rf $(DIR_OBJ)
+	rm -f $(NAME) $(BONUS)
+#@make fclean -C $(DIR_LIBFT)
 
 re: fclean all
 
@@ -104,17 +114,18 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-# INSTALL_DIR = $(HOME)/.local/bin
+INSTALL_DIR = $(HOME)/.local/bin
 
-# install:
-# 	mkdir -p $(INSTALL_DIR)
-# 	cp $(NAME) $(INSTALL_DIR)/
-# 	chmod +x $(INSTALL_DIR)/$(NAME)
-# 	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
+install:
+	mkdir -p $(INSTALL_DIR)
+	cp $(NAME) $(INSTALL_DIR)/
+	chmod +x $(INSTALL_DIR)/$(NAME)
+	$(call _completion)
+	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
 
-# uninstall:
-# 	rm -rf $(INSTALL_DIR)/$(NAME)
-# 	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
+uninstall:
+	rm -rf $(INSTALL_DIR)/$(NAME)
+	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
 
 update:
 	if [ -f ./auto.sh ]; then \

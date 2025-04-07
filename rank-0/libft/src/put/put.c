@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:54:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 09:59:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/07 08:16:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 /* Modules */
 #include "put.h"
+#include "str.h"
 
 #pragma endregion	/* Includes */
 #pragma region "Functions"
@@ -77,8 +78,6 @@ static void	write_logic(int nb, int fd)
  */
 void	ft_putnbr_fd(int nb, int fd)
 {
-	char	r;
-
 	if (fd < 0)
 		return ;
 	if (nb == -2147483648)

@@ -1,23 +1,23 @@
 #!/bin/bash
 
 # cleaning the previous shit
-rm -r **/*/makefile.mk Makefile
+rm -r **/makefile.mk Makefile
 
 # Main dir && variables definitions
-EXEC_NAME="$(basename "$(pwd)").a"
+DIR_SRC="src"
+DIR_OBJ=".build"
+DIR_INTERNAL="_internal"
+DIR_INTERFACE=""
+DIR_INCLUDE="global"
+EXEC_NAME=$(basename "$(pwd)")
 
 # other variables
 CC="cc"
 CFLAGS="-Wall -Wextra -Werror -MMD"
 DEBUGFLAGS=""
 
-DIR_SRC="src"
-DIR_OBJ=".obj"
-DIR_INTERNAL="_internal"
-DIR_INTERFACE=""
-DIR_INCLUDE="./"
-DIR_PRINTF="ft_printf"
-DIR_GNL="get_next_line"
+DIR_LIBFT=""
+DIR_BONUS=""
 
 # nice but useless config
 HEADER="# Big Header #"
@@ -26,27 +26,27 @@ HEADER="# Big Header #"
 if [ ! -d "$DIR_SRC" ]; then
 	echo "❌ Erreur : Le dossier '$DIR_SRC' n'existe pas."
 	exit 1
-# elif [ ! -d "$DIR_PRINTF" ]; then
-# 	echo "❌ Erreur : Le dossier '$DIR_PRINTF' n'existe pas."
-# 	exit 1
-# elif [ ! -d "$DIR_GNL" ]; then
-# 	echo "❌ Erreur : Le dossier '$DIR_GNL' n'existe pas."
-# 	exit 1
 fi
 
 # All lists used
-MAKEFILE_SUPP_LIST=""
+MAKEFILE_MK_LIST=""
 OBJ_ALL_LIST=""
-INCLUDE_ALL="-I$DIR_INCLUDE -I$DIR_LIBFT"
+INCLUDE_ALL="-I$DIR_INCLUDE" # -I$DIR_LIBFT
 
-create_mk()
-{
-	module=$1
+# building the list of includes
+for module in "$DIR_SRC"/*; do
 	if [ -d "$module" ]; then
 		MODULE_NAME=$(basename "$module")
-		INCLUDE_ALL+=" -I\$(DIR_SRC)/$MODULE_NAME"
+		[ -n "$MODULE_NAME" ] && INCLUDE_ALL+=" -I\$(DIR_SRC)/$MODULE_NAME" && printf "module name = ${MODULE_NAME}\n"
+	fi
+done
+
+# generating a makefile.mk for each module
+for module in "$DIR_SRC"/*/; do
+	if [ -d "$module" ]; then
+		MODULE_NAME=$(basename "$module")
 		MODULE_VAR="OBJ_${MODULE_NAME^^}"	# OBJ variable name in uppercase
-		MAKEFILE_SUPP_LIST+=" ${module}makefile.mk"
+		MAKEFILE_MK_LIST+=" ${module}makefile.mk"
 		OBJ_ALL_LIST+=" \$($MODULE_VAR)"	# OBJ_ALL variable name in makefile
 		SRC_INTERFACE=$(find "$module" -maxdepth 1 -name "*.c" | sed 's|^.*/||' | tr '\n' ' ')	# listing all .c files in the module directory
 		SRC_INTERNAL=""
@@ -68,22 +68,11 @@ OBJ_${MODULE_NAME^^}			+= \$(addprefix \$(DIR_OBJ)/\$(DIR_INTERNAL_${MODULE_NAME
 
 \$(DIR_OBJ)/\$(DIR_MODULE_${MODULE_NAME^^})/%.o: \$(DIR_SRC)/\$(DIR_MODULE_${MODULE_NAME^^})/%.c
 	@mkdir -p \$(dir \$@)
-	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) -I\$(DIR_SRC)/\$(DIR_MODULE_${MODULE_NAME^^})/_internal \$(INCLUDE_ALL) -c \$< -o \$@
+	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) -I\$(DIR_SRC)/\$(DIR_MODULE_${MODULE_NAME^^})/_internal -c \$< -o \$@
 EOM
 		echo "✅ ${module}makefile.mk créé pour le module $MODULE_NAME !"
 	fi
-}
-
-# generating a makefile.mk for each module
-for module in "$DIR_SRC"/*/; do
-	create_mk "$module"
 done
-# for module in "$DIR_PRINTF"/; do
-# 	create_mk "$module"
-# done
-# for module in "$DIR_GNL"/; do
-# 	create_mk "$module"
-# done
 
 # writing the main Makefile
 cat <<EOF > Makefile
@@ -100,6 +89,7 @@ MAKEFLAGS += --no-print-directory
 # ***************************************************** #
 
 NAME		:= $EXEC_NAME
+BONUS		:=
 
 CC			:= $CC
 CFLAGS		:= $CFLAGS
@@ -109,14 +99,19 @@ DIR_OBJ		:= $DIR_OBJ
 DIR_BONUS	:= $DIR_BONUS
 INCLUDE_ALL	:=$INCLUDE_ALL
 
-# Here we include all the makefile.mk files
-include $MAKEFILE_SUPP_LIST
+DIR_LIBFT	:= #$DIR_LIBFT
+LIBFT		:= #\$(DIR_LIBFT)/libft.a
 
-SRC_MAIN	:=
+# Here we include all the makefile.mk files
+include $MAKEFILE_MK_LIST
+
+SRC_MAIN	:= philo.c
+SRC_BONUS	:=
 
 # all object files for the modules
 OBJ_MAIN	:= \$(addprefix \$(DIR_OBJ)/, \$(SRC_MAIN:.c=.o))
-OBJ_ALL		:=$OBJ_ALL_LIST \$(OBJ_MAIN)
+OBJ_BONUS	:= \$(addprefix \$(DIR_OBJ)/, \$(SRC_BONUS:.c=.o))
+OBJ_ALL		:=$OBJ_ALL_LIST
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -130,13 +125,18 @@ all: header norm \$(NAME) install
 # *                  Compiling                        * #
 # ***************************************************** #
 
-\$(NAME): \$(OBJ_ALL)
-	@ar rcs \$(NAME) \$(OBJ_ALL)
-	@ranlib \$(NAME)
+\$(NAME):  \$(LIBFT) \$(OBJ_ALL) \$(OBJ_MAIN)
+	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) \$^ \$(LIBFT) -o \$(NAME) 
 
 \$(DIR_OBJ)/%.o: \$(DIR_SRC)/%.c
 	@mkdir -p \$(DIR_OBJ)
 	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) -c $< -o \$@
+
+# \$(LIBFT):
+# 	@make -C \$(DIR_LIBFT) NO_HEADER=true
+
+bonus: \$(LIBFT) \$(OBJ_ALL) \$(OBJ_BONUS)
+	\$(CC) \$(CFLAGS) \$(DEBUGFLAGS) \$(INCLUDE_ALL) \$^ \$(LIBFT)  -o \$(BONUS)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -145,14 +145,13 @@ all: header norm \$(NAME) install
 .PHONY: clean fclean re
 
 clean:
-	rm -rf \$(DIR_OBJ)
-# @make clean -C \$(DIR_LIBFT)
-# @make clean -C \$(DIR_BONUS)
+	rm -f \$(OBJ_ALL) \$(OBJ_MAIN) \$(OBJ_BONUS)
+#@make clean -C \$(DIR_LIBFT)
 
-fclean: clean
-	rm -f \$(NAME)
-# @make fclean -C \$(DIR_LIBFT)
-# @make fclean -C \$(DIR_BONUS)
+fclean:
+	rm -rf \$(DIR_OBJ)
+	rm -f \$(NAME) \$(BONUS)
+#@make fclean -C \$(DIR_LIBFT)
 
 re: fclean all
 
@@ -193,17 +192,18 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \\
 	fi
 
-# INSTALL_DIR = \$(HOME)/.local/bin
+INSTALL_DIR = \$(HOME)/.local/bin
 
-# install:
-# 	mkdir -p \$(INSTALL_DIR)
-# 	cp \$(NAME) \$(INSTALL_DIR)/
-# 	chmod +x \$(INSTALL_DIR)/\$(NAME)
-# 	echo "\033[1;32m ✅ \$(NAME) installed to \$(INSTALL_DIR) \033[0m"; \\
+install:
+	mkdir -p \$(INSTALL_DIR)
+	cp \$(NAME) \$(INSTALL_DIR)/
+	chmod +x \$(INSTALL_DIR)/\$(NAME)
+	\$(call _completion)
+	echo "\033[1;32m ✅ \$(NAME) installed to \$(INSTALL_DIR) \033[0m"; \\
 
-# uninstall:
-# 	rm -rf \$(INSTALL_DIR)/\$(NAME)
-# 	echo "\033[1;32m ✅ \$(NAME) uninstalled from \$(INSTALL_DIR) \033[0m";
+uninstall:
+	rm -rf \$(INSTALL_DIR)/\$(NAME)
+	echo "\033[1;32m ✅ \$(NAME) uninstalled from \$(INSTALL_DIR) \033[0m";
 
 update:
 	if [ -f ./auto.sh ]; then \\
