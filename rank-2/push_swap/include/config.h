@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:27:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/01 15:53:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:18:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 // miscellaneous define
 
-# define ALLOW_COLOR	0	// 1 to allow color in printf
+# define ALLOW_COLOR	1	// 1 to allow color in printf
 # if ALLOW_COLOR == 1
 
 #  define RED		"\033[31m"	/* 255;0;0 */

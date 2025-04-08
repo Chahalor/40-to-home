@@ -37,7 +37,7 @@ INCLUDE_ALL="-I$DIR_INCLUDE" # -I$DIR_LIBFT
 for module in "$DIR_SRC"/*; do
 	if [ -d "$module" ]; then
 		MODULE_NAME=$(basename "$module")
-		[ -n "$MODULE_NAME" ] && INCLUDE_ALL+=" -I\$(DIR_SRC)/$MODULE_NAME" && printf "module name = ${MODULE_NAME}\n"
+		[ -n "$MODULE_NAME" ] && INCLUDE_ALL+=" -I\$(DIR_SRC)/$MODULE_NAME"
 	fi
 done
 

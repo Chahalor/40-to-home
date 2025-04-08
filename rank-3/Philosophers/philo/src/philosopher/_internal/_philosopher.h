@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   _philosopher.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 13:40:29 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/08 10:27:49 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/08 15:08:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef _PHILOSOPHER_H
+# define _PHILOSOPHER_H
 
 # pragma once
 
@@ -20,13 +20,14 @@
 /* ************************************************************************** */
 
 /* Systemes */
-	//...
+# include <pthread.h>
 
 /* Global */
-	//...
+# include "type.h"
+# include "config.h"
 
 /* Modules */
-	//...
+# include "formating.h"
 
 /* ************************************************************************** */
 /*                                 Defines                                    */
@@ -56,15 +57,17 @@
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-// utils.c
+// _philosopher.c
 
-extern int	ft_strlen(const char *str);
-extern void	ft_bzero(void *ptr, size_t len);
-extern void	*ft_calloc(const size_t nmemb, const size_t size);
-void		*emergency_storage(void *ptr);
+extern int	init_philos(t_philo **philo,
+	t_mutex **fork, const register t_philo_data data);
+extern void	destroy_forks(t_mutex **forks, register int i);
+extern int	init_forks(t_mutex **fork, const int nb_philo);
 
-// error.c
+// _day.c
+extern void	sleep(t_philo *philo);
+extern void	eat(t_philo *philo);
+extern void	think(t_philo *philo);
+extern void	die(t_philo *philo);
 
-extern void	ft_error(const char *msg);
-
-#endif	/* UTILS_H */
+#endif	/* _PHILOSOPHER_H */

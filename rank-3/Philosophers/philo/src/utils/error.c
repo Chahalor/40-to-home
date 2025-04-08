@@ -1,44 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 11:13:51 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/07 11:15:09 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/08 08:26:45 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/08 11:22:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Headers"
 // System
-	//...
+#include <stdio.h>
+#include <errno.h>
+#include <unistd.h>
 
 // Global
-#include "type.h"
+#include "../global/type.h"
 
 // Modules
 #include "formating.h"
+#include "utils.h"
 
 #pragma endregion "Headers"
 #pragma region "Functions"
 
-/** */
-int	is_nbr(const char *str)
+/**
+ * @brief Write a formatted error message to stderr
+ * 
+ * @param msg The error message
+ * 
+ * @return void
+ * 
+ * @note It take the error message from the set_error function to write it
+ */
+__attribute__((always_inline)) inline void	ft_error(const char *msg)
 {
-	register int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		++i;
-	while (str[i])
+	if (msg)
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		else
-			++i;
+		write(2, RED ERROR RESET, 21);
+		write(2, msg, ft_strlen(msg));
+		write(2, "\n", 1);
 	}
-	return (1);
+	else
+	{
+		write(2, RED ERROR RESET, 21);
+		write(2, "Unknown error\n", 14);
+	}
 }
 
 #pragma endregion "Functions"

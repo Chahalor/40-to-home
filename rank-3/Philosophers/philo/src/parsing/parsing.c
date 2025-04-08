@@ -6,23 +6,17 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/07 15:34:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/08 11:06:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Headers"
-// System
-#include <stdio.h>
-#include <errno.h>
 
-// Global
-#include "../global/type.h"
-
-// Modules
-#include "parsing.h"
+// _internal
 #include "_parsing.h"
-#include "utils.h"
-#include "formating.h"
+
+// interface
+#include "parsing.h"
 
 #pragma endregion "Headers"
 #pragma region "Functions"
@@ -170,7 +164,7 @@ t_args	parse_args(int argc, const char *argv[])
 		printf(BLUE "Usage: " RESET "%s [options] [args]\n", argv[0]);
 		return ((t_args){.error = EINVAL});
 	}
-	args = (t_args){.argc = argc, .argv = argv, .error = 0, .help = 0, .debug = 0};
+	args = (t_args){.argc = argc, .argv = argv, .error = 0};
 	i = 0;
 	while (++i < argc && !args.error && !args.help)
 	{

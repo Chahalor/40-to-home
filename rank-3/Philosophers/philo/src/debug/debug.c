@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/07 15:46:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:09:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ __attribute__((unused, always_inline))
 extern inline void print_philo(const t_philo *philo)
 {
 	printf("philo (%p):\n", philo);
+	if (!philo)
+		return ;
 	printf("├──philo->id = %d\n", philo->id);
 	printf("├──philo->left_fork = %p\n", philo->left_fork);
 	printf("├──philo->right_fork = %p\n", philo->right_fork);
-	printf("├──philo->prev = %p\n", philo->prev);
-	printf("├──philo->next = %p\n", philo->next);
+	printf("├──philo->lock = %p\n", philo->lock);
+	printf("├──philo->thread = %lu\n", philo->thread);
 	printf("├──philo->nb_meals = %d\n", philo->nb_meals);
 	printf("├──philo->last_meal = %d\n", philo->last_meal);
 	printf("├──philo->state = %d\n", philo->state);
@@ -77,5 +79,14 @@ extern inline void print_philo(const t_philo *philo)
 }
 
 #endif
+
+/** */
+__attribute__((unused, always_inline)) extern inline void	print_debug(
+	const char *msg
+)
+{
+	if (DEBUG != 0)
+		printf("%s\n", msg);
+}
 
 #pragma endregion "Functions"

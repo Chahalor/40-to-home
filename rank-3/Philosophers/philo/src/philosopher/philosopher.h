@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 13:40:29 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/08 10:20:45 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/08 16:02:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 
 # pragma once
 
@@ -20,10 +20,10 @@
 /* ************************************************************************** */
 
 /* Systemes */
-	//...
+# include <pthread.h>
 
 /* Global */
-	//...
+# include "type.h"
 
 /* Modules */
 	//...
@@ -56,15 +56,10 @@
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-// utils.c
+// philosopher.c
 
-extern int	ft_strlen(const char *str);
-extern void	ft_bzero(void *ptr, size_t len);
-extern void	*ft_calloc(const size_t nmemb, const size_t size);
-void		*emergency_storage(void *ptr);
+t_philo		**build_philos(const t_philo_data data);
+extern void	terminator(t_philo **philo, const int nb_philo);
+extern void	hive_mind(t_global *global);
 
-// error.c
-
-extern void	ft_error(const char *msg);
-
-#endif	/* UTILS_H */
+#endif	/* PHILOSOPHER_H */
