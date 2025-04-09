@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:43:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 15:21:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 09:47:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 #  define COLORS_START	0
 #  define COLORS_END	0
 # endif	/* ALLOW_COLORS */
+
+# define ALLOW_LOGS		1
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */

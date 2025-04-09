@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:27:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 15:42:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 12:00:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ __attribute__((always_inline)) inline int	init_philos(
 	{
 		philo[i] = (t_philo *)(&philo_data[i]);
 		*philo[i] = (t_philo){
-			.id = i, .nb_meals = 0, .last_meal = 0, .state = thinking,
+			.id = i, .nb_meals = 0, .last_meal = get_ms_time(), .state = eating,
 			.color = i * color_step, .thread = 0,
 			.lock = (t_mutex *)(&lock_pool[i]),
 			.left_fork = (t_mutex *)(&fork_data[i]),
@@ -53,7 +53,7 @@ __attribute__((always_inline)) inline int	init_philos(
 }
 
 /** */
-__attribute__((always_inline)) inline void	destroy_forks(
+__attribute__((always_inline)) static inline void	destroy_forks(
 	t_mutex **forks, register int i)
 {
 	while (i >= 0)

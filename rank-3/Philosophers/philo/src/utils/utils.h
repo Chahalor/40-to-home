@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 13:40:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 10:08:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 
 // utils.c
 
+extern int	get_ms_time(void);
 extern int	ft_strlen(const char *str);
 extern void	ft_bzero(void *ptr, size_t len);
 extern void	*ft_calloc(const size_t nmemb, const size_t size);

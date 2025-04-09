@@ -169,6 +169,9 @@ debug:
 debug.fsanitize: debug
 	\$(eval DEBUGFLAGS=\$(DEBUGFLAGS) -fsanitize=address)
 
+debug.fthread: debug
+	\$(eval DEBUGFLAGS=\$(DEBUGFLAGS) -fsanitize=thread)
+
 debug.fs: debug.fsanitize
 
 debug.pg:

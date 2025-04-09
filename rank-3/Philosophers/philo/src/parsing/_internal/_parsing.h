@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:28:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 11:19:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:04:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@
 /*                                 Defines                                    */
 /* ************************************************************************** */
 
-//...
+# define USAGE	"Usage: "
+# define USAGE_INFO "philo [options] <nb_philo> <time_to_die> <time_to_eat>\
+	 <time_to_sleep> <nb_meals>\n"
+# define SUSAGE_INFO "%s [options] <nb_philo> <time_to_die> <time_to_eat>\
+	 <time_to_sleep> <nb_meals>\n"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
@@ -61,5 +65,10 @@
 int	ft_strncmp(const char *s1, const char *s2, const size_t n);
 int	ft_atoi(const char *nptr);
 int	is_nbr(const char *str);
+
+// _info.c
+
+extern void	_show_usage(const char *prog);
+extern void	_show_help(void);
 
 #endif	/* _PARSING_H */

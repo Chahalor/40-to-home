@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:26:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 11:22:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:46:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,9 @@
 __attribute__((always_inline)) inline void	ft_error(const char *msg)
 {
 	if (msg)
-	{
-		write(2, RED ERROR RESET, 21);
-		write(2, msg, ft_strlen(msg));
-		write(2, "\n", 1);
-	}
+		printf(RED ERROR RESET "%s\n", msg);
 	else
-	{
-		write(2, RED ERROR RESET, 21);
-		write(2, "Unknown error\n", 14);
-	}
+		printf(RED ERROR RESET "Unknown error\n");
 }
 
 #pragma endregion "Functions"

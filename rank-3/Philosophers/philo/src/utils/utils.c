@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 13:40:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 10:07:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <sys/time.h>
 
 // Global
 #include "type.h"
@@ -25,6 +26,19 @@
 
 #pragma endregion "Headers"
 #pragma region "Functions"
+
+/** */
+__attribute__((always_inline)) int	get_ms_time(
+	void
+)
+{
+	struct timeval	tv;
+
+	if (__builtin_expect(gettimeofday(&tv, NULL), unexpected))
+		return (-1);
+	else
+		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
 
 /** */
 __attribute__((cold, unused)) void	*emergency_storage(

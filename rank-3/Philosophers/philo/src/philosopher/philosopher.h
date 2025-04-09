@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:20:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 16:02:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/09 11:40:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@
 // philosopher.c
 
 t_philo		**build_philos(const t_philo_data data);
+void		*check_death(void *ptr);
 extern void	terminator(t_philo **philo, const int nb_philo);
-extern void	hive_mind(t_global *global);
+extern void	hive_mind(t_global *global, t_thread *main_thread);
 
 #endif	/* PHILOSOPHER_H */
