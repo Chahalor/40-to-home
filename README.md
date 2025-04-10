@@ -28,4 +28,4 @@
 
 |								Begining the Project									|											Coding									|							Passing Moulinette 🪢								|
 |:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|------------------------------------------------------------------------------:|
- ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)				| ![random](https://media1.tenor.com/m/rdjm58lG3OQAAAAd/spaiz-tryhard.gif)	| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
+ ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)				| ![random](https://media1.tenor.com/m/rdjm58lG3OQAAAAd/spaiz-tryhard.gif)			| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
