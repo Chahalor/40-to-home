@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:27:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 11:54:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:28:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 
 // _philosopher.c
 
-extern int	init_philos(t_philo **philo,
-	t_mutex **fork, const register t_philo_data data);
+extern int	init_philos(t_philo **philo, t_mutex **fork,
+	register const t_philo_data data);
 extern int	init_forks(t_mutex **fork, const int nb_philo);
 
 // _day.c

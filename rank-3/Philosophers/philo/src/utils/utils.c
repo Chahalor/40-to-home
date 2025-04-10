@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 10:07:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:35:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((always_inline)) int	get_ms_time(
-	void
-)
+__attribute__((always_inline, used)) inline int	get_ms_time(void)
 {
 	struct timeval	tv;
 

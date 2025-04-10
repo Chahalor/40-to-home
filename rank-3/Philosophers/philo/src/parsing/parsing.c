@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 12:34:23 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:50:04 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,14 @@ __attribute__((cold)) static int	_parse_data(
  * @return The arguments structure
 */
 __attribute__((cold, unused))
-t_args	parse_args(int argc, const char *argv[])
+t_args	parse_args(
+	register int argc,
+	const char *argv[]
+)
 {
-	t_args	args;
-	int		i;
+	t_args			args;
+	register int	i;
 
-	if (argc < 5)
-		return (_show_usage(argv[0]), (t_args){.error = EINVAL});
 	args = (t_args){.argc = argc, .argv = argv, .error = 0};
 	i = 1;
 	while (i < argc && !args.error && !args.help)

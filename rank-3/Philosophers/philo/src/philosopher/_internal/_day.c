@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:59:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 15:36:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:47:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ __attribute__((hot)) void	info(
 	const t_philo *restrict philo,
 	const int time
 )
-{
+{	// @todo: we need a get_start_time - time to know how long is passed since the start
 	static const char	*infos[5] = {
 		[thinking] = " is thinking",
 		[eating] = " is eating",
@@ -41,11 +41,14 @@ __attribute__((hot)) void	info(
 		[dead] = " died",
 		[take_fork] = " is taking a fork",
 	};
+	static int	time_start = -1;
 
 	// printf("info()");	// rm
+	if (__builtin_expect(time_start == -1, unexpected))
+		time_start = get_data(start_time);
 	lock_print();
 	write_rgb_ansi(philo->color);
-	printf("%10d | philo %d%s\n" RESET, time / 1000, philo->id + 1,
+	printf("%8d | philo %d%s\n" RESET, time / 1000, philo->id + 1,
 		infos[info]);
 	unlock_print();
 }
@@ -72,7 +75,7 @@ __attribute__((hot)) void	eat(
 		philo->state = finish;
 	else
 		philo->state = sleeping;
-	usleep(eat_time / 1000);
+	usleep(eat_time * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	if (philo->right_fork != philo->left_fork)
 		pthread_mutex_unlock(philo->right_fork);
@@ -101,7 +104,7 @@ __attribute__((hot)) void	mein_sleep(
 	// pthread_mutex_lock(philo->lock);
 	info(sleeping, philo, get_ms_time());
 	// pthread_mutex_unlock(philo->lock);
-	usleep(sleep_time / 1000);
+	usleep(sleep_time * 1000);
 	// pthread_mutex_lock(philo->lock);
 	philo->state = thinking;
 	// pthread_mutex_unlock(philo->lock);

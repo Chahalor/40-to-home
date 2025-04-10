@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:59:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 15:39:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:46:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ __attribute__((hot)) void	*check_death(
 			if (__builtin_expect(global->philos[i]->state == dead, unexpected))
 				return (NULL);
 			else if (__builtin_expect(time - global->philos[i]->last_meal
-					> global->data.time_to_die, unexpected))
+					>= global->data.time_to_die, unexpected))
 			{
 				global->philos[i]->state = dead;
 				info(dead, global->philos[i], time);
+				global->data.running = false;
+				return (NULL);
 			}
 			else if (__builtin_expect(global->philos[i]->state == finish, unexpected))
 				++nb_finish;
@@ -156,6 +158,7 @@ __attribute__((cold)) inline void	hive_mind(
 	if (__builtin_expect(!global || !global->philos, unexpected))
 		return ;
 	// print_debug("starting Hive mind");	//rm
+	global->data.start_time = get_ms_time();
 	pthread_mutex_lock(&global->data_lock);
 	store_global(global);
 	pthread_mutex_unlock(&global->data_lock);

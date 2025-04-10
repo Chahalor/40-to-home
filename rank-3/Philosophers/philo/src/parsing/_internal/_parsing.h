@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:28:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:04:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:52:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 
 # define USAGE	"Usage: "
 # define USAGE_INFO "philo [options] <nb_philo> <time_to_die> <time_to_eat>\
-	 <time_to_sleep> <nb_meals>\n"
+ <time_to_sleep> <nb_meals>\n"
 # define SUSAGE_INFO "%s [options] <nb_philo> <time_to_die> <time_to_eat>\
-	 <time_to_sleep> <nb_meals>\n"
+ <time_to_sleep> <nb_meals>\n"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */

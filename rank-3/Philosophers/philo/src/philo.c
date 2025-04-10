@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 10:58:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:51:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, const char *argv[])
 	t_global		global;
 	t_thread		main_tread;
 
-	if (args.error || args.help)
+	if (args.error || args.help != false)
 		return (args.error);
 	if (__builtin_expect(init_main(&global, &main_tread, &args.data), unexpected))
 	{

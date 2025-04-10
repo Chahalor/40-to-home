@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:13:52 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 12:00:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:48:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ __attribute__((hot)) int	get_data(
 		value = (data->data.nb_meals);
 	else if (request == state)
 		value = (data->data.running);
+	else if (request == start_time)
+		value = (data->data.start_time);
 	else
 		value = (-1);
 	pthread_mutex_unlock(&data->data_lock);

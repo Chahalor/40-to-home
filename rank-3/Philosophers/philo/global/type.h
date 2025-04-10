@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 15:35:39 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 20:05:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef enum e_state		t_state;
 typedef enum e_info			t_info;
 typedef enum e_say			t_say;
 
-typedef struct s_rgb		t_rgb;
 typedef struct s_args		t_args;
 typedef struct s_global		t_global;
 typedef struct s_philo_data	t_philo_data;
@@ -89,63 +88,58 @@ enum e_info
 	time_to_sleep,
 	nb_meals,
 	state,
+	start_time,
 };
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-struct s_rgb
-{
-	int	r	: 8;
-	int	g	: 8;
-	int	b	: 8;
-};
-
 # pragma pack(push, 1)
 
 struct s_philo_data
 {
-	int				nb_philo;		/**/
-	unsigned int	time_to_die;	/**/
-	int				time_to_eat;	/**/
-	int				time_to_sleep;	/**/
-	int				nb_meals;		/**/
-	t_bool			running	: 1;	/**/
+	int				nb_philo;		/* number of philo                      */
+	unsigned int	time_to_die;	/* the time to die from stavation       */
+	int				time_to_eat;	/* the time they take to eat            */
+	int				time_to_sleep;	/* the time they need to sleep          */
+	int				nb_meals;		/* the number of meal they have to take */
+	unsigned int	start_time;		/* the timer of the simu begining       */
+	t_bool			running	: 1;	/* if the simu still running            */
 };
 
 #pragma pack(pop)
 
 struct s_args
 {
-	int				argc;				/**/
-	const char		**argv;				/**/
-	t_philo_data	data;				/**/
-	int				error;				/**/
-	t_bool			help		: 1;	/**/
-	t_bool			debug		: 1;	/**/
-	t_bool			data_get	: 1;	/**/
+	int				argc;				/* The number of args           */
+	const char		**argv;				/* The pointer to the args      */
+	t_philo_data	data;				/* The simulation data          */
+	int				error;				/* The errno inside the parsing */
+	t_bool			help		: 1;	/* if -h/--help flag detected   */
+	t_bool			debug		: 1;	/* if -d/--debug flag detected  */
+	t_bool			data_get	: 1;	/* if we parsed the simu data   */
 };
 
 struct s_global
 {
-	t_philo_data	data;			/**/
-	t_philo			**philos;		/**/
-	t_mutex			print_lock;		/**/
-	t_mutex			data_lock;		/**/
+	t_philo_data	data;			/* all simulation limits      */
+	t_philo			**philos;		/* the philosophers list      */
+	t_mutex			print_lock;		/* lock the print acces       */
+	t_mutex			data_lock;		/* lock the rad/write of data */
 };
 
 struct s_philo
 {
-	t_mutex			*left_fork;		/**/
-	t_mutex			*right_fork;	/**/
-	t_mutex			*lock;			/**/
-	t_thread		thread;			/**/
-	t_state			state;			/**/
-	int				id;				/**/
-	int				nb_meals;		/**/
-	unsigned int	last_meal;		/**/
-	int				color;			/**/
+	t_mutex			*left_fork;		/* the left fork                         */
+	t_mutex			*right_fork;	/* the rigth fork (no way)               */
+	t_mutex			*lock;			/* useless @todo: rm       */
+	t_thread		thread;			/* the actual thread of the philo        */
+	t_state			state;			/* it actual state (eating,sleeping,...) */
+	int				id;				/* the unique id of the philo            */
+	int				nb_meals;		/* the number of time he eat             */
+	unsigned int	last_meal;		/* the time of its last meal             */
+	int				color;			/* the pilo colors                       */
 };
 
 /* ************************************************************************** */
