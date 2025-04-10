@@ -1,0 +1,1 @@
+ - [ ] a chaque fois que y a du temps la valeur est en microseconde et non en mini ou alors c est les econde depuis Unix

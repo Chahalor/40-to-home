@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:33:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 10:58:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	main(int argc, const char *argv[])
 
 	if (args.error || args.help)
 		return (args.error);
-	print_args(&args);
-	return (1);	// rm of course
 	if (__builtin_expect(init_main(&global, &main_tread, &args.data), unexpected))
 	{
 		destructor(&global);

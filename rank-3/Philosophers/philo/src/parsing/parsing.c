@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 08:19:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:34:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	_parse_long_options(const int argc, const char *argv[],
 	else
 	{
 		ft_error("Invalid option");
-		printf(PADD "invalid option: %s\n", argv[i]);
+		printf(PADD "invalid option: \"%s\"\n", argv[i]);
 		args->error = EINVAL;
 	}
 	return (1);
@@ -72,7 +72,7 @@ static int	_parse_short_options(const int argc, const char *argv[],
 	else
 	{
 		ft_error("Invalid option");
-		printf(PADD "invalid option: %s\n", argv[i]);
+		printf(PADD "invalid option: \"%s\"\n", argv[i]);
 		args->error = EINVAL;
 	}
 	return (1);
@@ -92,14 +92,12 @@ __attribute__((cold)) static int	_parse_data(
 	const int argc,
 	const char *restrict *restrict args,
 	t_args *restrict data,
-	register int i
-)
+	register int i)
 {
 	register int	j;
 
-	if (argc - i < 4 || argc - i > 5)
+	if (__builtin_expect(argc - i != 4 && argc - i != 5, unexpected))
 	{
-		printf("argc - i = %d\n", argc - i);
 		printf(RED ERROR RESET "Invalid number of arguments\n" PADD\
 			"get %d arguments, need 4 or 5\n", argc - 1);
 		return (data->error = EINVAL, -1);
@@ -108,14 +106,15 @@ __attribute__((cold)) static int	_parse_data(
 	{
 		j = -1;
 		while (++j < 4 && is_nbr(args[i]))
-			((int *)&data->data)[j] = ft_atoi(args[i]);
-		if (argc - i != 6)
+			((int *)&data->data)[j] = ft_atoi(args[i + j]);
+		if (__builtin_expect(i + j - 1 != argc - 1 && i + j - 1 != argc - 2,
+			unexpected))
 			return (data->error = EINVAL, -1);
-		if (i - 1 < argc && args[i] && is_nbr(args[i]))
-			data->data.nb_meals = ft_atoi(args[i]);
+		else if (i + j < argc && args[i] && is_nbr(args[i]))
+			data->data.nb_meals = ft_atoi(args[i + j]);	// on dirait que un nb invalide ici pose pas de probleme
 		else
 			data->data.nb_meals = -1;
-		return (j);
+		return (j + 1);
 	}
 }
 
@@ -136,8 +135,8 @@ t_args	parse_args(int argc, const char *argv[])
 	if (argc < 5)
 		return (_show_usage(argv[0]), (t_args){.error = EINVAL});
 	args = (t_args){.argc = argc, .argv = argv, .error = 0};
-	i = 0;
-	while (++i < argc && !args.error && !args.help)
+	i = 1;
+	while (i < argc && !args.error && !args.help)
 	{
 		if (argv[i][0] == '-')
 		{

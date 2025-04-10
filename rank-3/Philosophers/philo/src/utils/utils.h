@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 10:08:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:33:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,9 @@ void		*emergency_storage(void *ptr);
 // error.c
 
 extern void	ft_error(const char *msg);
+
+// ansi.c
+
+void	write_rgb_ansi(const int rgb);
 
 #endif	/* UTILS_H */

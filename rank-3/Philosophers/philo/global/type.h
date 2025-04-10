@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:11:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:35:39 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ struct s_rgb
 
 struct s_philo_data
 {
-	int		nb_philo;		/**/
-	int		time_to_die;	/**/
-	int		time_to_eat;	/**/
-	int		time_to_sleep;	/**/
-	int		nb_meals;		/**/
-	t_bool	running	: 1;	/**/
+	int				nb_philo;		/**/
+	unsigned int	time_to_die;	/**/
+	int				time_to_eat;	/**/
+	int				time_to_sleep;	/**/
+	int				nb_meals;		/**/
+	t_bool			running	: 1;	/**/
 };
 
 #pragma pack(pop)
@@ -137,15 +137,15 @@ struct s_global
 
 struct s_philo
 {
-	t_mutex		*left_fork;		/**/
-	t_mutex		*right_fork;	/**/
-	t_mutex		*lock;			/**/
-	t_thread	thread;			/**/
-	t_state		state;			/**/
-	int			id;				/**/
-	int			nb_meals;		/**/
-	int			last_meal;		/**/
-	int			color;			/**/
+	t_mutex			*left_fork;		/**/
+	t_mutex			*right_fork;	/**/
+	t_mutex			*lock;			/**/
+	t_thread		thread;			/**/
+	t_state			state;			/**/
+	int				id;				/**/
+	int				nb_meals;		/**/
+	unsigned int	last_meal;		/**/
+	int				color;			/**/
 };
 
 /* ************************************************************************** */

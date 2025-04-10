@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:13:52 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 11:28:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:00:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ __attribute__((hot)) int	get_data(
 		data = store_global(NULL);
 		return (0);
 	}
+	// printf("get_data()");	// rm
 	pthread_mutex_lock(&data->data_lock);
 	if (request == time_to_die)
 		value = (data->data.time_to_die);

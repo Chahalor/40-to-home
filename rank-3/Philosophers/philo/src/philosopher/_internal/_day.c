@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:59:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 14:44:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:36:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ __attribute__((hot)) void	info(
 		[take_fork] = " is taking a fork",
 	};
 
+	// printf("info()");	// rm
 	lock_print();
-	printf("| %d | %d | philo %d%s\n" RESET, philo->color, time, philo->id + 1,
+	write_rgb_ansi(philo->color);
+	printf("%10d | philo %d%s\n" RESET, time / 1000, philo->id + 1,
 		infos[info]);
 	unlock_print();
 }
 
 /** */
-__attribute__((used, always_inline)) void	eat(
+__attribute__((hot)) void	eat(
 	t_philo *philo
 )
 {
@@ -57,13 +59,12 @@ __attribute__((used, always_inline)) void	eat(
 	static int	eat_time = -1;
 	const int	max_meals = get_data(nb_meals);
 
-	print_debug("eat()");	// rm
 	if (__builtin_expect(eat_time == -1, unexpected))
 		eat_time = get_data(time_to_eat);
 	pthread_mutex_lock(philo->left_fork);
 	if (philo->right_fork != philo->left_fork)
 		pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(philo->lock);
+	// pthread_mutex_lock(philo->lock);
 	info(eating, philo, time);
 	philo->last_meal = time;
 	++philo->nb_meals;
@@ -71,38 +72,39 @@ __attribute__((used, always_inline)) void	eat(
 		philo->state = finish;
 	else
 		philo->state = sleeping;
-	usleep(eat_time);
+	usleep(eat_time / 1000);
 	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->lock);
+	if (philo->right_fork != philo->left_fork)
+		pthread_mutex_unlock(philo->right_fork);
+	// pthread_mutex_unlock(philo->lock);
 }
 
 /** */
-__attribute__((used, always_inline)) void	think(
+__attribute__((hot)) void	think(
 	t_philo *philo
 )
 {
-	print_debug("think()");	// rm
-	pthread_mutex_lock(philo->lock);
+	// printf("think()");	// rm
+	// pthread_mutex_lock(philo->lock);
 	info(thinking, philo, get_ms_time());
 	philo->state = eating;
-	pthread_mutex_unlock(philo->lock);
+	// pthread_mutex_unlock(philo->lock);
 }
 
 /** */
-__attribute__((used, always_inline)) void	mein_sleep(
+__attribute__((hot)) void	mein_sleep(
 	t_philo *philo,
 	const int sleep_time
 )
 {
-	print_debug("mein_sleep()");	// rm
-	pthread_mutex_lock(philo->lock);
+	// printf("mein_sleep()");	// rm
+	// pthread_mutex_lock(philo->lock);
 	info(sleeping, philo, get_ms_time());
-	pthread_mutex_unlock(philo->lock);
-	usleep(sleep_time);
-	pthread_mutex_lock(philo->lock);
+	// pthread_mutex_unlock(philo->lock);
+	usleep(sleep_time / 1000);
+	// pthread_mutex_lock(philo->lock);
 	philo->state = thinking;
-	pthread_mutex_unlock(philo->lock);
+	// pthread_mutex_unlock(philo->lock);
 }
 
 #pragma endregion "Functions"
