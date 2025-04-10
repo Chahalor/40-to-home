@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:44:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/10 08:19:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 // interface
 #include "parsing.h"
+#include "debug.h"
 
 #pragma endregion "Headers"
 #pragma region "Functions"
@@ -114,7 +115,7 @@ __attribute__((cold)) static int	_parse_data(
 			data->data.nb_meals = ft_atoi(args[i]);
 		else
 			data->data.nb_meals = -1;
-		return (i);
+		return (j);
 	}
 }
 
@@ -150,6 +151,7 @@ t_args	parse_args(int argc, const char *argv[])
 	}
 	if (args.help)
 		_show_help();
+	print_args(&args);
 	return (args);
 }
 
