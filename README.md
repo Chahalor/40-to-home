@@ -1,6 +1,4 @@
-# NDUVOID's 42 cursus
-
-[![42 School](https://img.shields.io/badge/Mulhouse-%23121011.svg?logo=42&logoColor=white)](https://42mulhouse.fr)
+# NDUVOID's 42 cursus [![42 School](https://img.shields.io/badge/Mulhouse-%23121011.svg?logo=42&logoColor=white)](https://42mulhouse.fr)
 
 [![nduvoid's 42 stats](https://badge.mediaplus.ma/blue/nduvoid?1337Badge=off&UM6P=off)](https://github.com/oakoudad/badge42)
 
