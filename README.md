@@ -1,4 +1,7 @@
 # NDUVOID's 42 cursus
+
+[![42 School](https://img.shields.io/badge/Mulhouse-%23121011.svg?logo=42&logoColor=white)](https://42mulhouse.fr)
+
 [![nduvoid's 42 stats](https://badge.mediaplus.ma/blue/nduvoid?1337Badge=off&UM6P=off)](https://github.com/oakoudad/badge42)
 
 ## 🗂️ Circle 0
@@ -13,7 +16,7 @@
 | [get_next_line](https://github.com/Chahalor/40-to-home/tree/main/rank-1/get_next_line)		| coding a function that read an fd until the next line								| yes		| 125		| 🔴 🔴 🔴			|
 | [Born2BeRoot](https://github.com/Chahalor/40-to-home/tree/main/rank-1/Born2BeRoot)			| A basic debian serveur to learn VM												| no		| 100		| 🔴 🔴 🔴			|
 
-##  Circle 2
+## 🖼 Circle 2
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
 | [push_swap](https://github.com/Chahalor/40-to-home/tree/main/rank-2/push_swap)				| understannding complexity in sorting algorithm									| yes		| 125		| 🌟 🌟 🌟			|
