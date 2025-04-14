@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 19:50:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:05:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ __attribute__((cold)) static int	_parse_data(
 			return (data->error = EINVAL, -1);
 		else if (i + j < argc && args[i] && is_nbr(args[i]))
 			data->data.nb_meals = ft_atoi(args[i + j]);	// on dirait que un nb invalide ici pose pas de probleme
-		else
+		else	// je confirme le comment du dessus
 			data->data.nb_meals = -1;
 		return (j + 1);
 	}

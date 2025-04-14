@@ -1,4 +1,5 @@
 import re
+import argparse
 
 ANSI_ESCAPE = re.compile(r'\x1b\[[0-9;]*m')
 
@@ -31,12 +32,18 @@ def parse_log_file(filepath):
 
 		for j in range(1, len(window)):
 			diff = abs(window[j][1] - window[j - 1][1])
-			if diff > 0.1:
-				print(f"\n⚠️  Écart détecté à la ligne {timestamps[i][0] + 1} :")
+			if diff > 0.5:
+				print(f"\n⚠️  Écart détecté à la ligne {filepath}:{timestamps[i][0] + 1} :")
 				print(f"  {timestamps[i][2]} <--> {window[j][2]}")
-				print(f"  Délai de {diff:.3f}s entre lignes {window[j-1][0]+1} et {window[j][0]+1}")
+				print(f"  Délai de {diff:.3f}s entre lignes {filepath}:{window[j-1][0]+1} et {window[j][0]+1}")
 				break
 
+def main():
+	parser = argparse.ArgumentParser(description="Analyse un fichier de log pour détecter les écarts de temps.")
+	parser.add_argument('filepath', type=str, help='Chemin du fichier de log à analyser.')
+	args = parser.parse_args()
+
+	parse_log_file(args.filepath)
+
 if __name__ == "__main__":
-	# Remplacez 'log.txt' par le chemin de votre fichier de log
-	parse_log_file('log.txt')
+	main()

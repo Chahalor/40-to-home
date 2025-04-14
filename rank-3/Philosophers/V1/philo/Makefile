@@ -41,7 +41,7 @@ OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_PARSING) $(OBJ_PHILOSOPHER) $(OBJ_UTILS)
 
 .PHONY: all
 
-all: header $(NAME) install
+all: header norm $(NAME) install
 
 # ***************************************************** #
 # *                  Compiling                        * #

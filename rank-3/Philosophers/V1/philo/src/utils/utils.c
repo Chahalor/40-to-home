@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 19:35:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:55:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((always_inline, used)) inline int	get_ms_time(void)
-{
-	struct timeval	tv;
-
-	if (__builtin_expect(gettimeofday(&tv, NULL), unexpected))
-		return (-1);
-	else
-		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-/** */
 __attribute__((cold, unused)) void	*emergency_storage(
 	void *ptr
 )
@@ -52,7 +41,7 @@ __attribute__((cold, unused)) void	*emergency_storage(
 
 /** */
 __attribute__((always_inline)) inline int	ft_strlen(
-const char *str
+	const char *str
 )
 {
 	register int	i;
@@ -76,7 +65,8 @@ const char *str
  * @return void
  */
 __attribute__((always_inline)) inline void	ft_bzero(
-	void *ptr, size_t len
+	void *ptr,
+	size_t len
 )
 {
 	uint8_t			*p;
@@ -101,7 +91,8 @@ __attribute__((always_inline)) inline void	ft_bzero(
 
 /** */
 __attribute__((always_inline, malloc)) inline void	*ft_calloc(
-	const size_t nmemb, const size_t size
+	const size_t nmemb,
+	const size_t size
 )
 {
 	void	*ptr;

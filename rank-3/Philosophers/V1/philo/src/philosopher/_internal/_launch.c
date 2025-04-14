@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:36:21 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 12:41:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:10:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,42 +33,20 @@ __attribute__((used, always_inline)) inline int	launch_thread(
 )
 {
 	register int	i;
+	t_mind			*mind;
 
-	i = -1;	// this one works (of course xD)
+	i = -1;	// this one works
 	while (++i < global->data.nb_philo)
 	{
+		mind = (t_mind *)malloc(sizeof(t_mind));	// add this to the big alloc
+		*mind = (t_mind){
+			.philo = global->philos[i],
+			.sleep_time = global->data.time_to_sleep
+		};
 		if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
-				&single_mind, &(t_mind){.philo = global->philos[i], \
-					.sleep_time =  global->data.time_to_sleep}), unexpected))
+				&single_mind, mind), unexpected))
 			return (-1);
 	}
-	// printf("nb philo: %d\n", global->data.nb_philo);
-	// i = 0;
-	// while (i < global->data.nb_philo - 2)
-	// {
-	// 	if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
-	// 			&single_mind,
-	// 			&(t_mind){
-	// 				.philo = global->philos[i],
-	// 				.sleep_time = global->data.time_to_sleep}), unexpected))
-	// 		return (-1);
-	// 	printf("thread %d created\n", i);
-	// 	print_philo(global->philos[i]);
-	// 	i += 2;
-	// }
-	// printf("|------|\n");
-	// i = -1;
-	// while (i < global->data.nb_philo - 2)
-	// {
-	// 	i += 2;
-	// 	if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
-	// 			&single_mind, &(t_mind){
-	// 				.philo = global->philos[i], \
-	// 				.sleep_time = global->data.time_to_sleep}), unexpected))
-	// 		return (-1);
-	// 	printf("thread %d created\n", i);
-	// 	print_philo(global->philos[i]);
-	// }
 	if (__builtin_expect(pthread_create(main, NULL, &check_death,
 		global), unexpected))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 11:33:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:08:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ int	main(int argc, const char *argv[])
 		printf(PADD "failed to init main\n");
 		return (ENOMEM);
 	}
-	// print_debug("Main successfully initialized");	//rm
 	hive_mind(&global, &main_tread);
-	pthread_join(main_tread, NULL);
 	destructor(&global);
 	return (0);
 }

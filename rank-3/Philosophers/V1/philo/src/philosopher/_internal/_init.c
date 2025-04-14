@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:27:22 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 14:52:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:10:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 __attribute__((always_inline)) inline int	init_philos(
 	t_philo **philo,
 	t_mutex **fork,
-	const t_philo_data data)
+	const t_philo_data data
+)
 {
 	const int		color_step = (COLORS_END - COLORS_START) / data.nb_philo;
 	const t_philo	*philo_data = (t_philo *)(philo + data.nb_philo);
 	const t_mutex	*fork_data = (t_mutex *)(fork + data.nb_philo);
-	const t_mutex	*lock_pool = (t_mutex *)(fork + data.nb_philo
-		+ data.nb_philo * sizeof(t_philo));
+	const t_mutex	*lock_pool = (t_mutex *)(philo + data.nb_philo
+		+ sizeof(philo) * data.nb_philo );
 	register int	i;
 
 	i = -1;
@@ -54,7 +55,9 @@ __attribute__((always_inline)) inline int	init_philos(
 
 /** */
 __attribute__((always_inline)) static inline void	destroy_forks(
-	t_mutex **forks, register int i)
+	t_mutex **forks,
+	register int i
+)
 {
 	while (i >= 0)
 		pthread_mutex_destroy(forks[i--]);
@@ -62,7 +65,9 @@ __attribute__((always_inline)) static inline void	destroy_forks(
 
 /** */
 __attribute__((always_inline)) inline int	init_forks(
-	t_mutex **fork, const int nb_philo)
+	t_mutex **fork,
+	const int nb_philo
+)
 {
 	register int	i;
 	t_mutex			*fork_data;
