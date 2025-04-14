@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 19:35:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:16:53 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 // Global
 #include "type.h"

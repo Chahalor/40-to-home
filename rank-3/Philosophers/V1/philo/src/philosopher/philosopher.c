@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:59:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 14:45:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:37:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ __attribute__((hot)) void	*check_death(
 			else if (__builtin_expect(time - global->philos[i]->last_meal
 					> global->data.time_to_die, unexpected))
 			{
-				death(global->philos[i], global);
+				_death(global->philos[i], global);
 				break ;
 			}
 			else if (__builtin_expect(global->philos[i]->state == finish, unexpected))
@@ -103,11 +103,11 @@ __attribute__((cold)) void	*single_mind(void *ptr)
 	while (running)
 	{
 		if (philo->state == sleeping)
-			mein_sleep(philo, sleep_time);
+			_sleep(philo, sleep_time);
 		else if (philo->state == thinking)
-			think(philo);
+			_think(philo);
 		else if (philo->state == eating)
-			eat(philo);
+			_eat(philo);
 		else if (philo->state == dead)
 			break ;
 		running = (get_data(state) + (philo->state != finish)) == 2;

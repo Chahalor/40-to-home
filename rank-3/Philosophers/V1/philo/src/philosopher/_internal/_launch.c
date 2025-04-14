@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:36:21 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 14:45:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:49:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,32 @@ __attribute__((used, always_inline)) inline int	launch_thread(
 {
 	register int	i;
 
-	i = 0;
-	while (i < global->data.nb_philo)
+	i = -1;	// this one works (of course xD)
+	while (++i < global->data.nb_philo)
 	{
-		if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
-				&single_mind,
-				&(t_mind){.philo = global->philos[i], .sleep_time =  global->data.time_to_sleep}), unexpected))
-			return (-1);
-		i += 2;
-	}
-	i = -1;
-	while (i < global->data.nb_philo)
-	{
-		i += 2;
 		if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
 				&single_mind, &(t_mind){.philo = global->philos[i], \
 					.sleep_time =  global->data.time_to_sleep}), unexpected))
 			return (-1);
 	}
+	// i = 0;
+	// while (i < global->data.nb_philo)
+	// {
+	// 	if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
+	// 			&single_mind,
+	// 			&(t_mind){.philo = global->philos[i], .sleep_time =  global->data.time_to_sleep}), unexpected))
+	// 		return (-1);
+	// 	i += 2;
+	// }
+	// i = -1;
+	// while (i < global->data.nb_philo - 1)
+	// {
+	// 	i += 2;
+	// 	if (__builtin_expect(pthread_create(&global->philos[i]->thread, NULL,
+	// 			&single_mind, &(t_mind){.philo = global->philos[i], \
+	// 				.sleep_time =  global->data.time_to_sleep}), unexpected))
+	// 		return (-1);
+	// }
 	if (__builtin_expect(pthread_create(main, NULL, &check_death,
 		global), unexpected))
 		return (-1);

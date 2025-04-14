@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:59:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 14:54:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:39:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ __attribute__((hot)) void	info(
 }
 
 /** */
-__attribute__((hot)) void	eat(
+__attribute__((hot)) void	_eat(
 	t_philo *philo
 )
 {
@@ -82,7 +82,7 @@ __attribute__((hot)) void	eat(
 }
 
 /** */
-__attribute__((hot)) void	think(
+__attribute__((hot)) void	_think(
 	t_philo *philo
 )
 {
@@ -93,7 +93,7 @@ __attribute__((hot)) void	think(
 }
 
 /** */
-__attribute__((hot)) void	mein_sleep(
+__attribute__((hot)) void	_sleep(
 	t_philo *philo,
 	const int sleep_time
 )
@@ -107,7 +107,7 @@ __attribute__((hot)) void	mein_sleep(
 }
 
 /** */
-__attribute__((cold)) void	death(
+__attribute__((cold)) void	_death(
 	t_philo *philo,
 	t_global *global
 )

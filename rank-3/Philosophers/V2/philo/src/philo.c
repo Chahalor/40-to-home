@@ -6,13 +6,14 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 15:32:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:17:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Headers"
 // System
 #include <errno.h>
+# include <stdlib.h>
 
 // Global
 #include "type.h"

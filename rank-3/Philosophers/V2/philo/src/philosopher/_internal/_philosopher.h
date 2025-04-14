@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:57:37 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 15:41:39 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 08:51:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 /* ************************************************************************** */
 /* --- Systeme ---*/
 # include <pthread.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
 
 /* --- Global --- */
 # include "config.h"
@@ -27,6 +30,8 @@
 
 /* --- Modules --- */
 # include "utils.h"
+# include "philosopher.h"
+# include "thread.h"
 
 /* ************************************************************************** */
 /*                                 Prototypes                                 */

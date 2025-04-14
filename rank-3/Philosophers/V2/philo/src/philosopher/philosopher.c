@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:14:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 15:36:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:27:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,26 @@ __attribute__((hot)) void	*life(
 	void *arg
 )
 {
-	t_philo	*philosopher;
+	t_philo			*philosopher;
 	static t_bool	*running = NULL;
 
 	philosopher = (t_philo *)arg;
 	if (__builtin_expect(!running, unexpected))
-		running = get_data(run);
+		running = (t_bool *)get_data(run, NULL);
 	while (philosopher->status != dead && *running != false)
 	{
 		pthread_mutex_lock(philosopher->lock);
 		if (philosopher->status == dead)
-			break ;
+			_death(philosopher);
 		else if (philosopher->status == eating)
-			eat(philosopher);
+			_eat(philosopher);
 		else if (philosopher->status == sleeping)
-			sleep(philosopher);
+			_sleep(philosopher);
 		else if (philosopher->status == thinking)
-			think(philosopher);
+			_think(philosopher);
 		pthread_mutex_unlock(philosopher->lock);
 	}
+	return (NULL);
 }
 
 /** */

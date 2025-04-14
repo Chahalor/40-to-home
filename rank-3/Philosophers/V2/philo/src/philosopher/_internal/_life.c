@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 15:06:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 15:39:39 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 08:52:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ __attribute__((hot)) void	info(
 )
 {
 	static const char	*msg[6] = {
-		[fork] = "has taken a fork",
+		[take_fork] = "has taken a fork",
 		[thinking] = "is thinking",
 		[eating] = "is eating",
 		[sleeping] = "is sleeping",
@@ -43,7 +43,7 @@ __attribute__((hot)) void	info(
 	if (__builtin_expect(!start_time, unexpected))
 		start_time = get_ms_time();
 	if (__builtin_expect(!print_lock, unexpected))
-		print_lock = get_data(print);
+		print_lock = get_data(print, NULL);
 	pthread_mutex_lock(print_lock);
 	printf("%3d.%-3d | %3d %s\n", (timer - start_time) / 1000,
 		(timer - start_time) % 1000, id, msg[status]);
@@ -56,10 +56,10 @@ __attribute__((hot)) void	_eat(
 )
 {
 	pthread_mutex_lock(philosopher->left_fork);
-	info(philosopher->id, fork, get_ms_time());
+	info(philosopher->id, take_fork, get_ms_time());
 
 	pthread_mutex_lock(philosopher->right_fork);
-	info(philosopher->id, fork, get_ms_time());
+	info(philosopher->id, take_fork, get_ms_time());
 
 	philosopher->last_meal = get_ms_time();
 	++philosopher->eat_count;
