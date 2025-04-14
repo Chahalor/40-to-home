@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:59:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 09:39:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 11:55:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ __attribute__((hot)) void	_eat(
 	if (__builtin_expect(eat_time == -1, unexpected))
 		eat_time = get_data(time_to_eat);
 	pthread_mutex_lock(philo->left_fork);
+	info(take_fork, philo, time);
 	if (philo->right_fork != philo->left_fork)
+	{
 		pthread_mutex_lock(philo->right_fork);
+		info(take_fork, philo, time);
+	}
 	pthread_mutex_lock(philo->lock);
 	info(eating, philo, time);
 	philo->last_meal = time;

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:59:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 09:37:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 12:02:44 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((cold)) inline void	terminator(t_philo **philo, const int nb_philo)
+__attribute__((cold)) inline void	terminator(
+	t_philo **philo, 
+	const int nb_philo
+)
 {
 	register int	i;
 
@@ -68,7 +71,8 @@ __attribute__((hot)) void	*check_death(
 		while (++i < global->data.nb_philo)
 		{
 			time = get_ms_time();
-			if (__builtin_expect(pthread_mutex_lock(global->philos[i]->lock), unexpected))
+			if (__builtin_expect(pthread_mutex_lock(global->philos[i]->lock),
+				unexpected))
 				return (NULL);
 			else if (__builtin_expect(time - global->philos[i]->last_meal
 					> global->data.time_to_die, unexpected))
@@ -84,33 +88,6 @@ __attribute__((hot)) void	*check_death(
 		}
 		if (__builtin_expect(nb_finish == global->data.nb_philo, unexpected))
 			global->data.running = false;
-	}
-	return (NULL);
-}
-
-/** */
-__attribute__((cold)) void	*single_mind(void *ptr)
-{
-	const t_mind		*mind = (t_mind *)ptr;
-	const register int	sleep_time = mind->sleep_time;
-	t_philo				*philo;
-	t_bool				running;
-
-	philo = mind->philo;
-	running = true;
-	if (__builtin_expect(!philo || sleep_time < 0, unexpected))
-		return (NULL);
-	while (running)
-	{
-		if (philo->state == sleeping)
-			_sleep(philo, sleep_time);
-		else if (philo->state == thinking)
-			_think(philo);
-		else if (philo->state == eating)
-			_eat(philo);
-		else if (philo->state == dead)
-			break ;
-		running = (get_data(state) + (philo->state != finish)) == 2;
 	}
 	return (NULL);
 }
@@ -138,6 +115,34 @@ __attribute__((cold, malloc)) t_philo	**build_philos(
 			return (NULL);
 	emergency_storage(forks);
 	return (philos);
+}
+
+/** */
+__attribute__((cold)) void	*single_mind(void *ptr)
+{
+	const t_mind		*mind = (t_mind *)ptr;
+	const register int	sleep_time = mind->sleep_time;
+	t_philo				*philo;
+	t_bool				running;
+
+	philo = mind->philo;
+	running = true;
+	if (__builtin_expect(!philo || sleep_time < 0, unexpected))
+		return (NULL);
+	while (running)
+	{
+		printf("philo %d state: %d\n", philo->id, philo->state);
+		if (philo->state == sleeping)
+			_sleep(philo, sleep_time);
+		else if (philo->state == thinking)
+			_think(philo);
+		else if (philo->state == eating)
+			_eat(philo);
+		else if (philo->state == dead)
+			break ;
+		running = (get_data(state) + (philo->state != finish)) == 2;
+	}
+	return (NULL);
 }
 
 /** */
