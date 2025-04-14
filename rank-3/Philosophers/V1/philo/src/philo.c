@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:35 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 17:08:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:42:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // Modules
 #include "parsing.h"
-#include "philosopher/philosopher.h"	// rm the direct path, vs code is making an inexisting error
+#include "philosopher.h"
 #include "debug.h"
 #include "formating.h"
 
