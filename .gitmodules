@@ -1,0 +1,3 @@
+[submodule "Rushes/wordle"]
+	path = Rushes/wordle
+	url = https://github.com/Chahalor/wordle.git
