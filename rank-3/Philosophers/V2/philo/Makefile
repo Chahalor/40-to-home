@@ -109,7 +109,7 @@ header:
 	@echo "# Big Header #"
 
 norm:
-	@errors=$$(norminette --use-gitignore | grep "Error"); \
+	@errors=$$(norminette --use-gitignore | grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} "Error"); \
 	if [ -n "$$errors" ]; then \
 		echo "$$errors"; \
 		echo "\033[31m ❌ Norminette errors found \033[0m"; \

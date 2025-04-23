@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 15:05:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:45:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ __attribute__((cold)) static int	_parse_data(
 	const int argc,
 	const char *restrict *restrict args,
 	t_args *restrict data,
-	register int i)
+	register int i
+)
 {
 	register int	j;
 
@@ -114,6 +115,7 @@ __attribute__((cold)) static int	_parse_data(
 			data->data.nb_meals = ft_atoi(args[i + j]);	// on dirait que un nb invalide ici pose pas de probleme
 		else	// je confirme le comment du dessus
 			data->data.nb_meals = -1;
+		data->data_get = j;
 		return (j + 1);
 	}
 }
@@ -135,7 +137,9 @@ t_args	parse_args(
 	t_args			args;
 	register int	i;
 
-	args = (t_args){.argc = argc, .argv = argv, .error = 0};
+	args = (t_args){.argc = argc, .argv = argv, .error = 0, .help = 0,
+		.debug = 0, .data_get = 0,
+		.data = (t_philo_data){-1, -1, -1, -1, -1, -1}};
 	i = 1;
 	while (i < argc && !args.error && !args.help)
 	{
@@ -151,6 +155,8 @@ t_args	parse_args(
 	}
 	if (args.help)
 		_show_help();
+	else if (args.data_get < 4)
+		args.error = EINVAL;
 	print_args(&args);
 	return (args);
 }

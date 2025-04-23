@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 10:45:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:51:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,39 @@
 #if DEBUG == 1
 
 /** */
-__attribute__((used, always_inline))
-extern inline void	print_args(const t_args *args)
+__attribute__((used, always_inline)) static inline void	print_argv(
+	const char *argv[],		/* the arguments to print            */
+	register const int argc	/* the number of arguments to print */
+)
+{
+	register int	i;
+	printf("├──argv (%p)", argv);
+	if (!argv || argc < 2)
+	{
+		printf("\n");
+		return ;
+	}
+	printf(":\n│  └──");
+	i = 0;
+	while (++i < argc)
+		printf("\"%s\" ", argv[i]);
+	printf("\n");
+}
+
+/** */
+__attribute__((used, always_inline)) extern inline void	print_args(
+	const t_args *args	/* the args structure to print */
+)
 {
 	printf("args (%p):\n", args);
+	if (!args)
+		return ;
 	printf("├──args->argc = %d\n", args->argc);
-	printf("├──args->argv = %p\n", args->argv);
+	// printf("├──args->argv = %p\n", args->argv);
+	print_argv(args->argv, args->argc);
 	printf("├──args->help = %d\n", args->help);
+	printf("├──args->debug = %d\n", args->debug);
+	printf("├──args->data_get = %d\n", args->data_get);
 	printf("├──args->error = %d\n", args->error);
 	printf("└──args->data = %p\n", &args->data);
 	printf("   ├──args->data.nb_philo = %d\n", args->data.nb_philo);
@@ -45,8 +71,9 @@ extern inline void	print_args(const t_args *args)
 }
 
 /** */
-__attribute__((unused, always_inline))
-extern inline void print_philo(const t_philo *philo)
+__attribute__((unused, always_inline)) extern inline void print_philo(
+	const t_philo *philo	/* the philosopher structure to print */
+)
 {
 	printf("philo (%p):\n", philo);
 	if (!philo)
@@ -55,11 +82,9 @@ extern inline void print_philo(const t_philo *philo)
 	printf("├──philo->left_fork = %p\n", philo->left_fork);
 	printf("├──philo->right_fork = %p\n", philo->right_fork);
 	printf("├──philo->lock = %p\n", philo->lock);
-	printf("├──philo->thread = %lu\n", philo->thread);
 	printf("├──philo->nb_meals = %d\n", philo->nb_meals);
 	printf("├──philo->last_meal = %d\n", philo->last_meal);
-	printf("├──philo->state = %d\n", philo->state);
-	printf("└──philo->color = %d\n", philo->color);
+	printf("└──philo->state = %d\n", philo->status);
 }
 
 #else

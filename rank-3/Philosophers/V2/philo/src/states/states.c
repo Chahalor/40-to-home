@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 14:48:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:24:44 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ __attribute__((hot)) int	get_status(
 {
 	static int	*status_ptr = NULL;	// @todo: we need a mutex to protect this value
 
-	if (unexpect(status))
+	if (unexpect(status != NULL))
 		status_ptr = status;
 	return (*status_ptr);
 }

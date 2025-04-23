@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:39:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 14:56:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:23:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ __attribute__((cold)) void	*watcher(
 				!= watcher->data.nb_philo);
 		}
 	}
-	get_states(&running);
+	get_status(&running);
 	return (NULL);
 }
 

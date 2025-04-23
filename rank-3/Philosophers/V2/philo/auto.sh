@@ -187,7 +187,7 @@ header:
 	@echo "$HEADER"
 
 norm:
-	@errors=\$\$(norminette --use-gitignore | grep "Error"); \\
+	@errors=\$\$(norminette --use-gitignore | grep --color=always "Error"); \\
 	if [ -n "\$\$errors" ]; then \\
 		echo "\$\$errors"; \\
 		echo "\033[31m ❌ Norminette errors found \033[0m"; \\

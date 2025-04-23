@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 14:57:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:25:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	//...
 
 /* Modules  */
-	//...
+# include "states.h"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
@@ -72,6 +72,10 @@ struct s_philo
 void	destroy_mutex(
 	t_mutex *restrict *restrict forks,
 	const int nb_forks
+);
+
+void	destroy_philos(
+	t_philo *restrict *restrict philosophers
 );
 
 int	init_all(
