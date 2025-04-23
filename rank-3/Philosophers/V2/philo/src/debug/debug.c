@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 09:17:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:45:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ extern inline void print_philo(const t_philo *philo)
 	printf("├──philo->left_fork = %p\n", philo->left_fork);
 	printf("├──philo->right_fork = %p\n", philo->right_fork);
 	printf("├──philo->lock = %p\n", philo->lock);
-	printf("├──philo->nb_meals = %d\n", philo->eat_count);
+	printf("├──philo->thread = %lu\n", philo->thread);
+	printf("├──philo->nb_meals = %d\n", philo->nb_meals);
 	printf("├──philo->last_meal = %d\n", philo->last_meal);
-	printf("├──philo->state = %d\n", philo->status);
-// 	printf("└──philo->color = %d\n", philo->color);
+	printf("├──philo->state = %d\n", philo->state);
+	printf("└──philo->color = %d\n", philo->color);
 }
 
 #else

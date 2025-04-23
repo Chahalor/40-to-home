@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:25:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 15:47:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 13:04:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # include "type.h"
 
 /* Modules */
-# include "philosopher.h"
+# include "parsing.h"
+# include "philosophers.h"
 
 /* ************************************************************************** */
 /*                                 Defines                                    */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:59:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 17:06:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:18:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,9 @@ __attribute__((cold)) void	*single_mind(void *ptr)
 			_eat(philo);
 		else if (philo->state == dead)
 			break ;
-		running = (get_data(state) + (philo->state != finish)) == 2;
+		int statee = get_data(state);
+		// printf("philo[%d]: get_data(state)=%d\n", philo->id, statee);	//rm
+		running = (statee + (philo->state != finish)) == 2;
 	}
 	free(ptr);
 	return (NULL);

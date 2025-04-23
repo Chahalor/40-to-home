@@ -1,81 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.h                                           :+:      :+:    :+:   */
+/*   _philosopher.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 15:32:32 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 08:54:57 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/23 14:59:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef THREAD_H
-# define THREAD_H
+#ifndef _PHILOSOPHER_H
+# define _PHILOSOPHER_H
 
 # pragma once
 
 /* ************************************************************************** */
-/*                                 Headers                                    */
+/*                                  Headers                                   */
 /* ************************************************************************** */
-/* --- Systeme ---*/
-# include <pthread.h>
 
-/* --- Global --- */
+/* Systemes */
+	//...
+
+/* Globals  */
 # include "config.h"
 # include "type.h"
 
-/* --- Modules --- */
+/* Internal */
+# include "philosophers.h"
+
+/* Modules  */
 # include "utils.h"
-# include "philosopher.h"
 
 /* ************************************************************************** */
-/*                                 Typedefs                                   */
+/*                                  typedefs                                  */
 /* ************************************************************************** */
 
-typedef struct s_store		t_store;	/**/
-
-typedef enum e_request		t_request;	/**/
+typedef	struct s_watcher	t_watcher;	/* The watcher type */
 
 /* ************************************************************************** */
-/*                                 Enums                                      */
+/*                                  Structs                                   */
 /* ************************************************************************** */
 
-enum e_request
+struct s_watcher
 {
-	run		= 0,
-	print	= 1,
-	store	= 2,
+	t_philo			*philosophers;	/* The philosophers list */
+	t_philo_data	data;			/* The simulation data   */
 };
 
 /* ************************************************************************** */
-/*                                 Struct                                     */
+/*                                  Prototypes                                */
 /* ************************************************************************** */
 
-struct s_store
-{
-	t_bool		*running;	/**/
-	t_mutex		*print;		/**/
-	t_mutex		*lock;		/**/
-};
-
-/* ************************************************************************** */
-/*                                 Prototypes                                 */
-/* ************************************************************************** */
-
-void	*check(
-	void *arg
+extern void	_eat(
+	t_philo *philo
 );
 
-int	start_simulation(
-	t_philo *philosophers,
-	t_thread *threads,
-	const t_data data
+extern void	_sleep(
+	t_philo *philo
 );
 
-void	*get_data(
-	const t_request request,
-	void *access
+extern void	_think(
+	t_philo *philo
 );
 
-#endif	/* THREAD_H */
+extern void	_die(
+	t_philo *philo
+);
+
+#endif	/* _PHILOSOPHER_H */

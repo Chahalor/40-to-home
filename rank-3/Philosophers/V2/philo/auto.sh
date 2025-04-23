@@ -105,7 +105,7 @@ LIBFT		:= #\$(DIR_LIBFT)/libft.a
 # Here we include all the makefile.mk files
 include $MAKEFILE_MK_LIST
 
-SRC_MAIN	:= philo.c
+SRC_MAIN	:= main.c
 SRC_BONUS	:=
 
 # all object files for the modules

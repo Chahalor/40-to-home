@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/08 15:09:29 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:13:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #pragma endregion "Headers"
 #pragma region "Functions"
 
-#if DEBUG == 1
+#if DEBUG == 2	// @todo: should be 1 but so many data races
 
 /** */
 __attribute__((used, always_inline))
