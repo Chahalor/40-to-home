@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   states.h                                           :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:43:38 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/24 08:58:56 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/24 09:18:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATES_H
-# define STATES_H
+#ifndef ERRORS_H
+# define ERRORS_H
 
 # pragma once
 
@@ -25,47 +25,59 @@
 /* Globals  */
 # include "config.h"
 # include "type.h"
+# include "formating.h"
 
 /* Internal */
 	//...
 
 /* Modules  */
-	//...
+# include "utils.h"
 
 /* ************************************************************************** */
-/*                                  Typedefs                                  */
+/*                                  Defines                                   */
 /* ************************************************************************** */
 
-typedef enum e_request	t_request;				/* The request enum         */
+# define MAX_ERROR		16	/* The maximum error code */
 
-typedef struct s_global_data	t_global_data;	/* The global data struct */
+/* ************************************************************************** */
+/*                                  typedefs                                  */
+/* ************************************************************************** */
+
+typedef struct s_error	t_error;	/* The error type */
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
 /* ************************************************************************** */
 
-enum e_request
+enum e_error_request
 {
-	request_init	= 0,	/* The request to init the the global manager */
-	request_get_run	= 1,	/* The request to get the run status         */
-	request_stop	= 2,	/* The request to stop the simulation       */
+	er_request_new			= 0,	/* request to create a new error        */
+	er_request_print		= 1,	/* request to print an error            */
+	er_request_rm			= 2,	/* request to remove an error           */
+	er_request_print_all	= 3,	/* request to print all error           */
+	er_request_new_print	= 4,	/* request to create and print an error */
 };
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-struct s_global_data
+struct s_error
 {
-	t_bool		run		: 1;	/* The run status of the simulation */
+	char	*localisation;	/* The location of the error          */
+	char	*message;		/* The error message                 */
+	char	*info;			/* More information about the error */
+	int		error;			/* The error code                  */
+	int		id;
 };
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-int	global_manager(
-	t_request request
+int	error_manager(
+	int request,		/* the request to manage */
+	void *data			/* the data to manage   */
 );
 
-#endif	/* STATES_H */
+#endif	// ERRORS_H

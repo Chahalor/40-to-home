@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 10:16:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/11 13:11:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 09:14:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # define ERROR	"Error: "
 # define USAGE	"Usage: "
 # define PADD	"    └──"
+# define PADD5	"    ├──"
+# define PADD0	"│  "
+# define PADD2	"│  ├──"
+# define PADD3	"│  │  "
+# define PADD4	"│  └──"
 
 // colors
 

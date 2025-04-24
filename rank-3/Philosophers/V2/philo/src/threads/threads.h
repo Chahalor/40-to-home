@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _philosopher.h                                     :+:      :+:    :+:   */
+/*   threads.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:50:06 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/24 08:53:29 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/24 08:54:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHILOSOPHER_H
-# define _PHILOSOPHER_H
+#ifndef THREADS_H
+# define THREADS_H
 
 # pragma once
 
@@ -25,44 +25,23 @@
 /* Globals  */
 # include "config.h"
 # include "type.h"
-# include "formating.h"
 
 /* Internal */
-# include "philosophers.h"
+	//...
 
 /* Modules  */
+# include "states.h"
+# include "threads.h"
+# include "philosophers.h"
 # include "utils.h"
-
-/* ************************************************************************** */
-/*                                  typedefs                                  */
-/* ************************************************************************** */
-
-//...
-
-/* ************************************************************************** */
-/*                                  Structs                                   */
-/* ************************************************************************** */
-
-//...
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-extern void	_eat(
-	t_philo *philo
+int	launch_simu(
+	t_philo *philosophers,		/* the philosophers list */
+	const t_philo_data data		/* the simulation data  */
 );
 
-extern void	_sleep(
-	t_philo *philo
-);
-
-extern void	_think(
-	t_philo *philo
-);
-
-extern void	_die(
-	t_philo *philo
-);
-
-#endif	/* _PHILOSOPHER_H */
+#endif	// THREADS_H

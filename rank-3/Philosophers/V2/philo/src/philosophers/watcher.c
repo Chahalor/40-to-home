@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:39:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 15:23:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 08:47:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #pragma region Functions
 
 /** */
-__attribute__((cold)) void	*watcher(
+__attribute__((cold)) void	*big_brother(
 	void *arg	/* the t_wacher struct needed by the thread */
 )
 {
@@ -53,7 +53,7 @@ __attribute__((cold)) void	*watcher(
 				!= watcher->data.nb_philo);
 		}
 	}
-	get_status(&running);
+	global_manager(request_stop);
 	return (NULL);
 }
 

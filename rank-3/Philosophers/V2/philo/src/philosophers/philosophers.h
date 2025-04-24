@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 15:25:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 08:51:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef struct s_philo	t_philo;	/* The philosopher type */
+typedef struct s_philo		t_philo;	/* The philosopher type */
+typedef	struct s_watcher	t_watcher;	/* The watcher type    */
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
@@ -50,19 +51,25 @@ typedef struct s_philo	t_philo;	/* The philosopher type */
 
 struct s_philo
 {
-	unsigned int		id;				/* The philosopher id             */
-	int					nb_meals;		/* The number of meals taken      */
-	t_time				last_meal;		/* The last meal time             */
-	t_status			status;			/* The philosopher status         */
-	t_mutex				*left_fork;		/* The left fork mutex            */
-	t_mutex				*right_fork;	/* The right fork mutex           */
-	t_mutex				*lock;			/* mutex to lock philo data acces */
-	t_philo_data		data;			/* The philosopher data           */
-	void				(*eat)(t_philo *philo);		/* The eat function   */
-	void				(*sleep)(t_philo *philo);	/* The sleep function */
-	void				(*think)(t_philo *philo);	/* The think function */
-	void				(*die)(t_philo *philo);		/* The die function   */
+	unsigned int		id;				/* The philosopher id              */
+	int					nb_meals;		/* The number of meals taken       */
+	t_time				last_meal;		/* The last meal time              */
+	t_status			status;			/* The philosopher status          */
+	t_mutex				*left_fork;		/* The left fork mutex             */
+	t_mutex				*right_fork;	/* The right fork mutex            */
+	t_mutex				*lock;			/* mutex to lock philo data acces  */
+	t_philo_data		data;			/* The philosopher data            */
+	void				(*eat)(t_philo *philo);		/* The eat function    */
+	void				(*sleep)(t_philo *philo);	/* The sleep function  */
+	void				(*think)(t_philo *philo);	/* The think function  */
+	void				(*die)(t_philo *philo);		/* The die function    */
 	void				(*finish)(t_philo *philo);	/* The finish function */
+};
+
+struct s_watcher
+{
+	t_philo			*philosophers;	/* The philosophers list */
+	t_philo_data	data;			/* The simulation data   */
 };
 
 /* ************************************************************************** */
@@ -88,6 +95,18 @@ void	info(
 	const int id,
 	const t_time time,
 	const char *msg
+);
+
+// life.c
+
+void	*circle_of_life(
+	void *arg
+);
+
+// watcher.c
+
+void	*big_brother(
+	void *arg
 );
 
 #endif	// PHILOSOPHERS_H
