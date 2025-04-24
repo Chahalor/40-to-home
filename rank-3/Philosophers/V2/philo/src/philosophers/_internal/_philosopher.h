@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:50:06 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:36:19 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@
 /* ************************************************************************** */
 
 extern void	_eat(
-	t_philo *philo
-);
+				t_philo *philo
+				);
 
 extern void	_sleep(
-	t_philo *philo
-);
+				t_philo *philo
+				);
 
 extern void	_think(
-	t_philo *philo
-);
+				t_philo *philo
+				);
 
 extern void	_die(
-	t_philo *philo
-);
+				t_philo *philo
+				);
 
 #endif	/* _PHILOSOPHER_H */

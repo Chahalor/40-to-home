@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:46:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:35:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
  * 
  */
 void	info(
-	const int id,		/* the philosopher id     */
-	const t_time time,	/* the time of the event */
-	const char *msg		/* the message to print */
+	const int id,
+	const t_time time,
+	const char *msg
 )
 {
 	if (__builtin_expect(!msg || id < 0, unexpected))
@@ -41,7 +41,7 @@ __attribute__((hot)) void	*circle_of_life(
 )
 {
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)arg;
 	while (global_manager(request_get_run) == true)
 	{

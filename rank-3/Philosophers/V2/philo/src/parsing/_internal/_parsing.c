@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:25:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:09:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ int	is_nbr(const char *str)
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-		{
-			printf(RED ERROR RESET "Invalid argument\n" PADD\
-				"invalide number: %s\n", str);
-				return (0);
-		}
+			return (0);
 		else
 			++i;
 	}
@@ -86,7 +82,6 @@ static inline int	is_space(const int c)
 		return (1);
 	return (0);
 }
-
 
 /**
  * @brief Convert a string to an integer

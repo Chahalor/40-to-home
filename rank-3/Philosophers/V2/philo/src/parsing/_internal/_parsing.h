@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:28:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/10 19:52:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:13:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 # include <stdlib.h>
 
 /* Global */
-	//...
+# include "config.h"
 
 /* Modules */
-	//...
+# include "errors.h"
+# include "parsing.h"
 
 /* ************************************************************************** */
 /*                                 Defines                                    */
@@ -62,13 +63,34 @@
 
 // _parsing.c
 
-int	ft_strncmp(const char *s1, const char *s2, const size_t n);
-int	ft_atoi(const char *nptr);
-int	is_nbr(const char *str);
+int				ft_strncmp(
+					const char *s1,
+					const char *s2,
+					const size_t n
+					);
+
+int				ft_atoi(
+					const char *nptr
+					);
+
+int				is_nbr(
+					const char *str
+					);
 
 // _info.c
 
-extern void	_show_usage(const char *prog);
-extern void	_show_help(void);
+extern void		_show_usage(
+					const char *prog
+					);
+
+extern void		_show_help(void);
+
+// _data.c
+
+extern t_bool	_is_valide_args(
+					const char *restrict *restrict argv,
+					const int i,
+					const int argc
+					);
 
 #endif	/* _PARSING_H */

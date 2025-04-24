@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:58:56 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 09:18:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:37:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ struct s_error
 /* ************************************************************************** */
 
 int	error_manager(
-	int request,		/* the request to manage */
-	void *data			/* the data to manage   */
-);
+		int request,
+		void *data
+		);
 
 #endif	// ERRORS_H

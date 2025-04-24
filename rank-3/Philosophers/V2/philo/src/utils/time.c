@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:53:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 16:41:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:18:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@
  * 
  * @return int The current time in milliseconds, or -1 on error.
 */
-__attribute__((always_inline, used)) inline int	get_ms_time(
-	void
-)
+__attribute__((always_inline, used)) inline int	get_ms_time(void)
 {
 	struct timeval	tv;
 
@@ -57,8 +55,6 @@ __attribute__((hot)) void	ft_usleep(
 	const int time
 )
 {
-	usleep(time);
-	return ;
 	const int	start = get_ms_time();
 
 	while ((get_ms_time() - start) < time)

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:39:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:47:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:34:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ __attribute__((cold)) void	*big_brother(
 )
 {
 	const t_watcher		*watcher = (t_watcher *)arg;
-	t_philo				*philosophers = watcher->philosophers;
 	register int		i;
 	int					running;
 	int					nb_finished;
@@ -39,18 +38,16 @@ __attribute__((cold)) void	*big_brother(
 	{
 		nb_finished = 0;
 		i = -1;
-		while (++i < watcher->data.nb_philo)
+		while (++i < watcher->data.nb_philo && running)
 		{
-			if (unexpect(philosophers[i].last_meal - get_ms_time()
-				> watcher->data.time_to_die))
-				philosophers[i].die(&philosophers[i]);
-			else if (unexpect(philosophers[i].nb_meals >= watcher->data.nb_meals))
-			{
-				philosophers[i].finish(&philosophers[i]);
-				++nb_finished;
-			}
-			running = (philosophers[i].status != died && nb_finished
-				!= watcher->data.nb_philo);
+			if (unexpect(watcher->philosophers[i].last_meal - get_ms_time()
+					> watcher->data.time_to_die))
+				watcher->philosophers[i].die(&watcher->philosophers[i]);
+			else if (unexpect(watcher->philosophers[i].nb_meals
+					>= watcher->data.nb_meals && ++nb_finished))
+				watcher->philosophers[i].finish(&watcher->philosophers[i]);
+			running = (watcher->philosophers[i].status != died && nb_finished
+					!= watcher->data.nb_philo);
 		}
 	}
 	global_manager(request_stop);

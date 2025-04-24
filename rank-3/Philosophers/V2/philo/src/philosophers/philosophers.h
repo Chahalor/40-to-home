@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:51:15 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:30:33 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 /* ************************************************************************** */
 
 typedef struct s_philo		t_philo;	/* The philosopher type */
-typedef	struct s_watcher	t_watcher;	/* The watcher type    */
+typedef struct s_watcher	t_watcher;	/* The watcher type    */
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
@@ -77,36 +77,36 @@ struct s_watcher
 /* ************************************************************************** */
 
 void	destroy_mutex(
-	t_mutex *restrict *restrict forks,
-	const int nb_forks
-);
+			t_mutex *restrict *restrict forks,
+			const int nb_forks
+			);
 
 void	destroy_philos(
-	t_philo *restrict *restrict philosophers
-);
+			t_philo *restrict *restrict philosophers
+			);
 
-int	init_all(
-	t_mutex **forks,
-	t_philo *restrict *restrict philosophers,
-	t_philo_data data
-);
+int		init_all(
+			t_mutex **forks,
+			t_philo *restrict *restrict philosophers,
+			t_philo_data data
+			);
 
 void	info(
-	const int id,
-	const t_time time,
-	const char *msg
-);
+			const int id,
+			const t_time time,
+			const char *msg
+			);
 
 // life.c
 
 void	*circle_of_life(
-	void *arg
-);
+			void *arg
+			);
 
 // watcher.c
 
 void	*big_brother(
-	void *arg
-);
+			void *arg
+			);
 
 #endif	// PHILOSOPHERS_H

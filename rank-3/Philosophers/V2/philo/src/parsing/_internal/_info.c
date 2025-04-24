@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:01:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/09 15:15:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:09:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
  * @return void
  */
 __attribute__((always_inline, used)) inline void	_show_usage(
-	const char *prog
+	const char *prog	/* program name */
 )
 {
 	if (prog)
@@ -45,9 +45,7 @@ __attribute__((always_inline, used)) inline void	_show_usage(
  * 
  * @return void
  */
-__attribute__((used, always_inline)) inline void	_show_help(
-	void
-)
+__attribute__((used, always_inline)) inline void	_show_help(void)
 {
 	_show_usage(NULL);
 	printf(YELLOW "\nOptions:\n" RESET);
@@ -64,7 +62,8 @@ __attribute__((used, always_inline)) inline void	_show_help(
 	printf("  philo --help\n");
 	printf("  philo 5 800 200 200\n");
 	printf(YELLOW "\nAuthor:\n" RESET);
-	printf("  - nduvoid <" BLUE UNDERLINE "nduvoid@student.42mulhouse.fr" RESET ">\n");
+	printf("  - nduvoid <" BLUE UNDERLINE "nduvoid@student.42mulhouse.fr" \
+		RESET ">\n");
 }
 
 #pragma endregion "Functions"

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 15:22:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:29:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,21 @@ __attribute__((malloc, cold)) static t_mutex	*init_mutex(
 	while (++i < nb_mutex)
 	{
 		if (__builtin_expect(pthread_mutex_init(&forks[i], NULL) != 0,
-			unexpected))
-		return (destroy_mutex(&forks, i), NULL);
+				unexpected))
+			return (destroy_mutex(&forks, i), NULL);
 	}
 	return (forks);
 }
 
 /** */
 __attribute__((malloc, cold)) static t_philo	*init_philo(
-	const register int nb_philos,		/* the number of philosophers */
-	t_mutex *restrict *restrict forks,	/* the forks pool            */
-	const t_philo_data data				/* the simulation data      */
+	const register int nb_philos,
+	t_mutex *restrict *restrict forks,
+	const t_philo_data data
 )
 {
-	const int	time_start = get_ms_time();
-	t_philo		*philosophers;
-	
+	const int		time_start = get_ms_time();
+	t_philo			*philosophers;
 	register int	i;
 
 	philosophers = (t_philo *)malloc(sizeof(t_philo) * nb_philos);
@@ -78,8 +77,8 @@ __attribute__((malloc, cold)) static t_philo	*init_philo(
 
 /** */
 __attribute__((cold)) void	destroy_mutex(
-	t_mutex *restrict *restrict forks,	/* the forks pool                  */
-	const int nb_forks					/* the number of forks to destroy */
+	t_mutex *restrict *restrict forks,
+	const int nb_forks
 )
 {
 	register int	i;
@@ -106,9 +105,9 @@ __attribute__((cold)) void	destroy_philos(
 
 /** */
 __attribute__((cold)) int	init_all(
-	t_mutex **forks,							/* the forks pool         */
-	t_philo *restrict *restrict philosophers,	/* the philosophers list */
-	t_philo_data data							/* the simulation data  */
+	t_mutex **forks,
+	t_philo *restrict *restrict philosophers,
+	t_philo_data data
 )
 {
 	*forks = init_mutex(3 * data.nb_philo);

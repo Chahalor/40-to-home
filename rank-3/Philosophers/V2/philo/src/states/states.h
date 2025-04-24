@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:43:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:27:43 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef enum e_request	t_request;				/* The request enum         */
+typedef enum e_request			t_request;		/* The request enum         */
 
 typedef struct s_global_data	t_global_data;	/* The global data struct */
 
@@ -65,7 +65,7 @@ struct s_global_data
 /* ************************************************************************** */
 
 int	global_manager(
-	t_request request
-);
+		t_request request
+		);
 
 #endif	/* STATES_H */

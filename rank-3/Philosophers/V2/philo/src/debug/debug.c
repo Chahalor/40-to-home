@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 15:51:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:27:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,26 @@
 #if DEBUG == 1
 
 /** */
-__attribute__((used, always_inline)) static inline void	print_argv(
-	const char *argv[],		/* the arguments to print            */
-	register const int argc	/* the number of arguments to print */
-)
-{
-	register int	i;
-	printf("├──argv (%p)", argv);
-	if (!argv || argc < 2)
-	{
-		printf("\n");
-		return ;
-	}
-	printf(":\n│  └──");
-	i = 0;
-	while (++i < argc)
-		printf("\"%s\" ", argv[i]);
-	printf("\n");
-}
-
-/** */
-__attribute__((used, always_inline)) extern inline void	print_args(
+__attribute__((used, always_inline)) inline void	print_args(
 	const t_args *args	/* the args structure to print */
 )
 {
+	register int	i;
+
 	printf("args (%p):\n", args);
 	if (!args)
 		return ;
-	printf("├──args->argc = %d\n", args->argc);
-	// printf("├──args->argv = %p\n", args->argv);
-	print_argv(args->argv, args->argc);
-	printf("├──args->help = %d\n", args->help);
+	printf("├──args->argc = %d\n├──argv (%p)", args->argc, args->argv);
+	if (!args->argv || args->argc < 2)
+		printf("\n");
+	else
+	{
+		printf(":\n│  └──");
+		i = 0;
+		while (++i < args->argc)
+			printf("\"%s\" ", args->argv[i]);
+	}
+	printf("\n├──args->help = %d\n", args->help);
 	printf("├──args->debug = %d\n", args->debug);
 	printf("├──args->data_get = %d\n", args->data_get);
 	printf("├──args->error = %d\n", args->error);
@@ -71,7 +60,7 @@ __attribute__((used, always_inline)) extern inline void	print_args(
 }
 
 /** */
-__attribute__((unused, always_inline)) extern inline void print_philo(
+__attribute__((unused, always_inline)) inline void	print_philo(
 	const t_philo *philo	/* the philosopher structure to print */
 )
 {
@@ -98,7 +87,7 @@ extern inline void	print_args(const t_args *args)
 
 /** */
 __attribute__((unused, always_inline))
-extern inline void print_philo(const t_philo *philo)
+extern inline void	print_philo(const t_philo *philo)
 {
 	(void)philo;
 }

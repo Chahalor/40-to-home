@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 08:56:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:06:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,27 +97,14 @@ __attribute__((cold)) static int	_parse_data(
 {
 	register int	j;
 
-	if (__builtin_expect(argc - i != 4 && argc - i != 5, unexpected))
-	{
-		printf(RED ERROR RESET "Invalid number of arguments\n" PADD \
-			"get %d arguments, need 4 or 5\n", argc - 1);
+	if (!_is_valide_args(args, i, argc))
 		return (data->error = EINVAL, -1);
-	}
-	else
-	{
-		j = -1;
-		while (++j < 4 && is_nbr(args[i]))
-			((int *)&data->data)[j] = ft_atoi(args[i + j]);
-		if (__builtin_expect(i + j - 1 != argc - 1 && i + j - 1 != argc - 2,
-				unexpected))
-			return (data->error = EINVAL, -1);
-		else if (i + j < argc && args[i + j] && is_nbr(args[i + j]))
-			data->data.nb_meals = ft_atoi(args[i + j]);	// on dirait que un nb invalide ici pose pas de probleme
-		else	// je confirme le comment du dessus
-			data->data.nb_meals = -1;
-		data->data_get = j;
-		return (j + 1);
-	}
+	j = -1;
+	while (++j < 4)
+		((int *)&data->data)[j] = ft_atoi(args[i + j]);
+	if (argc - i > 4)
+		((int *)&data->data)[j] = ft_atoi(args[i + j]);
+	return (j + 1);
 }
 
 /**
