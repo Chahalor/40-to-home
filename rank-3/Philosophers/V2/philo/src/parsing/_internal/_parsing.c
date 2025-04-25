@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:09:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 09:04:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 #pragma region "Functions"
 
 /** */
-__attribute__(())
-int	is_nbr(const char *str)
+__attribute__((always_inline, used)) inline int	is_nbr(
+	const char *str
+)
 {
 	register int	i;
 
@@ -51,7 +52,11 @@ int	is_nbr(const char *str)
  * @param n Number of bytes to be compared.
  * @return int 0 if the two strings are identical, otherwise the difference
  */
-int	ft_strncmp(const char *s1, const char *s2, const size_t n)
+__attribute__((cold)) int	ft_strncmp(
+	const char *s1,
+	const char *s2,
+	const size_t n
+)
 {
 	register size_t	i;
 
@@ -74,8 +79,9 @@ int	ft_strncmp(const char *s1, const char *s2, const size_t n)
 }
 
 /** */
-__attribute__((always_inline, used))
-static inline int	is_space(const int c)
+__attribute__((always_inline, used)) static inline int	is_space(
+	const int c
+)
 {
 	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
 		|| c == '\v')
@@ -89,8 +95,9 @@ static inline int	is_space(const int c)
  * @param nptr The string to convert
  * @return The integer value of the string
  */
-__attribute__((cold))
-int	ft_atoi(const char *nptr)
+__attribute__((cold)) int	ft_atoi(
+	const char *nptr
+)
 {
 	int						r;
 	register unsigned int	i;

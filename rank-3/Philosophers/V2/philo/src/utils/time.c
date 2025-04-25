@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:53:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:18:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 18:57:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ __attribute__((hot)) void	ft_usleep(
 {
 	const int	start = get_ms_time();
 
-	while ((get_ms_time() - start) < time)
-		usleep(100);
+	if (time < USLEEP_MAGIC_VALUE)
+		usleep(time);
+	else
+		while ((get_ms_time() - start) < time / 1000)
+			usleep(USLEEP_MAGIC_VALUE);
 }
 
 #pragma endregion "Functions"

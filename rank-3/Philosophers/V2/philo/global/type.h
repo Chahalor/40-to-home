@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:37:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:13:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ struct s_philo_data
 	int				time_to_eat;	/* the time they take to eat            */
 	int				time_to_sleep;	/* the time they need to sleep          */
 	int				nb_meals;		/* the number of meal they have to take */
-	unsigned int	start_time;		/* the timer of the simu begining       */
 };
 
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:27:43 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:06:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ typedef struct s_global_data	t_global_data;	/* The global data struct */
 
 enum e_request
 {
-	request_init	= 0,	/* The request to init the the global manager */
-	request_get_run	= 1,	/* The request to get the run status         */
-	request_stop	= 2,	/* The request to stop the simulation       */
+	request_get_run,		/* request to get the run status             */
+	request_get_finished ,	/* request to get the number of finish philo */
+	request_add_finished,	/* request to add a finished philosopher     */
+	request_stop,			/* request to stop the simulation            */
+	request_destroy,		/* request to clean the global manager       */
+	request_init,			/* request to init the the global manager    */
 };
 
 /* ************************************************************************** */
@@ -58,6 +61,7 @@ enum e_request
 struct s_global_data
 {
 	t_bool		run		: 1;	/* The run status of the simulation */
+	int			nb_finished;	/* The number of finished philosophers */
 };
 
 /* ************************************************************************** */

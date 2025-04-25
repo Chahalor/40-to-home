@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:01:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:09:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 09:05:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ __attribute__((used, always_inline)) inline void	_show_help(void)
 	_show_usage(NULL);
 	printf(YELLOW "\nOptions:\n" RESET);
 	printf("  -h, --help\t\tShow this help message\n");
-	printf("  -d, --debug\t\tEnable debug mode\n");
+	printf("  -d, --debug\t\tEnable debug mode (but does nothing)\n");
 	printf(YELLOW "\nArguments:\n" RESET);
 	printf("  <nb_philo>\t\tNumber of philosophers\n");
 	printf("  <time_to_die>\t\tTime to die\n");

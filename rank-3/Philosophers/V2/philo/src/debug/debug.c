@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:27:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:16:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ __attribute__((used, always_inline)) inline void	print_args(
 	if (!args)
 		return ;
 	printf("├──args->argc = %d\n├──argv (%p)", args->argc, args->argv);
-	if (!args->argv || args->argc < 2)
-		printf("\n");
-	else
+	if (!(!args->argv || args->argc < 2))
 	{
 		printf(":\n│  └──");
 		i = 0;

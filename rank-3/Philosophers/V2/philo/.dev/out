@@ -1,0 +1,183 @@
+args (0x7ffd89de8ce0):
+├──args->argc = 6
+├──argv (0x7ffd89de8ee8):
+│  └──"11" "1000" "100" "100" "1" 
+├──args->help = 0
+├──args->debug = 0
+├──args->data_get = 0
+├──args->error = 0
+└──args->data = 0x7ffd89de8cf0
+   ├──args->data.nb_philo = 11
+   ├──args->data.time_to_die = 1000
+   ├──args->data.time_to_eat = 100
+   ├──args->data.time_to_sleep = 100
+   └──args->data.nb_meals = 1
+global_manager: init
+launch_simu(): nb_meals: 1, nb_philo: 11
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+looking at 1
+looking at 2
+looking at 3
+looking at 4
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+[36m[[33m1846933.605[36m] [0m1   ✅ thread started
+looking at 0
+[36m[[33m1846933.605[36m] [0m1   has taken a fork 🍴
+looking at 1
+looking at 2
+[36m[[33m1846933.605[36m] [0m1   has taken a fork 🍴
+looking at 3
+looking at 4
+[36m[[33m1846933.605[36m] [0m1   is eating 🍝
+looking at 5
+looking at 6
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+looking at 0
+[36m[[33m1846933.606[36m] [0m3   ✅ thread started
+[36m[[33m1846933.606[36m] [0m3   has taken a fork 🍴
+[36m[[33m1846933.606[36m] [0m3   has taken a fork 🍴
+[36m[[33m1846933.606[36m] [0m3   is eating 🍝
+[36m[[33m1846933.606[36m] [0m5   ✅ thread started
+[36m[[33m1846933.606[36m] [0m5   has taken a fork 🍴
+[36m[[33m1846933.606[36m] [0m5   has taken a fork 🍴
+[36m[[33m1846933.606[36m] [0m5   is eating 🍝
+[36m[[33m1846933.607[36m] [0m7   ✅ thread started
+[36m[[33m1846933.607[36m] [0m7   has taken a fork 🍴
+[36m[[33m1846933.607[36m] [0m7   has taken a fork 🍴
+[36m[[33m1846933.607[36m] [0m7   is eating 🍝
+[36m[[33m1846933.607[36m] [0m9   ✅ thread started
+[36m[[33m1846933.607[36m] [0m9   has taken a fork 🍴
+[36m[[33m1846933.607[36m] [0m9   has taken a fork 🍴
+[36m[[33m1846933.607[36m] [0m9   is eating 🍝
+[36m[[33m1846933.608[36m] [0m0   ✅ thread started
+[36m[[33m1846933.608[36m] [0m0   has taken a fork 🍴
+[36m[[33m1846933.609[36m] [0m2   ✅ thread started
+[36m[[33m1846933.609[36m] [0m4   ✅ thread started
+[36m[[33m1846933.609[36m] [0m6   ✅ thread started
+[36m[[33m1846933.610[36m] [0m8   ✅ thread started
+[36m[[33m1846933.611[36m] [0m10  ✅ thread started
+looking at 1
+looking at 2
+[36m[[33m1846933.705[36m] [0m2   has taken a fork 🍴
+[36m[[33m1846933.705[36m] [0m1   is sleeping 💤
+[36m[[33m1846933.705[36m] [0m0   has taken a fork 🍴
+[36m[[33m1846933.705[36m] [0m0   is eating 🍝
+looking at 3
+looking at 4
+looking at 5
+[36m[[33m1846933.706[36m] [0m4   has taken a fork 🍴
+[36m[[33m1846933.706[36m] [0m4   has taken a fork 🍴
+looking at 6
+[36m[[33m1846933.706[36m] [0m6   has taken a fork 🍴
+[36m[[33m1846933.706[36m] [0m4   is eating 🍝
+[36m[[33m1846933.706[36m] [0m2   has taken a fork 🍴
+[36m[[33m1846933.706[36m] [0m2   is eating 🍝
+[36m[[33m1846933.706[36m] [0m3   is sleeping 💤
+[36m[[33m1846933.706[36m] [0m5   is sleeping 💤
+looking at 7
+looking at 8
+looking at 9
+looking at 10
+[36m[[33m1846933.707[36m] [0m6   has taken a fork 🍴
+[36m[[33m1846933.707[36m] [0m8   has taken a fork 🍴
+[36m[[33m1846933.707[36m] [0m8   has taken a fork 🍴
+[36m[[33m1846933.707[36m] [0m8   is eating 🍝
+[36m[[33m1846933.707[36m] [0m6   is eating 🍝
+[36m[[33m1846933.707[36m] [0m9   is sleeping 💤
+[36m[[33m1846933.707[36m] [0m7   is sleeping 💤
+looking at 0
+[36m[[33m1846933.805[36m] [0m10  has taken a fork 🍴
+looking at 1
+[36m[[33m1846933.805[36m] [0m10  has taken a fork 🍴
+[36m[[33m1846933.805[36m] [0m0   is sleeping 💤
+[36m[[33m1846933.805[36m] [0m10  is eating 🍝
+[36m[[33m1846933.805[36m] [0m1   is thinking 💭
+[36m[[33m1846933.805[36m] [0m1   has taken a fork 🍴
+looking at 2
+[36m[[33m1846933.806[36m] [0m1   has taken a fork 🍴
+[36m[[33m1846933.806[36m] [0m1   is eating 🍝
+[36m[[33m1846933.806[36m] [0m5   ❌ thread stopped
+[36m[[33m1846933.806[36m] [0m4   ❌ thread stopped
+[36m[[33m1846933.806[36m] [0m2   ❌ thread stopped
+[36m[[33m1846933.806[36m] [0m3   ❌ thread stopped
+[36m[[33m1846933.807[36m] [0m7   ❌ thread stopped
+[36m[[33m1846933.807[36m] [0m6   ❌ thread stopped
+[36m[[33m1846933.807[36m] [0m9   ❌ thread stopped
+[36m[[33m1846933.807[36m] [0m8   ❌ thread stopped
+[36m[[33m1846933.905[36m] [0m0   ❌ thread stopped
+[36m[[33m1846933.905[36m] [0m10  ❌ thread stopped
+[36m[[33m1846933.906[36m] [0m1   ❌ thread stopped

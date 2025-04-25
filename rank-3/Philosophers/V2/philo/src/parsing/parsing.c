@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:06:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:16:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@
  * 
  * @return The number of arguments parsed
  */
-__attribute__(())
-static int	_parse_long_options(const int argc, const char *argv[],
-	t_args *args, const int i)
+__attribute__((cold)) static int	_parse_long_options(
+	const int argc,
+	const char *argv[],
+	t_args *args,
+	const int i
+)
 {
 	(void)argc;
 	if (ft_strncmp(argv[i], "--help", 6) == 0)
@@ -60,9 +63,12 @@ static int	_parse_long_options(const int argc, const char *argv[],
  * 
  * @return The number of arguments parsed
  */
-__attribute__(())
-static int	_parse_short_options(const int argc, const char *argv[],
-	t_args *args, const int i)
+__attribute__((cold)) static int	_parse_short_options(
+	const int argc,
+	const char *argv[],
+	t_args *args,
+	const int i
+)
 {
 	(void)argc;
 	if (ft_strncmp(argv[i], "-h", 2) == 0)
@@ -124,9 +130,9 @@ t_args	parse_args(
 	t_args			args;
 	register int	i;
 
-	args = (t_args){.argc = argc, .argv = argv, .error = 0, .help = 0,
-		.debug = 0, .data_get = 0,
-		.data = (t_philo_data){-1, -1, -1, -1, -1, -1}};
+	if (argc < 2)
+		return (_show_usage(argv[0]), (t_args){.error = EINVAL});
+	args = (t_args){.argc = argc, .argv = argv, .data = {-1, 0, -1, -1, -1}};
 	i = 1;
 	while (i < argc && !args.error && !args.help)
 	{
@@ -142,8 +148,6 @@ t_args	parse_args(
 	}
 	if (args.help)
 		_show_help();
-	else if (args.data_get < 4)
-		args.error = EINVAL;
 	print_args(&args);
 	return (args);
 }

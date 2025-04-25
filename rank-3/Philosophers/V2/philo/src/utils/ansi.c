@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:17:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 15:32:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 08:55:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
  * @note - The RGB value is expected to be in the format 0xRRGGBB.
  * @note - This function is always inlined
  */
-__attribute__((always_inline, used)) void	print_rgb_ansi(
+__attribute__((always_inline, used)) inline void	print_rgb_ansi(
 	const int rgb
 )
 {

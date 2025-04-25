@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:35:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:57:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,21 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/**
- * 
- */
+/** */
 void	info(
 	const int id,
 	const t_time time,
 	const char *msg
 )
 {
-	if (__builtin_expect(!msg || id < 0, unexpected))
+	static t_time	time_start = 0;
+
+	if (__builtin_expect(!msg, unexpected))
 		return ;
-	printf(CYAN "[" YELLOW "%03d" CYAN "] " RESET "%3d %s\n", time, id, msg);
+	else if (__builtin_expect(id == -1, unexpected))
+		time_start = get_ms_time();
+	printf(CYAN "[" YELLOW "%3d.%-3d" CYAN "] " RESET "%-3d %s\n",
+		(time - time_start) / 1000, (time - time_start) % 1000, id, msg);
 }
 
 /** */
@@ -43,7 +46,9 @@ __attribute__((hot)) void	*circle_of_life(
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (global_manager(request_get_run) == true)
+	info(philo->id, get_ms_time(), "✅ thread started");
+	int state = global_manager(request_get_run);	// move this in the while
+	while (state == true)
 	{
 		if (philo->status == eating)
 			philo->eat(philo);
@@ -53,7 +58,10 @@ __attribute__((hot)) void	*circle_of_life(
 			philo->think(philo);
 		else if (philo->status == died)
 			return (NULL);
+		state = global_manager(request_get_run);
 	}
+	info(philo->id, get_ms_time(), "❌ thread stopped");
+	global_manager(request_stop);
 	return (NULL);
 }
 

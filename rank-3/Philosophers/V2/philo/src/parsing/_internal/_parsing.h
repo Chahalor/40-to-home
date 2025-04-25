@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:28:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:13:42 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/25 09:04:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int				ft_atoi(
 					const char *nptr
 					);
 
-int				is_nbr(
+extern int		is_nbr(
 					const char *str
 					);
 
