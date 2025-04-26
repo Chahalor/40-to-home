@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:24 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 13:35:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 12:29:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ __attribute__((always_inline, used)) inline int	join(
 }
 
 /** */
-__attribute__((always_inline, used)) inline int	unexpect(
-	long value
+__attribute__((always_inline, used)) inline int	destroy(
+	t_mutex *mutex
 )
 {
-	return (__builtin_expect(value, unexpected));
+	return (pthread_mutex_destroy(mutex));
 }
 
 #pragma endregion Functions

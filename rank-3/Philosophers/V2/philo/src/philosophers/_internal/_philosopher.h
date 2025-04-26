@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:36:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 12:52:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
+// _life.c
+
 extern void	_eat(
 				t_philo *philo
 				);
@@ -63,6 +65,20 @@ extern void	_think(
 
 extern void	_die(
 				t_philo *philo
+				);
+
+// _utils.c
+
+extern void	_set_mutex(
+				t_philo *philo,
+				t_mutex **first,
+				t_mutex **second
+				);
+
+extern void	_lock_forks(
+				t_philo *philo,
+				t_mutex **first,
+				t_mutex **second
 				);
 
 #endif	/* _PHILOSOPHER_H */

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:39:19 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 19:50:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 17:09:55 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ __attribute__((always_inline, used)) static inline t_bool	_is_dead(
 
 /** */
 __attribute__((cold)) void	*big_brother(
-	void *arg	/* the t_wacher struct needed by the thread */
+	void *arg
 )
 {
 	const t_watcher		*watcher = (t_watcher *)arg;
 	register int		i;
 	int					running;
 
+	return (NULL);
 	running = 1;
 	while (running)
 	{
@@ -48,12 +49,12 @@ __attribute__((cold)) void	*big_brother(
 		while (++i < watcher->data.nb_philo && running)
 		{
 			lock(watcher->philosophers[i].lock);
-			printf("looking at %d\n", i);	// rm
 			if (__builtin_expect(_is_dead(watcher->philosophers[i],
-					get_ms_time()), unexpected))
+						get_ms_time()), unexpected))
 				watcher->philosophers[i].die(&watcher->philosophers[i]);
 			running = (watcher->philosophers[i].status != died
-					&& global_manager(request_get_finished) != watcher->data.nb_philo);
+					&& global_manager(request_get_finished)
+					!= watcher->data.nb_philo);
 			unlock(watcher->philosophers[i].lock);
 		}
 	}

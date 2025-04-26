@@ -103,7 +103,7 @@ debug.pg:
 # *                      Utils                        * #
 # ***************************************************** #
 
-.PHONY: header norm crazy test install uninstall update
+.PHONY: header norm crazy test install uninstall update hellgrind
 
 header:
 	@echo "# Big Header #"
@@ -139,6 +139,11 @@ update:
 	fi
 	./auto.sh
 	echo "\033[1;32m ✅ Makefile updated \033[0m";
+
+hellgrind: debug all
+	@echo "\033[1;33m Running hellgrind... \033[0m"
+	valgrind --tool=helgrind ./$(NAME) $(ARGS)
+	echo "\033[1;32m ✅ Hellgrind finished \033[0m"
 
 .SILENT:
 	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m

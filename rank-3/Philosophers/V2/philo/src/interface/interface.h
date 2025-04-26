@@ -1,76 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   states.h                                           :+:      :+:    :+:   */
+/*   interface.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 17:02:07 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/26 20:25:33 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/26 20:32:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATES_H
-# define STATES_H
+#ifndef INTERFACE_H
+# define INTERFACE_H
 
 # pragma once
 
 /* ************************************************************************** */
-/*                                  Headers                                   */
+/*                                  Defines                                   */
 /* ************************************************************************** */
 
-/* Systemes */
-	//...
-
-/* Globals  */
-# include "config.h"
-# include "type.h"
-
-/* Internal */
-	//...
-
-/* Modules  */
-	//...
+# define MAX_LOGS 1024
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef enum e_request			t_request;		/* The request enum         */
-
-typedef struct s_global_data	t_global_data;	/* The global data struct */
+typedef struct s_log_queue	t_log_queue;	/* The log queue type */
+typedef struct s_log		t_log;			/* The log type        */
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
 /* ************************************************************************** */
 
-enum e_request
-{
-	request_get_run,		/* request to get the run status                */
-	request_get_finished ,	/* request to get the number of finish philo   */
-	request_add_finished,	/* request to add a finished philosopher      */
-	request_start,			/* request to start the simulation           */
-	request_stop,			/* request to stop the simulation           */
-	request_destroy,		/* request to clean the global manager     */
-	request_init,			/* request to init the the global manager */
-};
+//...
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-struct s_global_data
+struct s_log
 {
-	t_bool		run		: 1;	/* The run status of the simulation */
-	int			nb_finished;	/* The number of finished philosophers */
+	t_time		time;
+	int			id;
+	const char	*msg;
 };
 
-/* ************************************************************************** */
-/*                                  Prototypes                                */
-/* ************************************************************************** */
+struct s_log_queue
+{
+	t_log		buffer[MAX_LOGS];
+	int			head;
+	int			tail;
+	t_mutex		lock;
+};
 
-int	global_manager(
-		t_request request
-		);
-
-#endif	/* STATES_H */
+#endif	// INTERFACE_H

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 14:37:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 12:41:28 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ __attribute__((malloc, cold)) static t_philo	*init_philo(
 	const t_time	time_start = get_ms_time();
 	t_philo			*philosophers;
 	register int	i;
-	t_mutex 		*pool;
+	t_mutex			*pool;
 
-	if (__builtin_expect(!mutex_pool || !*mutex_pool || nb_philos < 1, unexpected))
+	if (__builtin_expect(!mutex_pool || !*mutex_pool || nb_philos < 1,
+			unexpected))
 		return (NULL);
 	philosophers = (t_philo *)malloc(sizeof(t_philo) * nb_philos);
 	if (__builtin_expect(!philosophers, unexpected))
@@ -96,7 +97,7 @@ __attribute__((cold)) void	destroy_mutex(
 
 /** */
 __attribute__((cold)) void	destroy_philos(
-	t_philo *restrict *restrict philosophers	/* the philosophers list      */
+	t_philo *restrict *restrict philosophers
 )
 {
 	if (!philosophers || !*philosophers)

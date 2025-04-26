@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 19:43:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 18:04:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@
 #pragma endregion Headers
 #pragma region Functions
 
+__attribute__((always_inline, used)) static inline int	_init_global(
+	t_global_data *global_data,
+	t_mutex *mutex_global
+)
+{
+	pthread_mutex_init(mutex_global, NULL);
+	global_data->run = true;
+	global_data->nb_finished = 0;
+	return (global_data->run);
+}
 /** */
 __attribute__((hot)) int	global_manager(
 	t_request request
@@ -32,13 +42,7 @@ __attribute__((hot)) int	global_manager(
 	int						result;
 
 	if (request == request_init)
-	{
-		pthread_mutex_init(&mutex_global, NULL);
-		global_data.run = true;
-		global_data.nb_finished = 0;
-		printf("global_manager: init\n"); // rm
-		return (global_data.run);
-	}
+		return (_init_global(&global_data, &mutex_global));
 	result = 0;
 	lock(&mutex_global);
 	if (request == request_get_run)
@@ -47,16 +51,14 @@ __attribute__((hot)) int	global_manager(
 		result = global_data.nb_finished;
 	else if (request == request_add_finished)
 		result = ++global_data.nb_finished;
+	else if (__builtin_expect(request == request_start, unexpected))
+		global_data.run = true;
 	else if (__builtin_expect(request == request_stop, unexpected))
 		global_data.run = false;
 	else if (__builtin_expect(request == request_destroy, unexpected))
-	{
-		unlock(&mutex_global);	// important to unlock before destroy
-		return (pthread_mutex_destroy(&mutex_global));
-	}
+		return ((void)unlock(&mutex_global), destroy(&mutex_global));
 	unlock(&mutex_global);
 	return (result);
 }
-
 
 #pragma endregion Functions

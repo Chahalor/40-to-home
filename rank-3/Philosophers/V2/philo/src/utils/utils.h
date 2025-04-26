@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 18:55:55 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 12:29:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ extern int	lock(t_mutex *mutex);
 extern int	unlock(t_mutex *mutex);
 extern int	launch(t_thread *thread, void *(*start_routine)(void *), void *arg);
 extern int	join(t_thread *thread);
-extern int	unexpect(long value);
+extern int	destroy(t_mutex *mutex);
 
 // error.c
 

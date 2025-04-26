@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:31:52 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:22:40 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 12:08:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ __attribute__((always_inline, used)) static inline void	err_args_num(
 	const int max
 )
 {
-	if (unexpect(current < min))
+	if (current < min)
 		printf(RED ERROR RESET "too few arguments\n" PADD \
 			"get %d arguments, need %d or %d\n", current, min, max);
 	else
@@ -76,7 +76,7 @@ __attribute__((always_inline, used)) inline t_bool	_is_valide_args(
 {
 	register int	j;
 
-	if (unexpect(argc - i < 4 || argc - i > 5))
+	if (__builtin_expect(argc - i < 4 || argc - i > 5, unexpected))
 	{
 		err_args_num(argc - i, 4, 5);
 		return (false);

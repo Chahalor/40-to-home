@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:30:33 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/26 16:31:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int		init_all(
 
 void	info(
 			const int id,
-			const t_time time,
 			const char *msg
 			);
 
