@@ -20,7 +20,20 @@ DIR_LIBFT=""
 DIR_BONUS=""
 
 # nice but useless config
-HEADER="# Big Header #"
+HEADER=" \\
+╔════════════════════════════════════════════════════════════════════════════════════════════╗\n \\
+║                                                                                            ║\n \\
+║       ________        ___  ___          ___          ___               ________            ║\n \\
+║      |\   __  \      |\  \|\  \        |\  \        |\  \             |\   __  \           ║\n \\
+║      \ \  \|\  \     \ \  \ \  \       \ \  \       \ \  \            \ \  \|\  \          ║\n \\
+║       \ \   ____\     \ \   __  \       \ \  \       \ \  \            \ \  \ \  \         ║\n \\
+║        \ \  \___|      \ \  \ \  \       \ \  \       \ \  \____        \ \  \ \  \        ║\n \\
+║         \ \__\          \ \__\ \__\       \ \__\       \ \_______\       \ \_______\       ║\n \\
+║          \|__|           \|__|\|__|        \|__|        \|_______|        \|_______|       ║\n \\
+║                                                                                            ║\n \\
+║    By: nduvoid <nduvoid@student.42mulhouse.fr>                                             ║\n \\
+║    A 42 cursus Project                                                                     ║\n \\
+╚════════════════════════════════════════════════════════════════════════════════════════════╝\n"
 
 # Check if DIR_SRC exists
 if [ ! -d "$DIR_SRC" ]; then
@@ -75,8 +88,13 @@ EOM
 done
 
 # writing the main Makefile
-cat <<EOF > Makefile
-$HEADER
+{
+	# D'abord écrire $HEADER mais en ajoutant un # au début de chaque ligne
+	echo "$HEADER" | sed 's/\\n \\//g' | while IFS= read -r line; do
+		echo "# $line"
+	done
+
+	cat <<EOF # > Makefile
 
 # ***************************************************** #
 # *                 Configuation                      * #
@@ -227,5 +245,7 @@ hellgrind: debug all
 	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m
 
 EOF
+
+} > Makefile
 
 echo "✅ Makefile principal créé avec succès !"

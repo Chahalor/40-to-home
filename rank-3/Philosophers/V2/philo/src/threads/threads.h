@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:53:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 13:28:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/27 15:27:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 /* ************************************************************************** */
 
 /* Systemes */
-	//...
+# include <unistd.h>
 
 /* Globals  */
 # include "config.h"
 # include "type.h"
+# include "formating.h"
 
 /* Internal */
 	//...
@@ -34,6 +35,7 @@
 # include "threads.h"
 # include "philosophers.h"
 # include "utils.h"
+# include "interface.h"
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */

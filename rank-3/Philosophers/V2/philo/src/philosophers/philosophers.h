@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 16:31:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:56:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int		init_all(
 			t_philo_data data
 			);
 
-void	info(
-			const int id,
-			const char *msg
-			);
+// void	info(
+// 			const int id,
+// 			const char *msg
+// 			);
 
 // life.c
 

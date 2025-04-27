@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 16:13:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/27 11:16:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ enum e_bool
 
 enum e_status
 {
-	thinking,			/* the philosopher is thinking */
-	eating,				/* the philosopher is eating   */
-	sleeping,			/* the philosopher is sleeping */
-	died,				/* the philosopher is dead     */
-	finish,				/* the philosopher is finishing */
+	thinking,			/* the philosopher is thinking          */
+	eating,				/* the philosopher is eating           */
+	sleeping,			/* the philosopher is sleeping        */
+	died,				/* the philosopher is dead           */
+	finish,				/* the philosopher is finishing     */
+	forks,				/* the philosopher is taking forks */
 };
 
 /* ************************************************************************** */

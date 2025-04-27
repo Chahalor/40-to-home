@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 10:16:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/24 09:14:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/27 11:20:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@
 # define REVERSED		"\033[7m"
 # define HIDDEN			"\033[8m"
 # define STRIKETHROUGH	"\033[9m"
+
+// cmd management
+
+# define FULL_CLEAN		"\033[H\033[2J\033[3J"
+# define CLEAR_SCREEN	"\033[2J\033[1;1H"
+# define CURSOR_UP		"\033[1A"
+# define CURSOR_DOWN	"\033[1B"
+# define CURSOR_LEFT	"\033[1D"
+# define CURSOR_RIGHT	"\033[1C"
+# define CURSOR_HOME	"\033[H"
 
 // background colors
 //...

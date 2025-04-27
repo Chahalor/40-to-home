@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 17:02:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:38:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ enum e_request
 	request_stop,			/* request to stop the simulation           */
 	request_destroy,		/* request to clean the global manager     */
 	request_init,			/* request to init the the global manager */
+	request_lock_print,		/* request to lock the print mutex       */
+	request_unlock_print,	/* request to unlock the print mutex    */
 };
 
 /* ************************************************************************** */
@@ -63,6 +65,7 @@ struct s_global_data
 {
 	t_bool		run		: 1;	/* The run status of the simulation */
 	int			nb_finished;	/* The number of finished philosophers */
+	t_mutex		print_lock;		/* The print mutex                  */
 };
 
 /* ************************************************************************** */
