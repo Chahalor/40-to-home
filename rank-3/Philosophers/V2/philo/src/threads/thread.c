@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 10:10:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:18:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ __attribute__((cold)) int	launch_simu(
 		return (-1);
 	global_manager(request_init);
 	global_manager(request_start);
-	info(-1, "Start of the simulation");
+	init_display(data);
+	// info(-1, "Start of the simulation");
 	lauch_philo(threads, philosophers, data.nb_philo);
 	i = -1;
 	while (++i < data.nb_philo)

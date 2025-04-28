@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 16:32:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:19:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ __attribute__((always_inline, used)) inline void	_lock_forks(
 {
 	_set_mutex(philo, first, second);
 	lock(*first);
-	info(philo->id, "has taken a fork 🍴");
+	// info(philo->id, "has taken a fork 🍴");
+	display_philo(philo, forks);
 	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
 	{
 		lock(*second);
-		info(philo->id, "has taken a fork 🍴");
+		// info(philo->id, "has taken a fork 🍴");
+		display_philo(philo, forks);
 	}
 }
-
-
 
 #pragma endregion Functions

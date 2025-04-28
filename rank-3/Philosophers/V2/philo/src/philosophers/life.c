@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 09:43:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 13:58:44 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ __attribute__((hot)) void	*circle_of_life(
 	philo->eat(philo);
 	while (global_manager(request_get_run) == true)
 	{
-		display_philo(philo, philo->status);
 		if (_should_quit(philo))
 			break ;
 		if (philo->status == eating)

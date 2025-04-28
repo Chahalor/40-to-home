@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:25:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 09:06:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:06:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@
 /*                                  Defines                                   */
 /* ************************************************************************** */
 
-# define MAX_LOGS	3
+# define MAX_LOGS		18	/* The max number of logs to display   */
 
-# define NB_LOG_COL	5
-# define LOG_WIDTH	26
-# define LOG_HEIGHT	5
+# define INFO_HEIGTH	8	/* The height of the info display    */
+
+# define NB_LOG_COL		13	/* The number of log columns       */
+# define LOG_WIDTH		26	/* The width of the log display   */
+# define LOG_HEIGHT		4	/* The height of the log display */
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef struct s_log	t_log;		/* The log type   */
-typedef struct s_info	t_info;		/* The info type */
+typedef struct s_log	t_log;		/* The log type     */
+typedef struct s_info	t_info;		/* The info type   */
+typedef struct s_point	t_point;	/* The point type */
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
@@ -66,31 +69,47 @@ struct s_info
 {
 	t_log		logs[MAX_LOGS];	/* The log messages           */
 	t_time		time_start;		/* The start time of the log */
-	t_mutex		print_lock;		/* The print mutex          */
-	int			nb_logs;		/* The number of logs      */
+	int			nb_logs;		/* The number of logs       */
+};
+
+struct s_point
+{
+	int		x;	/* The x coordinate */
+	int		y;	/* The y coordinate */
 };
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
+// init.c
+
+extern void	init_display(
+				const t_philo_data data
+				);
+
 // print.c
 
-void	info(
-			const int id,
-			const char *msg
-			);
+void		info(
+				const int id,
+				const char *msg
+				);
+
+void		info2(
+				const int id,
+				const char *msg
+				);
 
 // display.c
 
 extern void	move_cursor(
-			const int row,
-			const int col
-			);
+				const int row,
+				const int col
+				);
 
-void	display_philo(
-			const t_philo *philo,
-			const int info
-			);
+void		display_philo(
+				const t_philo *philo,
+				const int info
+				);
 
 #endif	// INTERFACE_H

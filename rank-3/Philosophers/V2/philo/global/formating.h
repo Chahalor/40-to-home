@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 10:16:49 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 11:20:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:08:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define PADD2	"│  ├──"
 # define PADD3	"│  │  "
 # define PADD4	"│  └──"
+
+# ifndef HEADER
+#  define HEADER	"Philosophers"	/* The programme Header */
+# endif
 
 // colors
 

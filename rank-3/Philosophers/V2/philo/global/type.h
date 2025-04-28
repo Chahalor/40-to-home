@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 11:16:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 13:08:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ enum e_status
 	died,				/* the philosopher is dead           */
 	finish,				/* the philosopher is finishing     */
 	forks,				/* the philosopher is taking forks */
+	lock_left,			/* the philosopher is locking left fork */
+	lock_rigth,			/* the philosopher is locking right fork */
+	lock_both,			/* the philosopher is locking both forks */
+	unlock_both,		/* the philosopher is unlocking both forks */
 };
 
 /* ************************************************************************** */

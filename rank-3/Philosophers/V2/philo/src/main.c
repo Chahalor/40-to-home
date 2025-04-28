@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 09:05:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:20:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int argc, const char **argv)
 		return (1);
 	init_all(&forks, &philosophers, args.data);
 	launch_simu(philosophers, args.data);
-	move_cursor(2 + (args.data.nb_philo + 1) * 4, 1);
-	printf("Simulation finished\n");
+	// move_cursor(2 + (args.data.nb_philo + 1) * 4, 1);
+	// printf("Simulation finished\n");
 	destroy_mutex(&forks, args.data.nb_philo * 3);
 	destroy_philos(&philosophers);
 	return (0);
