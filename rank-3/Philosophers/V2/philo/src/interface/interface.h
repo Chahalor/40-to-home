@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:25:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 20:53:04 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 09:06:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@
 
 typedef struct s_log	t_log;		/* The log type   */
 typedef struct s_info	t_info;		/* The info type */
+
+/* ************************************************************************** */
+/*                                  Typedefs                                  */
+/* ************************************************************************** */
+
+//...
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
@@ -83,7 +89,8 @@ extern void	move_cursor(
 			);
 
 void	display_philo(
-			const t_philo *philo
+			const t_philo *philo,
+			const int info
 			);
 
 #endif	// INTERFACE_H

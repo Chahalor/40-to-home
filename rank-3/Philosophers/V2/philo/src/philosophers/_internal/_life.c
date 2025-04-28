@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 17:52:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 09:09:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	_die(
 	philo->status = died;
 	unlock(philo->lock);
 	info(philo->id, "died 🪦");
+	display_philo(philo, died);
 	global_manager(request_stop);
 }
 

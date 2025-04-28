@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 15:29:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 10:10:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ __attribute__((cold)) int	launch_simu(
 	threads = (t_thread *)malloc(sizeof(t_thread) * (data.nb_philo));
 	if (__builtin_expect(!threads, unexpected))
 		return (-1);
-	printf(CLEAR_SCREEN);
 	global_manager(request_init);
 	global_manager(request_start);
 	info(-1, "Start of the simulation");

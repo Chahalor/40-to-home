@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 17:40:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 09:42:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ __attribute__((always_inline, used)) static inline int	_destroy_global(
 	t_mutex *mutex_global
 )
 {
-	unlock(&global_data->print_lock);
 	pthread_mutex_destroy(&global_data->print_lock);
 	unlock(mutex_global);
 	pthread_mutex_destroy(mutex_global);
@@ -47,6 +46,7 @@ __attribute__((always_inline, used)) static inline int	_init_global(
 	global_data->nb_finished = 0;
 	return (global_data->run);
 }
+
 /** */
 __attribute__((hot)) int	global_manager(
 	t_request request
@@ -62,10 +62,6 @@ __attribute__((hot)) int	global_manager(
 	lock(&mutex_global);
 	if (request == request_get_run)
 		result = global_data.run;
-	else if (request == request_lock_print)
-		result = lock(&global_data.print_lock);
-	else if (request == request_unlock_print)
-		result = unlock(&global_data.print_lock);
 	else if (request == request_get_finished)
 		result = global_data.nb_finished;
 	else if (request == request_add_finished)

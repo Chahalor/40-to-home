@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:25:18 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 17:59:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 10:09:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ __attribute__((hot)) void	info(
 	int				sec;
 	int				ms;
 
-	return ;
+	// return ;
 	info2(id, msg);
 	if (__builtin_expect(!msg, unexpected))
 		return ;

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 18:00:45 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/28 09:43:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #pragma region Functions
 
 /** */
-static inline t_bool _should_quit(
+static inline t_bool	_should_quit(
 	t_philo *philo
 )
 {
@@ -33,7 +33,7 @@ static inline t_bool _should_quit(
 		return (true);
 	}
 	else if (__builtin_expect(global_manager(request_get_finished)
-		>= philo->data.nb_philo, unexpected))
+			>= philo->data.nb_philo, unexpected))
 	{
 		global_manager(request_stop);
 		return (true);
@@ -50,10 +50,9 @@ __attribute__((hot)) void	*circle_of_life(
 
 	philo = (t_philo *)arg;
 	philo->eat(philo);
-	int state = global_manager(request_get_run);
-	while (state == true)
+	while (global_manager(request_get_run) == true)
 	{
-		display_philo(philo);
+		display_philo(philo, philo->status);
 		if (_should_quit(philo))
 			break ;
 		if (philo->status == eating)
@@ -62,7 +61,6 @@ __attribute__((hot)) void	*circle_of_life(
 			philo->sleep(philo);
 		else if (philo->status == thinking)
 			philo->think(philo);
-		state = global_manager(request_get_run);
 	}
 	return (NULL);
 }
