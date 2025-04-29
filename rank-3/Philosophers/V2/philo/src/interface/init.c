@@ -6,14 +6,14 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 10:12:18 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 15:21:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:58:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region Headers
 
 /* -----| Internal |----- */
-// #include "_interface.h"
+#include "_interface.h"
 
 /* -----| Modules  |----- */
 #include "interface.h"
@@ -21,10 +21,8 @@
 #pragma endregion Headers
 #pragma region Functions
 
-#if DISPLAY_MODE == 1
-
 /** */
-__attribute__((always_inline, used)) static inline void	_init_info(
+__attribute__((always_inline, unused)) static inline void	_init_info(
 	const t_philo_data data
 )
 {
@@ -53,7 +51,7 @@ Numbers of philos dead:		0    ║\n\
 }
 
 /** */
-__attribute__((always_inline, used)) static inline void	_init_log(void)
+__attribute__((always_inline, unused)) static inline void	_init_log(void)
 {
 	register int	i;
 
@@ -70,28 +68,23 @@ __attribute__((always_inline, used)) static inline void	_init_log(void)
 
 /** */
 __attribute__((always_inline, used)) inline void	init_display(
-	const t_philo_data data
-)
-{
-	printf(HEADER CLEAR_SCREEN);
-	info2(-1, "beginning");
-	(void)data;
-	// _init_info(data);
-	// _init_log();
-}
-
-#else
-
-/** */
-__attribute__((always_inline, used)) inline void	init_display(
-	const t_philo_data data
+	const t_philo_data data,
+	const t_philo *restrict random_one,
+	const int display
 )
 {
 	(void)data;
-	printf(HEADER);
-	display_philo(NULL, 0);
+	if (display == 1)
+	{
+		printf(HEADER CLEAR_SCREEN);
+		random_one->info(random_one, init);
+		move_cursor(999, 1);
+	}
+	else
+	{
+		printf(HEADER);
+		random_one->info(random_one, init);
+	}
 }
-
-#endif
 
 #pragma endregion Functions

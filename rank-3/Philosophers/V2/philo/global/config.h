@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:43:01 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 15:10:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 09:36:21 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@
 
 # define SLEEP_BOOST	1000	/* By how much all usleep value must be mult */
 
-# define DISPLAY_MODE	0	/* 0: raw log, 2: vizualizer     */
+# define DISPLAY_MODE	1	/* 0: raw log, 2: vizualizer     */
 
 #endif	/* CONFIG_H */

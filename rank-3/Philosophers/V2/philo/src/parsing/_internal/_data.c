@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:31:52 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 12:08:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 13:56:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,17 @@ __attribute__((always_inline, used)) static inline void	err_args_num(
  * @return void
  */
 __attribute__((always_inline, used)) static inline void	err_invalid_num(
-	const char *restrict arg	/* invalid argument */
+	const char *restrict arg,
+	const int out
 )
 {
-	printf(RED ERROR RESET "invalid argument:\n" PADD \
-		"argument \"%s\" is not a valid number\n", arg);
+	if (out == -1)
+		printf(RED ERROR RESET "invalid argument:\n" PADD \
+			"argument \"%s\" is negative, only positive numbers allowed\n",
+			arg);
+	else
+		printf(RED ERROR RESET "invalid argument:\n" PADD \
+			"argument \"%s\" is not a valid number\n", arg);
 }
 
 /**
@@ -75,6 +81,7 @@ __attribute__((always_inline, used)) inline t_bool	_is_valide_args(
 )
 {
 	register int	j;
+	int				out;
 
 	if (__builtin_expect(argc - i < 4 || argc - i > 5, unexpected))
 	{
@@ -83,11 +90,17 @@ __attribute__((always_inline, used)) inline t_bool	_is_valide_args(
 	}
 	j = -1;
 	while ((++j < 4))
-		if (!is_nbr(argv[i + j]))
-			return (err_invalid_num(argv[i + j]), false);
+	{
+		out = is_nbr(argv[i + j]);
+		if (out == -1 || out == 0)
+			return (err_invalid_num(argv[i + j], out), false);
+	}
 	if (argc - i > 4)
-		if (!is_nbr(argv[i + j]))
-			return (err_invalid_num(argv[i + j]), false);
+	{
+		out = is_nbr(argv[i + j]);
+		if (out == -1 || out == 0)
+			return (err_invalid_num(argv[i + j], out), false);
+	}
 	return (true);
 }
 

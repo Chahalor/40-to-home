@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 17:56:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:53:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ struct s_philo
 	void				(*think)(t_philo *philo);	/* The think function  */
 	void				(*die)(t_philo *philo);		/* The die function    */
 	void				(*finish)(t_philo *philo);	/* The finish function */
+	void				(*info)(const t_philo *philo, const int info);
 };
 
 struct s_watcher
@@ -88,7 +89,8 @@ void	destroy_philos(
 int		init_all(
 			t_mutex **forks,
 			t_philo *restrict *restrict philosophers,
-			t_philo_data data
+			t_philo_data data,
+			const int display
 			);
 
 // void	info(

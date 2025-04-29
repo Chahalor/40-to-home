@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 13:08:57 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:28:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ enum e_status
 	sleeping,			/* the philosopher is sleeping        */
 	died,				/* the philosopher is dead           */
 	finish,				/* the philosopher is finishing     */
+	init,				/* the philosopher is initializing  */
 	forks,				/* the philosopher is taking forks */
-	lock_left,			/* the philosopher is locking left fork */
-	lock_rigth,			/* the philosopher is locking right fork */
-	lock_both,			/* the philosopher is locking both forks */
-	unlock_both,		/* the philosopher is unlocking both forks */
+	forks_1,			/* the philosopher is taking forks 1 */
+	forks_2,			/* the philosopher is taking forks 2 */
+	forks_unlock,		/* the philosopher is unlocking forks */
 };
 
 /* ************************************************************************** */

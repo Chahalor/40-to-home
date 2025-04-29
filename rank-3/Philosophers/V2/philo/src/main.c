@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 15:20:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 14:29:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,35 @@
 #pragma endregion Headers
 #pragma region Functions
 
+/** */
+__attribute__((always_inline, used)) static inline void	_end_of_main(
+	const t_args args,
+	const int status
+)
+{
+	if (args.display)
+		move_cursor(2 + (args.data.nb_philo + 1) * 4, 1);
+	if (status == 1)
+		printf("A philosopher " RED " died" RESET "(RIP bozo)\n");
+	else if (__builtin_expect(status == -1, unexpected))
+		printf(RED ERROR RESET "Failed to launch the simulation\n");
+	else
+		printf("All philosophers finished alive (nice)\n");
+}
+
+/** */
 int	main(int argc, const char **argv)
 {
 	const t_args	args = parse_args(argc, argv);
 	t_mutex			*forks;
 	t_philo			*philosophers;
+	int				simu_status;
 
 	if (__builtin_expect(args.error || args.help, unexpected))
 		return (1);
-	init_all(&forks, &philosophers, args.data);
-	launch_simu(philosophers, args.data);
-	// move_cursor(2 + (args.data.nb_philo + 1) * 4, 1);
-	// printf("Simulation finished\n");
+	init_all(&forks, &philosophers, args.data, args.display);
+	simu_status = launch_simu(philosophers, args.data, args.display);
+	_end_of_main(args, simu_status);
 	destroy_mutex(&forks, args.data.nb_philo * 3);
 	destroy_philos(&philosophers);
 	return (0);

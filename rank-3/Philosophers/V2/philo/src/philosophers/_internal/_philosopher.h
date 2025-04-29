@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 17:58:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 13:59:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,46 +25,45 @@
 /* Globals  */
 # include "config.h"
 # include "type.h"
-# include "formating.h"
 
 /* Internal */
 # include "philosophers.h"
 
 /* Modules  */
-# include "utils.h"
 # include "interface.h"
-
-/* ************************************************************************** */
-/*                                  typedefs                                  */
-/* ************************************************************************** */
-
-//...
-
-/* ************************************************************************** */
-/*                                  Structs                                   */
-/* ************************************************************************** */
-
-//...
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
+// _init.c
+
+t_mutex		*_init_mutex(
+				register int nb_mutex
+				);
+
+t_philo		*_init_philo(
+				register const int nb_philos,
+				t_mutex *restrict *restrict mutex_pool,
+				const t_philo_data data,
+				const int display
+				);
+
 // _life.c
 
-extern void	_eat(
+void		_eat(
 				t_philo *philo
 				);
 
-extern void	_sleep(
+void		_sleep(
 				t_philo *philo
 				);
 
-extern void	_think(
+void		_think(
 				t_philo *philo
 				);
 
-extern void	_die(
+void		_die(
 				t_philo *philo
 				);
 

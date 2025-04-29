@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 16:16:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:50:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ __attribute__((cold)) static int	_parse_long_options(
 	(void)argc;
 	if (ft_strncmp(argv[i], "--help", 6) == 0)
 		args->help = 1;
-	else if (ft_strncmp(argv[i], "--debug", 7) == 0)
-		args->debug = 1;
+	else if (ft_strncmp(argv[i], "--display=", 10) == 0)
+		args->display = argv[i][10] == '1';
 	else
 	{
 		ft_error("Invalid option");
@@ -74,7 +74,10 @@ __attribute__((cold)) static int	_parse_short_options(
 	if (ft_strncmp(argv[i], "-h", 2) == 0)
 		args->help = 1;
 	else if (ft_strncmp(argv[i], "-d", 2) == 0)
-		args->debug = 1;
+	{
+		args->display = argv[i + 1][0] == '1';
+		return (2);
+	}
 	else
 	{
 		ft_error("Invalid option");

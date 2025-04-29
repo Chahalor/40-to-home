@@ -1,21 +1,453 @@
-args (0x7ffc0a5a6ac0):
-├──args->argc = 5
-├──argv (0x7ffc0a5a6c98):
-│  └──"1" "80" "200" "200" 
-├──args->help = 0
-├──args->debug = 0
-├──args->data_get = 0
-├──args->error = 0
-└──args->data = 0x7ffc0a5a6ad0
-   ├──args->data.nb_philo = 1
-   ├──args->data.time_to_die = 80
-   ├──args->data.time_to_eat = 200
-   ├──args->data.time_to_sleep = 200
-   └──args->data.nb_meals = -1
-Philosophers[2J[1;1H[999;1H[1A[36m[[33m  0.000[36m] [0m-1  beginning        
-display_philo: 0 -- DISPLAY_MODE=1
-[36m[[33m2089705.678[36m] [0m0   has taken a Forks
-display_philo: 0 -- DISPLAY_MODE=1
-[36m[[33m2089705.678[36m] [0m0   is Eating        
-display_philo: 0 -- DISPLAY_MODE=1
-[36m[[33m2089705.878[36m] [0m0   just Died        
+[1;33m DEBUG MODE ACTIVATED [0m
+ ╔════════════════════════════════════════════════════════════════════════════════════════════╗
+ ║                                                                                            ║
+ ║       ________        ___  ___          ___          ___               ________            ║
+ ║      |\   __  \      |\  \|\  \        |\  \        |\  \             |\   __  \           ║
+ ║      \ \  \|\  \     \ \  \ \  \       \ \  \       \ \  \            \ \  \|\  \          ║
+ ║       \ \   ____\     \ \   __  \       \ \  \       \ \  \            \ \  \ \  \         ║
+ ║        \ \  \___|      \ \  \ \  \       \ \  \       \ \  \____        \ \  \ \  \        ║
+ ║         \ \__\          \ \__\ \__\       \ \__\       \ \_______\       \ \_______\       ║
+ ║          \|__|           \|__|\|__|        \|__|        \|_______|        \|_______|       ║
+ ║                                                                                            ║
+ ║    By: nduvoid <nduvoid@student.42mulhouse.fr>                                             ║
+ ║    A 42 cursus Project                                                                     ║
+ ╚════════════════════════════════════════════════════════════════════════════════════════════╝
+
+src/philosophers/_internal/_life.c: [01;31m[KError[m[K!
+[01;31m[KError[m[K: CONSECUTIVE_NEWLINES (line:  26, col:   1):	Consecutive newlines
+[01;31m[KError[m[K: TOO_FEW_TAB          (line:  52, col:   9):	Missing tabs for indent level
+src/interface/display.c: [01;31m[KError[m[K!
+[01;31m[KError[m[K: TOO_MANY_TAB         (line:  41, col:   1):	Extra tabs for indent level
+[01;31m[KError[m[K: TOO_MANY_TAB         (line:  42, col:   1):	Extra tabs for indent level
+src/interface/interface.h: [01;31m[KError[m[K!
+[01;31m[KError[m[K: CONSECUTIVE_NEWLINES (line:  68, col:   1):	Consecutive newlines
+[31m ❌ Norminette errors found [0m
+[1;32m ✅ philo installed to /home/nduvoid/.local/bin [0m
+[1;33m Running hellgrind... [0m
+Philosophers[36m[[33m  0.006[36m] [0m0   has taken a Forks
+[36m[[33m  0.009[36m] [0m0   has taken a Forks
+[36m[[33m  0.009[36m] [0m0   is Eating         (1)
+[36m[[33m  0.011[36m] [0m2   has taken a Forks
+[36m[[33m  0.012[36m] [0m2   has taken a Forks
+[36m[[33m  0.012[36m] [0m2   is Eating         (1)
+[36m[[33m  0.012[36m] [0m4   has taken a Forks
+[36m[[33m  0.012[36m] [0m4   has taken a Forks
+[36m[[33m  0.012[36m] [0m4   is Eating         (1)
+[36m[[33m  0.015[36m] [0m6   has taken a Forks
+[36m[[33m  0.015[36m] [0m6   has taken a Forks
+[36m[[33m  0.015[36m] [0m6   is Eating         (1)
+[36m[[33m  0.016[36m] [0m8   has taken a Forks
+[36m[[33m  0.016[36m] [0m8   has taken a Forks
+[36m[[33m  0.016[36m] [0m8   is Eating         (1)
+[36m[[33m  0.016[36m] [0m10  has taken a Forks
+[36m[[33m  0.017[36m] [0m10  has taken a Forks
+[36m[[33m  0.017[36m] [0m10  is Eating         (1)
+[36m[[33m  0.017[36m] [0m12  has taken a Forks
+[36m[[33m  0.017[36m] [0m12  has taken a Forks
+[36m[[33m  0.018[36m] [0m12  is Eating         (1)
+[36m[[33m  0.018[36m] [0m14  has taken a Forks
+[36m[[33m  0.018[36m] [0m14  has taken a Forks
+[36m[[33m  0.018[36m] [0m14  is Eating         (1)
+[36m[[33m  0.019[36m] [0m16  has taken a Forks
+[36m[[33m  0.019[36m] [0m16  has taken a Forks
+[36m[[33m  0.019[36m] [0m16  is Eating         (1)
+[36m[[33m  0.020[36m] [0m18  has taken a Forks
+[36m[[33m  0.020[36m] [0m18  has taken a Forks
+[36m[[33m  0.020[36m] [0m18  is Eating         (1)
+[36m[[33m  0.021[36m] [0m20  has taken a Forks
+[36m[[33m  0.021[36m] [0m20  has taken a Forks
+[36m[[33m  0.021[36m] [0m20  is Eating         (1)
+[36m[[33m  0.022[36m] [0m22  has taken a Forks
+[36m[[33m  0.022[36m] [0m22  has taken a Forks
+[36m[[33m  0.022[36m] [0m22  is Eating         (1)
+[36m[[33m  0.023[36m] [0m24  has taken a Forks
+[36m[[33m  0.023[36m] [0m24  has taken a Forks
+[36m[[33m  0.023[36m] [0m24  is Eating         (1)
+[36m[[33m  0.024[36m] [0m26  has taken a Forks
+[36m[[33m  0.024[36m] [0m26  has taken a Forks
+[36m[[33m  0.024[36m] [0m26  is Eating         (1)
+[36m[[33m  0.025[36m] [0m28  has taken a Forks
+[36m[[33m  0.025[36m] [0m28  has taken a Forks
+[36m[[33m  0.025[36m] [0m28  is Eating         (1)
+[36m[[33m  0.026[36m] [0m30  has taken a Forks
+[36m[[33m  0.026[36m] [0m30  has taken a Forks
+[36m[[33m  0.026[36m] [0m30  is Eating         (1)
+[36m[[33m  0.027[36m] [0m32  has taken a Forks
+[36m[[33m  0.027[36m] [0m32  has taken a Forks
+[36m[[33m  0.027[36m] [0m32  is Eating         (1)
+[36m[[33m  0.028[36m] [0m34  has taken a Forks
+[36m[[33m  0.028[36m] [0m34  has taken a Forks
+[36m[[33m  0.028[36m] [0m34  is Eating         (1)
+[36m[[33m  0.029[36m] [0m36  has taken a Forks
+[36m[[33m  0.030[36m] [0m36  has taken a Forks
+[36m[[33m  0.030[36m] [0m36  is Eating         (1)
+[36m[[33m  0.031[36m] [0m38  has taken a Forks
+[36m[[33m  0.031[36m] [0m38  has taken a Forks
+[36m[[33m  0.031[36m] [0m38  is Eating         (1)
+[36m[[33m  0.032[36m] [0m40  has taken a Forks
+[36m[[33m  0.032[36m] [0m40  has taken a Forks
+[36m[[33m  0.032[36m] [0m40  is Eating         (1)
+[36m[[33m  0.033[36m] [0m42  has taken a Forks
+[36m[[33m  0.033[36m] [0m42  has taken a Forks
+[36m[[33m  0.033[36m] [0m42  is Eating         (1)
+[36m[[33m  0.034[36m] [0m44  has taken a Forks
+[36m[[33m  0.035[36m] [0m44  has taken a Forks
+[36m[[33m  0.035[36m] [0m44  is Eating         (1)
+[36m[[33m  0.035[36m] [0m46  has taken a Forks
+[36m[[33m  0.036[36m] [0m46  has taken a Forks
+[36m[[33m  0.036[36m] [0m46  is Eating         (1)
+[36m[[33m  0.036[36m] [0m48  has taken a Forks
+[36m[[33m  0.037[36m] [0m48  has taken a Forks
+[36m[[33m  0.037[36m] [0m48  is Eating         (1)
+[36m[[33m  0.509[36m] [0m0   is Sleeping      
+[36m[[33m  0.510[36m] [0m49  has taken a Forks
+[36m[[33m  0.510[36m] [0m1   has taken a Forks
+[36m[[33m  0.512[36m] [0m3   has taken a Forks
+[36m[[33m  0.513[36m] [0m1   has taken a Forks
+[36m[[33m  0.514[36m] [0m1   is Eating         (1)
+[36m[[33m  0.514[36m] [0m2   is Sleeping      
+[36m[[33m  0.514[36m] [0m4   is Sleeping      
+[36m[[33m  0.514[36m] [0m3   has taken a Forks
+[36m[[33m  0.514[36m] [0m3   is Eating         (1)
+[36m[[33m  0.515[36m] [0m5   has taken a Forks
+[36m[[33m  0.515[36m] [0m6   is Sleeping      
+[36m[[33m  0.515[36m] [0m5   has taken a Forks
+[36m[[33m  0.515[36m] [0m5   is Eating         (1)
+[36m[[33m  0.516[36m] [0m7   has taken a Forks
+[36m[[33m  0.516[36m] [0m7   has taken a Forks
+[36m[[33m  0.516[36m] [0m7   is Eating         (1)
+[36m[[33m  0.517[36m] [0m8   is Sleeping      
+[36m[[33m  0.517[36m] [0m9   has taken a Forks
+[36m[[33m  0.517[36m] [0m9   has taken a Forks
+[36m[[33m  0.517[36m] [0m9   is Eating         (1)
+[36m[[33m  0.517[36m] [0m10  is Sleeping      
+[36m[[33m  0.518[36m] [0m11  has taken a Forks
+[36m[[33m  0.518[36m] [0m14  is Sleeping      
+[36m[[33m  0.518[36m] [0m15  has taken a Forks
+[36m[[33m  0.519[36m] [0m11  has taken a Forks
+[36m[[33m  0.519[36m] [0m11  is Eating         (1)
+[36m[[33m  0.519[36m] [0m12  is Sleeping      
+[36m[[33m  0.519[36m] [0m13  has taken a Forks
+[36m[[33m  0.519[36m] [0m13  has taken a Forks
+[36m[[33m  0.519[36m] [0m13  is Eating         (1)
+[36m[[33m  0.520[36m] [0m15  has taken a Forks
+[36m[[33m  0.520[36m] [0m15  is Eating         (1)
+[36m[[33m  0.520[36m] [0m16  is Sleeping      
+[36m[[33m  0.520[36m] [0m17  has taken a Forks
+[36m[[33m  0.521[36m] [0m17  has taken a Forks
+[36m[[33m  0.521[36m] [0m17  is Eating         (1)
+[36m[[33m  0.521[36m] [0m20  is Sleeping      
+[36m[[33m  0.522[36m] [0m21  has taken a Forks
+[36m[[33m  0.522[36m] [0m19  has taken a Forks
+[36m[[33m  0.522[36m] [0m19  has taken a Forks
+[36m[[33m  0.522[36m] [0m19  is Eating         (1)
+[36m[[33m  0.523[36m] [0m18  is Sleeping      
+[36m[[33m  0.523[36m] [0m21  has taken a Forks
+[36m[[33m  0.523[36m] [0m21  is Eating         (1)
+[36m[[33m  0.523[36m] [0m22  is Sleeping      
+[36m[[33m  0.523[36m] [0m23  has taken a Forks
+[36m[[33m  0.524[36m] [0m24  is Sleeping      
+[36m[[33m  0.524[36m] [0m23  has taken a Forks
+[36m[[33m  0.524[36m] [0m23  is Eating         (1)
+[36m[[33m  0.524[36m] [0m25  has taken a Forks
+[36m[[33m  0.524[36m] [0m25  has taken a Forks
+[36m[[33m  0.525[36m] [0m25  is Eating         (1)
+[36m[[33m  0.525[36m] [0m26  is Sleeping      
+[36m[[33m  0.526[36m] [0m27  has taken a Forks
+[36m[[33m  0.527[36m] [0m30  is Sleeping      
+[36m[[33m  0.527[36m] [0m32  is Sleeping      
+[36m[[33m  0.527[36m] [0m27  has taken a Forks
+[36m[[33m  0.527[36m] [0m27  is Eating         (1)
+[36m[[33m  0.528[36m] [0m28  is Sleeping      
+[36m[[33m  0.528[36m] [0m29  has taken a Forks
+[36m[[33m  0.528[36m] [0m29  has taken a Forks
+[36m[[33m  0.528[36m] [0m29  is Eating         (1)
+[36m[[33m  0.528[36m] [0m31  has taken a Forks
+[36m[[33m  0.529[36m] [0m31  has taken a Forks
+[36m[[33m  0.529[36m] [0m31  is Eating         (1)
+[36m[[33m  0.529[36m] [0m33  has taken a Forks
+[36m[[33m  0.529[36m] [0m34  is Sleeping      
+[36m[[33m  0.530[36m] [0m36  is Sleeping      
+[36m[[33m  0.530[36m] [0m35  has taken a Forks
+[36m[[33m  0.530[36m] [0m35  has taken a Forks
+[36m[[33m  0.530[36m] [0m35  is Eating         (1)
+[36m[[33m  0.531[36m] [0m33  has taken a Forks
+[36m[[33m  0.531[36m] [0m33  is Eating         (1)
+[36m[[33m  0.531[36m] [0m37  has taken a Forks
+[36m[[33m  0.531[36m] [0m38  is Sleeping      
+[36m[[33m  0.532[36m] [0m37  has taken a Forks
+[36m[[33m  0.532[36m] [0m37  is Eating         (1)
+[36m[[33m  0.532[36m] [0m39  has taken a Forks
+[36m[[33m  0.532[36m] [0m39  has taken a Forks
+[36m[[33m  0.532[36m] [0m39  is Eating         (1)
+[36m[[33m  0.532[36m] [0m40  is Sleeping      
+[36m[[33m  0.534[36m] [0m41  has taken a Forks
+[36m[[33m  0.534[36m] [0m41  has taken a Forks
+[36m[[33m  0.534[36m] [0m41  is Eating         (1)
+[36m[[33m  0.534[36m] [0m43  has taken a Forks
+[36m[[33m  0.535[36m] [0m42  is Sleeping      
+[36m[[33m  0.535[36m] [0m43  has taken a Forks
+[36m[[33m  0.535[36m] [0m43  is Eating         (1)
+[36m[[33m  0.536[36m] [0m44  is Sleeping      
+[36m[[33m  0.536[36m] [0m45  has taken a Forks
+[36m[[33m  0.536[36m] [0m45  has taken a Forks
+[36m[[33m  0.536[36m] [0m45  is Eating         (1)
+[36m[[33m  0.537[36m] [0m47  has taken a Forks
+[36m[[33m  0.537[36m] [0m48  is Sleeping      
+[36m[[33m  0.538[36m] [0m47  has taken a Forks
+[36m[[33m  0.538[36m] [0m47  is Eating         (1)
+[36m[[33m  0.538[36m] [0m49  has taken a Forks
+[36m[[33m  0.538[36m] [0m49  is Eating         (1)
+[36m[[33m  0.539[36m] [0m46  is Sleeping      
+[36m[[33m  1.011[36m] [0m0   is Thinking      
+[36m[[33m  1.014[36m] [0m2   is Thinking      
+[36m[[33m  1.014[36m] [0m1   is Sleeping      
+[36m[[33m  1.015[36m] [0m4   is Thinking      
+[36m[[33m  1.015[36m] [0m5   is Sleeping      
+[36m[[33m  1.015[36m] [0m2   has taken a Forks
+[36m[[33m  1.016[36m] [0m3   is Sleeping      
+[36m[[33m  1.016[36m] [0m6   is Thinking      
+[36m[[33m  1.016[36m] [0m6   has taken a Forks
+[36m[[33m  1.016[36m] [0m2   has taken a Forks
+[36m[[33m  1.017[36m] [0m2   is Eating         (2)
+[36m[[33m  1.017[36m] [0m8   is Thinking      
+[36m[[33m  1.017[36m] [0m4   has taken a Forks
+[36m[[33m  1.017[36m] [0m4   has taken a Forks
+[36m[[33m  1.017[36m] [0m4   is Eating         (2)
+[36m[[33m  1.018[36m] [0m7   is Sleeping      
+[36m[[33m  1.018[36m] [0m10  is Thinking      
+[36m[[33m  1.019[36m] [0m9   is Sleeping      
+[36m[[33m  1.019[36m] [0m12  is Thinking      
+[36m[[33m  1.019[36m] [0m14  is Thinking      
+[36m[[33m  1.020[36m] [0m6   has taken a Forks
+[36m[[33m  1.020[36m] [0m6   is Eating         (2)
+[36m[[33m  1.020[36m] [0m15  is Sleeping      
+[36m[[33m  1.021[36m] [0m13  is Sleeping      
+[36m[[33m  1.021[36m] [0m10  has taken a Forks
+[36m[[33m  1.021[36m] [0m10  has taken a Forks
+[36m[[33m  1.021[36m] [0m10  is Eating         (2)
+[36m[[33m  1.021[36m] [0m11  is Sleeping      
+[36m[[33m  1.022[36m] [0m12  has taken a Forks
+[36m[[33m  1.022[36m] [0m12  has taken a Forks
+[36m[[33m  1.022[36m] [0m12  is Eating         (2)
+[36m[[33m  1.022[36m] [0m16  is Thinking      
+[36m[[33m  1.022[36m] [0m16  has taken a Forks
+[36m[[33m  1.023[36m] [0m8   has taken a Forks
+[36m[[33m  1.023[36m] [0m8   has taken a Forks
+[36m[[33m  1.023[36m] [0m8   is Eating         (2)
+[36m[[33m  1.023[36m] [0m21  is Sleeping      
+[36m[[33m  1.024[36m] [0m17  is Sleeping      
+[36m[[33m  1.024[36m] [0m14  has taken a Forks
+[36m[[33m  1.024[36m] [0m14  has taken a Forks
+[36m[[33m  1.024[36m] [0m14  is Eating         (2)
+[36m[[33m  1.025[36m] [0m24  is Thinking      
+[36m[[33m  1.025[36m] [0m23  is Sleeping      
+[36m[[33m  1.025[36m] [0m20  is Thinking      
+[36m[[33m  1.026[36m] [0m25  is Sleeping      
+[36m[[33m  1.026[36m] [0m18  is Thinking      
+[36m[[33m  1.026[36m] [0m18  has taken a Forks
+[36m[[33m  1.027[36m] [0m22  is Thinking      
+[36m[[33m  1.027[36m] [0m22  has taken a Forks
+[36m[[33m  1.027[36m] [0m22  has taken a Forks
+[36m[[33m  1.027[36m] [0m22  is Eating         (2)
+[36m[[33m  1.028[36m] [0m19  is Sleeping      
+[36m[[33m  1.028[36m] [0m27  is Sleeping      
+[36m[[33m  1.028[36m] [0m28  is Thinking      
+[36m[[33m  1.028[36m] [0m28  has taken a Forks
+[36m[[33m  1.029[36m] [0m32  is Thinking      
+[36m[[33m  1.029[36m] [0m30  is Thinking      
+[36m[[33m  1.029[36m] [0m16  has taken a Forks
+[36m[[33m  1.030[36m] [0m16  is Eating         (2)
+[36m[[33m  1.030[36m] [0m18  has taken a Forks
+[36m[[33m  1.030[36m] [0m18  is Eating         (2)
+[36m[[33m  1.030[36m] [0m20  has taken a Forks
+[36m[[33m  1.031[36m] [0m20  has taken a Forks
+[36m[[33m  1.031[36m] [0m20  is Eating         (2)
+[36m[[33m  1.031[36m] [0m34  is Thinking      
+[36m[[33m  1.032[36m] [0m38  is Thinking      
+[36m[[33m  1.032[36m] [0m26  is Thinking      
+[36m[[33m  1.032[36m] [0m26  has taken a Forks
+[36m[[33m  1.032[36m] [0m26  has taken a Forks
+[36m[[33m  1.032[36m] [0m26  is Eating         (2)
+[36m[[33m  1.032[36m] [0m24  has taken a Forks
+[36m[[33m  1.033[36m] [0m24  has taken a Forks
+[36m[[33m  1.033[36m] [0m24  is Eating         (2)
+[36m[[33m  1.033[36m] [0m35  is Sleeping      
+[36m[[33m  1.033[36m] [0m36  is Thinking      
+[36m[[33m  1.033[36m] [0m36  has taken a Forks
+[36m[[33m  1.034[36m] [0m29  is Sleeping      
+[36m[[33m  1.034[36m] [0m31  is Sleeping      
+[36m[[33m  1.035[36m] [0m40  is Thinking      
+[36m[[33m  1.036[36m] [0m41  is Sleeping      
+[36m[[33m  1.036[36m] [0m33  is Sleeping      
+[36m[[33m  1.036[36m] [0m28  has taken a Forks
+[36m[[33m  1.037[36m] [0m28  is Eating         (2)
+[36m[[33m  1.037[36m] [0m30  has taken a Forks
+[36m[[33m  1.037[36m] [0m30  has taken a Forks
+[36m[[33m  1.037[36m] [0m30  is Eating         (2)
+[36m[[33m  1.037[36m] [0m45  is Sleeping      
+[36m[[33m  1.038[36m] [0m32  has taken a Forks
+[36m[[33m  1.038[36m] [0m32  has taken a Forks
+[36m[[33m  1.038[36m] [0m32  is Eating         (2)
+[36m[[33m  1.038[36m] [0m47  is Sleeping      
+[36m[[33m  1.038[36m] [0m34  has taken a Forks
+[36m[[33m  1.038[36m] [0m34  has taken a Forks
+[36m[[33m  1.039[36m] [0m34  is Eating         (2)
+[36m[[33m  1.039[36m] [0m37  is Sleeping      
+[36m[[33m  1.039[36m] [0m43  is Sleeping      
+[36m[[33m  1.040[36m] [0m46  is Thinking      
+[36m[[33m  1.040[36m] [0m46  has taken a Forks
+[36m[[33m  1.040[36m] [0m46  has taken a Forks
+[36m[[33m  1.040[36m] [0m46  is Eating         (2)
+[36m[[33m  1.040[36m] [0m48  is Thinking      
+[36m[[33m  1.040[36m] [0m48  has taken a Forks
+[36m[[33m  1.041[36m] [0m44  is Thinking      
+[36m[[33m  1.041[36m] [0m44  has taken a Forks
+[36m[[33m  1.041[36m] [0m44  has taken a Forks
+[36m[[33m  1.041[36m] [0m44  is Eating         (2)
+[36m[[33m  1.041[36m] [0m49  is Sleeping      
+[36m[[33m  1.042[36m] [0m42  is Thinking      
+[36m[[33m  1.042[36m] [0m42  has taken a Forks
+[36m[[33m  1.042[36m] [0m42  has taken a Forks
+[36m[[33m  1.042[36m] [0m42  is Eating         (2)
+[36m[[33m  1.043[36m] [0m38  has taken a Forks
+[36m[[33m  1.043[36m] [0m0   has taken a Forks
+[36m[[33m  1.043[36m] [0m0   has taken a Forks
+[36m[[33m  1.043[36m] [0m0   is Eating         (2)
+[36m[[33m  1.043[36m] [0m48  has taken a Forks
+[36m[[33m  1.043[36m] [0m48  is Eating         (2)
+[36m[[33m  1.044[36m] [0m39  is Sleeping      
+[36m[[33m  1.044[36m] [0m36  has taken a Forks
+[36m[[33m  1.044[36m] [0m36  is Eating         (2)
+[36m[[33m  1.045[36m] [0m40  has taken a Forks
+[36m[[33m  1.045[36m] [0m40  has taken a Forks
+[36m[[33m  1.045[36m] [0m40  is Eating         (2)
+[36m[[33m  1.046[36m] [0m38  has taken a Forks
+[36m[[33m  1.046[36m] [0m38  is Eating         (2)
+[36m[[33m  1.514[36m] [0m1   is Thinking      
+[36m[[33m  1.515[36m] [0m5   is Thinking      
+[36m[[33m  1.516[36m] [0m3   is Thinking      
+[36m[[33m  1.517[36m] [0m4   is Sleeping      
+[36m[[33m  1.517[36m] [0m5   has taken a Forks
+[36m[[33m  1.518[36m] [0m2   is Sleeping      
+[36m[[33m  1.518[36m] [0m3   has taken a Forks
+[36m[[33m  1.519[36m] [0m3   has taken a Forks
+[36m[[33m  1.519[36m] [0m3   is Eating         (2)
+[36m[[33m  1.519[36m] [0m9   is Thinking      
+[36m[[33m  1.520[36m] [0m15  is Thinking      
+[36m[[33m  1.520[36m] [0m7   is Thinking      
+[36m[[33m  1.521[36m] [0m13  is Thinking      
+[36m[[33m  1.521[36m] [0m6   is Sleeping      
+[36m[[33m  1.521[36m] [0m10  is Sleeping      
+[36m[[33m  1.522[36m] [0m12  is Sleeping      
+[36m[[33m  1.524[36m] [0m14  is Sleeping      
+[36m[[33m  1.525[36m] [0m23  is Thinking      
+[36m[[33m  1.525[36m] [0m11  is Thinking      
+[36m[[33m  1.525[36m] [0m11  has taken a Forks
+[36m[[33m  1.526[36m] [0m11  has taken a Forks
+[36m[[33m  1.526[36m] [0m11  is Eating         (2)
+[36m[[33m  1.526[36m] [0m15  has taken a Forks
+[36m[[33m  1.527[36m] [0m25  is Thinking      
+[36m[[33m  1.527[36m] [0m22  is Sleeping      
+[36m[[33m  1.527[36m] [0m13  has taken a Forks
+[36m[[33m  1.528[36m] [0m13  has taken a Forks
+[36m[[33m  1.528[36m] [0m13  is Eating         (2)
+[36m[[33m  1.528[36m] [0m21  is Thinking      
+[36m[[33m  1.528[36m] [0m23  has taken a Forks
+[36m[[33m  1.529[36m] [0m19  is Thinking      
+[36m[[33m  1.529[36m] [0m27  is Thinking      
+[36m[[33m  1.530[36m] [0m5   has taken a Forks
+[36m[[33m  1.530[36m] [0m18  is Sleeping      
+[36m[[33m  1.530[36m] [0m16  is Sleeping      
+[36m[[33m  1.531[36m] [0m5   is Eating         (2)
+[36m[[33m  1.531[36m] [0m7   has taken a Forks
+[36m[[33m  1.531[36m] [0m19  has taken a Forks
+[36m[[33m  1.531[36m] [0m15  has taken a Forks
+[36m[[33m  1.532[36m] [0m15  is Eating         (2)
+[36m[[33m  1.533[36m] [0m26  is Sleeping      
+[36m[[33m  1.533[36m] [0m35  is Thinking      
+[36m[[33m  1.534[36m] [0m7   has taken a Forks
+[36m[[33m  1.534[36m] [0m7   is Eating         (2)
+[36m[[33m  1.534[36m] [0m8   is Sleeping      
+[36m[[33m  1.534[36m] [0m19  has taken a Forks
+[36m[[33m  1.534[36m] [0m19  is Eating         (2)
+[36m[[33m  1.535[36m] [0m27  has taken a Forks
+[36m[[33m  1.535[36m] [0m31  is Thinking      
+[36m[[33m  1.535[36m] [0m29  is Thinking      
+[36m[[33m  1.536[36m] [0m41  is Thinking      
+[36m[[33m  1.536[36m] [0m9   has taken a Forks
+[36m[[33m  1.536[36m] [0m9   has taken a Forks
+[36m[[33m  1.536[36m] [0m9   is Eating         (2)
+[36m[[33m  1.537[36m] [0m33  is Thinking      
+[36m[[33m  1.538[36m] [0m24  is Sleeping      
+[36m[[33m  1.538[36m] [0m23  has taken a Forks
+[36m[[33m  1.538[36m] [0m23  is Eating         (2)
+[36m[[33m  1.538[36m] [0m47  is Thinking      
+[36m[[33m  1.539[36m] [0m20  is Sleeping      
+[36m[[33m  1.539[36m] [0m30  is Sleeping      
+[36m[[33m  1.539[36m] [0m31  has taken a Forks
+[36m[[33m  1.540[36m] [0m28  is Sleeping      
+[36m[[33m  1.540[36m] [0m32  is Sleeping      
+[36m[[33m  1.540[36m] [0m45  is Thinking      
+[36m[[33m  1.540[36m] [0m25  has taken a Forks
+[36m[[33m  1.541[36m] [0m25  has taken a Forks
+[36m[[33m  1.541[36m] [0m25  is Eating         (2)
+[36m[[33m  1.541[36m] [0m43  is Thinking      
+[36m[[33m  1.542[36m] [0m37  is Thinking      
+[36m[[33m  1.542[36m] [0m34  is Sleeping      
+[36m[[33m  1.542[36m] [0m49  is Thinking      
+[36m[[33m  1.543[36m] [0m21  has taken a Forks
+[36m[[33m  1.543[36m] [0m21  has taken a Forks
+[36m[[33m  1.543[36m] [0m21  is Eating         (2)
+[36m[[33m  1.543[36m] [0m17  is Thinking      
+[36m[[33m  1.543[36m] [0m17  has taken a Forks
+[36m[[33m  1.543[36m] [0m17  has taken a Forks
+[36m[[33m  1.544[36m] [0m17  is Eating         (2)
+[36m[[33m  1.545[36m] [0m27  has taken a Forks
+[36m[[33m  1.545[36m] [0m27  is Eating         (2)
+[36m[[33m  1.545[36m] [0m29  has taken a Forks
+[36m[[33m  1.545[36m] [0m29  has taken a Forks
+[36m[[33m  1.545[36m] [0m29  is Eating         (2)
+[36m[[33m  1.546[36m] [0m46  is Sleeping      
+[36m[[33m  1.546[36m] [0m36  is Sleeping      
+[36m[[33m  1.546[36m] [0m33  has taken a Forks
+[36m[[33m  1.546[36m] [0m33  has taken a Forks
+[36m[[33m  1.546[36m] [0m33  is Eating         (2)
+[36m[[33m  1.547[36m] [0m44  is Sleeping      
+[36m[[33m  1.547[36m] [0m48  is Sleeping      
+[36m[[33m  1.548[36m] [0m38  is Sleeping      
+[36m[[33m  1.548[36m] [0m49  has taken a Forks
+[36m[[33m  1.548[36m] [0m49  has taken a Forks
+[36m[[33m  1.548[36m] [0m49  is Eating         (2)
+[36m[[33m  1.550[36m] [0m40  is Sleeping      
+[36m[[33m  1.551[36m] [0m39  is Thinking      
+[36m[[33m  1.551[36m] [0m39  has taken a Forks
+[36m[[33m  1.551[36m] [0m39  has taken a Forks
+[36m[[33m  1.551[36m] [0m39  is Eating         (2)
+[36m[[33m  1.551[36m] [0m41  has taken a Forks
+[36m[[33m  1.551[36m] [0m41  has taken a Forks
+[36m[[33m  1.551[36m] [0m41  is Eating         (2)
+[36m[[33m  1.552[36m] [0m47  has taken a Forks
+[36m[[33m  1.552[36m] [0m47  has taken a Forks
+[36m[[33m  1.552[36m] [0m47  is Eating         (2)
+[36m[[33m  1.553[36m] [0m42  is Sleeping      
+[36m[[33m  1.553[36m] [0m43  has taken a Forks
+[36m[[33m  1.553[36m] [0m43  has taken a Forks
+[36m[[33m  1.553[36m] [0m43  is Eating         (2)
+[36m[[33m  1.554[36m] [0m37  has taken a Forks
+[36m[[33m  1.554[36m] [0m37  has taken a Forks
+[36m[[33m  1.554[36m] [0m37  is Eating         (2)
+[36m[[33m  1.554[36m] [0m31  has taken a Forks
+[36m[[33m  1.555[36m] [0m31  is Eating         (2)
+[36m[[33m  1.555[36m] [0m45  has taken a Forks
+[36m[[33m  1.555[36m] [0m45  has taken a Forks
+[36m[[33m  1.555[36m] [0m45  is Eating         (2)
+[36m[[33m  1.556[36m] [0m35  has taken a Forks
+[36m[[33m  1.556[36m] [0m0   is Sleeping      
+[36m[[33m  1.557[36m] [0m1   has taken a Forks
+[36m[[33m  1.558[36m] [0m1   has taken a Forks
+[36m[[33m  1.558[36m] [0m1   is Eating         (2)
+[36m[[33m  1.558[36m] [0m35  has taken a Forks
+[36m[[33m  1.558[36m] [0m35  is Eating         (2)
+All philosophers finished alive (nice)
+[1;32m ✅ Hellgrind finished [0m

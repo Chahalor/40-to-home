@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 09:04:02 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:22:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ __attribute__((always_inline, used)) inline int	is_nbr(
 	register int	i;
 
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '-')
+		return (-1);
+	else if (__builtin_expect(str[i] == '+', unexpected))
 		++i;
 	while (str[i])
 	{

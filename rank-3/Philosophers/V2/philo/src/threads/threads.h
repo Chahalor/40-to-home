@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:53:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/27 15:27:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:12:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@
 
 int	launch_simu(
 		t_philo *philosophers,
-		const t_philo_data data
+		const t_philo_data data,
+		const int display
 		);
 
 #endif	// THREADS_H

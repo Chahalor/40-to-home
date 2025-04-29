@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:44:11 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/23 15:32:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:49:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ struct s_args
 	int				error;				/* The errno inside the parsing   */
 	int				data_get;			/* number of arg parsed          */
 	t_bool			help		: 1;	/* if -h/--help flag detected   */
-	t_bool			debug		: 1;	/* if -d/--debug flag detected */
+	t_bool			display		: 1;	/* if -d/--debug flag detected */
 };
 
 /* ************************************************************************** */

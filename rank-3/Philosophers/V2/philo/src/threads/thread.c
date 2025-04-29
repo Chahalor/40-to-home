@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/28 15:18:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:11:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,31 @@ __attribute__((always_inline, used)) static inline int	lauch_philo(
 /** */
 __attribute__((cold)) int	launch_simu(
 	t_philo *philosophers,
-	const t_philo_data data
+	const t_philo_data data,
+	const int display
 )
 {
 	t_thread		*threads;
 	register int	i;
+	t_bool			a_dead;
 
 	threads = (t_thread *)malloc(sizeof(t_thread) * (data.nb_philo));
 	if (__builtin_expect(!threads, unexpected))
 		return (-1);
 	global_manager(request_init);
 	global_manager(request_start);
-	init_display(data);
-	// info(-1, "Start of the simulation");
+	init_display(data, &philosophers[0], display);
 	lauch_philo(threads, philosophers, data.nb_philo);
+	a_dead = false;
 	i = -1;
 	while (++i < data.nb_philo)
+	{
 		pthread_join(threads[i], NULL);
+		a_dead = a_dead == true || philosophers[i].status == died;
+	}
 	global_manager(request_destroy);
 	free(threads);
-	return (0);
+	return (a_dead);
 }
 
 #pragma endregion Functions

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/25 16:16:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:00:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ __attribute__((used, always_inline)) inline void	print_args(
 			printf("\"%s\" ", args->argv[i]);
 	}
 	printf("\n├──args->help = %d\n", args->help);
-	printf("├──args->debug = %d\n", args->debug);
+	printf("├──args->display = %d\n", args->display);
 	printf("├──args->data_get = %d\n", args->data_get);
 	printf("├──args->error = %d\n", args->error);
 	printf("└──args->data = %p\n", &args->data);
