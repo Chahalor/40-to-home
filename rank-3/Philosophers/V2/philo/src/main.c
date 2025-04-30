@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:44:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:59:58 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, const char **argv)
 	int				simu_status;
 
 	if (__builtin_expect(args.error || args.help, unexpected))
-		return (1);
+		return (1 + args.help);
 	init_all(&forks, &philosophers, args.data, args.display);
 	simu_status = launch_simu(philosophers, args.data, args.display);
 	_end_of_main(args, simu_status);

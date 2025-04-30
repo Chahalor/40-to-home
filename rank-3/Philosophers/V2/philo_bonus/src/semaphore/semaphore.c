@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:20:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:31:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:42:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ __attribute__((always_inline, used)) inline int destroy_semaphore(
 	sem_t *semaphore
 )
 {
-	// @todo
+	if (__buitlin_expect(!semaphore, unexpected))
+		return (0);
+	else
+	{
+		sem_close(semaphore);
+		sem_unlink(SEMA_FORKS_DEFAULT);
+	}
 }
 
 /** */
@@ -36,6 +42,7 @@ __attribute__((always_inline, used)) inline sem_t	*init_semaphore(
 {
 	sem_t	*sem;
 
+	sem_unlink(SEMA_FORKS_DEFAULT);
 	sem = sem_open(SEMA_FORKS_DEFAULT, O_CREAT | O_EXCL, data.nb_philo);
 	if (__builtin_expect(sem == SEM_FAILED, unexpected))
 		return (NULL);

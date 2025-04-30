@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:20:47 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:56:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /* -----| Modules  |----- */
 #include "parsing.h"
-#include "threads.h"
+#include "procs.h"
 #include "semaphore.h"
 #include "utils.h"
 #include "debug.h"
@@ -50,11 +50,12 @@ int	main(int argc, const char **argv)
 	t_mutex			*forks;
 	t_philo			*philosophers;
 	int				simu_status;
+	int				*pid_stock;
 
 	if (__builtin_expect(args.error || args.help, unexpected))
-		return (1);
+		return (1 + args.help != 0);
 	init_all(&forks, &philosophers, args.data, args.display);
-	simu_status = launch_simu(philosophers, args.data, args.display);
+	pid_stock = simu_status = launch_simu(philosophers, args.data, args.display);
 	_end_of_main(args, simu_status);
 	destroy_mutex(&forks, args.data.nb_philo * 3);
 	destroy_philos(&philosophers);

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:46:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:47:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ __attribute__((hot)) int	global_storage(
 	else if (__builtin_expect(request == request_destroy, unexpected))
 		return (_destroy_global(&global_data, &mutex_global));
 	unlock(&mutex_global);
-	return (result);
+	return (result);	// were gona need a new way to communicate between procs
 }
 
 #pragma endregion Functions

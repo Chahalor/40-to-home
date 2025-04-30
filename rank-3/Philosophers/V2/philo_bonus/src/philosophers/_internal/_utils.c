@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:37:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:53:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,43 +24,14 @@
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used)) inline void	_set_mutex(
-	t_philo *philo,
-	t_mutex **first,
-	t_mutex **second
-)
-{
-	if (philo->left_fork < philo->right_fork)
-	{
-		*first = philo->left_fork;
-		*second = philo->right_fork;
-	}
-	else
-	{
-		*first = philo->right_fork;
-		*second = philo->left_fork;
-	}
-}
-
-/** */
 __attribute__((always_inline, used)) inline void	_lock_forks(
-	t_philo *philo,
-	t_mutex **first,
-	t_mutex **second
+	t_philo *philo
 )
 {
-	sem_post
-	// _set_mutex(philo, first, second);
-	// lock(*first);
-	// if (__builtin_expect(get_ms_time() - philo->last_meal
-	// 		>= philo->data.time_to_die, unexpected))
-	// 	return ;
-	// philo->info(philo, forks);
-	// if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
-	// {
-	// 	lock(*second);
-	// 	philo->info(philo, forks);
-	// }
+	sem_wait(1);
+	philo->info(philo, forks);
+	sem_wait(1);
+	philo->info(philo, forks);
 }
 
 #pragma endregion Functions

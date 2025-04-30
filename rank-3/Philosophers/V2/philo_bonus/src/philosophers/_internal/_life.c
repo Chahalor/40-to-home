@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:48:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:52:51 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@
 /** */
 __attribute__((always_inline, used)) static inline void	_starvation(
 	t_philo *philo,
-	t_mutex *first,
-	t_mutex *second
+	const int nb_forks
 )
 {
-	unlock(first);
-	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
-		unlock(second);
+	sem_post(philo->forks);
+	if (nb_forks > 1)
+		sem_post(philo->forks);
 	philo->die(philo);
 }
 
@@ -45,13 +44,16 @@ __attribute__((hot)) void	_eat(
 	t_mutex	*second;
 	t_time	diff;
 
-	printf("  Philosopher %d is trying to eat\n", philo->id);
-	_lock_forks(philo, &first, &second);
+	sem_wait(philo->forks);
+	philo->info(philo, forks);
 	diff = get_ms_time() - philo->last_meal;
 	if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
-		return (_starvation(philo, first, second));
-	printf("  Philosopher %d is eating\n", philo->id);
-	lock(philo->lock);
+		return (_starvation(philo, 1));
+	sem_wait(philo->forks);
+	philo->info(philo, forks);
+	diff = get_ms_time() - philo->last_meal;
+	if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
+		return (_starvation(philo, 2));
 	philo->status = sleeping;
 	if (philo->data.nb_meals != -1
 		&& philo->nb_meals == philo->data.nb_meals)
@@ -60,10 +62,8 @@ __attribute__((hot)) void	_eat(
 	ft_usleep(philo->data.time_to_eat * 1000 + philo->data.time_to_eat == 0);
 	philo->last_meal = get_ms_time();
 	++philo->nb_meals;
-	unlock(philo->lock);
-	unlock(first);
-	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
-		unlock(second);
+	sem_post(philo->forks);
+	sem_post(philo->forks);
 }
 
 /** */
@@ -71,11 +71,9 @@ __attribute__((hot)) void	_sleep(
 	t_philo *philo
 )
 {
-	lock(philo->lock);
 	philo->status = thinking;
 	philo->info(philo, sleeping);
 	ft_usleep(philo->data.time_to_sleep * 1000);
-	unlock(philo->lock);
 }
 
 /** */
@@ -83,9 +81,7 @@ __attribute__((hot)) void	_think(
 	t_philo *philo
 )
 {
-	lock(philo->lock);
 	philo->status = eating;
-	unlock(philo->lock);
 	philo->info(philo, thinking);
 }
 
@@ -94,9 +90,7 @@ __attribute__((hot)) void	_die(
 	t_philo *philo
 )
 {
-	lock(philo->lock);
 	philo->status = died;
-	unlock(philo->lock);
 	philo->info(philo, died);
 	global_storage(request_stop);
 }

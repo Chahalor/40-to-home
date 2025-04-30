@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:34:37 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:54:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,7 @@
 
 // _init.c
 
-t_mutex		*_init_mutex(
-				register int nb_mutex
-				);
-
-t_philo		*_init_philo(
-				register const int nb_philos,
-				t_mutex *restrict *restrict mutex_pool,
-				const t_philo_data data,
-				const int display
-				);
+//...
 
 // _life.c
 
@@ -72,16 +63,8 @@ void		_die(
 
 // _utils.c
 
-extern void	_set_mutex(
-				t_philo *philo,
-				t_mutex **first,
-				t_mutex **second
-				);
-
 extern void	_lock_forks(
-				t_philo *philo,
-				t_mutex **first,
-				t_mutex **second
+				t_philo *philo
 				);
 
 #endif	/* _PHILOSOPHER_H */

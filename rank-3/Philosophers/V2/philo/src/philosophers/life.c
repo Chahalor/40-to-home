@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:46:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:25:31 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static inline t_bool	_should_quit(
 	{
 		philo->info(philo, forks);
 		ft_usleep(philo->data.time_to_die * 1000);
-		printf("The philosopher %d is too civilized to eat with one fork. "
-			"He prefers to die of starvation.\n", philo->id);
+		printf("  The philosopher %d is too civilized to eat with one fork. "
+			"He prefers dying of starvation.\n", philo->id);
 		philo->die(philo);
 	}
 	return (false);
@@ -57,11 +57,10 @@ __attribute__((hot)) void	*circle_of_life(
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (global_storage(request_get_run) == true)
+	while (__builtin_expect(global_storage(request_get_run) == true, expected))
 	{
-		if (_should_quit(philo))
+		if (__builtin_expect(_should_quit(philo), unexpected))
 			break ;
-		printf("  philo %d status: %d\n", philo->id, philo->status);
 		if (philo->status == eating)
 			philo->eat(philo);
 		else if (philo->status == sleeping)

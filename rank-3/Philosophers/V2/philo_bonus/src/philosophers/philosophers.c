@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:35:59 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:56:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ __attribute__((cold)) void	destroy_philos(
 	free(*philosophers);
 	*philosophers = NULL;
 }
+
+/** */
+__
 
 /** */
 __attribute__((cold)) int	init_all(

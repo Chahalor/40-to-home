@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:19:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:32:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:41:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 /* Systemes */
 # include <semaphore.h>
-#include <fcntl.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 /* Globals  */
 # include "config.h"
@@ -58,6 +59,7 @@
 extern int		destroy_semaphore(
 					sem_t *semaphore
 					);
+
 extern sem_t	*init_semaphore(
 					const t_philo_data data
 					);

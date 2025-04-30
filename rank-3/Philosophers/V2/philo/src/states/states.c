@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:03 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:46:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:06:10 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@
 
 /** */
 __attribute__((always_inline, used)) static inline int	_destroy_global(
-	t_global_data *global_data,
 	t_mutex *mutex_global
 )
 {
-	pthread_mutex_destroy(&global_data->print_lock);
 	unlock(mutex_global);
 	pthread_mutex_destroy(mutex_global);
 	return (0);
@@ -41,7 +39,6 @@ __attribute__((always_inline, used)) static inline int	_init_global(
 )
 {
 	pthread_mutex_init(mutex_global, NULL);
-	pthread_mutex_init(&global_data->print_lock, NULL);
 	global_data->run = true;
 	global_data->nb_finished = 0;
 	return (global_data->run);
@@ -71,7 +68,7 @@ __attribute__((hot)) int	global_storage(
 	else if (__builtin_expect(request == request_stop, unexpected))
 		global_data.run = false;
 	else if (__builtin_expect(request == request_destroy, unexpected))
-		return (_destroy_global(&global_data, &mutex_global));
+		return (_destroy_global(&mutex_global));
 	unlock(&mutex_global);
 	return (result);
 }

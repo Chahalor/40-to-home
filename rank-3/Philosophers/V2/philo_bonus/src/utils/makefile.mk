@@ -2,7 +2,7 @@ DIR_MODULE_UTILS		:= utils
 DIR_INTERFACE_UTILS	:= $(DIR_MODULE_UTILS)
 DIR_INTERNAL_UTILS	:= $(DIR_MODULE_UTILS)/_internal
 
-SRC_INTERFACE_UTILS	:= error.c utils.c ansi.c shortcut.c time.c 
+SRC_INTERFACE_UTILS	:= ansi.c error.c utils.c shortcut.c time.c 
 SRC_INTERNAL_UTILS	:= 
 
 OBJ_UTILS			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_UTILS)/, $(SRC_INTERFACE_UTILS:.c=.o))

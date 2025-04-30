@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:46:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:39:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ static inline t_bool	_should_quit(
 		philo->die(philo);
 		return (true);
 	}
-	else if (__builtin_expect(global_storage(request_get_finished)
-			>= philo->data.nb_philo || !philo->data.nb_meals, unexpected))
+	else if (__builtin_expect((philo->data.nb_meals != -1
+			&& global_storage(request_get_finished) >= philo->data.nb_philo)
+			|| !philo->data.nb_meals, unexpected))
 	{
 		global_storage(request_stop);
 		return (true);

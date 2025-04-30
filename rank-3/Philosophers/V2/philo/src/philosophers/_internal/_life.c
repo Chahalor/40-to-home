@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:48:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:08:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ __attribute__((hot)) void	_eat(
 	t_mutex	*second;
 	t_time	diff;
 
-	printf("  Philosopher %d is trying to eat\n", philo->id);
 	_lock_forks(philo, &first, &second);
 	diff = get_ms_time() - philo->last_meal;
 	if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
 		return (_starvation(philo, first, second));
-	printf("  Philosopher %d is eating\n", philo->id);
 	lock(philo->lock);
 	philo->status = sleeping;
 	if (philo->data.nb_meals != -1

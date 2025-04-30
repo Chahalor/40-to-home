@@ -23,30 +23,9 @@ MAKEFLAGS += --no-print-directory
 # *                    Variables                      * #
 # ***************************************************** #
 
-NAME		:= V2
-BONUS		:=
-
-CC			:= cc
-CFLAGS		+= -Wall -Wextra -Werror -MMD
-DEBUGFLAGS	:= 
-DIR_SRC		:= philo/src
-DIR_OBJ		:= .build
-DIR_BONUS	:= 
-INCLUDE_ALL	:=-Iphilo/global -I$(DIR_SRC)/debug -I$(DIR_SRC)/interface -I$(DIR_SRC)/parsing -I$(DIR_SRC)/philosophers -I$(DIR_SRC)/states -I$(DIR_SRC)/threads -I$(DIR_SRC)/utils
-
-DIR_LIBFT	:= #
-LIBFT		:= #$(DIR_LIBFT)/libft.a
-
-# Here we include all the makefile.mk files
-include  philo/src/debug/makefile.mk philo/src/interface/makefile.mk philo/src/parsing/makefile.mk philo/src/philosophers/makefile.mk philo/src/states/makefile.mk philo/src/threads/makefile.mk philo/src/utils/makefile.mk
-
-SRC_MAIN	:= main.c
-SRC_BONUS	:=
-
-# all object files for the modules
-OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
-OBJ_BONUS	:= $(addprefix $(DIR_OBJ)/, $(SRC_BONUS:.c=.o))
-OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_INTERFACE) $(OBJ_PARSING) $(OBJ_PHILOSOPHERS) $(OBJ_STATES) $(OBJ_THREADS) $(OBJ_UTILS)
+DIR_MANDATORY	:= philo
+DIR_BONUS 		:= philo_bonus
+DIR_BIN			:= .bin
 
 # ***************************************************** #
 # *                    Rules                          * #
@@ -54,24 +33,22 @@ OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_INTERFACE) $(OBJ_PARSING) $(OBJ_PHILOSOPHERS) $(O
 
 .PHONY: all
 
-all: header norm $(NAME) install
+all: header norm mandatory
 
 # ***************************************************** #
 # *                  Compiling                        * #
 # ***************************************************** #
 
-$(NAME):  $(LIBFT) $(OBJ_ALL) $(OBJ_MAIN)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT) -o $(NAME) 
+mandatory: $(DIR_BIN)
+	@make -C $(DIR_MANDATORY) $(MAKEFLAGS)
+	@cp $(DIR_MANDATORY)/philo .bin/philo
 
-$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
-	@mkdir -p $(DIR_OBJ)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -c $< -o $@
+bonus: $(DIR_BIN)
+	@make -C $(DIR_BONUS) $(MAKEFLAGS)
+	@cp $(DIR_BONUS)/philo_bonus .bin/philo_bonus
 
-# $(LIBFT):
-# 	@make -C $(DIR_LIBFT) NO_HEADER=true
-
-bonus: $(LIBFT) $(OBJ_ALL) $(OBJ_BONUS)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) $^ $(LIBFT)  -o $(BONUS)
+${DIR_BIN}:
+	@mkdir -p $(DIR_BIN)
 
 # ***************************************************** #
 # *                    Clean Rules                    * #
@@ -80,12 +57,13 @@ bonus: $(LIBFT) $(OBJ_ALL) $(OBJ_BONUS)
 .PHONY: clean fclean re
 
 clean:
-	rm -f $(OBJ_ALL) $(OBJ_MAIN) $(OBJ_BONUS)
+	@make -C $(DIR_MANDATORY) clean $(MAKEFLAGS)
+	@make -C $(DIR_BONUS) clean $(MAKEFLAGS)
 #@make clean -C $(DIR_LIBFT)
 
 fclean:
-	rm -rf $(DIR_OBJ)
-	rm -f $(NAME) $(BONUS)
+	@make -C $(DIR_MANDATORY) fclean $(MAKEFLAGS)
+	@make -C $(DIR_BONUS) fclean $(MAKEFLAGS)
 #@make fclean -C $(DIR_LIBFT)
 
 re: fclean all
@@ -94,23 +72,7 @@ re: fclean all
 # *                    Debug Rules                    * #
 # ***************************************************** #
 
-.PHONY: debug debug.fsanitize debug.fs debug.pg
-
-debug:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -g3 -D DEBUG=1)
-	@echo "\033[1;33m DEBUG MODE ACTIVATED \033[0m"
-
-
-debug.fsanitize: debug
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=address)
-
-debug.fthread: debug
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=thread)
-
-debug.fs: debug.fsanitize
-
-debug.pg:
-	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -pg)
+# ...
 
 # ***************************************************** #
 # *                      Utils                        * #
@@ -143,34 +105,9 @@ norm:
 		echo "\033[1;32m ✅ Norminette Ok\033[0m"; \
 	fi
 
-INSTALL_DIR = $(HOME)/.local/bin
-
-install:
-	mkdir -p $(INSTALL_DIR)
-	cp $(NAME) $(INSTALL_DIR)/
-	chmod +x $(INSTALL_DIR)/$(NAME)
-	$(call _completion)
-	echo "\033[1;32m ✅ $(NAME) installed to $(INSTALL_DIR) \033[0m"; \
-
-uninstall:
-	rm -rf $(INSTALL_DIR)/$(NAME)
-	echo "\033[1;32m ✅ $(NAME) uninstalled from $(INSTALL_DIR) \033[0m";
-
 update:
-	if [ -f ./auto.sh ]; then \
-		echo "\033[1;33m Updating Makefile... \033[0m"; \
-	else \
-		echo "\033[1;31m auto.sh not found, please add the script to automate the update \033[0m"; \
-		exit 1; \
-	fi
-	./auto.sh
-	echo "\033[1;32m ✅ Makefile updated \033[0m";
-
-hellgrind: debug all
-	@echo "\033[1;33m Running hellgrind... \033[0m"
-	valgrind --tool=helgrind ./$(NAME) $(ARGS)
-	echo "\033[1;32m ✅ Hellgrind finished \033[0m"
+	@make -i -C $(DIR_MANDATORY) update $(MAKEFLAGS)
+	@make -i -C $(DIR_BONUS) update $(MAKEFLAGS)
 
 .SILENT:
 	@echo "\033[1;33m SILENT MODE ACTIVATED \033[0m
-

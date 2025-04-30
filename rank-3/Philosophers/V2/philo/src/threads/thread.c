@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:46:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:11:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ __attribute__((always_inline, used)) static inline int	lauch_philo(
 	register int	i;
 
 	i = 0;
-	while (i < nb_philo)
+	while (__builtin_expect(i < nb_philo, expected))
 	{
 		pthread_create(&threads[i], NULL, circle_of_life, &philosopher[i]);
 		i += 2;
 	}
 	ft_usleep(100);
 	i = -1;
-	while (i + 2 < nb_philo)
+	while (__builtin_expect(i + 2 < nb_philo, expected))
 	{
 		i += 2;
 		pthread_create(&threads[i], NULL, circle_of_life, &philosopher[i]);
@@ -61,12 +61,12 @@ __attribute__((cold)) int	launch_simu(
 	if (__builtin_expect(!threads, unexpected))
 		return (-1);
 	global_storage(request_init);
-	global_storage(request_start);
+	// global_storage(request_start); // retest to see if we need it (yes you have to retest it 😘)
 	init_display(data, &philosophers[0], display);
 	lauch_philo(threads, philosophers, data.nb_philo);
 	a_dead = false;
 	i = -1;
-	while (++i < data.nb_philo)
+	while (__builtin_expect(++i < data.nb_philo, expected))
 	{
 		pthread_join(threads[i], NULL);
 		a_dead = a_dead == true || philosophers[i].status == died;

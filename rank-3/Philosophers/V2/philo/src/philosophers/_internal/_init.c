@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:52:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 13:58:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 14:01:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ __attribute__((malloc, cold)) t_mutex	*_init_mutex(
 	if (__builtin_expect(!forks, unexpected))
 		return (NULL);
 	i = -1;
-	while (++i < nb_mutex)
+	while (__builtin_expect(++i < nb_mutex, expected))
 	{
 		if (__builtin_expect(pthread_mutex_init(&forks[i], NULL) != 0,
 				unexpected))
@@ -54,7 +54,6 @@ __attribute__((malloc, cold)) t_mutex	*_init_mutex(
 /**
  * @brief	Choose the display function for the philosopher.
  * 
- * 
  * @param	philo	Pointer to the philosopher.
  * @param	display	Display mode (1 for display, 0 for raw log).
  * 
@@ -65,7 +64,7 @@ __attribute__((always_inline, used)) static inline void	_choose_info(
 	const int display
 )
 {
-	if (display == 1)
+	if (__builtin_expect(display == 1, unexpected))
 		philo->info = display_philo;
 	else
 		philo->info = raw_log;
@@ -78,6 +77,8 @@ __attribute__((always_inline, used)) static inline void	_choose_info(
  * @param	mutex_pool	Pointer to the mutex pool.
  * @param	data		Philosopher data.
  * @param	display		Display mode (1 for display, 0 for raw log).
+ * 
+ * @return	t_philo	Pointer to the allocated philosophers.
  */
 __attribute__((malloc, cold)) t_philo	*_init_philo(
 	register const int nb_philos,
@@ -99,14 +100,13 @@ __attribute__((malloc, cold)) t_philo	*_init_philo(
 		return (NULL);
 	pool = *mutex_pool;
 	i = -1;
-	while (++i < nb_philos)
+	while (__builtin_expect(++i < nb_philos, unexpected))
 	{
 		philosophers[i] = (t_philo){
 			.id = i, .last_meal = time_start, .status = eating,
 			.lock = &pool[nb_philos + i], .left_fork = &pool[i],
 			.right_fork = &pool[(i + 1) % nb_philos], .data = data,
-			.eat = _eat, .sleep = _sleep, .think = _think, .die = _die,
-			.finish = _die
+			.eat = _eat, .sleep = _sleep, .think = _think, .die = _die
 		};
 		_choose_info(&philosophers[i], display);
 	}

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 11:53:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:53:08 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,17 @@ typedef struct s_watcher	t_watcher;	/* The watcher type    */
 
 struct s_philo
 {
-	unsigned int		id;				/* The philosopher id              */
-	int					nb_meals;		/* The number of meals taken       */
-	t_time				last_meal;		/* The last meal time              */
-	t_status			status;			/* The philosopher status          */
-	t_mutex				*left_fork;		/* The left fork mutex             */
-	t_mutex				*right_fork;	/* The right fork mutex            */
-	t_mutex				*lock;			/* mutex to lock philo data acces  */
-	t_philo_data		data;			/* The philosopher data            */
-	void				(*eat)(t_philo *philo);		/* The eat function    */
-	void				(*sleep)(t_philo *philo);	/* The sleep function  */
-	void				(*think)(t_philo *philo);	/* The think function  */
-	void				(*die)(t_philo *philo);		/* The die function    */
-	void				(*finish)(t_philo *philo);	/* The finish function */
-	void				(*info)(const t_philo *philo, const int info);
+	unsigned int	id;				/* The philosopher id              */
+	int				nb_meals;		/* The number of meals taken       */
+	t_time			last_meal;		/* The last meal time              */
+	t_status		status;			/* The philosopher status          */
+	sem_t			*forks;			/* The semaphore  for all forks    */
+	t_philo_data	data;			/* The philosopher data            */
+	void			(*eat)(t_philo *philo);		/* The eat function    */
+	void			(*sleep)(t_philo *philo);	/* The sleep function  */
+	void			(*think)(t_philo *philo);	/* The think function  */
+	void			(*die)(t_philo *philo);		/* The die function    */
+	void			(*info)(const t_philo *philo, const int info);
 };
 
 struct s_watcher

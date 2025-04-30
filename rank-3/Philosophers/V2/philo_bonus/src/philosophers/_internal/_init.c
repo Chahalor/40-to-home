@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:52:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 13:58:31 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:57:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,6 @@
 
 #pragma endregion Headers
 #pragma region Functions
-
-/**
- * @brief	Allocate and initialize the mutexes for the Program.
- * 
- * @param	nb_mutex Number of mutexes to allocate.
- * 
- * @return	t_mutex	Pointer to the allocated mutexes.
- */
-__attribute__((malloc, cold)) t_mutex	*_init_mutex(
-	register int nb_mutex
-)
-{
-	t_mutex			*forks;
-	register int	i;
-
-	forks = (t_mutex *)malloc(sizeof(t_mutex) * nb_mutex);
-	if (__builtin_expect(!forks, unexpected))
-		return (NULL);
-	i = -1;
-	while (++i < nb_mutex)
-	{
-		if (__builtin_expect(pthread_mutex_init(&forks[i], NULL) != 0,
-				unexpected))
-			return (destroy_mutex(&forks, i), NULL);
-	}
-	return (forks);
-}
 
 /**
  * @brief	Choose the display function for the philosopher.
@@ -102,11 +75,8 @@ __attribute__((malloc, cold)) t_philo	*_init_philo(
 	while (++i < nb_philos)
 	{
 		philosophers[i] = (t_philo){
-			.id = i, .last_meal = time_start, .status = eating,
-			.lock = &pool[nb_philos + i], .left_fork = &pool[i],
-			.right_fork = &pool[(i + 1) % nb_philos], .data = data,
-			.eat = _eat, .sleep = _sleep, .think = _think, .die = _die,
-			.finish = _die
+			.id = i, .last_meal = time_start, .status = eating, .data = data,
+			.eat = _eat, .sleep = _sleep, .think = _think, .die = _die
 		};
 		_choose_info(&philosophers[i], display);
 	}
