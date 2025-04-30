@@ -32,14 +32,14 @@
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
 | [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| yes		| ???		| 0					|
 | [cub3d](https://github.com/Chahalor/40-to-home/tree/main/rank-4/cub3d)						| ???																				| yes		| ???		| 0					|
-| [cpp 0-5](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+| [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
 
 ## 🐚 Circle 5
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
 | [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Inception)				| ???																				| yes		| ???		| 0					|
 | [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Webserv)					| ???																				| yes		| ???		| 0					|
-| [cpp 6-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+| [cpp 5-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
 
 ## 🐚 Circle 6
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
