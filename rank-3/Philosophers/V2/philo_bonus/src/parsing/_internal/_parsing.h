@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   _parsing.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 11:25:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:15:19 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/08 08:28:14 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/27 20:02:52 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef _PARSING_H
+# define _PARSING_H
 
 # pragma once
 
@@ -19,22 +19,24 @@
 /*                                  Headers                                   */
 /* ************************************************************************** */
 
-/* Systemes */
-# include <stdio.h>
-# include <errno.h>
+/* System */
+# include <stdlib.h>
 
 /* Global */
-# include "type.h"
+# include "config.h"
 
 /* Modules */
 # include "parsing.h"
-# include "philosophers.h"
 
 /* ************************************************************************** */
 /*                                 Defines                                    */
 /* ************************************************************************** */
 
-//...
+# define USAGE	"Usage: "
+# define USAGE_INFO "philo [options] <nb_philo> <time_to_die> <time_to_eat>\
+ <time_to_sleep> <nb_meals>\n"
+# define SUSAGE_INFO "%s [options] <nb_philo> <time_to_die> <time_to_eat>\
+ <time_to_sleep> <nb_meals>\n"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
@@ -58,10 +60,36 @@
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-/* Prototypes */
+// _parsing.c
 
-extern void	print_args(const t_args *args);
-extern void	print_philo(const t_philo *philo);
-extern void	print_debug(const char *msg);
+int				ft_strncmp(
+					const char *s1,
+					const char *s2,
+					const size_t n
+					);
 
-#endif	/* DEBUG_H */
+int				ft_atoi(
+					const char *nptr
+					);
+
+extern int		is_nbr(
+					const char *str
+					);
+
+// _info.c
+
+extern void		_show_usage(
+					const char *prog
+					);
+
+extern void		_show_help(void);
+
+// _data.c
+
+extern t_bool	_is_valide_args(
+					const char *restrict *restrict argv,
+					const int i,
+					const int argc
+					);
+
+#endif	/* _PARSING_H */

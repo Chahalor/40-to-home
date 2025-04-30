@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   states.h                                           :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:48:41 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/29 11:53:56 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATES_H
-# define STATES_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # pragma once
 
@@ -30,50 +30,84 @@
 	//...
 
 /* Modules  */
-	//...
+# include "states.h"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef enum e_request			t_request;		/* The request enum         */
-
-typedef struct s_global_data	t_global_data;	/* The global data struct */
+typedef struct s_philo		t_philo;	/* The philosopher type */
+typedef struct s_watcher	t_watcher;	/* The watcher type    */
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
 /* ************************************************************************** */
 
-enum e_request
-{
-	request_get_run,		/* request to get the run status                */
-	request_get_finished ,	/* request to get the number of finish philo   */
-	request_add_finished,	/* request to add a finished philosopher      */
-	request_start,			/* request to start the simulation           */
-	request_stop,			/* request to stop the simulation           */
-	request_destroy,		/* request to clean the global manager     */
-	request_init,			/* request to init the the global manager */
-	request_lock_print,		/* request to lock the print mutex       */
-	request_unlock_print,	/* request to unlock the print mutex    */
-};
+//...
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-struct s_global_data
+struct s_philo
 {
-	t_bool		run		: 1;	/* The run status of the simulation */
-	int			nb_finished;	/* The number of finished philosophers */
-	t_mutex		print_lock;		/* The print mutex                  */
+	unsigned int		id;				/* The philosopher id              */
+	int					nb_meals;		/* The number of meals taken       */
+	t_time				last_meal;		/* The last meal time              */
+	t_status			status;			/* The philosopher status          */
+	t_mutex				*left_fork;		/* The left fork mutex             */
+	t_mutex				*right_fork;	/* The right fork mutex            */
+	t_mutex				*lock;			/* mutex to lock philo data acces  */
+	t_philo_data		data;			/* The philosopher data            */
+	void				(*eat)(t_philo *philo);		/* The eat function    */
+	void				(*sleep)(t_philo *philo);	/* The sleep function  */
+	void				(*think)(t_philo *philo);	/* The think function  */
+	void				(*die)(t_philo *philo);		/* The die function    */
+	void				(*finish)(t_philo *philo);	/* The finish function */
+	void				(*info)(const t_philo *philo, const int info);
+};
+
+struct s_watcher
+{
+	t_philo			*philosophers;	/* The philosophers list */
+	t_philo_data	data;			/* The simulation data   */
 };
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-int	global_storage(
-		t_request request
-		);
+void	destroy_mutex(
+			t_mutex *restrict *restrict forks,
+			const int nb_forks
+			);
 
-#endif	/* STATES_H */
+void	destroy_philos(
+			t_philo *restrict *restrict philosophers
+			);
+
+int		init_all(
+			t_mutex **forks,
+			t_philo *restrict *restrict philosophers,
+			t_philo_data data,
+			const int display
+			);
+
+// void	info(
+// 			const int id,
+// 			const char *msg
+// 			);
+
+// life.c
+
+void	*circle_of_life(
+			void *arg
+			);
+
+// watcher.c
+
+void	*big_brother(
+			void *arg
+			);
+
+#endif	// PHILOSOPHERS_H

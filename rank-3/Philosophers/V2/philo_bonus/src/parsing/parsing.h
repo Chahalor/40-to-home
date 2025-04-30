@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 11:25:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:15:19 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/04/07 10:44:11 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/04/29 11:49:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef PARSING_H
+# define PARSING_H
 
 # pragma once
 
@@ -19,7 +19,7 @@
 /*                                  Headers                                   */
 /* ************************************************************************** */
 
-/* Systemes */
+/* System */
 # include <stdio.h>
 # include <errno.h>
 
@@ -27,8 +27,8 @@
 # include "type.h"
 
 /* Modules */
-# include "parsing.h"
-# include "philosophers.h"
+# include "utils.h"
+# include "formating.h"
 
 /* ************************************************************************** */
 /*                                 Defines                                    */
@@ -40,7 +40,7 @@
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-//...
+typedef struct s_args	t_args;		/* The args struct */
 
 /* ************************************************************************** */
 /*                                   Enumes                                   */
@@ -52,16 +52,21 @@
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-//...
+struct s_args
+{
+	int				argc;				/* The number of args                */
+	const char		**argv;				/* The pointer to the args          */
+	t_philo_data	data;				/* The simulation data             */
+	int				error;				/* The errno inside the parsing   */
+	int				data_get;			/* number of arg parsed          */
+	t_bool			help		: 1;	/* if -h/--help flag detected   */
+	t_bool			display		: 1;	/* if -d/--debug flag detected */
+};
 
 /* ************************************************************************** */
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-/* Prototypes */
+t_args	parse_args(int argc, const char *argv[]);
 
-extern void	print_args(const t_args *args);
-extern void	print_philo(const t_philo *philo);
-extern void	print_debug(const char *msg);
-
-#endif	/* DEBUG_H */
+#endif	/* PARSING_H */

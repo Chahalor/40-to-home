@@ -6,16 +6,18 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 11:15:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 12:00:20 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Headers"
 // System
-//...
+#include <stdio.h>
+#include <errno.h>
 
 // Global
-	//...
+#include "../global/type.h"
+#include "../global/config.h"
 
 // Modules
 #include "debug.h"
