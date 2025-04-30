@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:48:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 11:34:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@
 # include "philosophers.h"
 
 /* Modules  */
+# include "parsing.h"
 # include "interface.h"
 # include "states.h"
+# include "semaphore.h"
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */

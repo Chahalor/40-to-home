@@ -5,4 +5,4 @@
 ## Bonus
 
 ## Mein Bonus
- - [ ] ajouter une barre de chargement du lancement des threads
+ - [ ] ~~ajouter une barre de chargement du lancement des threads~~ flemme

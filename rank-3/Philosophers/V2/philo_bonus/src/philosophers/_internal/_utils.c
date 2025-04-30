@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:14:24 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 11:37:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ __attribute__((always_inline, used)) inline void	_lock_forks(
 	t_mutex **second
 )
 {
-	_set_mutex(philo, first, second);
-	lock(*first);
-	if (__builtin_expect(get_ms_time() - philo->last_meal
-			>= philo->data.time_to_die, unexpected))
-		return ;
-	philo->info(philo, forks);
-	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
-	{
-		lock(*second);
-		philo->info(philo, forks);
-	}
+	sem_post
+	// _set_mutex(philo, first, second);
+	// lock(*first);
+	// if (__builtin_expect(get_ms_time() - philo->last_meal
+	// 		>= philo->data.time_to_die, unexpected))
+	// 	return ;
+	// philo->info(philo, forks);
+	// if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
+	// {
+	// 	lock(*second);
+	// 	philo->info(philo, forks);
+	// }
 }
 
 #pragma endregion Functions

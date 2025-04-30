@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:44:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 11:20:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 /* -----| Modules  |----- */
 #include "parsing.h"
 #include "threads.h"
+#include "semaphore.h"
 #include "utils.h"
 #include "debug.h"
 
