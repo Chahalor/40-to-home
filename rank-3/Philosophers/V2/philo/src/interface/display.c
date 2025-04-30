@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:13:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:16:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ __attribute__((hot)) void	display_philo(
 	{
 		printf("\033[%d;%dH %s+----------------------+\n"
 			"\033[%d;%dH %s| Philo: %-3d %9s |\n"
-			"\033[%d;%dH %s| Meals: %s%-3d%s           |\n"
+			"\033[%d;%dH %s| Meals: %s%-14d%s|\n"
 			"\033[%d;%dH %s+----------------------+\n" RESET,
 			row, col, color,
 			row + 1, col, color, philo->id, status_str[philo->status],

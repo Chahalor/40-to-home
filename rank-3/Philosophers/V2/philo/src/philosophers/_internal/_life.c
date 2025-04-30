@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 14:08:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:37:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ __attribute__((hot)) void	_eat(
 	if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
 		return (_starvation(philo, first, second));
 	lock(philo->lock);
-	philo->status = sleeping;
 	if (philo->data.nb_meals != -1
 		&& philo->nb_meals == philo->data.nb_meals)
 		global_storage(request_add_finished);
 	philo->info(philo, eating);
-	ft_usleep(philo->data.time_to_eat * 1000 + philo->data.time_to_eat == 0);
-	philo->last_meal = get_ms_time();
+	ft_usleep((philo->data.time_to_eat * 1000)
+		+ (philo->data.time_to_eat == 0));
+	philo->status = sleeping;
 	++philo->nb_meals;
+	philo->last_meal = get_ms_time();
 	unlock(philo->lock);
 	unlock(first);
 	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
@@ -70,9 +71,10 @@ __attribute__((hot)) void	_sleep(
 )
 {
 	lock(philo->lock);
-	philo->status = thinking;
 	philo->info(philo, sleeping);
-	ft_usleep(philo->data.time_to_sleep * 1000);
+	ft_usleep((philo->data.time_to_sleep * 1000)
+		+ (philo->data.time_to_sleep == 0));
+	philo->status = thinking;
 	unlock(philo->lock);
 }
 
@@ -82,9 +84,9 @@ __attribute__((hot)) void	_think(
 )
 {
 	lock(philo->lock);
+	philo->info(philo, thinking);
 	philo->status = eating;
 	unlock(philo->lock);
-	philo->info(philo, thinking);
 }
 
 /** */

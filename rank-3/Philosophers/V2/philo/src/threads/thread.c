@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 14:11:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:32:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ __attribute__((cold)) int	launch_simu(
 	if (__builtin_expect(!threads, unexpected))
 		return (-1);
 	global_storage(request_init);
-	// global_storage(request_start); // retest to see if we need it (yes you have to retest it 😘)
 	init_display(data, &philosophers[0], display);
 	lauch_philo(threads, philosophers, data.nb_philo);
 	a_dead = false;
