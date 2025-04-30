@@ -57,3 +57,4 @@ dkms.conf
 run.sh
 .build
 .obj
+.bin

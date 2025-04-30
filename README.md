@@ -27,6 +27,31 @@
 | [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how its fun								| yes		| ???		| 0					|
 | [MiniShell](https://github.com/Chahalor/40-to-home/tree/main/rank-3/minishell)				| Creating our own shell															| yes		| ???		| 0					|
 
+## 🐚 Circle 4
+|										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
+|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
+| [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| yes		| ???		| 0					|
+| [cub3d](https://github.com/Chahalor/40-to-home/tree/main/rank-4/cub3d)						| ???																				| yes		| ???		| 0					|
+| [cpp 0-5](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+
+## 🐚 Circle 5
+|										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
+|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
+| [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Inception)				| ???																				| yes		| ???		| 0					|
+| [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Webserv)					| ???																				| yes		| ???		| 0					|
+| [cpp 6-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+
+## 🐚 Circle 6
+|										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
+|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
+| [ft_transcendence](https://github.com/Chahalor/40-to-home/tree/main/rank-6/ft_transcendence)	| ???																				| ???		| ???		| 0					|
+
+## 🎽 Rushes
+|										 🪪 Name												|										🎯 Goals									| 💯 Score	| 🌟 Outstanding	|
+|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:-----------------:|
+| [Wordle](https://github.com/Chahalor/40-to-home/tree/main/Rushes/wordle)						| Recreate the wordle game in two days												| 100		| 🌟 🌟 🌟			|
+| [???](https://github.com/Chahalor/40-to-home/tree/main/Rushes/???)							| ???																				| ???		| 0					|
+
 |									Begining the Project										|											Coding									|							Passing Moulinette 🪢								|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|------------------------------------------------------------------------------:|
  ![trauma gif](https://media1.tenor.com/m/KfL05fPVK-4AAAAd/war-vietnam.gif)						| ![random](https://media1.tenor.com/m/rdjm58lG3OQAAAAd/spaiz-tryhard.gif)			| ![happy](https://media1.tenor.com/m/ej8VbRdpUogAAAAd/happy-jumping-cat.gif)	|
