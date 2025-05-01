@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 16:16:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:59:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ __attribute__((always_inline, used)) inline void	move_cursor(
 	printf("\033[%d;%dH", row, col);
 }
 
+/** */
+__attribute__((always_inline, used)) inline t_raw_data	_init_raw_data(
+	
+)
+{
+	return ((t_raw_data){
+		.status_str = {\
+			[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
+			[forks] = "has taken a Forks", [eating] = "is Eating", \
+			[died] = "just Died"},
+		.format = {\
+			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
+			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
+		.start_time = 0,
+		.print_lock = PTHREAD_MUTEX_INITIALIZER,
+		.print = true
+	});
+}
+
 /**
  * @brief	Raw log function to display the philosopher's status.
  * 
@@ -52,17 +71,19 @@ __attribute__((hot)) void	raw_log(
 	const int info
 )
 {
-	static t_raw_data	data = {
-		.status_str = {\
-			[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
-			[forks] = "has taken a Forks", [eating] = "is Eating", \
-			[died] = "just Died"},
-		.format = {\
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
-		.start_time = 0,
-		.print_lock = PTHREAD_MUTEX_INITIALIZER
-	};
+	static t_raw_data	data = _init_raw_data();
+	/*// {
+	// 	.status_str = {\
+	// 		[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
+	// 		[forks] = "has taken a Forks", [eating] = "is Eating", \
+	// 		[died] = "just Died"},
+	// 	.format = {\
+	// 		CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
+	// 		CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
+	// 	.start_time = 0,
+	// 	.print_lock = PTHREAD_MUTEX_INITIALIZER,
+	// 	.print = true
+	// };*/
 	int					time;
 	int					sec;
 	int					ms;
@@ -70,6 +91,10 @@ __attribute__((hot)) void	raw_log(
 	if (__builtin_expect(info == init, unexpected))
 		return ((void)(data.start_time = get_ms_time()));
 	lock(&data.print_lock);
+	if (__builtin_expect(data.print != true, unexpected))
+		return ((void)(unlock(&data.print_lock)));
+	else if (__builtin_expect(info == died, unexpected))
+		data.print = false;
 	time = get_ms_time() - data.start_time;
 	sec = time / 1000;
 	ms = time % 1000;

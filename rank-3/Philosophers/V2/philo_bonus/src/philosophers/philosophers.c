@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:56:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:46:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,14 @@ __attribute__((cold)) void	destroy_philos(
 }
 
 /** */
-__
-
-/** */
 __attribute__((cold)) int	init_all(
-	sem_t *restrict *restrict semaphore,
+	sem_t *restrict semaphore,
 	t_philo *restrict *restrict philosophers,
 	const t_args args
 )
 {
-	*semaphore = init_semaphore(args.data);
-	if (__builtin_expect(!*semaphore, unexpected))
+	semaphore = init_semaphore(args.data.nb_philo);
+	if (__builtin_expect(!semaphore, unexpected))
 		return (-1);
 	*philosophers = _init_philo(args.data.nb_philo, forks, args.data,
 		args.display);

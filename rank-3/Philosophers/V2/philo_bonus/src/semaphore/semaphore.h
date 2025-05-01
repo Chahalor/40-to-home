@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:19:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:41:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:46:00 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <bits/semaphore.h>
 
 /* Globals  */
 # include "config.h"
@@ -38,7 +39,7 @@
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-//...
+typedef struct s_semaphores	t_semaphores;
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
@@ -50,18 +51,23 @@
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-//...
+struct s_semaphores
+{
+	sem_t	*forks;
+	sem_t	*print;
+	sem_t	*run;
+};
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-extern int		destroy_semaphore(
-					sem_t *semaphore
-					);
+extern int			destroy_semaphore(
+						t_semaphores *semaphore
+						);
 
-extern sem_t	*init_semaphore(
-					const t_philo_data data
-					);
+extern t_semaphores	*init_semaphore(
+						const int nb_philo
+						);
 
 #endif /* SEMAPHORE_H */

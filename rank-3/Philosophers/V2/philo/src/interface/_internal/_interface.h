@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:56:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 15:02:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:51:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ struct s_raw_data
 	const char	*format[2];			/* The formated strings */
 	int			start_time;			/* The start time      */
 	t_mutex		print_lock;			/* The print lock     */
+	t_bool		print	: 1;		/* If we allow print */
 };
 
 struct s_log

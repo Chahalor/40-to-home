@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:20:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:42:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/01 11:44:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,48 @@
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used)) inline int destroy_semaphore(
-	sem_t *semaphore
+__attribute__((always_inline, used)) inline int	destroy_semaphore(
+	t_semaphores	*semaphore
 )
 {
 	if (__buitlin_expect(!semaphore, unexpected))
-		return (0);
+		return (-1);
 	else
 	{
-		sem_close(semaphore);
-		sem_unlink(SEMA_FORKS_DEFAULT);
+		sem_close(semaphore->forks);
+		sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_FORKS);
+		sem_close(semaphore->print);
+		sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_PRINT);
+		sem_close(semaphore->run);
+		sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_RUN);
+		return (1);
 	}
 }
 
 /** */
-__attribute__((always_inline, used)) inline sem_t	*init_semaphore(
-	const t_philo_data data
+__attribute__((always_inline, used)) inline t_semaphores	*init_semaphore(
+	const int nb_philo
 )
 {
-	sem_t	*sem;
+	t_semaphores	semaphores;
 
-	sem_unlink(SEMA_FORKS_DEFAULT);
-	sem = sem_open(SEMA_FORKS_DEFAULT, O_CREAT | O_EXCL, data.nb_philo);
-	if (__builtin_expect(sem == SEM_FAILED, unexpected))
+	sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_FORKS);
+	sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_PRINT);
+	sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_RUN);
+	semaphores.forks = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_FORKS,
+		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, nb_philo);
+	semaphores.print = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_PRINT,
+		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
+	semaphores.run = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_RUN,
+		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
+	if (__builtin_expect(semaphores.forks == SEM_FAILED
+			|| semaphores.print == SEM_FAILED || semaphores.run == SEM_FAILED,
+			unexpected))
+	{
+		destroy_semaphore(&semaphores);
 		return (NULL);
-	if (__builtin_expect(sem_init(sem, 1, data.nb_philo) == -1, unexpected))
-		return (NULL);
-	return (sem);
+	}
+	return (&semaphores);
 }
 
 #pragma endregion Functions
