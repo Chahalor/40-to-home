@@ -29,9 +29,9 @@
 ```bash
 ./philo 4 410 200 200            # 4 philosophers, close timing → should not die
 ./philo 4 310 200 100            # 4 philosophers, very close timing → should die
-./philo 3 300 150 150 5          # time_to_eat == time_to_die / 2 → critical edge. Philosophers can die but can also survive
-./philo 3 300 149 150 5          # close to the limit: could die if imprecise
-./philo 3 300 151 150 5          # stable if last_meal is managed correctly, but philosophers can also die
+./philo 3 300 150 150 5          # time_to_eat == time_to_die / 2 → critical edge. Philosophers will die
+./philo 3 300 149 150 5          # close to the limit: will also die, to close
+./philo 3 300 151 150 5          # stable if last_meal is managed correctly, but philosophers will die, to close
 ```
 
 [ ] working

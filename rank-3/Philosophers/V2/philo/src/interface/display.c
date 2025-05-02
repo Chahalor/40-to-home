@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/01 11:59:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/02 15:29:19 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,27 @@ __attribute__((always_inline, used)) inline void	move_cursor(
 	printf("\033[%d;%dH", row, col);
 }
 
-/** */
-__attribute__((always_inline, used)) inline t_raw_data	_init_raw_data(
-	
+/**
+ * @brief	Initialize the raw data structure for logging.
+ * 
+ * @param	Void
+ * 
+ * @return	Initialized raw data structure.
+ */
+__attribute__((always_inline, used)) static inline t_raw_data	_init_raw_data(
 )
 {
 	return ((t_raw_data){
 		.status_str = {\
-			[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
-			[forks] = "has taken a Forks", [eating] = "is Eating", \
-			[died] = "just Died"},
+			[thinking] = "is thinking", [sleeping] = "is sleeping", \
+			[forks] = "has taken a fork", [eating] = "is eating", \
+			[died] = RED "died" RESET},
 		.format = {\
 			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
 			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
-		.start_time = 0,
 		.print_lock = PTHREAD_MUTEX_INITIALIZER,
-		.print = true
+		.print = true,
+		.start_time = get_ms_time(),
 	});
 }
 
@@ -64,37 +69,30 @@ __attribute__((always_inline, used)) inline t_raw_data	_init_raw_data(
  * @param	philo Pointer to the philosopher.
  * @param	info  The status of the philosopher.
  * 
- * @return	None
+ * @return	Void
+ * 
+ * @note	- Use ANSI escape codes to format the output.
+ * @note	- This function should be initialized before any use.
 */
 __attribute__((hot)) void	raw_log(
 	const t_philo *philo,
 	const int info
 )
 {
-	static t_raw_data	data = _init_raw_data();
-	/*// {
-	// 	.status_str = {\
-	// 		[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
-	// 		[forks] = "has taken a Forks", [eating] = "is Eating", \
-	// 		[died] = "just Died"},
-	// 	.format = {\
-	// 		CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
-	// 		CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
-	// 	.start_time = 0,
-	// 	.print_lock = PTHREAD_MUTEX_INITIALIZER,
-	// 	.print = true
-	// };*/
+	static t_raw_data	data = {0};
 	int					time;
 	int					sec;
 	int					ms;
 
 	if (__builtin_expect(info == init, unexpected))
-		return ((void)(data.start_time = get_ms_time()));
+	{
+		data = _init_raw_data();
+		return ;
+	}
 	lock(&data.print_lock);
 	if (__builtin_expect(data.print != true, unexpected))
 		return ((void)(unlock(&data.print_lock)));
-	else if (__builtin_expect(info == died, unexpected))
-		data.print = false;
+	data.print = (data.print != false && info != died);
 	time = get_ms_time() - data.start_time;
 	sec = time / 1000;
 	ms = time % 1000;

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 16:37:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/02 15:43:15 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used)) static inline void	_starvation(
-	t_philo *philo,
-	t_mutex *first,
-	t_mutex *second
+__attribute__((always_inline, used)) static inline void	_add_meal(
+	const int nb_philos
 )
 {
-	unlock(first);
-	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))
-		unlock(second);
-	philo->die(philo);
+	global_storage(request_add_finished);
+	if (__builtin_expect(global_storage(request_get_finished) == nb_philos,
+			unexpected))
+		global_storage(request_stop);
 }
 
 /** */
@@ -43,21 +41,16 @@ __attribute__((hot)) void	_eat(
 {
 	t_mutex	*first;
 	t_mutex	*second;
-	t_time	diff;
 
 	_lock_forks(philo, &first, &second);
-	diff = get_ms_time() - philo->last_meal;
-	if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
-		return (_starvation(philo, first, second));
-	lock(philo->lock);
-	if (philo->data.nb_meals != -1
-		&& philo->nb_meals == philo->data.nb_meals)
-		global_storage(request_add_finished);
 	philo->info(philo, eating);
-	ft_usleep((philo->data.time_to_eat * 1000)
-		+ (philo->data.time_to_eat == 0));
+	ft_usleep((philo->data.time_to_eat * 1000));
+	lock(philo->lock);
 	philo->status = sleeping;
 	++philo->nb_meals;
+	if (philo->data.nb_meals != -1
+		&& philo->nb_meals == philo->data.nb_meals)
+		_add_meal(philo->data.nb_philo);
 	philo->last_meal = get_ms_time();
 	unlock(philo->lock);
 	unlock(first);
@@ -70,10 +63,9 @@ __attribute__((hot)) void	_sleep(
 	t_philo *philo
 )
 {
-	lock(philo->lock);
 	philo->info(philo, sleeping);
-	ft_usleep((philo->data.time_to_sleep * 1000)
-		+ (philo->data.time_to_sleep == 0));
+	ft_usleep((philo->data.time_to_sleep * 1000));
+	lock(philo->lock);
 	philo->status = thinking;
 	unlock(philo->lock);
 }
@@ -83,8 +75,8 @@ __attribute__((hot)) void	_think(
 	t_philo *philo
 )
 {
-	lock(philo->lock);
 	philo->info(philo, thinking);
+	lock(philo->lock);
 	philo->status = eating;
 	unlock(philo->lock);
 }

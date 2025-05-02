@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   life.c                                             :+:      :+:    :+:   */
+/*   watcher.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/02 13:28:38 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/05/02 08:40:47 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/05/02 14:18:03 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,34 @@
 #pragma region Functions
 
 /** */
-__attribute__((hot)) void	*circle_of_life(
+__attribute__((cold)) void	*watcher(
 	void *arg
 )
 {
-	t_philo		*philo;
-	t_status	status;
+	const t_philo		*philosophers = (t_philo *)arg;
+	const t_philo_data	data = philosophers->data;
+	register int		i;
+	t_philo				*philo;
 
-	philo = (t_philo *)arg;
-	if (__builtin_expect(philo->data.nb_philo < 2, unexpected))
+	if (__builtin_expect(!data.nb_philo, unexpected))
+		return ((void)global_storage(request_stop), NULL);
+	i = -1;
+	while (__builtin_expect(global_storage(request_get_run), expected))
 	{
-		philo->info(philo, forks);
-		ft_usleep(philo->data.time_to_eat * 1000);
-		printf("  The philosopher is too civilized to eat with one fork. "
-			"He prefers dying of starvation.\n");
-		return (NULL);
-	}
-	while (__builtin_expect(global_storage(request_get_run) == true, expected))
-	{
+		i = (i + 1) % data.nb_philo;
+		philo = (t_philo *)&philosophers[i];
 		lock(philo->lock);
-		status = philo->status;
-		unlock(philo->lock);
-		if (status == eating)
-			philo->eat(philo);
-		else if (status == sleeping)
-			philo->sleep(philo);
-		else if (status == thinking)
-			philo->think(philo);
+		if (__builtin_expect(get_ms_time() - philo->last_meal
+				>= data.time_to_die, unexpected))
+		{
+			unlock(philo->lock);
+			philo->die(philo);
+		}
+		else
+			unlock(philo->lock);
+		ft_usleep(100);
 	}
+	global_storage(request_stop);
 	return (NULL);
 }
 

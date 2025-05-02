@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:59:58 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:42:12 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, const char **argv)
 	init_all(&forks, &philosophers, args.data, args.display);
 	simu_status = launch_simu(philosophers, args.data, args.display);
 	_end_of_main(args, simu_status);
+	global_storage(request_destroy);
 	destroy_mutex(&forks, args.data.nb_philo * 3);
 	destroy_philos(&philosophers);
 	return (0);

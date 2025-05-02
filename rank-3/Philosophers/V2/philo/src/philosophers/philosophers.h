@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:58:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/02 08:51:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ struct s_watcher
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
+// init.c
+
 void	destroy_mutex(
 			t_mutex *restrict *restrict forks,
 			const int nb_forks
@@ -100,7 +102,7 @@ void	*circle_of_life(
 
 // watcher.c
 
-void	*big_brother(
+void	*watcher(
 			void *arg
 			);
 
