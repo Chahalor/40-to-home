@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 13:53:26 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:15:49 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,32 @@ __attribute__((always_inline, used)) inline void	_lock_forks(
 	t_philo *philo
 )
 {
-	sem_wait(1);
+	wait(philo->forks);
 	philo->info(philo, forks);
-	sem_wait(1);
+	wait(philo->forks);
 	philo->info(philo, forks);
+}
+
+/** */
+__attribute__((always_inline, used)) inline int	wait(
+	sem_t *sem
+)
+{
+	if (__builtin_expect(!sem, unexpected))
+		return (-1);
+	else
+		return (sem_wait(sem));
+}
+
+/** */
+__attribute__((always_inline, used)) inline int	post(
+	sem_t *sem
+)
+{
+	if (__builtin_expect(!sem, unexpected))
+		return (-1);
+	else
+		return (sem_post(sem));
 }
 
 #pragma endregion Functions

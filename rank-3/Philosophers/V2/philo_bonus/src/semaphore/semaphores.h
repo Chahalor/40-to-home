@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   semaphore.h                                        :+:      :+:    :+:   */
+/*   semaphores.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:19:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/01 11:46:00 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 12:46:41 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEMAPHORE_H
-# define SEMAPHORE_H
+#ifndef SEMAPHORES_H
+# define SEMAPHORES_H
 
 #pragma once
 
@@ -23,7 +23,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-# include <bits/semaphore.h>
+// # include <bits/semaphore.h>
 
 /* Globals  */
 # include "config.h"
@@ -62,12 +62,12 @@ struct s_semaphores
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-extern int			destroy_semaphore(
+extern int			close_semaphores(
 						t_semaphores *semaphore
 						);
 
-extern t_semaphores	*init_semaphore(
+extern t_semaphores	init_semaphore(
 						const int nb_philo
 						);
 
-#endif /* SEMAPHORE_H */
+#endif /* SEMAPHORES_H */

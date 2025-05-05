@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:20:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/01 11:44:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 15:44:26 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 // #include "_semaphore.h"
 
 /* -----| Modules  |----- */
-#include "semaphore.h"
+#include "semaphores.h"
 
 #pragma endregion Headers
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used)) inline int	destroy_semaphore(
+__attribute__((always_inline, used)) inline int	close_semaphores(
 	t_semaphores	*semaphore
 )
 {
-	if (__buitlin_expect(!semaphore, unexpected))
+	if (__builtin_expect(!semaphore, unexpected))
 		return (-1);
 	else
 	{
@@ -41,7 +41,7 @@ __attribute__((always_inline, used)) inline int	destroy_semaphore(
 }
 
 /** */
-__attribute__((always_inline, used)) inline t_semaphores	*init_semaphore(
+__attribute__((always_inline, used)) inline t_semaphores	init_semaphore(
 	const int nb_philo
 )
 {
@@ -60,10 +60,10 @@ __attribute__((always_inline, used)) inline t_semaphores	*init_semaphore(
 			|| semaphores.print == SEM_FAILED || semaphores.run == SEM_FAILED,
 			unexpected))
 	{
-		destroy_semaphore(&semaphores);
-		return (NULL);
+		close_semaphores(&semaphores);
+		return ((t_semaphores){0});
 	}
-	return (&semaphores);
+	return (semaphores);
 }
 
 #pragma endregion Functions

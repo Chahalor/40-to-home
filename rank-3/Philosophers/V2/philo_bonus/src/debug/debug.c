@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 12:00:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:10:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <errno.h>
 
 // Global
-#include "../global/type.h"
-#include "../global/config.h"
+#include "type.h"
+#include "config.h"
 
 // Modules
 #include "debug.h"
@@ -66,12 +66,17 @@ __attribute__((unused, always_inline)) inline void	print_philo(
 	if (!philo)
 		return ;
 	printf("├──philo->id = %d\n", philo->id);
-	printf("├──philo->left_fork = %p\n", philo->left_fork);
-	printf("├──philo->right_fork = %p\n", philo->right_fork);
-	printf("├──philo->lock = %p\n", philo->lock);
 	printf("├──philo->nb_meals = %d\n", philo->nb_meals);
 	printf("├──philo->last_meal = %d\n", philo->last_meal);
-	printf("└──philo->state = %d\n", philo->status);
+	printf("├──philo->status = %p\n", &philo->status);
+	printf("├──philo->fork = %p\n", philo->forks);
+	printf("├──philo->lock = %p\n", philo->lock);
+	printf("├──philo->data = %p\n", &philo->data);
+	printf("├──philo->eat = %p\n", philo->eat);
+	printf("├──philo->sleep = %p\n", philo->sleep);
+	printf("├──philo->think = %p\n", philo->think);
+	printf("├──philo->die = %p\n", philo->die);
+	printf("└──philo->info = %p\n", philo->info);
 }
 
 #else

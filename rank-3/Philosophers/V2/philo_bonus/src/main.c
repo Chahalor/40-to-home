@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/01 11:48:54 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:55:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 /* -----| Modules  |----- */
 #include "parsing.h"
 #include "process.h"
-#include "semaphore.h"
+#include "semaphores.h"
+#include "interface.h"
 #include "utils.h"
 #include "debug.h"
 
@@ -52,12 +53,14 @@ int	main(int argc, const char **argv)
 	int				simu_status;
 
 	if (__builtin_expect(args.error || args.help, unexpected))
-		return (1 + args.help);
-	init_all(&semaphores, &philosophers, args.data, args.display);
+		return (-(1 + args.help));
+	if (__builtin_expect(init_all(&semaphores, &philosophers, args) == -1,
+			unexpected))
+		return (-3);
 	simu_status = launch_simu(philosophers, args);
 	_end_of_main(args, simu_status);
-	destroy_mutex(&semaphores, args.data.nb_philo * 3);
 	destroy_philos(&philosophers);
+	close_semaphores(&semaphores);
 	return (0);
 }
 

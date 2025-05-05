@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:49:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 14:52:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/05 12:49:27 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 /* ************************************************************************** */
 
 /* Systemes */
-	//...
+# include <unistd.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 /* Globals  */
 # include "config.h"
@@ -55,6 +57,9 @@
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-//...
+extern int	launch_simu(
+			t_philo *philos,
+			const t_args args
+			);
 
 #endif /* PROCESS_H */
