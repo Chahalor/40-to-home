@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:25:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:09:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:56:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 /* Modules */
 # include "philosophers.h"
-# include "states.h"
 # include "utils.h"
 
 /* ************************************************************************** */
@@ -66,12 +65,12 @@ extern void	move_cursor(
 				);
 
 void		raw_log(
-				const t_philo *philo,
+				const void *ptr,
 				const int info
 				);
 
 void		display_philo(
-				const t_philo *philo,
+				const void *data,
 				const int info
 				);
 

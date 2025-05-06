@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/05 17:27:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:47:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,16 @@
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used, noreturn)) static inline void	_quit(
-	t_philo *philo,
-	const char *name
-)
-{
-	sem_close(philo->lock);
-	sem_close(philo->forks);
-	sem_unlink(name);
-	exit(philo->status);
-}
-
-/** */
 __attribute__((always_inline, used)) static inline t_bool	_should_quit(
 	t_philo *philo
 )
 {
+	t_bool	result;
+
+	result = false;
+	swait(philo->lock);
 	if (__builtin_expect(philo->status == died, unexpected))
-		return (true);
+		result = true;
 	else if (__builtin_expect(philo->data.nb_philo < 2, unexpected))
 	{
 		philo->info(philo, forks);
@@ -47,8 +39,10 @@ __attribute__((always_inline, used)) static inline t_bool	_should_quit(
 		printf("The philosopher %d is too civilized to eat with one fork. "
 			"He prefers to die of starvation.\n", philo->id);
 		philo->die(philo);
+		result = true;
 	}
-	return (false);
+	post(philo->lock);
+	return (result);
 }
 
 /** */
@@ -57,17 +51,18 @@ __attribute__((cold)) void	*_watcher(
 )
 {
 	t_philo	*philo;
+	int		diff;
 
 	philo = (t_philo *)arg;
 	if (__builtin_expect(!philo, unexpected))
 		return (NULL);
 	while (true)
 	{
-		wait(philo->lock);
-		const t_time diff = get_ms_time() - philo->last_meal;
-		if (__builtin_expect(diff >= philo->data.time_to_die, unexpected))
+		swait(philo->lock);
+		diff = get_ms_time() - philo->last_meal;
+		if (__builtin_expect(diff >= (int)philo->data.time_to_die, unexpected))
 		{
-			printf("Philosopher %d died, diff=%u, time_to_die=%d\n", philo->id, diff, philo->data.time_to_die);
+			post(philo->lock);
 			philo->die(philo);
 			return (NULL);
 		}
@@ -81,17 +76,22 @@ __attribute__((cold)) int	circle_of_life(
 	t_philo *philo
 )
 {
-	static char	sema_name[32] = DEFAULT_SEMA_DIR DEFAULT_SEMA_LOCK;	// @todo: add a proper way to change the sema name
 	t_thread	thread;
+	char	buffer[32];
 
-	thread = philo->id % 2;
-	sema_name[sizeof(DEFAULT_SEMA_DIR) + sizeof(DEFAULT_SEMA_LOCK) - 1] = '0' + philo->id;
-	sem_open(sema_name, O_CREAT | O_EXCL, 0644, 1);
+	ft_memcpy(buffer, "philo_secu_", 12);
+	ft_sprintf(buffer + 11, philo->id);
+	printf("philo %d is trying to open %s\n", philo->id, buffer);
+	sem_unlink(buffer);
+	philo->lock = sem_open(buffer,O_CREAT, 0644, 1);
+	if (philo->lock == SEM_FAILED)
+		return (printf(RED ERROR RESET "sem_open failed for \"%s\" (%d)\n",
+			buffer, philo->id));
 	pthread_create(&thread, NULL, _watcher, philo);
-	while (true)
+	pthread_detach(thread);	// useless ?
+	philo->last_meal = get_ms_time();
+	while (!_should_quit(philo))
 	{
-		if (_should_quit(philo))
-			break ;
 		if (philo->status == eating)
 			philo->eat(philo);
 		else if (philo->status == sleeping)
@@ -99,8 +99,10 @@ __attribute__((cold)) int	circle_of_life(
 		else if (philo->status == thinking)
 			philo->think(philo);
 	}
-	printf("Philosopher %d after while\n", philo->id);
-	_quit(philo, sema_name);
+	post(philo->run);
+	post(philo->finished);
+	_exit_process(philo, philo->lock);
+	return (0);
 }
 
 #pragma endregion Functions

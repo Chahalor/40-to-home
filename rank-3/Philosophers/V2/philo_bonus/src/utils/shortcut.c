@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:24 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/26 12:29:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 08:46:50 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,25 @@
 #pragma region Functions
 
 /** */
-__attribute__((always_inline, used)) inline int	lock(
-	t_mutex *mutex
+__attribute__((always_inline, used)) inline int	swait(
+	sem_t *sem
 )
 {
-	return (pthread_mutex_lock(mutex));
+	if (__builtin_expect(!sem, unexpected))
+		return (-1);
+	else
+		return (sem_wait(sem));
 }
 
 /** */
-__attribute__((always_inline, used)) inline int	unlock(
-	t_mutex *mutex
+__attribute__((always_inline, used)) inline int	post(
+	sem_t *sem
 )
 {
-	return (pthread_mutex_unlock(mutex));
+	if (__builtin_expect(!sem, unexpected))
+		return (-1);
+	else
+		return (sem_post(sem));
 }
 
 /** */
@@ -53,14 +59,6 @@ __attribute__((always_inline, used)) inline int	join(
 )
 {
 	return (pthread_join(*thread, NULL));
-}
-
-/** */
-__attribute__((always_inline, used)) inline int	destroy(
-	t_mutex *mutex
-)
-{
-	return (pthread_mutex_destroy(mutex));
 }
 
 #pragma endregion Functions

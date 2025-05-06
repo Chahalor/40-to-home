@@ -32,13 +32,13 @@ DEBUGFLAGS	:=
 DIR_SRC		:= src
 DIR_OBJ		:= .build
 DIR_BONUS	:= 
-INCLUDE_ALL	:=-Iglobal -I$(DIR_SRC)/debug -I$(DIR_SRC)/interface -I$(DIR_SRC)/parsing -I$(DIR_SRC)/philosophers -I$(DIR_SRC)/procs -I$(DIR_SRC)/semaphore -I$(DIR_SRC)/states -I$(DIR_SRC)/utils
+INCLUDE_ALL	:=-Iglobal -I$(DIR_SRC)/debug -I$(DIR_SRC)/interface -I$(DIR_SRC)/parsing -I$(DIR_SRC)/philosophers -I$(DIR_SRC)/process -I$(DIR_SRC)/semaphore -I$(DIR_SRC)/utils
 
 DIR_LIBFT	:= #
 LIBFT		:= #$(DIR_LIBFT)/libft.a
 
 # Here we include all the makefile.mk files
-include  src/debug/makefile.mk src/interface/makefile.mk src/parsing/makefile.mk src/philosophers/makefile.mk src/procs/makefile.mk src/semaphore/makefile.mk src/states/makefile.mk src/utils/makefile.mk
+include  src/debug/makefile.mk src/interface/makefile.mk src/parsing/makefile.mk src/philosophers/makefile.mk src/process/makefile.mk src/semaphore/makefile.mk src/utils/makefile.mk
 
 SRC_MAIN	:= main.c
 SRC_BONUS	:=
@@ -46,7 +46,7 @@ SRC_BONUS	:=
 # all object files for the modules
 OBJ_MAIN	:= $(addprefix $(DIR_OBJ)/, $(SRC_MAIN:.c=.o))
 OBJ_BONUS	:= $(addprefix $(DIR_OBJ)/, $(SRC_BONUS:.c=.o))
-OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_INTERFACE) $(OBJ_PARSING) $(OBJ_PHILOSOPHERS) $(OBJ_PROCS) $(OBJ_SEMAPHORE) $(OBJ_STATES) $(OBJ_UTILS)
+OBJ_ALL		:= $(OBJ_DEBUG) $(OBJ_INTERFACE) $(OBJ_PARSING) $(OBJ_PHILOSOPHERS) $(OBJ_PROCESS) $(OBJ_SEMAPHORE) $(OBJ_UTILS)
 
 # ***************************************************** #
 # *                    Rules                          * #

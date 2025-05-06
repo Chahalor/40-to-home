@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   states.h                                           :+:      :+:    :+:   */
+/*   _process.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:36:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:48:41 by nduvoid          ###   ########.fr       */
+/*   Created: 2025/05/06 13:28:24 by nduvoid           #+#    #+#             */
+/*   Updated: 2025/05/06 15:39:34 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATES_H
-# define STATES_H
+#ifndef _PROCESS_H
+# define _PROCESS_H
 
 # pragma once
 
@@ -29,51 +29,41 @@
 /* Internal */
 	//...
 
-/* Modules  */
-	//...
+# include "process.h"
 
 /* ************************************************************************** */
 /*                                  Typedefs                                  */
 /* ************************************************************************** */
 
-typedef enum e_request			t_request;		/* The request enum         */
-
-typedef struct s_global_data	t_global_data;	/* The global data struct */
+typedef struct s_check	t_check;
 
 /* ************************************************************************** */
 /*                                  Enums                                     */
 /* ************************************************************************** */
 
-enum e_request
-{
-	request_get_run,		/* request to get the run status                */
-	request_get_finished ,	/* request to get the number of finish philo   */
-	request_add_finished,	/* request to add a finished philosopher      */
-	request_start,			/* request to start the simulation           */
-	request_stop,			/* request to stop the simulation           */
-	request_destroy,		/* request to clean the global manager     */
-	request_init,			/* request to init the the global manager */
-	request_lock_print,		/* request to lock the print mutex       */
-	request_unlock_print,	/* request to unlock the print mutex    */
-};
+//...
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
 
-struct s_global_data
+struct s_check
 {
-	t_bool		run		: 1;	/* The run status of the simulation */
-	int			nb_finished;	/* The number of finished philosophers */
-	t_mutex		print_lock;		/* The print mutex                  */
+	sem_t	*finished;
+	sem_t	*run;
+	int		nb_philo;
 };
 
 /* ************************************************************************** */
 /*                                  Prototypes                                */
 /* ************************************************************************** */
 
-int	global_storage(
-		t_request request
-		);
+extern int	_look_for_death(
+				t_philo *philo
+				);
 
-#endif	/* STATES_H */
+void		*_check_meals(
+				void *arg
+				);
+
+#endif /* _PROCESS_H */

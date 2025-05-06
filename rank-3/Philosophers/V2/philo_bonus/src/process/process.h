@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:49:45 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/05 12:49:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:34:11 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@
 
 extern int	launch_simu(
 			t_philo *philos,
-			const t_args args
+			const t_args args,
+			const t_semaphores *semaphores
 			);
 
 #endif /* PROCESS_H */

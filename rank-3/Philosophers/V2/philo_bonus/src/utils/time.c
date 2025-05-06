@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:53:04 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 10:31:12 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 09:13:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@
  * 
  * @return int The current time in milliseconds, or -1 on error.
 */
-__attribute__((always_inline, used)) inline int	get_ms_time(void)
+__attribute__((always_inline, used)) inline t_time	get_ms_time(void)
 {
 	struct timeval	tv;
 
-	if (__builtin_expect(gettimeofday(&tv, NULL), unexpected))
-		return (-1);
-	else
-		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 /**
@@ -52,10 +50,10 @@ __attribute__((always_inline, used)) inline int	get_ms_time(void)
  * @return void
  */
 __attribute__((hot)) void	ft_usleep(
-	const int time
+	register const t_time time
 )
 {
-	const int	start = get_ms_time();
+	register const t_time	start = get_ms_time();
 
 	if (__builtin_expect(time <= 0, unexpected))
 		return ;

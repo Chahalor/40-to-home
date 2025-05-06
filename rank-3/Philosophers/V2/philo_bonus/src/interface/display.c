@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/30 09:13:18 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:00:38 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,34 @@ __attribute__((always_inline, used)) inline void	move_cursor(
  * @return	None
 */
 __attribute__((hot)) void	raw_log(
-	const t_philo *philo,
+	const void *ptr,
 	const int info
 )
 {
-	static t_raw_data	data = {
-		.status_str = {\
+	static t_raw_data	data = {.status_str = { \
 			[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
 			[forks] = "has taken a Forks", [eating] = "is Eating", \
-			[died] = "just Died"},
-		.format = {\
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
+			[died] = "just " RED "Died" RESET},
+		.format = {CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
 			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n"},
-		.start_time = 0,
-		.print_lock = PTHREAD_MUTEX_INITIALIZER
-	};
+		.start_time = 0, .print_lock = NULL};
 	int					time;
 	int					sec;
 	int					ms;
 
 	if (__builtin_expect(info == init, unexpected))
-		return ((void)(data.start_time = get_ms_time()));
-	lock(&data.print_lock);
+		return (data.start_time = get_ms_time(),
+			(void)(data.print_lock = (sem_t *)ptr));
+	swait(data.print_lock);
 	time = get_ms_time() - data.start_time;
 	sec = time / 1000;
 	ms = time % 1000;
+	swait(((t_philo *)ptr)->lock);
 	printf(data.format[info == eating],
-		sec, ms, philo->id, data.status_str[info], philo->nb_meals);
-	unlock(&data.print_lock);
+		sec, ms, ((t_philo *)ptr)->id, data.status_str[info], ((t_philo *)ptr)->nb_meals);
+	post(((t_philo *)ptr)->lock);
+	if (__builtin_expect(info != died, expected))
+		post(data.print_lock);
 }
 
 /**
@@ -110,20 +110,19 @@ __attribute__((always_inline, used)) static inline char	*_get_color(
  * @return	None
 */
 __attribute__((hot)) void	display_philo(
-	const t_philo *philo,
+	const void *data,
 	const int info
 )
 {
 	static const char	*status_str[] = {
 	[thinking] = "Thinking", [sleeping] = "Sleeping", [forks] = "Forks",
 	[eating] = "Eating", [died] = "Dead"};
-	static t_mutex		print_lock = PTHREAD_MUTEX_INITIALIZER;
+	const t_philo		*philo = (const t_philo *)data;
 	const int			col = 2 + LOG_WIDTH * (philo->id % NB_LOG_COL);
 	const int			row = 2 + LOG_HEIGHT * (philo->id / NB_LOG_COL);
 	const char			*color = _get_color(info);
 
-	lock(&print_lock);
-	if (info < init)
+	if (__builtin_expect(info < init, expected))
 	{
 		printf("\033[%d;%dH %s+----------------------+\n"
 			"\033[%d;%dH %s| Philo: %-3d %9s |\n"
@@ -135,7 +134,6 @@ __attribute__((hot)) void	display_philo(
 			row + 3, col, color
 			);
 	}
-	unlock(&print_lock);
 }
 
 #pragma endregion Functions

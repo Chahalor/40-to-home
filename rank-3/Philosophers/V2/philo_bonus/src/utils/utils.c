@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/14 15:55:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:57:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/time.h>
+#include <string.h>
 
 // Global
 #include "type.h"
@@ -28,81 +29,67 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((cold, unused)) void	*emergency_storage(
-	void *ptr
+__attribute__((always_inline)) inline void ft_memcpy(
+	void *restrict dest,
+	const void *restrict src,
+	register const size_t len
 )
 {
-	static void	*storage = NULL;
+	register size_t	i;
 
-	if (ptr)
-		storage = ptr;
-	return (storage);
+	if (__builtin_expect(!dest || !src, unexpected))
+		return ;
+	i = -1;
+	while (++i < len)
+		((char *)dest)[i] = ((char *)src)[i];
 }
 
 /** */
-__attribute__((always_inline)) inline int	ft_strlen(
-	const char *str
+__attribute__((always_inline)) static inline	_	// fonction to split ft_sprintf
+
+/** */
+__attribute__((always_inline)) inline int	ft_sprintf(
+	char *restrict dest,
+	int nb
 )
 {
+	int				neg;
 	register int	i;
+	int				start;
+	register int	j;
+	register int	k;
 
-	if (!str)
-		return (0);
-	else
+	neg = 0;
+	i = 0;
+	if (__builtin_expect(!dest, 0))
+		return (-1);
+	else if (nb == 0)
+		return ((void)memset(dest, 0, 2), 2);
+	else if (nb < 0)
 	{
-		i = 0;
-		while (str[i])
-			i++;
-		return (i);
+		neg = 1;
+		dest[i++] = '-';
+		nb = -nb;
 	}
-}
-
-/**
- * @brief Sets the first n bytes of the block of memory pointed by s to zero.
- * 
- * @param s Pointer to the block of memory to fill.
- * @param n Number of bytes to be set to zero.
- * @return void
- */
-__attribute__((always_inline)) inline void	ft_bzero(
-	void *ptr,
-	size_t len
-)
-{
-	uint8_t			*p;
-	const uint64_t	zero[4] = {0, 0, 0, 0};
-	const size_t	step = 32;
-
-	p = (uint8_t *)ptr;
-	while (((uintptr_t)p % step) && len--)
-		*p++ = 0;
-	while (len >= step)
+	start = i;
+	while (nb)
 	{
-		*(uint64_t *)(p + 0) = zero[0];
-		*(uint64_t *)(p + 8) = zero[1];
-		*(uint64_t *)(p + 16) = zero[2];
-		*(uint64_t *)(p + 24) = zero[3];
-		p += step;
-		len -= step;
+		dest[i++] = (nb % 10) + '0';
+		nb /= 10;
 	}
-	while (len--)
-		*p++ = 0;
+	dest[i] = '\0';
+	j = start;
+	k = i - 1;
+	while (j < k)
+	{
+		++j;
+		--k;
+		char tmp = dest[j];
+		dest[j] = dest[k];
+		dest[k] = tmp;
+	}
+	return (i);
 }
 
-/** */
-__attribute__((always_inline, malloc)) inline void	*ft_calloc(
-	const size_t nmemb,
-	const size_t size
-)
-{
-	void	*ptr;
-
-	ptr = malloc(nmemb * size);
-	if (__builtin_expect(!ptr, unexpected))
-		return (NULL);
-	else
-		ft_bzero(ptr, nmemb * size);
-	return (ptr);
-}
 
 #pragma endregion "Functions"

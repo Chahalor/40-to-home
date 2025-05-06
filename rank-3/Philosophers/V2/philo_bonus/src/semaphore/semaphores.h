@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:19:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/05 12:46:41 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 15:32:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-// # include <bits/semaphore.h>
 
 /* Globals  */
 # include "config.h"
@@ -56,6 +55,7 @@ struct s_semaphores
 	sem_t	*forks;
 	sem_t	*print;
 	sem_t	*run;
+	sem_t	*nb_finished;
 };
 
 /* ************************************************************************** */

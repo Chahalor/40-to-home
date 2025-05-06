@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:56:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 15:02:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:56:25 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 /* Modules */
 # include "philosophers.h"
-# include "states.h"
 # include "utils.h"
 
 /* ************************************************************************** */
@@ -69,8 +68,8 @@ struct s_raw_data
 {
 	const char	*status_str[12];	/* The status strings    */
 	const char	*format[2];			/* The formated strings */
-	int			start_time;			/* The start time      */
-	t_mutex		print_lock;			/* The print lock     */
+	t_time		start_time;			/* The start time      */
+	sem_t		*print_lock;			/* The print lock     */
 };
 
 struct s_log
@@ -126,14 +125,14 @@ extern void	move_cursor(
 				const int col
 				);
 
-void		raw_log(
-				const t_philo *philo,
-				const int info
-				);
+// void		raw_log(
+// 				const t_philo *philo,
+// 				const int info
+// 				);
 
-void		display_philo(
-				const t_philo *philo,
-				const int info
-				);
+// void		display_philo(
+// 				const t_philo *philo,
+// 				const int info
+// 				);
 
 #endif	// _INTERFACE_H

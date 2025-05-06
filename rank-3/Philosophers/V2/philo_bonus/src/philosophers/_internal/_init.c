@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:52:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/05 12:42:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:25:13 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ __attribute__((always_inline, used)) static inline void	_choose_info(
  */
 __attribute__((malloc, cold)) t_philo	*_init_philo(
 	register const int nb_philos,
-	sem_t *sema,
+	t_semaphores *restrict sema,
 	const t_philo_data data,
 	const int display
 )
@@ -75,7 +75,8 @@ __attribute__((malloc, cold)) t_philo	*_init_philo(
 		philosophers[i] = (t_philo){
 			.id = i, .last_meal = time_start, .status = eating, .data = data,
 			.eat = _eat, .sleep = _sleep, .think = _think, .die = _die,
-			.forks = sema, .lock = NULL
+			.forks = sema->forks, .lock = NULL, .run = sema->run,
+			.finished = sema->nb_finished, .nb_meals = 0,
 		};
 		_choose_info(&philosophers[i], display);
 	}

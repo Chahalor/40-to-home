@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:56:58 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 15:28:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 09:15:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 typedef pthread_mutex_t		t_mutex;		/* The mutex type              */
 typedef pthread_t			t_thread;		/* The thread type            */
-typedef unsigned int		t_time;			/* time to store the time    */
+typedef long				t_time;			/* time to store the time    */
 
 typedef enum e_expect		t_expect;		/* The expected value enum     */
 typedef enum e_bool			t_bool;			/* The boolean type           */

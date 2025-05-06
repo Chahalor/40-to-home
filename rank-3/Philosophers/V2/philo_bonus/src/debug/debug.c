@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/05 16:10:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/06 09:17:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ __attribute__((unused, always_inline)) inline void	print_philo(
 		return ;
 	printf("├──philo->id = %d\n", philo->id);
 	printf("├──philo->nb_meals = %d\n", philo->nb_meals);
-	printf("├──philo->last_meal = %d\n", philo->last_meal);
+	printf("├──philo->last_meal = %ld\n", philo->last_meal);
 	printf("├──philo->status = %p\n", &philo->status);
 	printf("├──philo->fork = %p\n", philo->forks);
 	printf("├──philo->lock = %p\n", philo->lock);
