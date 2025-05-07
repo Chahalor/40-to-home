@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:25:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 13:56:01 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:13:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,6 @@
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
-
-// init.c
-
-extern void	init_display(
-				const t_philo_data data,
-				const t_philo *restrict random_one,
-				const int display
-				);
-
-// print.c
-
-void		info(
-				const int id,
-				const char *msg
-				);
-
-void		info2(
-				const int id,
-				const char *msg
-				);
 
 // display.c
 

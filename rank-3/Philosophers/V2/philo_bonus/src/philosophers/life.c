@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 11:28:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:24:07 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,15 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief	check if the philosopher should quit
+ * 
+ * @param philo The philosopher to check
+ * 
+ * @return true if the philosopher should quit, false otherwise
+ * 
+ * @note In fact its check if the philosopher is dead
+ */
 __attribute__((always_inline, used)) static inline t_bool	_should_quit(
 	t_philo *philo
 )
@@ -36,7 +44,13 @@ __attribute__((always_inline, used)) static inline t_bool	_should_quit(
 	return (result);
 }
 
-/** */
+/**
+ * @brief	The watcher function, it will check if the philosopher is dead
+ * 
+ * @param arg The philosopher to watch
+ * 
+ * @return NULL
+ */
 __attribute__((cold)) void	*_watcher(
 	void *arg
 )
@@ -62,7 +76,15 @@ __attribute__((cold)) void	*_watcher(
 	}
 }
 
-/** */
+/**
+ * @brief	Open the semaphore for the philosopher
+ * 
+ * @param id The philosopher id
+ * @param buffer The buffer to store the semaphore name
+ * @param lock The semaphore to open
+ * 
+ * @return true if the semaphore is opened, false otherwise
+ */
 __attribute__((always_inline, used)) static inline t_bool	_open_sem(
 	const int id,
 	char buffer[32],
@@ -82,7 +104,14 @@ __attribute__((always_inline, used)) static inline t_bool	_open_sem(
 	return (true);
 }
 
-/** */
+/**
+ * @brief	The main function of the philosopher, it will create the watcher
+ * 		thread, open the print semapore, start the simulation and run it.
+ * 
+ * @param philo The philosopher to run
+ * 
+ * @return 0 if the simulation is finished, -1 if it failed
+ */
 __attribute__((cold)) int	circle_of_life(
 	t_philo *philo
 )

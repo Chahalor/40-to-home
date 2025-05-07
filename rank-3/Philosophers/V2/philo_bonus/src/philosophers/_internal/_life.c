@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:33:20 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:20:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief The action of eating, sleep the program for the time to eat,
+ * 		take the forks, and update the last meal time.
+ * 
+ * @param philo The philosopher to eat.
+ * 
+ * @return void
+*/
 __attribute__((hot)) void	_eat(
 	t_philo *philo
 )
@@ -46,7 +53,13 @@ __attribute__((hot)) void	_eat(
 	post(philo->forks);
 }
 
-/** */
+/**
+ * @brief The action of sleeping, sleep the program for the time to sleep,
+ * 
+ * @param philo The philosopher to sleep.
+ * 
+ * @return void
+ */
 __attribute__((hot)) void	_sleep(
 	t_philo *philo
 )
@@ -58,7 +71,13 @@ __attribute__((hot)) void	_sleep(
 	ft_usleep(philo->data.time_to_sleep * 1000);
 }
 
-/** */
+/**
+ * @brief The action of thinking, juste update the status of the philosopher
+ * 
+ * @param philo The philosopher to think.
+ * 
+ * @return void
+*/
 __attribute__((hot)) void	_think(
 	t_philo *philo
 )
@@ -69,7 +88,14 @@ __attribute__((hot)) void	_think(
 	philo->info(philo, thinking);
 }
 
-/** */
+/**
+ * @brief The action of dying, update the status of the philosopher and ask for
+ * 		the end of the simulation.
+ * 
+ * @param philo The philosopher to die.
+ * 
+ * @return void
+ */
 __attribute__((hot)) void	_die(
 	t_philo *philo
 )

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:20:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:39:17 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:29:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief	Close and unlink all the globals semaphores.
+ * 
+ * @param	semaphore The semaphores to close.
+ * 
+ * @return 1 if success, -1 if failed.
+*/
 __attribute__((always_inline, used)) inline int	close_semaphores(
 	t_semaphores	*semaphore
 )

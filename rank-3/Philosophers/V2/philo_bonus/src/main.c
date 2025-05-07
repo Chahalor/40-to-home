@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:28:50 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:58:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:10:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,18 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief			print the end of the simulation
+ * 
+ * @param args		The programm arguments
+ * @param status	The simulation status
+ * 
+ * @returns			void
+ * 
+ * @details	-1 if the simulation failed to launch
+ * 			+0 if the simulation finished without meals
+ * 			+1 if a philosopher died
+ */
 __attribute__((always_inline, used)) static inline void	_end_of_main(
 	const t_args args,
 	const int status
@@ -44,7 +55,28 @@ __attribute__((always_inline, used)) static inline void	_end_of_main(
 		printf("All philosophers finished alive (nice)\n");
 }
 
-/** */
+/**
+ * @author	nduvoid <nduvoid@student.42mulhouse.fr>
+ * @date	2025/04/23
+ * @name	Philo_bonus
+ * 
+ * @file	main.c
+ * @dir		src
+ * 
+ * @brief This Program is a simulation of the dining philosophers problem.
+ * 
+ * - The simulation is done using semaphores and processes.
+ * 
+ * - This program is a bonus project for the 42 school.
+ * 
+ * @param	argc		The number of arguments
+ * @param	argv		The arguments
+ * 
+ * @return	0 if the simulation finished without errors
+ * @return	-1 if the simulation failed to launch
+ * @return	-2 if the simulation failed to parse the arguments
+ * @return	-3 if the simulation failed to initialize
+ */
 int	main(int argc, const char **argv)
 {
 	const t_args	args = parse_args(argc, argv);

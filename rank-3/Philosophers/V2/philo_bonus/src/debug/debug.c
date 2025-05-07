@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:21:12 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 09:17:22 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:11:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@
 
 #if DEBUG == 1
 
-/** */
+/**
+ * @brief		print the args structure
+ * 
+ * @param args	the args structure to print
+ * 
+ * @returns		void
+ */
 __attribute__((used, always_inline)) inline void	print_args(
 	const t_args *args	/* the args structure to print */
 )
@@ -57,7 +63,13 @@ __attribute__((used, always_inline)) inline void	print_args(
 	printf("   └──args->data.nb_meals = %d\n", args->data.nb_meals);
 }
 
-/** */
+/**
+ * @brief		print the philosopher structure
+ * 
+ * @param philo	the philosopher structure to print
+ * 
+ * @returns		void
+ */
 __attribute__((unused, always_inline)) inline void	print_philo(
 	const t_philo *philo	/* the philosopher structure to print */
 )
@@ -81,14 +93,26 @@ __attribute__((unused, always_inline)) inline void	print_philo(
 
 #else
 
-/** */
+/**
+ * @brief		print the args structure
+ * 
+ * @param args	the args structure to print
+ * 
+ * @returns		void
+ */
 __attribute__((unused, always_inline))
 extern inline void	print_args(const t_args *args)
 {
 	(void)args;
 }
 
-/** */
+/**
+ * @brief		print the philosopher structure
+ * 
+ * @param philo	the philosopher structure to print
+ * 
+ * @returns		void
+ */
 __attribute__((unused, always_inline))
 extern inline void	print_philo(const t_philo *philo)
 {
@@ -97,7 +121,13 @@ extern inline void	print_philo(const t_philo *philo)
 
 #endif
 
-/** */
+/**
+ * @brief		print a debug message but only if DEBUG is enabled
+ * 
+ * @param msg	the message to print
+ * 
+ * @returns		void
+ */
 __attribute__((unused, always_inline)) extern inline void	print_debug(
 	const char *msg
 )

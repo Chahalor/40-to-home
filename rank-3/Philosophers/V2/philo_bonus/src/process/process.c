@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:48:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 11:21:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:28:36 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,16 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief	Kill all the process
+ * 
+ * @param all_pid The list of all the process
+ * @param nb_process The number of process
+ * 
+ * @return void
+ * 
+ * @note This function will free the all_pid list
+*/
 __attribute__((always_inline, used)) static inline void	_kill_process(
 	pid_t *restrict all_pid,
 	register const int nb_process
@@ -41,9 +50,14 @@ __attribute__((always_inline, used)) static inline void	_kill_process(
 }
 
 /**
- * 	// maybe multi threading this (overkill max)
+ * @brief	Launch the process and return the list of all the process
+ * 
+ * @param philos All philosophers to launch
+ * @param args The arguments needed to launch
+ * 
+ * @return pid_t* The list of all the process
  */
-__attribute__((always_inline, used))static inline pid_t	*_launch_process(
+__attribute__((always_inline, used)) static inline pid_t	*_launch_process(
 	t_philo *philos,
 	const t_args args
 )
@@ -73,7 +87,15 @@ __attribute__((always_inline, used))static inline pid_t	*_launch_process(
 	return (all_pid);
 }
 
-/** */
+/**
+ * @brief	Launch the simulation and wait for all the philosophers to finish
+ * 
+ * @param philos All philosophers to launch
+ * @param args The arguments needed to launch
+ * @param semaphores The semaphores needed to launch
+ * 
+ * @return int 0 if the simulation finished, -1 if it failed
+*/
 __attribute__((always_inline, used)) inline int	launch_simu(
 	t_philo *philos,
 	const t_args args,

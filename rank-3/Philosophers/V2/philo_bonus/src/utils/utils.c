@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:36:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:32:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,15 @@
 #pragma endregion "Headers"
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief	copy len bytes from src to dest
+ * 
+ * @param dest The destination pointer
+ * @param src The source pointer
+ * @param len The number of bytes to copy
+ * 
+ * @return void
+*/
 __attribute__((always_inline)) inline void	ft_memcpy(
 	void *restrict dest,
 	const void *restrict src,
@@ -44,7 +52,15 @@ __attribute__((always_inline)) inline void	ft_memcpy(
 		((char *)dest)[i] = ((char *)src)[i];
 }
 
-/** */
+/**
+ * @brief Revert the string from start to i
+ * 
+ * @param dest The string to revert
+ * @param start The start index
+ * @param i The end index
+ * 
+ * @return void
+ */
 __attribute__((always_inline)) static inline void	_revert(
 	char *dest,
 	const int start,
@@ -67,7 +83,14 @@ __attribute__((always_inline)) static inline void	_revert(
 	}
 }
 
-/** */
+/**
+ * @brief Convert an integer to a string and store it in dest
+ * 
+ * @param dest The destination string
+ * @param nb The integer to convert
+ * 
+ * @return int The length of the string
+*/
 __attribute__((always_inline)) inline int	ft_sprintf(
 	char *restrict dest,
 	int nb

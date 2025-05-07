@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:33:14 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:25:01 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief	Destroy and free the philosophers
+ * 
+ * @param philosophers The philosophers to destroy
+ * 
+ * @return void
+ */
 __attribute__((cold)) void	destroy_philos(
 	t_philo *restrict *restrict philosophers
 )
@@ -32,7 +38,15 @@ __attribute__((cold)) void	destroy_philos(
 	*philosophers = NULL;
 }
 
-/** */
+/**
+ * @brief initialize the semaphores and the philosophers
+ * 
+ * @param semaphores The semaphores to initialize
+ * @param philosophers The philosophers to initialize
+ * @param args The arguments needed to initialize.
+ * 
+ * @return 0 if success, -1 if failed
+*/
 __attribute__((cold)) int	init_all(
 	t_semaphores *restrict semaphores,
 	t_philo *restrict *restrict philosophers,

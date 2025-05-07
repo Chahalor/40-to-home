@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:38:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:33:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,7 @@ extern int		ft_sprintf(
 					);
 
 // shortcut.c
-extern int		launch(
-					t_thread *thread,
-					void *(*start_routine)(void *),
-					void *arg
-					);
-extern int		join(
-					t_thread *thread
-					);
+
 extern int		swait(
 					sem_t *sem
 					);
@@ -78,6 +71,7 @@ extern void		ft_error(
 void			ft_usleep(
 					register const t_time time
 					);
+
 extern t_time	get_ms_time(void);
 
 #endif	/* UTILS_H */

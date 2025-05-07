@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:27:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/29 12:22:48 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:18:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@
 #pragma endregion "Headers"
 #pragma region "Functions"
 
-/** */
+/**
+ * @brief	Check if the string is a valid number. Valide numbers are
+ * 			positive integers.
+ * 
+ * @param	str The string to check
+ * 
+ * @return	int 1 if the string is a valid number, 0 if not, -1 if the number
+ * 			is negative
+ */
 __attribute__((always_inline, used)) inline int	is_nbr(
 	const char *str
 )
@@ -52,6 +60,7 @@ __attribute__((always_inline, used)) inline int	is_nbr(
  * @param s1 First string to be compared.
  * @param s2 Second string to be compared.
  * @param n Number of bytes to be compared.
+ * 
  * @return int 0 if the two strings are identical, otherwise the difference
  */
 __attribute__((cold)) int	ft_strncmp(
@@ -80,7 +89,13 @@ __attribute__((cold)) int	ft_strncmp(
 	return (0);
 }
 
-/** */
+/**
+ * @brief Check if the character is a space
+ * 
+ * @param c The character to check
+ * 
+ * @return 1 if the character is a space, 0 otherwise
+ */
 __attribute__((always_inline, used)) static inline int	is_space(
 	const int c
 )
@@ -95,6 +110,7 @@ __attribute__((always_inline, used)) static inline int	is_space(
  * @brief Convert a string to an integer
  * 
  * @param nptr The string to convert
+ * 
  * @return The integer value of the string
  */
 __attribute__((cold)) int	ft_atoi(

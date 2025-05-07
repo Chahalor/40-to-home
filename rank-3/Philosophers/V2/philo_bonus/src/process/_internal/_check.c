@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:29:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 10:40:03 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:27:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,16 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief Check if the philosopher is dead
+ * 
+ * @param philo All philosopher to check
+ * 
+ * @return int 1 if a philosopher is dead, 0 if not
+ * 
+ * @note In fact this fonction didn t work because memory is not shared
+ * 		so it will always return 0
+*/
 __attribute__((always_inline, used)) inline int	_look_for_death(
 	t_philo *philo
 )
@@ -38,7 +47,14 @@ __attribute__((always_inline, used)) inline int	_look_for_death(
 	return (result);
 }
 
-/** */
+/**
+ * @brief this fonction is passed to the thread to check if all
+ * 		the philosophers eat at least nb_meals times
+ * 
+ * @param arg the number of philosophers and the semaphore
+ * 
+ * @return NULL
+*/
 __attribute__((cold)) void	*_check_meals(
 	void *arg
 )

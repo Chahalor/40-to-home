@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:56:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 13:56:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:14:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,6 @@
 typedef struct s_raw_data	t_raw_data;	/* The raw log data  */
 typedef struct s_log		t_log;		/* The log type     */
 typedef struct s_info		t_info;		/* The info type   */
-typedef struct s_point		t_point;	/* The point type */
-
-/* ************************************************************************** */
-/*                                  Typedefs                                  */
-/* ************************************************************************** */
-
-//...
 
 /* ************************************************************************** */
 /*                                  Structs                                   */
@@ -69,7 +62,7 @@ struct s_raw_data
 	const char	*status_str[12];	/* The status strings    */
 	const char	*format[2];			/* The formated strings */
 	t_time		start_time;			/* The start time      */
-	sem_t		*print_lock;			/* The print lock     */
+	sem_t		*print_lock;		/* The print lock     */
 };
 
 struct s_log
@@ -88,35 +81,9 @@ struct s_info
 	int			nb_logs;		/* The number of logs       */
 };
 
-struct s_point
-{
-	int		x;	/* The x coordinate */
-	int		y;	/* The y coordinate */
-};
-
 /* ************************************************************************** */
 /*                                  Structs                                   */
 /* ************************************************************************** */
-
-// init.c
-
-extern void	init_display(
-				const t_philo_data data,
-				const t_philo *restrict random_one,
-				const int display
-				);
-
-// print.c
-
-void		info(
-				const int id,
-				const char *msg
-				);
-
-void		info2(
-				const int id,
-				const char *msg
-				);
 
 // display.c
 
@@ -124,15 +91,5 @@ extern void	move_cursor(
 				const int row,
 				const int col
 				);
-
-// void		raw_log(
-// 				const t_philo *philo,
-// 				const int info
-// 				);
-
-// void		display_philo(
-// 				const t_philo *philo,
-// 				const int info
-// 				);
 
 #endif	// _INTERFACE_H

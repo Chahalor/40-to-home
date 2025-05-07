@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 11:28:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:22:02 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@
 #pragma endregion Headers
 #pragma region Functions
 
-/** */
+/**
+ * @brief	Exit the process and close all semaphores.
+ * 
+ * @param	philos Pointer to the philosophers.
+ * 
+ * @param	print_lock Pointer to the print semaphore.
+ * 
+ * @return	void
+*/
 __attribute__((always_inline, used)) inline void	_exit_process(
 	t_philo *restrict philos,
 	sem_t *restrict print_lock
@@ -37,7 +45,13 @@ __attribute__((always_inline, used)) inline void	_exit_process(
 	sem_close(philos->run);
 }
 
-/** */
+/**
+ * @brief	Lock the forks for the philosopher. And print the message.
+ * 
+ * @param	philo Pointer to the philosopher.
+ * 
+ * @return	void
+ */
 __attribute__((always_inline, used)) inline void	_lock_forks(
 	t_philo *philo
 )
@@ -48,7 +62,13 @@ __attribute__((always_inline, used)) inline void	_lock_forks(
 	philo->info(philo, forks);
 }
 
-/** */
+/**
+ * @brief	Do the simulaion in case of one philosopher.
+ * 
+ * @param	philo Pointer to the philosopher.
+ * 
+ * @return	int 1 anyway
+ */
 __attribute__((always_inline, used)) inline int	_one(
 	t_philo *philo
 )
