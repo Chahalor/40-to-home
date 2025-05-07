@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 16:00:38 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 11:36:30 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ __attribute__((hot)) void	raw_log(
 	const int info
 )
 {
-	static t_raw_data	data = {.status_str = { \
+	static t_raw_data	data = {.status_str = {\
 			[thinking] = "is Thinking", [sleeping] = "is Sleeping", \
 			[forks] = "has taken a Forks", [eating] = "is Eating", \
 			[died] = "just " RED "Died" RESET},
@@ -72,7 +72,8 @@ __attribute__((hot)) void	raw_log(
 	ms = time % 1000;
 	swait(((t_philo *)ptr)->lock);
 	printf(data.format[info == eating],
-		sec, ms, ((t_philo *)ptr)->id, data.status_str[info], ((t_philo *)ptr)->nb_meals);
+		sec, ms, ((t_philo *)ptr)->id, data.status_str[info],
+		((t_philo *)ptr)->nb_meals);
 	post(((t_philo *)ptr)->lock);
 	if (__builtin_expect(info != died, expected))
 		post(data.print_lock);
@@ -114,9 +115,11 @@ __attribute__((hot)) void	display_philo(
 	const int info
 )
 {
-	static const char	*status_str[] = {
+	static t_raw_data	_data = {\
+		.format = {NULL}, .status_str = {
 	[thinking] = "Thinking", [sleeping] = "Sleeping", [forks] = "Forks",
-	[eating] = "Eating", [died] = "Dead"};
+	[eating] = "Eating", [died] = "Dead"},
+		.start_time = 0, .print_lock = NULL };
 	const t_philo		*philo = (const t_philo *)data;
 	const int			col = 2 + LOG_WIDTH * (philo->id % NB_LOG_COL);
 	const int			row = 2 + LOG_HEIGHT * (philo->id / NB_LOG_COL);
@@ -127,12 +130,15 @@ __attribute__((hot)) void	display_philo(
 		printf("\033[%d;%dH %s+----------------------+\n"
 			"\033[%d;%dH %s| Philo: %-3d %9s |\n"
 			"\033[%d;%dH %s| Meals: %s%-3d%s           |\n"
-			"\033[%d;%dH %s+----------------------+\n" RESET,
-			row, col, color,
-			row + 1, col, color, philo->id, status_str[philo->status],
+			"\033[%d;%dH %s+----------------------+\n" RESET, row, col, color,
+			row + 1, col, color, philo->id, _data.status_str[philo->status],
 			row + 2, col, color, YELLOW, philo->nb_meals, color,
-			row + 3, col, color
-			);
+			row + 3, col, color);
+	}
+	else if (info == init)
+	{
+		_data.print_lock = (sem_t *)data;
+		_data.start_time = get_ms_time();
 	}
 }
 

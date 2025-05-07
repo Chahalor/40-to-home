@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:48:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 16:06:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 11:21:35 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ __attribute__((always_inline, used)) static inline void	_kill_process(
 	free(all_pid);
 }
 
-/** */
+/**
+ * 	// maybe multi threading this (overkill max)
+ */
 __attribute__((always_inline, used))static inline pid_t	*_launch_process(
 	t_philo *philos,
 	const t_args args
@@ -68,7 +70,7 @@ __attribute__((always_inline, used))static inline pid_t	*_launch_process(
 			all_pid[i] = pid;
 		}
 	}
-	return (all_pid);	// maybe multi threading this (overkill max)
+	return (all_pid);
 }
 
 /** */
@@ -83,13 +85,13 @@ __attribute__((always_inline, used)) inline int	launch_simu(
 	int				result;
 	register int	i;
 	t_check			var;
-	
-	var = (t_check){ \
+
+	var = (t_check){\
 		.finished = semaphores->nb_finished,
 		.run = semaphores->run,
 		.nb_philo = args.data.nb_philo};
 	philos[0].info(semaphores->print, init);
-	pthread_create(&check_meal, NULL, _check_meals, &(var));
+	pthread_create(&check_meal, NULL, _check_meals, &var);
 	all_pid = _launch_process(philos, args);
 	if (__builtin_expect(!all_pid, unexpected))
 		return (-1);

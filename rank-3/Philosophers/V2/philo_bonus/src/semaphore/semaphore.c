@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:20:33 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 14:28:44 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 10:39:17 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ __attribute__((always_inline, used)) inline t_semaphores	init_semaphore(
 	sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_RUN);
 	sem_unlink(DEFAULT_SEMA_DIR DEFAULT_SEMA_FINISHED);
 	semaphores.forks = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_FORKS,
-		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, nb_philo);
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, nb_philo);
 	semaphores.print = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_PRINT,
-		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
 	semaphores.run = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_RUN,
-		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
 	semaphores.nb_finished = sem_open(DEFAULT_SEMA_DIR DEFAULT_SEMA_FINISHED,
-		O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
 	if (__builtin_expect(semaphores.forks == SEM_FAILED
 			|| semaphores.print == SEM_FAILED || semaphores.run == SEM_FAILED
-			|| semaphores.nb_finished == SEM_FAILED ,unexpected))
+			|| semaphores.nb_finished == SEM_FAILED, unexpected))
 	{
 		close_semaphores(&semaphores);
 		return ((t_semaphores){0});

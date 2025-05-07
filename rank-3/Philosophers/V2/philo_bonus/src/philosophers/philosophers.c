@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 11:35:25 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 10:33:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ __attribute__((cold)) int	init_all(
 	if (__builtin_expect(!semaphores, unexpected))
 		return (-1);
 	*philosophers = _init_philo(args.data.nb_philo, semaphores, args.data,
-		args.display);
+			args.display);
 	if (__builtin_expect(!*philosophers, unexpected))
 		return (-1);
 	return (0);

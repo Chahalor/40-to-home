@@ -6,14 +6,14 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:19:29 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 15:32:09 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 10:39:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SEMAPHORES_H
 # define SEMAPHORES_H
 
-#pragma once
+# pragma once
 
 /* ************************************************************************** */
 /*                                  Headers                                   */

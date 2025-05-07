@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:26:57 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 15:31:51 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 11:26:45 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,43 @@
 // _init.c
 
 extern t_philo	*_init_philo(
-				register const int nb_philos,
-				t_semaphores *restrict sema,
-				const t_philo_data data,
-				const int display
-				);
+					register const int nb_philos,
+					t_semaphores *restrict sema,
+					const t_philo_data data,
+					const int display
+					);
 
 // _life.c
 
-void		_eat(
-				t_philo *philo
-				);
+void			_eat(
+					t_philo *philo
+					);
 
-void		_sleep(
-				t_philo *philo
-				);
+void			_sleep(
+					t_philo *philo
+					);
 
-void		_think(
-				t_philo *philo
-				);
+void			_think(
+					t_philo *philo
+					);
 
-void		_die(
-				t_philo *philo
-				);
+void			_die(
+					t_philo *philo
+					);
 
 // _utils.c
 
-extern void	_lock_forks(
-				t_philo *philo
-				);
+extern void		_lock_forks(
+					t_philo *philo
+					);
 
-extern void	_exit_process(
-				t_philo *restrict philos,
-				sem_t *restrict print_lock
-				);
+extern void		_exit_process(
+					t_philo *restrict philos,
+					sem_t *restrict print_lock
+					);
+
+extern int		_one(
+					t_philo *philo
+					);
 
 #endif	/* _PHILOSOPHER_H */

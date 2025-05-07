@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:26:23 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 16:57:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 10:36:16 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #pragma region "Functions"
 
 /** */
-__attribute__((always_inline)) inline void ft_memcpy(
+__attribute__((always_inline)) inline void	ft_memcpy(
 	void *restrict dest,
 	const void *restrict src,
 	register const size_t len
@@ -45,7 +45,27 @@ __attribute__((always_inline)) inline void ft_memcpy(
 }
 
 /** */
-__attribute__((always_inline)) static inline	_	// fonction to split ft_sprintf
+__attribute__((always_inline)) static inline void	_revert(
+	char *dest,
+	const int start,
+	const int i
+)
+{
+	register int	j;
+	register int	k;
+	char			tmp;
+
+	j = start;
+	k = i - 1;
+	while (j < k)
+	{
+		++j;
+		--k;
+		tmp = dest[j];
+		dest[j] = dest[k];
+		dest[k] = tmp;
+	}
+}
 
 /** */
 __attribute__((always_inline)) inline int	ft_sprintf(
@@ -56,8 +76,6 @@ __attribute__((always_inline)) inline int	ft_sprintf(
 	int				neg;
 	register int	i;
 	int				start;
-	register int	j;
-	register int	k;
 
 	neg = 0;
 	i = 0;
@@ -78,18 +96,8 @@ __attribute__((always_inline)) inline int	ft_sprintf(
 		nb /= 10;
 	}
 	dest[i] = '\0';
-	j = start;
-	k = i - 1;
-	while (j < k)
-	{
-		++j;
-		--k;
-		char tmp = dest[j];
-		dest[j] = dest[k];
-		dest[k] = tmp;
-	}
+	_revert(dest, start, i);
 	return (i);
 }
-
 
 #pragma endregion "Functions"
