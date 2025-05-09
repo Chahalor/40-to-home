@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/09 09:06:53 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 14:14:05 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ __attribute__((hot)) void	_eat(
 
 	_lock_forks(philo, &first, &second);
 	philo->info(philo, eating);
+	philo->last_meal = get_ms_time();
 	ft_usleep((philo->data.time_to_eat * 1000));
 	lock(philo->lock);
 	philo->status = sleeping;
@@ -51,7 +52,6 @@ __attribute__((hot)) void	_eat(
 	if (philo->data.nb_meals != -1
 		&& philo->nb_meals == philo->data.nb_meals)
 		_add_meal(philo->data.nb_philo);
-	philo->last_meal = get_ms_time();
 	unlock(philo->lock);
 	unlock(first);
 	if (__builtin_expect(philo->left_fork != philo->right_fork, expected))

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:09:14 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 12:20:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 14:13:48 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ __attribute__((hot)) void	_eat(
 {
 	swait(philo->forks);
 	philo->info(philo, forks);
+	philo->last_meal = get_ms_time();
 	swait(philo->forks);
 	philo->info(philo, forks);
 	philo->info(philo, eating);
@@ -47,7 +48,6 @@ __attribute__((hot)) void	_eat(
 	if (philo->data.nb_meals != -1
 		&& philo->nb_meals == philo->data.nb_meals)
 		sem_post(philo->finished);
-	philo->last_meal = get_ms_time();
 	post(philo->lock);
 	post(philo->forks);
 	post(philo->forks);
