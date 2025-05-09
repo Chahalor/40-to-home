@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:48:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 12:28:36 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,20 @@ __attribute__((always_inline, used)) static inline pid_t	*_launch_process(
 	return (all_pid);
 }
 
+/** */
+__attribute__((always_inline, used)) static inline void	_start(
+	sem_t *sem_run,
+	register const int nb_philo
+)
+{
+	register int	i;
+
+	i = -1;
+	while (++i < nb_philo)
+		post(sem_run);
+	ft_usleep(100);
+}
+
 /**
  * @brief	Launch the simulation and wait for all the philosophers to finish
  * 
@@ -117,9 +131,11 @@ __attribute__((always_inline, used)) inline int	launch_simu(
 	all_pid = _launch_process(philos, args);
 	if (__builtin_expect(!all_pid, unexpected))
 		return (-1);
+	_start(semaphores->run, args.data.nb_philo);
+	ft_usleep(1000 * 1000);
 	swait(semaphores->run);
 	i = -1;
-	while (++i < args.data.nb_philo)
+	while (++i < args.data.nb_philo * 2)
 		post(semaphores->nb_finished);
 	pthread_join(check_meal, NULL);
 	result = _look_for_death(philos);

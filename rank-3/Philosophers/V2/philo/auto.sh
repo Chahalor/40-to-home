@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# cleaning the previous shit
-rm -r **/makefile.mk Makefile
-
 # Main dir && variables definitions
 DIR_SRC="src"
 DIR_OBJ=".build"
@@ -202,7 +199,9 @@ debug.pg:
 .PHONY: header norm crazy test install uninstall update hellgrind
 
 header:
+ifeq (\$(MAKELEVEL),0)
 	@echo "$HEADER"
+endif
 
 norm:
 	@errors=\$\$(norminette --use-gitignore | grep --color=always "Error"); \\

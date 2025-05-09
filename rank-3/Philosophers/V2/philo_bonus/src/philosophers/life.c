@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/07 12:24:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ __attribute__((cold)) int	circle_of_life(
 	else if (philo->data.nb_philo < 2)
 		return (_one(philo));
 	pthread_create(&thread, NULL, _watcher, philo);
+	swait(philo->run);
 	philo->last_meal = get_ms_time();
 	while (!_should_quit(philo))
 	{

@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 12:48:48 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/02 14:46:35 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 09:11:44 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,6 @@
 
 #pragma endregion Headers
 #pragma region Functions
-
-// /** */
-// __attribute__((always_inline, used)) inline void	_set_mutex(
-// 	t_philo *philo,
-// 	t_mutex **first,
-// 	t_mutex **second
-// )
-// {
-// 	if (philo->left_fork < philo->right_fork)
-// 	{
-// 		*first = philo->left_fork;
-// 		*second = philo->right_fork;
-// 	}
-// 	else
-// 	{
-// 		*first = philo->right_fork;
-// 		*second = philo->left_fork;
-// 	}
-// }
 
 /** */
 __attribute__((always_inline, used)) inline void	_lock_forks(

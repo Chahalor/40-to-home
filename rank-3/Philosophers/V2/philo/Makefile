@@ -119,6 +119,7 @@ debug.pg:
 .PHONY: header norm crazy test install uninstall update hellgrind
 
 header:
+ifeq ($(MAKELEVEL),0)
 	@echo " \
 ╔════════════════════════════════════════════════════════════════════════════════════════════╗\n \
 ║                                                                                            ║\n \
@@ -133,6 +134,7 @@ header:
 ║    By: nduvoid <nduvoid@student.42mulhouse.fr>                                             ║\n \
 ║    A 42 cursus Project                                                                     ║\n \
 ╚════════════════════════════════════════════════════════════════════════════════════════════╝\n"
+endif
 
 norm:
 	@errors=$$(norminette --use-gitignore | grep --color=always "Error"); \

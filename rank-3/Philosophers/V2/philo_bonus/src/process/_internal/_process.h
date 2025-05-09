@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:28:24 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/06 15:39:34 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:29:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ extern int	_look_for_death(
 
 void		*_check_meals(
 				void *arg
+				);
+
+// _launch.c
+
+extern void	_set_thread(
+				t_philo *philo,
+				const int nb_philo,
+				pid_t *all_pid
 				);
 
 #endif /* _PROCESS_H */

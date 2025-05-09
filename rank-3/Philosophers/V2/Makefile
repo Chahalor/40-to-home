@@ -33,7 +33,7 @@ DIR_BIN			:= .bin
 
 .PHONY: all
 
-all: header norm mandatory
+all: header mandatory
 
 # ***************************************************** #
 # *                  Compiling                        * #

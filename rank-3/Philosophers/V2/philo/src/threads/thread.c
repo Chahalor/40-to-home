@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 08:47:53 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/02 13:42:07 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 09:13:29 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ __attribute__((cold)) int	launch_simu(
 )
 {
 	t_thread		*threads;
-	register int	i;
 	int				corps;
+	register int	i;
 
 	threads = (t_thread *)malloc(sizeof(t_thread) * (data.nb_philo + 1));
 	if (__builtin_expect(!threads, unexpected))
