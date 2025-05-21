@@ -6,4 +6,4 @@
 	url = https://github.com/Chahalor/Minishell.git
 [submodule "Rushes/Connect4"]
 	path = Rushes/Connect4
-	url = https://github.com/Chahalor/connect4
+	url = https://github.com/Chahalor/connect4.git
