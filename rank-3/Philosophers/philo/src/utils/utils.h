@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:36:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 13:39:21 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:49:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 
 int			set_seed(const int seed);
 int			ft_randint(const int min, const int max);
+int			ft_rand(void);
 
 // utils.c
 

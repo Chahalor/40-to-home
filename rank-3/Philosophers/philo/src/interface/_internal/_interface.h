@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:56:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 14:09:50 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 16:01:37 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_point		t_point;	/* The point type */
 struct s_raw_data
 {
 	const char	*status_str[12];	/* The status strings    */
-	const char	*format[3];			/* The formated strings */
+	const char	*format[1];			/* The formated strings */
 	int			start_time;			/* The start time      */
 	t_mutex		print_lock;			/* The print lock     */
 	t_bool		print	: 1;		/* If we allow print */

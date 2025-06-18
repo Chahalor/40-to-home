@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:54:15 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 14:20:52 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:54:24 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ struct s_watcher
 // thought.c
 
 const char	*get_random_thougth(void);
+const char	*get_random_dream(void);
 
 // init.c
 

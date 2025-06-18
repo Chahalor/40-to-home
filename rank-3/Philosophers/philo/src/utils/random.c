@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:17:46 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 14:31:28 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:00:32 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ int	ft_randint(
 )
 {
 	return ((_manager(get_value, NULL) % (max - min + 1)) + min);
+}
+
+/** */
+int	ft_rand(void)
+{
+	return (_manager(get_value, NULL));
 }
 
 #pragma endregion Functions

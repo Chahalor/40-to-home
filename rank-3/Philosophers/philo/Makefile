@@ -104,6 +104,7 @@ debug.fsanitize: debug
 debug.fs: debug.fsanitize
 
 debug.fthread: debug
+	@echo "$(_YELLOW) use: $(_RESET)'setarch $$(uname -m) -R $$SHELL' before running philo\n"
 	$(eval DEBUGFLAGS=$(DEBUGFLAGS) -fsanitize=thread)
 
 debug.pg:

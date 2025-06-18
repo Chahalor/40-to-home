@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 14:10:32 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 16:04:57 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ __attribute__((always_inline, used)) static inline t_raw_data	_init_raw_data(
 			[died] = RED "died" RESET
 		},
 		.format = {
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-11s %s\n", \
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s\n", \
-			CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET "%-3d %-17s (%d)\n" \
+			CYAN "[" YELLOW "%3d.%03d" CYAN "] " 
+				RESET "%-3d %-11s\n"
 		},
 		.print_lock = PTHREAD_MUTEX_INITIALIZER,
 		.print = true,
@@ -85,8 +84,6 @@ __attribute__((hot)) void	raw_log(
 {
 	static t_raw_data	data = {0};
 	int					time;
-	int					sec;
-	int					ms;
 
 	if (__builtin_expect(info == init, unexpected))
 	{
@@ -98,14 +95,17 @@ __attribute__((hot)) void	raw_log(
 		return ((void)(unlock(&data.print_lock)));
 	data.print = (data.print != false && info != died);
 	time = get_ms_time() - data.start_time;
-	sec = time / 1000;
-	ms = time % 1000;
-	if (_UNLIKELY(info == thinking))
-		printf(data.format[info],
-			sec, ms, philo->id, data.status_str[info], get_random_thougth());
+	if (info == thinking)
+		printf(CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET
+			"%-3d is thinking %s\n", time / 1000, time % 1000, philo->id,
+			get_random_thougth());
+	else if (info == sleeping)
+		printf(CYAN "[" YELLOW "%3d.%03d" CYAN "] " RESET
+			"%-3d is sleeping%s\n", time / 1000, time % 1000, philo->id,
+			get_random_dream());
 	else
-		printf(data.format[(info == eating) + 1],
-			sec, ms, philo->id, data.status_str[info], philo->nb_meals);
+		printf(data.format[0], time / 1000, time % 1000,
+			philo->id, data.status_str[info], philo->nb_meals);
 	unlock(&data.print_lock);
 }
 

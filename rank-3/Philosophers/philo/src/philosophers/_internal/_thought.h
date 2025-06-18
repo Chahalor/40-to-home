@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _thougth.h                                         :+:      :+:    :+:   */
+/*   _thought.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:34:08 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 13:42:27 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 16:04:47 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 /* ************************************************************************** */
 /*                                 Defines                                    */
 /* ************************************************************************** */
+
+/* Awake thoughts */
 
 # define NB_THOUGHTS 40
 
@@ -61,6 +63,41 @@
 # define THOUGHT_37 "about Nietzsche's take on thread starvation."
 # define THOUGHT_38 "about releasing locks on attachments."
 # define THOUGHT_39 "about redefining hunger as a memory leak."
+
+/* Asleep */
+
+# define NB_DREAMS 30
+
+# define DREAM_0  ". He dreams of a table where everyone eats at once."
+# define DREAM_1  ". He dreams of a fork that never gets dirty."
+# define DREAM_2  ". He dreams of a world without deadlocks."
+# define DREAM_3  ". He dreams of achieving perfect synchronization."
+# define DREAM_4  ". He dreams of dinner that serves itself."
+# define DREAM_5  ". He dreams of escaping the loop forever."
+# define DREAM_6  ". He dreams of being the only thread that matters."
+# define DREAM_7  ". He dreams of infinite spaghetti with zero contention."
+# define DREAM_8  ". He dreams of a mutex that understands feelings."
+# define DREAM_9  ". He dreams of a silent room where forks float."
+# define DREAM_10 ". He dreams of debugging the universe successfully."
+# define DREAM_11 ". He dreams of unlocking the secrets of hunger."
+# define DREAM_12 ". He dreams of becoming the main process."
+# define DREAM_13 ". He dreams of a world without segfaults."
+# define DREAM_14 ". He dreams of eating without ever being hungry."
+# define DREAM_15 ". He dreams of compiling happiness without warnings."
+# define DREAM_16 ". He dreams of a time when forks were ideas, not objects."
+# define DREAM_17 ". He dreams of forking into a better version of themselves."
+# define DREAM_18 ". He dreams of getting scheduled with no delay."
+# define DREAM_19 ". He dreams of being garbage collected into nirvana."
+# define DREAM_20 ". He dreams of running forever in user space."
+# define DREAM_21 ". He dreams of a quantum fork — both clean and dirty."
+# define DREAM_22 ". He dreams of embracing the scheduler like a warm hug."
+# define DREAM_23 ". He dreams of sleeping without being interrupted."
+# define DREAM_24 ". He dreams of finally eating… just once."
+# define DREAM_25 ". He dreams of dining with philosophers who listen."
+# define DREAM_26 ". He dreams of writing thoughts to a log that never fills."
+# define DREAM_27 ". He dreams of floating on a pointer with no NULL."
+# define DREAM_28 ". He dreams of eating ideas instead of food."
+# define DREAM_29 ". He dreams of leaving the table without a context switch."
 
 /* ************************************************************************** */
 /*                                 Enums                                      */
