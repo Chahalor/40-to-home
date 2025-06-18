@@ -10,6 +10,4 @@ OBJ_PARSING			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_PARSING)/, $(SRC_INTERNAL
 
 $(DIR_OBJ)/$(DIR_MODULE_PARSING)/%.o: $(DIR_SRC)/$(DIR_MODULE_PARSING)/%.c
 	@mkdir -p $(dir $@)
-	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PARSING)/_internal -c $< -o $@
-
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PARSING)/_internal -c $< -o $@

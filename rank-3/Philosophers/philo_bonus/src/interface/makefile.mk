@@ -10,6 +10,4 @@ OBJ_INTERFACE			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_INTERFACE)/, $(SRC_INTE
 
 $(DIR_OBJ)/$(DIR_MODULE_INTERFACE)/%.o: $(DIR_SRC)/$(DIR_MODULE_INTERFACE)/%.c
 	@mkdir -p $(dir $@)
-	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_INTERFACE)/_internal -c $< -o $@
-
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_INTERFACE)/_internal -c $< -o $@

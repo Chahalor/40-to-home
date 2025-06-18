@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:48:20 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/09 14:40:05 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:42 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ __attribute__((always_inline, used)) static inline pid_t	*_launch_process(
 		if (__builtin_expect(pid == -1, unexpected))
 			return (_kill_process(all_pid, i), NULL);
 		else if (pid == 0)
-			return (circle_of_life(&philos[i]), free(all_pid), NULL);
+			exit(circle_of_life(&philos[i]));
 		else
 		{
 			if (__builtin_expect(!all_pid, unexpected))
@@ -127,10 +127,10 @@ __attribute__((always_inline, used)) inline int	launch_simu(
 		.run = semaphores->run,
 		.nb_philo = args.data.nb_philo};
 	philos[0].info(semaphores->print, init);
+	pthread_create(&check_meal, NULL, _check_meals, &var);
 	all_pid = _launch_process(philos, args);
 	if (__builtin_expect(!all_pid, unexpected))
 		return (-1);
-	pthread_create(&check_meal, NULL, _check_meals, &var);
 	_start(semaphores->run, args.data.nb_philo);
 	ft_usleep(1000 * 1000);
 	swait(semaphores->run);

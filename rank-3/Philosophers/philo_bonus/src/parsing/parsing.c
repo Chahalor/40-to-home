@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:16:54 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/12 17:45:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/04/29 11:50:54 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,6 @@ __attribute__((cold)) static int	_parse_data(
 		((int *)&data->data)[j] = ft_atoi(args[i + j]);
 	if (argc - i > 4)
 		((int *)&data->data)[j] = ft_atoi(args[i + j]);
-	if (__builtin_expect(data->data.nb_philo < 1, unexpected))
-	{
-		ft_error("Invalid number of philosophers, must be > 0");
-		data->error = EINVAL;
-		return (-1);
-	}
 	return (j + 1);
 }
 

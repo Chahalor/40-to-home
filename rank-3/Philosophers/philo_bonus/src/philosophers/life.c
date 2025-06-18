@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:58:38 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/09 14:31:13 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:28:14 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ __attribute__((cold)) int	circle_of_life(
 	}
 	post(philo->finished);
 	post(philo->run);
-	philo->die(philo);
 	_exit_process(philo, philo->lock);
 	return (0);
 }

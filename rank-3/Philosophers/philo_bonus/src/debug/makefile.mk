@@ -10,6 +10,4 @@ OBJ_DEBUG			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_DEBUG)/, $(SRC_INTERNAL_DEB
 
 $(DIR_OBJ)/$(DIR_MODULE_DEBUG)/%.o: $(DIR_SRC)/$(DIR_MODULE_DEBUG)/%.c
 	@mkdir -p $(dir $@)
-	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_DEBUG)/_internal -c $< -o $@
-
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_DEBUG)/_internal -c $< -o $@

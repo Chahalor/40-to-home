@@ -10,6 +10,4 @@ OBJ_PROCESS			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_PROCESS)/, $(SRC_INTERNAL
 
 $(DIR_OBJ)/$(DIR_MODULE_PROCESS)/%.o: $(DIR_SRC)/$(DIR_MODULE_PROCESS)/%.c
 	@mkdir -p $(dir $@)
-	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
-	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PROCESS)/_internal -c $< -o $@
-
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PROCESS)/_internal -c $< -o $@

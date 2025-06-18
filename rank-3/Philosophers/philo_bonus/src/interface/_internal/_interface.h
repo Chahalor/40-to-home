@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:56:36 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 14:07:49 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/05/07 12:14:22 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_info		t_info;		/* The info type   */
 struct s_raw_data
 {
 	const char	*status_str[12];	/* The status strings    */
-	const char	*format[3];			/* The formated strings */
+	const char	*format[2];			/* The formated strings */
 	t_time		start_time;			/* The start time      */
 	sem_t		*print_lock;		/* The print lock     */
 };
