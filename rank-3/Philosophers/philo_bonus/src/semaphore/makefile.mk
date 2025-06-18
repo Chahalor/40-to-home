@@ -10,4 +10,6 @@ OBJ_SEMAPHORE			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_SEMAPHORE)/, $(SRC_INTE
 
 $(DIR_OBJ)/$(DIR_MODULE_SEMAPHORE)/%.o: $(DIR_SRC)/$(DIR_MODULE_SEMAPHORE)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_SEMAPHORE)/_internal -c $< -o $@
+	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_SEMAPHORE)/_internal -c $< -o $@
+

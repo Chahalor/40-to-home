@@ -10,4 +10,6 @@ OBJ_PHILOSOPHERS			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_PHILOSOPHERS)/, $(SR
 
 $(DIR_OBJ)/$(DIR_MODULE_PHILOSOPHERS)/%.o: $(DIR_SRC)/$(DIR_MODULE_PHILOSOPHERS)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PHILOSOPHERS)/_internal -c $< -o $@
+	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PHILOSOPHERS)/_internal -c $< -o $@
+

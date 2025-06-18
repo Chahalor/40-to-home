@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:29:30 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/06/18 13:36:56 by nduvoid          ###   ########.fr       */
+/*   Updated: 2025/06/18 14:44:09 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ __attribute__((cold)) int	init_all(
 	const t_args args
 )
 {
-	set_seed(get_ms_time());
 	*semaphores = init_semaphore(args.data.nb_philo);
 	if (__builtin_expect(!semaphores, unexpected))
 		return (-1);

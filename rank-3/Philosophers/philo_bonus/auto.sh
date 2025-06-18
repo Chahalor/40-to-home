@@ -137,7 +137,7 @@ _OBJ_ALL		:=$OBJ_ALL_LIST
 
 .PHONY: all
 
-all: header norm \$(NAME) symbols install
+all: header norm \$(NAME) install
 
 # ***************************************************** #
 # *                  Compiling                        * #
@@ -175,7 +175,7 @@ re: fclean all
 # *                    Debug Rules                    * #
 # ***************************************************** #
 
-.PHONY: debug debug.fsanitize debug.fs debug.pg
+.PHONY: debug debug.fsanitize debug.fs debug.pg hellgrind
 
 debug:
 	\$(eval DEBUGFLAGS=\$(DEBUGFLAGS) -g3 -D DEBUG=1)
@@ -186,8 +186,16 @@ debug.fsanitize: debug
 
 debug.fs: debug.fsanitize
 
+debug.fthread: debug
+	\$(eval DEBUGFLAGS=\$(DEBUGFLAGS) -fsanitize=thread)
+
 debug.pg:
 	\$(eval DEBUGFLAGS=\$(DEBUGFLAGS) -pg)
+
+hellgrind: debug all
+	@echo "\033[1;33m Running hellgrind... \033[0m"
+	valgrind --tool=helgrind ./\$(NAME) \$(ARGS)
+	echo "\033[1;32m ✅ Hellgrind finished \033[0m"
 
 # ***************************************************** #
 # *                      Utils                        * #
@@ -243,7 +251,7 @@ norm:
 			gsub(/\(line: *[0-9]+, *col: *[0-9]+\): */, "", \$\$0); \\
 			sub(/Error: /, "", \$\$0); \\
 			split(file, parts, ":"); \\
-			printf "\$(_RED)Error\$(_RESET): %s:%-3s:%-2s: %s\n", parts[1], line+0, col+0, \$\$0; \\
+			printf "\$(_RED)Error\$(_RESET): %s:%-2s:%-2s: %s\n", parts[1], line+0, col+0, \$\$0; \\
 		}' ; \\
 		echo "\$(_RED) ❌ Norminette errors found\$(_RESET)" ; \\
 	fi
@@ -275,11 +283,11 @@ update:
 
 # -----| Symbols check |----- #
 SUPPRESED_SYMBOLS	:=	memset
-ALLOWED_SYMBOLS		:=	readline rl_clear_history rl_on_new_line rl_replace_line rl_redisplay add_history \\
-						printf malloc free write access open read close fork wait waitpid wait3 wait4 signal \\
-						sigaction sigemptyset sigaddset kill exit getcwd chdir stat lstat fstat unlink execve \\
-						dup dup2 pipe opendir readdir closedir strerror perror isatty ttyname ttyslot ioctl \\
-						getenv tcsetattr tcgetattr tgetent tgetflag tgetnum tgetstr tgoto tputs
+ALLOWED_SYMBOLS		:=	memset, printf, malloc, free, write, \\
+						usleep, gettimeofday, pthread_create, \\
+						pthread_detach, pthread_join, pthread_mutex_init, \\
+						pthread_mutex_destroy, pthread_mutex_lock, \\
+						pthread_mutex_unlock 
 symbols:
 	@nm -uj \$(NAME) | sort -u | sed 's/@.*//' | grep -v '^__' | \\
 	awk ' \\
@@ -300,7 +308,7 @@ symbols:
 			suppressed_count++; \\
 		else \\
 		{ \\
-			output = output sprintf("\$(_YELLOW)├\$(_RED)── %s (forbidden)\$(_RESET)\n", sym); \
+			output = output sprintf("\$(_YELLOW)├\$(_RED)── %s (forbidden)\$(_RESET)\n", sym); \\
 			forbidden_count++; \\
 		} \\
 	} \\

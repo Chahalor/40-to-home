@@ -59,13 +59,11 @@ ${DIR_BIN}:
 clean:
 	@make -C $(DIR_MANDATORY) clean $(MAKEFLAGS)
 	@make -C $(DIR_BONUS) clean $(MAKEFLAGS)
-#@make clean -C $(DIR_LIBFT)
 
 fclean:
 	@make -C $(DIR_MANDATORY) fclean $(MAKEFLAGS)
 	@make -C $(DIR_BONUS) fclean $(MAKEFLAGS)
 	@rm -rf $(DIR_BIN)
-#@make fclean -C $(DIR_LIBFT)
 
 re: fclean all
 
