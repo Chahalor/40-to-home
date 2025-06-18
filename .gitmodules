@@ -7,3 +7,6 @@
 [submodule "Rushes/Connect4"]
 	path = Rushes/Connect4
 	url = https://github.com/Chahalor/connect4.git
+[submodule "Rushes/Retro-MFA"]
+	path = Rushes/Retro-MFA
+	url = https://github.com/Chahalor/Retro-MFA.git

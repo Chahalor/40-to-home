@@ -1,0 +1,1 @@
+grep -E '^.e.t' words.txt | grep -vi '[wruioasdfglxvbnm]'
