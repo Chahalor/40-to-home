@@ -47,7 +47,7 @@ bonus: $(DIR_BIN)
 	@make -C $(DIR_BONUS) $(MAKEFLAGS)
 	@cp $(DIR_BONUS)/philo_bonus .bin/philo_bonus
 
-${DIR_BIN}:
+$(DIR_BIN):
 	@mkdir -p $(DIR_BIN)
 
 # ***************************************************** #
