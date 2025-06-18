@@ -1,0 +1,15 @@
+DIR_MODULE_THREADS		:= threads
+DIR_INTERFACE_THREADS	:= $(DIR_MODULE_THREADS)
+DIR_INTERNAL_THREADS	:= $(DIR_MODULE_THREADS)/_internal
+
+SRC_INTERFACE_THREADS	:= thread.c 
+SRC_INTERNAL_THREADS	:= 
+
+OBJ_THREADS			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_THREADS)/, $(SRC_INTERFACE_THREADS:.c=.o))
+OBJ_THREADS			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_THREADS)/, $(SRC_INTERNAL_THREADS:.c=.o))
+
+$(DIR_OBJ)/$(DIR_MODULE_THREADS)/%.o: $(DIR_SRC)/$(DIR_MODULE_THREADS)/%.c
+	@mkdir -p $(dir $@)
+	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_THREADS)/_internal -c $< -o $@
+

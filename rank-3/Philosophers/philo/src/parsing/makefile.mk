@@ -1,0 +1,15 @@
+DIR_MODULE_PARSING		:= parsing
+DIR_INTERFACE_PARSING	:= $(DIR_MODULE_PARSING)
+DIR_INTERNAL_PARSING	:= $(DIR_MODULE_PARSING)/_internal
+
+SRC_INTERFACE_PARSING	:= parsing.c 
+SRC_INTERNAL_PARSING	:= _data.c _info.c _parsing.c 
+
+OBJ_PARSING			:= $(addprefix $(DIR_OBJ)/$(DIR_INTERFACE_PARSING)/, $(SRC_INTERFACE_PARSING:.c=.o))
+OBJ_PARSING			+= $(addprefix $(DIR_OBJ)/$(DIR_INTERNAL_PARSING)/, $(SRC_INTERNAL_PARSING:.c=.o))
+
+$(DIR_OBJ)/$(DIR_MODULE_PARSING)/%.o: $(DIR_SRC)/$(DIR_MODULE_PARSING)/%.c
+	@mkdir -p $(dir $@)
+	@printf "\r ⚙️ $(_YELLOW) Compiling$(_RESET) %-60s" "$<"
+	@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDE_ALL) -I$(DIR_SRC)/$(DIR_MODULE_PARSING)/_internal -c $< -o $@
+
