@@ -24,7 +24,7 @@
 ## 🐚 Circle 3
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how its fun								| yes		| ???		| 0					|
+| [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how its fun								| yes		| 116		| 🌟 🌟 🌟					|
 | [MiniShell](https://github.com/Chahalor/40-to-home/tree/main/rank-3/minishell)				| Creating our own shell															| yes		| ???		| 0					|
 
 ## 🐚 Circle 4
