@@ -24,14 +24,14 @@
 ## 🐚 Circle 3
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how its fun								| yes		| 116		| 🌟 🌟 🌟					|
-| [MiniShell](https://github.com/Chahalor/40-to-home/tree/main/rank-3/minishell)				| Creating our own shell															| yes		| ???		| 0					|
+| [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how fun it is							| yes		| 116		| 🌟 🌟 🌟			|
+| [miniShell](https://github.com/Chahalor/40-to-home/tree/main/rank-3/minishell)				| Creating our own shell															| yes		| 101		| 🌟 🔴 🔴			|
 
 ## 🐚 Circle 4
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
 | [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| yes		| ???		| 0					|
-| [cub3d](https://github.com/Chahalor/40-to-home/tree/main/rank-4/cub3d)						| ???																				| yes		| ???		| 0					|
+| [miniRT](https://github.com/Chahalor/40-to-home/tree/main/rank-4/miniRT)						| ???																				| yes		| ???		| 0					|
 | [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
 
 ## 🐚 Circle 5
@@ -50,7 +50,7 @@
 |										 🪪 Name												|										🎯 Goals									| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:-----------------:|
 | [Wordle](https://github.com/Chahalor/40-to-home/tree/main/Rushes/wordle)						| Recreate the wordle game in two days												| 100		| 🌟 🌟 🌟			|
-| [Connect4](https://github.com/Chahalor/connect4/tree/34e4df8f75ca73f79b649f79a35d362da94ee119)| Create a Connect4 playable game againt an AI										| ???		| 0					|
+| [Connect4](https://github.com/Chahalor/connect4/tree/34e4df8f75ca73f79b649f79a35d362da94ee119)| Create a Connect4 playable game againt an AI										| 100		| 🌟 🌟 🌟			|
 | [???](https://github.com/Chahalor/40-to-home/tree/main/Rushes/???)							| ???																				| ???		| 0					|
 
 |									Begining the Project										|											Coding									|							Passing Moulinette 🪢								|

@@ -13,7 +13,7 @@ MAKEFLAGS += --no-print-directory
 NAME		:= libft.a
 
 CC			:= cc
-CFLAGS		:= -Wall -Wextra -Werror -MMD
+CFLAGS		:= -Wall -Wextra -Werror -MMD -
 DEBUGFLAGS	:= 
 DIR_SRC		:= src
 DIR_OBJ		:= .obj
