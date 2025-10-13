@@ -20,10 +20,10 @@ class Fixed
 		bool				operator<=(const Fixed &other);
 		bool				operator==(const Fixed &other);
 		bool				operator!=(const Fixed &other);
-		Fixed				operator+(const Fixed &other);
-		Fixed				operator-(const Fixed &other);
-		Fixed				operator*(const Fixed &other);
-		Fixed				operator/(const Fixed &other);
+		Fixed				operator+(const Fixed &other) const;
+		Fixed				operator-(const Fixed &other) const;
+		Fixed				operator*(const Fixed &other) const;
+		Fixed				operator/(const Fixed &other) const;
 		Fixed				operator++(int value);
 		Fixed				operator--(int value);
 		Fixed				operator++();
@@ -38,6 +38,7 @@ class Fixed
 		static Fixed const&	min(Fixed const& f1, Fixed const& f2);
 		static Fixed		&max(Fixed &f1, Fixed &f2);
 		static Fixed const&	max(Fixed const& f1, Fixed const& f2);
+		static Fixed		abs(const Fixed &f);
 };
 
 std::ostream	&operator<<(std::ostream &os, const Fixed &f);

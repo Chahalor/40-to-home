@@ -28,7 +28,6 @@ Fixed::Fixed(
 /*                                 Destructors                                */
 /* ************************************************************************** */
 
-
 Fixed::~Fixed()
 {
 }
@@ -37,7 +36,7 @@ Fixed::~Fixed()
 /*                                 Operators                                  */
 /* ************************************************************************** */
 
-Fixed& Fixed::operator=(
+Fixed &Fixed::operator=(
 	const Fixed &other
 )
 {
@@ -108,47 +107,39 @@ bool Fixed::operator!=(
 
 Fixed	Fixed::operator+(
 	const Fixed &other
-)
+) const
 {
 	Fixed	res;
 	res.setRawBits(this->_fixedPointValue + other._fixedPointValue);
 	return (res);
-	// this->_fixedPointValue += other._fixedPointValue;
-	// return (*this);
 }
 
 Fixed	Fixed::operator-(
 	const Fixed &other
-)
+) const
 {
 	Fixed	res;
 
 	res.setRawBits(this->_fixedPointValue - other._fixedPointValue);
 	return (res);
-	// this->_fixedPointValue -= other._fixedPointValue;
-	// return (*this);
 }
 
 Fixed	Fixed::operator*(
 	const Fixed &other
-)
+) const
 {
 	Fixed	res;
 	res.setRawBits((this->_fixedPointValue * other._fixedPointValue) >> _fractionalBits);
 	return (res);
-	// this->_fixedPointValue = (this->_fixedPointValue * other._fixedPointValue) >> _fractionalBits;
-	// return (*this);
 }
 
 Fixed	Fixed::operator/(
 	const Fixed &other
-)
+) const
 {
 	Fixed	res;
 	res.setRawBits((this->_fixedPointValue << _fractionalBits) / other._fixedPointValue);
 	return (res);
-	// _fixedPointValue = (this->_fixedPointValue << _fractionalBits) / other._fixedPointValue;
-	// return (*this);
 }
 
 Fixed	Fixed::operator++(
@@ -271,4 +262,16 @@ Fixed	const& Fixed::max(
 			? f1
 			: f2
 		);
+}
+
+Fixed Fixed::abs(
+	const Fixed &f
+)
+{
+	const Fixed	dummy(0.0f);
+
+	return (f.getRawBits() < dummy.getRawBits()
+		? f * Fixed(-1)
+		: f
+	);
 }
