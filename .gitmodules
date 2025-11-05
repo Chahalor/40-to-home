@@ -7,3 +7,9 @@
 [submodule "Rushes/Connect4"]
 	path = Rushes/Connect4
 	url = https://github.com/Chahalor/connect4.git
+[submodule "rank-2/push_swap/visualizer"]
+	path = rank-2/push_swap/visualizer
+	url = https://github.com/o-reo/push_swap_visualizer.git
+[submodule "rank-4/miniRT"]
+	path = rank-4/miniRT
+	url = https://github.com/40-to-steroide/miniRT

@@ -30,8 +30,8 @@
 ## 🐚 Circle 4
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| yes		| ???		| 0					|
-| [miniRT](https://github.com/Chahalor/40-to-home/tree/main/rank-4/miniRT)						| ???																				| yes		| ???		| 0					|
+| [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| 	🔴		| ???		| 0					|
+| [miniRT](https://github.com/Chahalor/40-to-home/tree/main/rank-4/miniRT)						| learning math around ray tracing and graphic optimisations						| no		| 100		| 🌟 🔴 🔴			|
 | [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
 
 ## 🐚 Circle 5
