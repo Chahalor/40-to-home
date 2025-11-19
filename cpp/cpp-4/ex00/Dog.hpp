@@ -4,9 +4,12 @@
 
 class Dog: public virtual Animal
 {
-private:
-	/* data */
-public:
-	Dog(/* args */);
-	~Dog();
+	private:
+		/* data */
+	public:
+		Dog(/* args */);
+		~Dog();
+
+		void		makeSound(void) const;
+		std::string	getType(void) const;
 };

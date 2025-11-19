@@ -15,5 +15,5 @@ void	WrongAnimal::makeSound(void) const
 
 std::string	WrongAnimal::getType(void) const
 {
-	return ("Wwrong animal type");
+	return ("Wwrong animal type\n");
 }

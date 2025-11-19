@@ -15,5 +15,5 @@ void	Animal::makeSound(void) const
 
 std::string	Animal::getType(void) const
 {
-	return ("no type, this is an animal");
+	return ("no type, this is an animal\n");
 }

@@ -9,4 +9,7 @@ private:
 public:
 	WrongDog(/* args */);
 	~WrongDog();
+
+	void		makeSound(void) const;
+	std::string	getType(void) const;
 };

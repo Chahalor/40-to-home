@@ -20,4 +20,6 @@ class Animal
 		virtual void		makeSound(void) const;
 
 		virtual std::string	getType(void) const = 0;
+
+		virtual Animal	&operator=(const Animal &_other) = 0;
 };

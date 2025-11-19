@@ -9,12 +9,12 @@ WrongDog::~WrongDog()
 {
 }
 
-void	WrongDog::WrongAnimal::makeSound(void) const
+void	WrongDog::makeSound(void) const
 {
-	out(ITALIC "wrong" RESET "Woof woof");
+	out(ITALIC "wrong dog sound\n" RESET);
 }
 
-std::string	WrongDog::WrongAnimal::getType(void) const
+std::string	WrongDog::getType(void) const
 {
 	return (this->_type);
 }

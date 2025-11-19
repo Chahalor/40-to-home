@@ -9,12 +9,13 @@ Cat::~Cat()
 {
 }
 
-void	Cat::Animal::makeSound(void) const
+void	Cat::makeSound(void) const
 {
 	out("Meow meow\n");
 }
 
-std::string	Cat::Animal::getType(void) const
+std::string	Cat::getType(void) const
 {
 	return (this->_type);
 }
+

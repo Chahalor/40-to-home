@@ -10,14 +10,14 @@ class WrongAnimal
 		;
 
 	protected:
-		static std::string	_type;
+		std::string	_type;
 
 	public:
 		WrongAnimal(const std::string &type);
 		WrongAnimal(void);
-		~WrongAnimal();
+		virtual ~WrongAnimal();
 
-		void	makeSound(void) const;
+		virtual void		makeSound(void) const;
 
-		std::string	getType(void) const;
+		virtual std::string	getType(void) const;
 };

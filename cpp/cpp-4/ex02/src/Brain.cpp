@@ -26,7 +26,6 @@ Brain::~Brain()
 	outl(RED "Brain destructor called" RESET)
 }
 
-
 void	Brain::addIdea(
 	std::string &_idea
 )
@@ -40,4 +39,24 @@ void	Brain::addIdea(
 		this->_idea[_i] = _idea;
 		_i = (_i + 1) % 100;
 	}
+}
+
+Brain &Brain::operator=(
+	const Brain &_other
+)
+{
+	int	_i = 0;
+
+	if (unlikely(this == &_other))
+		return (*this);
+	
+	this->_nbIdea = _other._nbIdea;
+	
+	while (_i < _other._nbIdea)
+	{
+		this->_idea[_i] = _other._idea[_i];
+		_i++;
+	}
+	
+	return (*this);
 }

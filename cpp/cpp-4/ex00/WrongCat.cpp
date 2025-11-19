@@ -11,10 +11,10 @@ WrongCat::~WrongCat()
 
 void	WrongCat::makeSound(void) const
 {
-	out(ITALIC "wrong" RESET "meow meow");
+	out(ITALIC "wrong" RESET " meow meow\n");
 }
 
-std::string	WrongCat::WrongAnimal::getType(void) const
+std::string	WrongCat::getType(void) const
 {
 	return (this->_type);
 }

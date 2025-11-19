@@ -10,14 +10,14 @@ class Animal
 		;
 
 	protected:
-		static std::string	_type;
+		std::string	_type;
 
 	public:
 		Animal(const std::string &type);
 		Animal(void);
-		~Animal();
+		virtual ~Animal();
 
-		void	makeSound(void) const;
+		virtual void		makeSound(void) const;
 
-		std::string	getType(void) const;
+		virtual std::string	getType(void) const;
 };

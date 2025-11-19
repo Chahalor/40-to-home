@@ -20,4 +20,6 @@ class WrongAnimal
 		virtual void		makeSound(void) const;
 
 		virtual std::string	getType(void) const;
+
+		virtual WrongAnimal	&operator=(const this)
 };

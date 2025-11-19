@@ -9,12 +9,12 @@ Dog::~Dog()
 {
 }
 
-void	Dog::Animal::makeSound(void) const
+void	Dog::makeSound(void) const
 {
 	out("Woof Woof\n")
 }
 
-std::string	Dog::Animal::getType(void) const
+std::string	Dog::getType(void) const
 {
 	return (this->_type);
 }
