@@ -4,7 +4,7 @@
 
 #include "all.hpp"
 
-class WrongAnimal
+class Animal
 {
 	private:
 		;
@@ -13,11 +13,13 @@ class WrongAnimal
 		std::string	_type;
 
 	public:
-		WrongAnimal(const std::string &type);
-		WrongAnimal(void);
-		virtual ~WrongAnimal();
+		Animal(const std::string &type);
+		Animal(void);
+		virtual ~Animal();
 
 		virtual void		makeSound(void) const;
 
 		virtual std::string	getType(void) const;
+
+		virtual Animal	&operator=(const Animal &_other);
 };

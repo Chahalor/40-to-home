@@ -18,3 +18,11 @@ std::string	Dog::getType(void) const
 {
 	return (this->_type);
 }
+
+Dog	&Dog::operator=(
+	const Dog &_other
+)
+{
+	this->_type = _other._type;
+	return (*this);
+}

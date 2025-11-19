@@ -41,3 +41,18 @@ void	Brain::addIdea(
 		_i = (_i + 1) % 100;
 	}
 }
+
+Brain	&Brain::operator=(
+	const Brain &_other
+)
+{
+	int	_i = 0;
+
+	this->_nbIdea = _other._nbIdea;
+	while (_i < 100)
+	{
+		this->_idea[_i] = _other._idea[_i];
+		_i++;
+	}
+	return (*this);
+}

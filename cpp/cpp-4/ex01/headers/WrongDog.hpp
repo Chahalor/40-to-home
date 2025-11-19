@@ -12,4 +12,6 @@ public:
 
 	void		makeSound(void) const;
 	std::string	getType(void) const;
+
+	WrongDog	&operator=(const WrongDog &_other);
 };

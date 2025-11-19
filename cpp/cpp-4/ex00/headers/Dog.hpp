@@ -12,4 +12,6 @@ class Dog: public virtual Animal
 
 		void		makeSound(void) const;
 		std::string	getType(void) const;
+
+		Dog			&operator=(const Dog &_other);
 };

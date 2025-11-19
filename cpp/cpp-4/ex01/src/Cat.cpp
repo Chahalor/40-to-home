@@ -1,40 +1,40 @@
-#include "Dog.hpp"
+#include "Cat.hpp"
 
-Dog::Dog(/* args */)
+Cat::Cat(/* args */)
 	: _brain(new Brain())
 {
-	this->_type = "Dog";
-	outl(CYAN "Dog constructor called" RESET)
+	this->_type = "Cat";
+	outl(CYAN "Cat constructor called" RESET)
 }
 
-Dog::Dog(
-	const Dog &_other
+Cat::Cat(
+	const Cat &_other
 )
 	: Animal(_other),
 	 _brain(new Brain(*_other._brain))
 {
-	this->_type = "Dog";
-	outl(CYAN "Dog constructor called" RESET)
+	this->_type = "Cat";
+	outl(CYAN "Cat constructor called" RESET)
 }
 
-Dog::~Dog()
+Cat::~Cat()
 {
 	delete this->_brain;
-	outl(hex(0xF57C00) << "Dog destructor called" << RESET)
+	outl(hex(0xF57C00) << "Cat destructor called" << RESET)
 }
 
-void	Dog::makeSound(void) const
+void	Cat::makeSound(void) const
 {
 	out("Meow meow\n");
 }
 
-std::string	Dog::getType(void) const
+std::string	Cat::getType(void) const
 {
 	return (this->_type);
 }
 
-Dog	&Dog::operator=(
-	const Dog &_other
+Cat	&Cat::operator=(
+	const Cat &_other
 )
 {
 	if (unlikely(this == &_other))
@@ -48,14 +48,14 @@ Dog	&Dog::operator=(
 	return (*this);
 }
 
-void	Dog::addIdea(
+void	Cat::addIdea(
 	std::string &_idea
 )
 {
 	return (this->_brain->addIdea(_idea));
 }
 
-void	Dog::showIdea(void)
+void	Cat::showIdea(void)
 {
 	int	_i = 0;
 
@@ -64,4 +64,12 @@ void	Dog::showIdea(void)
 		out("[" BLUE << _i << RESET "] " << this->_brain->_idea[_i] << "\n")
 		_i++;
 	}
+}
+
+Cat	&Cat::operator=(
+	const Cat &_other
+)
+{
+	this->_type = _other._type;
+	return (*this);
 }

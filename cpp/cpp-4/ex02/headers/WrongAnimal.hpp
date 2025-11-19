@@ -21,5 +21,5 @@ class WrongAnimal
 
 		virtual std::string	getType(void) const;
 
-		virtual WrongAnimal	&operator=(const this)
+		virtual WrongAnimal	&operator=(const WrongAnimal &_other);
 };

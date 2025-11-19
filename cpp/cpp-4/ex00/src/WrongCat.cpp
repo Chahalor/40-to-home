@@ -18,3 +18,11 @@ std::string	WrongCat::getType(void) const
 {
 	return (this->_type);
 }
+
+WrongCat	&WrongCat::operator=(
+	const WrongCat &_other
+)
+{
+	this->_type = _other._type;
+	return (*this);
+}

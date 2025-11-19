@@ -19,3 +19,10 @@ std::string	Cat::getType(void) const
 	return (this->_type);
 }
 
+Cat	&Cat::operator=(
+	const Cat &_other
+)
+{
+	this->_type = _other._type;
+	return (*this);
+}

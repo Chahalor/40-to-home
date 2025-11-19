@@ -17,3 +17,11 @@ std::string	WrongAnimal::getType(void) const
 {
 	return ("Wwrong animal type\n");
 }
+
+WrongAnimal	&WrongAnimal::operator=(
+	const WrongAnimal &_other
+)
+{
+	this->_type = _other._type;
+	return (*this);
+}
