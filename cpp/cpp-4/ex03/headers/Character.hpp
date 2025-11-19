@@ -16,10 +16,3 @@ class Character: public virtual ICharacter
 		void				use(int idx, ICharacter& target) = 0;
 };
 
-Character::Character(/* args */)
-{
-}
-
-Character::~Character()
-{
-}
