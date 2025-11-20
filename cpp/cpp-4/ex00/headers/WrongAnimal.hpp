@@ -14,6 +14,7 @@ class WrongAnimal
 
 	public:
 		WrongAnimal(const std::string &type);
+		WrongAnimal(const WrongAnimal &other);
 		WrongAnimal(void);
 		virtual ~WrongAnimal();
 

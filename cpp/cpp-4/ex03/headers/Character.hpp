@@ -5,7 +5,9 @@
 class Character: public virtual ICharacter
 {
 	private:
-		/* data */
+		std::string	_name;
+		AMateria	*_inventory[INVENTORY_SIZE];
+
 	public:
 		Character(const std::string &_name);
 		Character(const Character &_other);
@@ -15,4 +17,6 @@ class Character: public virtual ICharacter
 		void				equip(AMateria* m);
 		void				unequip(int idx);
 		void				use(int idx, ICharacter& target);
+
+		Character			&operator=(const Character &_other);
 };

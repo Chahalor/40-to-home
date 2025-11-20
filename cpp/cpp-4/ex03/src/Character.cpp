@@ -5,7 +5,7 @@
 Character::Character(
 	const std::string &_name
 )
-	: ICharacter(_name)
+	:	_name(_name)
 {
 	int	_i = 0;
 
@@ -77,4 +77,21 @@ void	Character::use(
 		return ;
 	else if (likely(this->_inventory[idx]))
 		this->_inventory[idx]->use(target);
+}
+
+
+Character	&Character::operator=(
+	const Character &_other
+)
+{
+	int	_i = 0;
+
+	while (_i < INVENTORY_SIZE)
+	{
+		this->_inventory[_i] = _other._inventory[_i];
+		_i++;
+	}
+
+	all::logs(BLUE "Character copy constructor called" RESET);
+	return (*this);
 }

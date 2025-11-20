@@ -1,4 +1,4 @@
-NAME		:= polymophism
+NAME		:= materia
 CC			:= c++
 CFLAGS		:= -Wall -Wextra -Werror -Wno-deprecated -std=c++98 -MMD -g3 -Iall -Iheaders
 

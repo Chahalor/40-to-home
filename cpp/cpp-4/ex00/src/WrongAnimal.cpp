@@ -4,6 +4,23 @@ WrongAnimal::WrongAnimal(void)
 {
 }
 
+WrongAnimal::WrongAnimal(
+	const std::string &type
+)
+	:	_type(type)
+{
+
+}
+
+WrongAnimal::WrongAnimal(
+	const WrongAnimal &other
+)
+	:	_type(other._type)
+{
+
+}
+
+
 WrongAnimal::~WrongAnimal()
 {
 }

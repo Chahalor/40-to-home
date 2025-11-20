@@ -10,13 +10,7 @@ class AMateria;
 
 class ICharacter
 {
-	protected:
-		std::string	_name;
-		AMateria	*_inventory[INVENTORY_SIZE];
-
 	public:
-		ICharacter(const std::string &_name);
-		ICharacter(const ICharacter &_other);
 		virtual ~ICharacter(void);
 
 		virtual const std::string	&getName() const = 0;

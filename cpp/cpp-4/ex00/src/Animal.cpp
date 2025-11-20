@@ -4,6 +4,22 @@ Animal::Animal(void)
 {
 }
 
+Animal::Animal(
+	const std::string &_type
+)
+	:	_type(_type)
+{
+
+}
+
+Animal::Animal(
+	const Animal &_other
+)
+	:	_type(_other._type)
+{
+
+}
+
 Animal::~Animal()
 {
 }
