@@ -13,10 +13,6 @@
 #define outl(_expr) {std::cout << _expr << std::endl;}
 #define out(_expr) {std::cout << _expr;}
 
-#ifndef DEBUG
-# define DEBUG = 0
-#endif	// !DEBUG
-
 // colors
 
 # define BLACK			"\033[30m"
@@ -104,5 +100,5 @@ namespace all
 	bool		readAscii(const std::string prompt, std::string *const input);
 	int			atoi(const char *);
 	int			atoi(const std::string);
-	void		logs(const std::string &const _str);
+	void		logs(const std::string &_str);
 }

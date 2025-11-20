@@ -5,8 +5,15 @@ IMateriaSource::~IMateriaSource(void)
 	int	_i = 0;
 
 	while (_i < MEMORY_SIZE)
-		delete this->_memory[_i];
-	all::logs(RED "IMateriaSource destructor called\n" RESET);
+	{
+		if (this->_memory[_i])
+		{
+			delete this->_memory[_i];
+			this->_memory[_i] = NULL;
+		}
+		_i++;
+	}
+	all::logs(RED "IMateriaSource destructor called" RESET);
 }
 void	IMateriaSource::learnMateria(
 	AMateria *_target
@@ -20,12 +27,12 @@ void	IMateriaSource::learnMateria(
 		if (!this->_memory[_i])
 		{
 			this->_memory[_i] = _target;
-			_target = nullptr;
+			_target = NULL;
 			break ;
 		}
 		_i++;
 	}
-	if (_i == MEMORY_SIZE && _target == nullptr)
+	if (_i == MEMORY_SIZE && _target == NULL)
 		return ;
 	else
 	{

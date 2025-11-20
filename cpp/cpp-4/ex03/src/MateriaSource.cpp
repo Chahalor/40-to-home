@@ -1,13 +1,31 @@
+#include <cstring>
+
 #include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource(void)
 {
-	all::logs(BLUE "MateriaSource constructor called\n" RESET);
+	// std::memset(this->_memory, static_cast<int>(sizeof(void *)), MEMORY_SIZE);
+	int	_i = 0;
+
+	while (_i < MEMORY_SIZE)
+		this->_memory[_i++] = NULL;
+	all::logs(BLUE "MateriaSource constructor called" RESET);
 }
 
 MateriaSource::~MateriaSource()
 {
-	all::logs(BLUE "MateriaSource destructor called\n" RESET);
+	int	_i = 0;
+
+	while (_i < MEMORY_SIZE)
+	{
+		if (this->_memory[_i])
+		{
+			delete this->_memory[_i];
+			this->_memory[_i] = NULL;
+		}
+		_i++;
+	}
+	all::logs(RED "MateriaSource destructor called" RESET);
 }
 
 AMateria	*MateriaSource::createMateria(
@@ -22,10 +40,28 @@ AMateria	*MateriaSource::createMateria(
 			return (this->_memory[_i]->clone());
 		_i++;
 	}
-	return (nullptr);
+	return (NULL);
 }
 
-void		MateriaSource::learMateria(AMateria *_target)
+void	MateriaSource::learnMateria(
+	AMateria *_target
+)
 {
-	
+	static int	_idx = 0;
+	int			_i = 0;
+
+	while (_i < MEMORY_SIZE)
+	{
+		if (!this->_memory[_i])
+		{
+			this->_memory[_i] = _target;
+			_target = NULL;
+			return ;
+		}
+		_i++;
+	}
+
+	delete this->_memory[_idx];
+	this->_memory[_idx] = _target;
+	_idx = (_idx + 1) % MEMORY_SIZE;
 }

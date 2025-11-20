@@ -10,7 +10,7 @@ size_t	all::len(
 
 	while (i < (int)s.size())
 	{
-		if ((s[i] & 0xC0) != 0x80) // octet non de continuation
+		if ((s[i] & 0xC0) != 0x80) 
 			len++;
 		i++;
 	}

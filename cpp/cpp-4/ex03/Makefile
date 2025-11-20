@@ -1,15 +1,16 @@
 NAME		:= polymophism
 CC			:= c++
-CFLAGS		:= -Wall -Wextra -Werror -Wno-deprecated -std=c++98 -MMD -g3 -Iall #-Ino-shadow
+CFLAGS		:= -Wall -Wextra -Werror -Wno-deprecated -std=c++98 -MMD -g3 -Iall -Iheaders
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
 DIR_ALL		:= all/
 
 ALL			:= $(DIR_ALL)/all.a
-SRCS		:= main.cpp ./Animal.cpp ./Dog.cpp ./Cat.cpp ./WrongCat.cpp ./WrongDog.cpp ./WrongAnimal.cpp ./Brain.cpp
+SRCS		:= ./Cure.cpp ./Ice.cpp ./IMateriaSource.cpp ./ICharacter.cpp ./AMateria.cpp ./MateriaSource.cpp ./Character.cpp
+_SRC		:= $(addprefix src/, $(SRCS)) main.cpp
 
-OBJS		:= $(SRCS:.cpp=.o)
+OBJS		:= $(_SRC:.cpp=.o)
 OBJS		:= $(addprefix $(DIR_BUILD), $(OBJS))
 
 all: $(DIR_BUILD) $(NAME)
@@ -24,6 +25,7 @@ $(ALL):
 	$(MAKE) -C $(DIR_ALL) CFLAGS="$(CFLAGS)"
 
 $(DIR_BUILD)%.o: $(DIR_SRC)/%.cpp
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -35,5 +37,8 @@ fclean:
 	$(MAKE) -C $(DIR_ALL) fclean
 
 re: fclean all
+
+debug:
+	$(eval CFLAGS=$(CFLAGS) -DDEBUG)
 
 .PHONY: all clean fclean re

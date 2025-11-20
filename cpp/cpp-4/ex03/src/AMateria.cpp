@@ -2,19 +2,26 @@
 #include "AMateria.hpp"
 
 AMateria::AMateria(
-	const std::string &type
+	const std::string &_type
 )
-	: _type(type)
 {
-	all::logs(BLUE "AMateria constructor called\n" RESET);
+	this->_type = _type;
+	all::logs(BLUE "AMateria constructor callen" RESET);
 }
 
 AMateria::~AMateria()
 {
-	all::logs(RED "AMateria destructor called\n" RESET);
+	all::logs(RED "AMateria destructor called" RESET);
 }
 
 const std::string	&AMateria::getType(void) const
 {
 	return (this->_type);
+}
+
+void	AMateria::use(
+	ICharacter &_target
+)
+{
+	(void)_target;
 }

@@ -1,4 +1,4 @@
-#pragma oncex
+#pragma once
 
 #include "IMateriaSource.hpp"
 

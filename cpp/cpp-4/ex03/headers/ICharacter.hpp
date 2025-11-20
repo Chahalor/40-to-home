@@ -6,6 +6,8 @@
 #include "all.hpp"
 #include "AMateria.hpp"
 
+class AMateria;
+
 class ICharacter
 {
 	protected:
@@ -13,8 +15,8 @@ class ICharacter
 		AMateria	*_inventory[INVENTORY_SIZE];
 
 	public:
-		ICharacter(std::string &const _name);
-		ICharacter(const ICharacter &const _other);
+		ICharacter(const std::string &_name);
+		ICharacter(const ICharacter &_other);
 		virtual ~ICharacter(void);
 
 		virtual const std::string	&getName() const = 0;
@@ -22,5 +24,5 @@ class ICharacter
 		virtual void				unequip(int idx) = 0;
 		virtual void				use(int idx, ICharacter& target) = 0;
 
-		
+		ICharacter					&operator=(const ICharacter &_other);
 };

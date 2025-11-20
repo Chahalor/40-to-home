@@ -4,7 +4,7 @@
 Cure::Cure(/* args */)
 	: AMateria("cure")
 {
-	all::logs(BLUE "Cure constructor called\n" RESET);
+	all::logs(BLUE "Cure constructor called" RESET);
 }
 
 Cure::Cure(
@@ -12,13 +12,13 @@ Cure::Cure(
 )
 	: AMateria(_other._type)
 {
-	all::logs(BLUE "Cure copy constructor called\n" RESET);
+	all::logs(BLUE "Cure copy constructor called" RESET);
 }
 
 
 Cure::~Cure()
 {
-	all::logs(RED "Cure destructor called\n" RESET);
+	all::logs(RED "Cure destructor called" RESET);
 }
 
 AMateria	*Cure::clone(void) const

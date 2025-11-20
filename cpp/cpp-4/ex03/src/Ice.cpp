@@ -3,7 +3,7 @@
 Ice::Ice(/* args */)
 	: AMateria("ice")
 {
-	all::logs(BLUE "Ice constructor called\n" RESET);
+	all::logs(BLUE "Ice constructor called" RESET);
 }
 
 Ice::Ice(
@@ -11,13 +11,13 @@ Ice::Ice(
 )
 	: AMateria(_other._type)
 {
-	all::logs(BLUE "Ice copy constructor called\n" RESET);
+	all::logs(BLUE "Ice copy constructor called" RESET);
 }
 
 
 Ice::~Ice()
 {
-	all::logs(RED "Ice destructor called\n" RESET);
+	all::logs(RED "Ice destructor called" RESET);
 }
 
 AMateria	*Ice::clone(void) const

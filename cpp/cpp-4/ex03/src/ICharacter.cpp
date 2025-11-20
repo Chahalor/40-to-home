@@ -2,16 +2,15 @@
 #include "ICharacter.hpp"
 
 ICharacter::ICharacter(
-	std::string &const _name
+	const std::string &_name
 )
-	: _inventory({0}),
-	  _name(_name)
+	: _name(_name)
 {
-	all::logs(BLUE "ICharacter constructor called\n" RESET);
+	all::logs(BLUE "ICharacter constructor called" RESET);
 }
 
 ICharacter::ICharacter(
-	const ICharacter &const _other
+	const ICharacter &_other
 )
 	: _name(_other._name)
 {
@@ -29,8 +28,15 @@ ICharacter::~ICharacter(void)
 	int	_i = 0;
 
 	while (_i < INVENTORY_SIZE)
-		delete this->_inventory[_i++];
-	all::logs(RED "ICharacter destructor called\n" RESET);
+	{
+		if (this->_inventory[_i])
+		{
+			// delete this->_inventory[_i];
+			this->_inventory[_i] = NULL;
+		}
+		_i++;
+	}
+	all::logs(RED "ICharacter destructor called" RESET);
 }
 
 const std::string &ICharacter::getName(void) const
@@ -43,12 +49,12 @@ void	ICharacter::equip(
 {
 	int	_i = 0;
 
-	while (_i < INVENTORY_SIZE);
+	while (_i < INVENTORY_SIZE)
 	{
 		if (!this->_inventory[_i])
 		{
 			this->_inventory[_i] = m;
-			return ;
+			break ;
 		}
 		_i++;
 	}
@@ -60,7 +66,7 @@ void	ICharacter::unequip(
 {
 	if (unlikely(idx < 0 || idx > INVENTORY_SIZE))
 		return ;
-	this->_inventory[idx] = nullptr;
+	this->_inventory[idx] = NULL;
 }
 
 void	ICharacter::use(

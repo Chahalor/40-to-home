@@ -10,7 +10,7 @@ size_t	all::len(
 
 	while (i < (int)s.size())
 	{
-		if ((s[i] & 0xC0) != 0x80) // octet non de continuation
+		if ((s[i] & 0xC0) != 0x80) 
 			len++;
 		i++;
 	}
@@ -72,11 +72,11 @@ bool	all::readAscii(
 	return (false);
 }
 
-inline int	logs(
-	const std::string &const _str
+void		all::logs(
+	const std::string &_str
 )
 {
-	#if DEBUG && DEBUG == 1
+	#ifdef DEBUG // DEBUG == 1
 	outl(_str);
 	#else
 	(void)_str;

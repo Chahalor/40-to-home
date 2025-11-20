@@ -7,12 +7,12 @@ class Character: public virtual ICharacter
 	private:
 		/* data */
 	public:
-		Character(/* args */);
+		Character(const std::string &_name);
+		Character(const Character &_other);
 		~Character();
 
-		const std::string	&getName() const = 0;
-		void				equip(AMateria* m) = 0;
-		void				unequip(int idx) = 0;
-		void				use(int idx, ICharacter& target) = 0;
+		const std::string	&getName() const;
+		void				equip(AMateria* m);
+		void				unequip(int idx);
+		void				use(int idx, ICharacter& target);
 };
-

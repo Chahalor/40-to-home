@@ -1,16 +1,22 @@
+#include <cstring>
+
 #include "Character.hpp"
 
 Character::Character(
-	std::string &const _name
+	const std::string &_name
 )
-	: _inventory({0}),
-	  _name(_name)
+	: ICharacter(_name)
 {
-	all::logs(BLUE "Character constructor called\n" RESET);
+	int	_i = 0;
+
+	while (_i < INVENTORY_SIZE)
+		this->_inventory[_i++] = NULL;
+
+	all::logs(BLUE "Character constructor called" RESET);
 }
 
 Character::Character(
-	const Character &const _other
+	const Character &_other
 )
 	: ICharacter(_other)
 {
@@ -29,7 +35,7 @@ Character::~Character(void)
 
 	while (_i < INVENTORY_SIZE)
 		delete this->_inventory[_i++];
-	all::logs(RED "Character destructor called\n" RESET);
+	all::logs(RED "Character destructor called" RESET);
 }
 
 const std::string &Character::getName(void) const
@@ -42,12 +48,12 @@ void	Character::equip(
 {
 	int	_i = 0;
 
-	while (_i < INVENTORY_SIZE);
+	while (_i < INVENTORY_SIZE)
 	{
 		if (!this->_inventory[_i])
 		{
 			this->_inventory[_i] = m;
-			return ;
+			break ;
 		}
 		_i++;
 	}
@@ -59,12 +65,12 @@ void	Character::unequip(
 {
 	if (unlikely(idx < 0 || idx > INVENTORY_SIZE))
 		return ;
-	this->_inventory[idx] = nullptr;
+	this->_inventory[idx] = NULL;
 }
 
 void	Character::use(
 	int idx,
-	Character& target
+	ICharacter& target
 )
 {
 	if (unlikely(idx < 0 || idx > INVENTORY_SIZE))
