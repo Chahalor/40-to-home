@@ -14,7 +14,7 @@ OBJS		:= $(addprefix $(DIR_BUILD), $(OBJS))
 all: $(DIR_BUILD) $(NAME)
 
 visual:
-	$(eval CFLAGS=$(CFLAGS) -D VISUAL)
+	$(eval CFLAGS=$(CFLAGS) -DVISUAL)
 
 $(DIR_BUILD):
 	mkdir -p $(DIR_BUILD)

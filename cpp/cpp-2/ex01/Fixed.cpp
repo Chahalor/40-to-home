@@ -20,6 +20,13 @@ Fixed::Fixed(
 {
 }
 
+Fixed::Fixed(
+	const Fixed &_other
+)
+{
+	this->_fixedPointValue = _other._fixedPointValue;
+}
+
 Fixed::~Fixed()
 {
 }

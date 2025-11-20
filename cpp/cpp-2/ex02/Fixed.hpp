@@ -11,6 +11,7 @@ class Fixed
 		Fixed(void);
 		Fixed(const int value);
 		Fixed(const float value);
+		Fixed(const Fixed &_other);
 		~Fixed();
 
 		Fixed				&operator=(const Fixed &other);
@@ -35,9 +36,9 @@ class Fixed
 		int					toInt(void) const;
 
 		static Fixed		&min(Fixed &f1, Fixed &f2);
-		static Fixed const&	min(Fixed const& f1, Fixed const& f2);
+		static Fixed const	&min(Fixed const& f1, Fixed const& f2);
 		static Fixed		&max(Fixed &f1, Fixed &f2);
-		static Fixed const&	max(Fixed const& f1, Fixed const& f2);
+		static Fixed const	&max(Fixed const& f1, Fixed const& f2);
 };
 
 std::ostream	&operator<<(std::ostream &os, const Fixed &f);

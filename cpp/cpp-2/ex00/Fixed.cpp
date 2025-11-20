@@ -17,9 +17,16 @@ Fixed& Fixed::operator=(const Fixed &other)
 	return (*this);
 }
 
-Fixed::Fixed(/* args */)
+Fixed::Fixed(void)
 {
 	this->_fixedPointValue = 0;
+}
+
+Fixed::Fixed(
+	const Fixed &_other
+)
+{
+	this->_fixedPointValue = _other._fixedPointValue;
 }
 
 Fixed::~Fixed()
