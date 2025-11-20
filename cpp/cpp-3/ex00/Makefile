@@ -20,7 +20,7 @@ $(DIR_BUILD):
 	mkdir -p $(DIR_BUILD)
 
 $(NAME): $(OBJS) $(ALL)
-	$(CC) $(CFLAGS) -o $@ $^ -lSDL2
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(ALL):
 	$(MAKE) -C $(DIR_ALL) CFLAGS="$(CFLAGS)"

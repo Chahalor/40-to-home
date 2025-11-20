@@ -12,6 +12,18 @@ FragTrap::FragTrap(
 	out(name << ", the Fragtrap is constructed\n")
 }
 
+FragTrap::FragTrap(
+	const FragTrap &_other
+)
+	: ClapTrap(_other._name)
+{
+	this->_hp = 100;
+	this->_mp = 100;
+	this->_dmg = 30;
+
+	out(this->_name << ", the Fragtrap is constructed\n")
+}
+
 FragTrap::~FragTrap()
 {
 	out(this->_name << ", the Fragtrap is destroyed\n")
@@ -34,4 +46,18 @@ void	FragTrap::attack(
 void	FragTrap::highFivesGuy(void)
 {
 	out("[" YELLOW << std::time(NULL) << RESET "]" BLUE << this->_name << RESET ": let's do an high fives guy\n")
+}
+
+FragTrap	&FragTrap::operator=(
+	const FragTrap &_other
+)
+{
+	if (likely(this != &_other))
+	{
+		this->_name = _other._name;
+		this->_hp = _other._hp;
+		this->_mp = _other._mp;
+		this->_dmg = _other._dmg;
+	}
+	return (*this);
 }

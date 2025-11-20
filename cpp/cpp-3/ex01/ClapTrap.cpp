@@ -12,6 +12,17 @@ ClapTrap::ClapTrap(
 	out("ClapTrap constructed with name '" << name << "'\n")
 }
 
+ClapTrap::ClapTrap(
+	const ClapTrap &_other
+)
+	:	_name(_other._name),
+		_hp(_other._hp),
+		_mp(_other._mp),
+		_dmg(_other._dmg)
+{
+
+}
+
 /* ************************************************************************** */
 /*                                 Destructors                                */
 /* ************************************************************************** */
@@ -45,7 +56,7 @@ void	ClapTrap::takeDamage(
 {
 	if (this->_hp > 0)
 	{
-		out("'" << this->_name <<
+		out("ClapTrap '" << this->_name <<
 			"' taked " << amount <<
 			" points of damage!\n"
 		);
@@ -73,4 +84,18 @@ void	ClapTrap::setDamage(
 )
 {
 	this->_dmg = amount;
+}
+
+ClapTrap	&ClapTrap::operator=(
+	const ClapTrap &_other
+)
+{
+	if (likely(this != &_other))
+	{
+		this->_name = _other._name;
+		this->_hp = _other._hp;
+		this->_mp = _other._mp;
+		this->_dmg = _other._dmg;
+	}
+	return (*this);
 }
