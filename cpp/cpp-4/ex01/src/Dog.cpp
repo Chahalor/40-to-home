@@ -25,7 +25,7 @@ Dog::~Dog()
 
 void	Dog::makeSound(void) const
 {
-	out("Meow meow\n");
+	out("woof woof\n");
 }
 
 std::string	Dog::getType(void) const
@@ -64,12 +64,4 @@ void	Dog::showIdea(void)
 		out("[" BLUE << _i << RESET "] " << this->_brain->_idea[_i] << "\n")
 		_i++;
 	}
-}
-
-Dog	&Dog::operator=(
-	const Dog &_other
-)
-{
-	this->_type = _other._type;
-	return (*this);
 }

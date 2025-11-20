@@ -13,7 +13,7 @@ public:
 
 	Brain(/* args */);
 	Brain(const Brain &_other);
-	~Brain();
+	virtual ~Brain();
 
 	void	addIdea(std::string &_idea);
 
