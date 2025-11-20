@@ -28,7 +28,8 @@ int	main(
 				std::cout << (char)std::toupper(argv[i][j]);
 				j++;
 			}
-			std::cout << " ";
+			if (__glibc_likely(i + 1 < argc))
+				std::cout << " ";
 			i++;
 		}
 	}

@@ -71,11 +71,11 @@ static inline bool	_search(
 	outl("------------------------------------------------");
 	while (_index < 8)
 	{
-		Contact	_current = book->contacts[_index];
+		Contact	_current = book->getContact(_index);
 		outl("|" << std::setw(4) << _index << std::string(3, ' ') \
-			<< "|" << all::pad(_current.first_name, 12) \
-			<< "|" << all::pad(_current.last_name, 12) \
-			<< "|" << all::pad(_current.nickname, 12) \
+			<< "|" << all::pad(_current.getFirstName(), 12) \
+			<< "|" << all::pad(_current.getLastName(), 12) \
+			<< "|" << all::pad(_current.getNickName(), 12) \
 			<< "|"
 		);
 		_index++;
@@ -86,17 +86,17 @@ static inline bool	_search(
 
 	std::stringstream(input) >> _index;
 
-	if (_index > book->nb_contacts || _index < 0 || _index >= 8)
+	if (_index > book->getNbContacts() || _index < 0 || _index >= 8)
 	{
 		outl("input out of bound");
 		return (_search(book));
 	}
-	Contact	_target = book->contacts[_index];
-	outl("first name: " << _target.first_name \
-		<< "\nlast name: " << _target.last_name \
-		<< "\nnickname: " << _target.nickname \
-		<< "\nnumber: " << _target.phone_number \
-		<< "\nsecrect: " << _target.secret
+	Contact	_target = book->getContact(_index);
+	outl("first name: " << _target.getFirstName() \
+		<< "\nlast name: " << _target.getLastName() \
+		<< "\nnickname: " << _target.getNickName() \
+		<< "\nnumber: " << _target.getPhoneNumber() \
+		<< "\nsecrect: " << _target.getSecret()
 	);
 	return (true);
 }
@@ -109,7 +109,7 @@ int	main(void)
 	while (running)
 	{
 		std::string	action;
-		outl("nb contacts: " << book.nb_contacts);	//TODO: rm
+		outl("Actions: ADD, SEARCH, EXIT");
 		if (all::readAscii("action >> ", &action))
 		{
 			outl("exiting :)");
