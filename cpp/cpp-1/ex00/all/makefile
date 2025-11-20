@@ -8,7 +8,7 @@ DIR_BUILD	:= .build/
 DIR_SRC		:= .
 DIR_INC		:= .
 
-SRCS		:= string.cpp
+SRCS		:= string.cpp atoi.cpp
 
 _OBJS		:= $(SRCS:.cpp=.o)
 OBJS		:= $(addprefix $(DIR_BUILD), $(_OBJS))

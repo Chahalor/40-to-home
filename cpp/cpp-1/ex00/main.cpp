@@ -1,3 +1,4 @@
+#include "all.hpp"
 #include "Zombie.hpp"
 
 int	main(void)
@@ -7,8 +8,11 @@ int	main(void)
 
 	zombie1->announce();
 	zombie2->announce();
+
 	delete zombie1;
 	delete zombie2;
+
+	outl("\n=============\n");
 
 	randomChump("Charlie");
 	randomChump("Diana");

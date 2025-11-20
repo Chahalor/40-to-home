@@ -1,10 +1,10 @@
 #include "Zombie.hpp"
 
 void	randomChump(
-	std::string name
+	std::string _name
 )
 {
-	Zombie	zombie(name);
+	Zombie	zombie(_name);
 
 	zombie.announce();
 }

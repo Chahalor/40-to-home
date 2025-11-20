@@ -12,11 +12,12 @@ int	main(int argc, const char *argv[])
 		client.complain(level);
 	}
 
+	outl("Levels: DEBUG/" BLUE "INFO" RESET "/" YELLOW "WARNING" RESET "/" RED "ERROR" RESET)
 	while (!all::readline("complaine level >> ", &level))
 	{
 		if (unlikely(!level.compare("LEAVING")))
 		{
-			outl("your just leaving harl in hes rage. Alone. Has always")
+			outl("your just leaving harl in hes rage. Alone. Has always...")
 			break ;
 		}
 		client.complain(level);

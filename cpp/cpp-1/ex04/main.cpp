@@ -4,6 +4,39 @@
 
 #include "all.hpp"
 
+void	des(
+	std::ifstream &_inFile,
+	std::ofstream &_outFile,
+	const std::string &_target,
+	const std::string &_replace
+)
+{
+	std::string	_line;
+
+	while (std::getline(_inFile, _line))
+	{
+		size_t			pos = 0;
+		register size_t	i = 0;
+
+		if (likely(!_inFile.eof()))
+			_line.push_back('\n');
+
+		pos = _line.find(_target);
+		if (pos == std::string::npos)
+		{
+			_outFile.write(_line.c_str(), _line.size());
+			continue;
+		}
+		_line.erase(pos, _target.length());
+		while (i < _replace.length())
+		{
+			_line.insert(pos + i, 1, _replace[i]);
+			i++;
+		}
+		_outFile.write(_line.c_str(), _line.size());
+	}
+}
+
 int	main(int argc, const char *argv[])
 {
 	if (argc != 4)
@@ -24,39 +57,18 @@ int	main(int argc, const char *argv[])
 	
 	std::ifstream	in_file(argv[1]);
 	if (unlikely(!in_file.is_open()))
-		return (std::perror("failed to open in_file"), 1);
+		return (std::perror((std::string("failed to open: ") + std::string(argv[1])).c_str()), 1);
 
-	std::ofstream	out_file((std::string(argv[1]) + ".replace").c_str());
-	if (unlikely(!out_file.is_open()))
+	std::ofstream	_outFile((std::string(argv[1]) + ".replace").c_str());
+	if (unlikely(!_outFile.is_open()))
 	{
 		in_file.close();
-		return (std::perror("failed to open out_file"), 1);
+		return (std::perror("failed to open _outFile"), 1);
 	}
 
-	while (std::getline(in_file, line))
-	{
-		size_t			pos = 0;
-		register size_t	i = 0;
-
-		if (likely(!in_file.eof()))
-			line.push_back('\n');
-
-		pos = line.find(_target);
-		if (pos == std::string::npos)
-		{
-			out_file.write(line.c_str(), line.size());
-			continue;
-		}
-		line.erase(pos, _target.length());
-		while (i < _replace.length())
-		{
-			line.insert(pos + i, 1, _replace[i]);
-			i++;
-		}
-		out_file.write(line.c_str(), line.size());
-	}
+	des(in_file, _outFile, _target, _replace);
 
 	in_file.close();
-	out_file.close();
+	_outFile.close();
 	return (0);
 }

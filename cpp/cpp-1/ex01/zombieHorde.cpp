@@ -3,7 +3,7 @@
 
 Zombie	*zombieHorde(
 	int N,
-	std::string name
+	std::string _name
 )
 {
 	register int	_i = 0;
@@ -11,9 +11,9 @@ Zombie	*zombieHorde(
 	if (unlikely(N < 1))
 		return (NULL);
 
-	Zombie	*horde = new Zombie [N];
+	Zombie	*horde = new Zombie[N];
 
 	while (_i < N)
-		horde[_i++] = Zombie(name);
+		horde[_i++].setName(_name);
 	return (horde);
 }

@@ -1,17 +1,17 @@
 #include "HumanB.hpp"
 
 HumanB::HumanB(
-	std::string name,
+	std::string _name,
 	Weapon *weapon
 )
-	: _name(name), _weapon(weapon)
+	: _name(_name), _weapon(weapon)
 {
 }
 
 HumanB::HumanB(
-	std::string name
+	std::string _name
 )
-	: _name(name), _weapon(NULL)
+	: _name(_name), _weapon(NULL)
 {
 }
 

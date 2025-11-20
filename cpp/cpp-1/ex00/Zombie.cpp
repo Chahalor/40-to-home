@@ -1,22 +1,24 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie(
-	std::string name
+	std::string _name
 )
 {
-	this->name = name;
+	this->_name = _name;
 }
 
 Zombie::Zombie(void)
 {
-	this->name = "A random reanimated corpse";
+	this->_name = "A random reanimated corpse";
+	outl(BLUE << "Zombie constructor called" << RESET);
 }
 
 Zombie::~Zombie()
 {
+	outl(RED << "Zombie " << this->_name << " hazbin destroyed" << RESET);
 }
 
 void	Zombie::announce(void)
 {
-	std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+	std::cout << this->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }

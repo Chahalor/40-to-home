@@ -2,26 +2,31 @@
 
 #include <iostream>
 
+#include "all.hpp"
+
 class Zombie
 {
 	private:
-		std::string	name;
+		std::string	_name;
 	public:
-		Zombie(std::string name);
+		Zombie(std::string _name);
 		Zombie(void);
 		~Zombie();
+
+		void	setName(std::string &_name);
+
 		void	announce(void);
 };
 
 Zombie	*newZombie(
-			std::string name
+			std::string _name
 			);
 
 void	randomChump(
-			std::string name
+			std::string _name
 			);
 
 Zombie	*zombieHorde(
 			int N,
-			std::string name
+			std::string _name
 			);

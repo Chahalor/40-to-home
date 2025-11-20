@@ -1,8 +1,8 @@
 #include "Zombie.hpp"
 
 Zombie	*newZombie(
-	std::string name
+	std::string _name
 )
 {
-	return (new Zombie(name));
+	return (new Zombie(_name));
 }
