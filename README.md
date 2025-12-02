@@ -49,8 +49,9 @@
 ## 🎽 Rushes
 |										 🪪 Name												|										🎯 Goals									| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:-----------------:|
+| [Wordle](https://github.com/Chahalor/40-to-home/tree/main/Rushes/Libunit)						| Create a mini modular unit tester													| 119		| 🔴 🔴 🔴			|
 | [Wordle](https://github.com/Chahalor/40-to-home/tree/main/Rushes/wordle)						| Recreate the wordle game in two days												| 100		| 🌟 🌟 🌟			|
-| [Connect4](https://github.com/Chahalor/connect4/tree/34e4df8f75ca73f79b649f79a35d362da94ee119)| Create a Connect4 playable game againt an AI										| 100		| 🌟 🌟 🌟			|
+| [Connect4](https://github.com/Chahalor/connect4/tree/main/Rushes/Connect4)					| Create a Connect4 playable game againt an AI										| 100		| 🌟 🌟 🌟			|
 | [???](https://github.com/Chahalor/40-to-home/tree/main/Rushes/???)							| ???																				| ???		| 0					|
 
 |									Begining the Project										|											Coding									|							Passing Moulinette 🪢								|

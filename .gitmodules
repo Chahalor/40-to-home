@@ -13,3 +13,6 @@
 [submodule "rank-4/miniRT"]
 	path = rank-4/miniRT
 	url = https://github.com/40-to-steroide/miniRT
+[submodule "Rushes/Libunit"]
+	path = Rushes/Libunit
+	url = https://github.com/Chahalor/Libunit
