@@ -1,6 +1,6 @@
 [submodule "Rushes/wordle"]
 	path = Rushes/wordle
-	url = https://github.com/Chahalor/wordle.git
+	url = https://github.com/Chahalor/wordle
 [submodule "rank-3/minishell"]
 	path = rank-3/minishell
 	url = https://github.com/Chahalor/Minishell.git
