@@ -1,5 +1,4 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
 
 int	main(void)
 {
@@ -43,30 +42,6 @@ int	main(void)
 	outl(bob);
 	outl(michel);
 	outl(random_one);
-
-	outl("\n=======\n")
-
-	Form	_form("some form", 150, 1);
-	Form	_form2("some other form", 1, 1);
-
-	try
-	{
-		bob.signForm(_form);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	
-	try
-	{
-		random_one.signForm(_form2);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	
 
 	return (EXIT_SUCCESS);
 }
