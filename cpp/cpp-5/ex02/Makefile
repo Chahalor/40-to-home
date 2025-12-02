@@ -7,7 +7,7 @@ DIR_BUILD	:= .build/
 DIR_ALL		:= all/
 
 ALL			:= $(DIR_ALL)/all.a
-SRCS		:= Bureaucrat.cpp Form.cpp
+SRCS		:= Bureaucrat.cpp AForm.cpp
 _SRC		:= $(addprefix src/, $(SRCS)) main.cpp
 
 OBJS		:= $(_SRC:.cpp=.o)

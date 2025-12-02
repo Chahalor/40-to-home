@@ -70,7 +70,7 @@ Bureaucrat &Bureaucrat::operator=(
 }
 
 void	Bureaucrat::signForm(
-	Form &_target
+	AForm &_target
 )
 {
 	return (_target.beSigned(*this));

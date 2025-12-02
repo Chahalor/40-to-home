@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 int	main(void)
 {
@@ -46,8 +46,8 @@ int	main(void)
 
 	outl("\n=======\n")
 
-	Form	_form("some form", 150, 1);
-	Form	_form2("some other form", 1, 1);
+	AForm	_form("some form", 150, 1);
+	AForm	_form2("some other form", 1, 1);
 
 	try
 	{

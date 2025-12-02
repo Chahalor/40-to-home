@@ -3,9 +3,9 @@
 #include <iostream>
 
 #include "all.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class	Form;
+class	AForm;
 
 class Bureaucrat
 {
@@ -33,7 +33,8 @@ class Bureaucrat
 		Bureaucrat &operator=(const Bureaucrat &_other);
 
 	/*    -Members-   */
-		void	signForm(Form &_form);
+		void	signForm(AForm &_form);
+		void	executeForm(AForm const &_form);
 
 	/*  -Exeptions-   */
 		class	GradeTooHighException: public std::exception
