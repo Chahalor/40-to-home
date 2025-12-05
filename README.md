@@ -32,13 +32,13 @@
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
 | [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| 	🔴		| ???		| 0					|
 | [miniRT](https://github.com/Chahalor/40-to-home/tree/main/rank-4/miniRT)						| learning math around ray tracing and graphic optimisations						| no		| 100		| 🌟 🔴 🔴			|
-| [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+| [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| learning the basic pf cpp prgraming and object oriented programming				| yes		| 98		| 4 🌟 / 15			|
 
 ## 🐚 Circle 5
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Inception)				| ???																				| yes		| ???		| 0					|
-| [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/Webserv)					| ???																				| yes		| ???		| 0					|
+| [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/inception)				| ???																				| yes		| ???		| 0					|
+| [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/webServ)					| ???																				| yes		| ???		| 0					|
 | [cpp 5-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
 
 ## 🐚 Circle 6
