@@ -23,6 +23,7 @@ class AForm
 
 	/*    -Getter-    */
 		const std::string	&getName(void) const;
+		bool				isSigned(void) const;
 
 	/*    -Setter-    */
 		//...
@@ -30,7 +31,8 @@ class AForm
 		//...
 
 	/*    -Members-   */
-		void	beSigned(const Bureaucrat &_executor);
+		void			beSigned(const Bureaucrat &_executor);
+		virtual void	execute(const Bureaucrat &_executor) const = 0;
 
 	/*  -Exeptions-   */
 		class GradeTooHighException: public std::exception
@@ -40,6 +42,12 @@ class AForm
 		};
 
 		class	GradeTooLowException: public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+
+		class	NotSigned: public std::exception
 		{
 			public:
 				virtual const char	*what() const throw();

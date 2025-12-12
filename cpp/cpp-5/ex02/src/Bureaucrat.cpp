@@ -76,6 +76,14 @@ void	Bureaucrat::signForm(
 	return (_target.beSigned(*this));
 }
 
+void	Bureaucrat::executeForm(
+	AForm const &_form
+)
+{
+	_form.execute(*this);
+	outl(this->_name << " executed " << _form.getName());
+}
+
 #pragma region Exeptions
 
 const char	*Bureaucrat::GradeTooHighException::what() const throw()

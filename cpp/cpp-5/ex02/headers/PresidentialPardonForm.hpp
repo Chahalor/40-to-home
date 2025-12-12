@@ -5,7 +5,10 @@
 class PresidentialPardonForm: public virtual AForm
 {
 	private:
-		//...
+		static const int	_signGrade = 25;
+		static const int	_execGrade = 5;
+		std::string			_target;
+
 	public:
 	/* -Constructors- */
 		PresidentialPardonForm(const std::string &_target);
@@ -21,6 +24,7 @@ class PresidentialPardonForm: public virtual AForm
 
 	/*    -Members-   */
 		void	beSigned(const Bureaucrat &_executor);
+		void	execute(const Bureaucrat &_executor) const;
 
 	/*  -Operators-   */
 		PresidentialPardonForm &operator=(const PresidentialPardonForm &_other);
