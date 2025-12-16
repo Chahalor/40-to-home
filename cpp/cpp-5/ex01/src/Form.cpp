@@ -44,6 +44,21 @@ const std::string	&Form::getName(void) const
 	return (this->_name);
 }
 
+int	Form::getSignGrade(void) const
+{
+	return (this->_signGrade);
+}
+
+int	Form::getExecGrade(void) const
+{
+	return (this->_execGrade);
+}
+
+bool	Form::isSigned(void) const
+{
+	return (this->_signed);
+}
+
 void	Form::beSigned(
 	const Bureaucrat &_executor
 )
@@ -75,6 +90,6 @@ std::ostream	&operator<<(
 	const Form &_target
 )
 {
-	os << "form " << _target.getName() << "\n";
+	os << "form " << _target.getName() << ": " << _target.isSigned() ? "✅" : "🟥" << "\n";
 	return (os);
 }

@@ -23,6 +23,9 @@ class Form
 
 	/*    -Getter-    */
 		const std::string	&getName(void) const;
+		int					getSignGrade(void) const;
+		int					getExecGrade(void) const;
+		bool				isSigned(void) const;
 
 	/*    -Setter-    */
 		//...

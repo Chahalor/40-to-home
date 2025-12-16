@@ -37,6 +37,7 @@ void	RobotomyRequestForm::execute(
 	{
 		const int	value = std::rand();
 
+		outl(BOLD ITALIC "DISTURBING DRILL NOISE" RESET)
 		if (value % 2)
 			outl(GREEN << this->_target << " has been succesfully robotomize." RESET)
 		else

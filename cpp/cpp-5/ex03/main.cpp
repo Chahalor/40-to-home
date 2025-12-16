@@ -12,6 +12,9 @@
 
 int	main(void)
 {
+	try
+	{
+
 	Bureaucrat	bob("bob", 1);
 	Bureaucrat	michel("michel", 75);
 	Intern		random_one;
@@ -82,6 +85,12 @@ int	main(void)
 	delete robot;
 	delete pardon;
 	delete tree;
+
+	}
+	catch(const std::exception &e)
+	{
+		std::cerr << RED << e.what() << RESET << '\n';
+	}
 
 	return (EXIT_SUCCESS);
 }
