@@ -40,6 +40,7 @@ int	main(void)
 	PART("bob executing")
 	try
 	{
+		bob.signForm(tree);
 		bob.executeForm(pardon);
 		bob.executeForm(tree);
 		bob.executeForm(robot);

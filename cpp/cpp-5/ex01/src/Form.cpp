@@ -90,6 +90,6 @@ std::ostream	&operator<<(
 	const Form &_target
 )
 {
-	os << "form " << _target.getName() << ": " << _target.isSigned() ? "✅" : "🟥" << "\n";
+	os << "form " << _target.getName() << ": " << (_target.isSigned() ? "✅" : "🟥") << "\n";
 	return (os);
 }
