@@ -1,4 +1,4 @@
-NAME		:= bureaucrat
+NAME		:= scalarconverter
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
 

@@ -32,9 +32,18 @@ void	ScalarConverter::convert(
 	const std::string &_input
 )
 {
+	out(std::fixed);
+
 	try
 	{
-		const double	d = std::stod(_input);
+		char			*_end;
+		double			d = std::strtod(_input.c_str(), &_end);
+
+		if (_input.length() == 1)
+			d = _input.c_str()[0];
+		else if (*_end != '\0' && (*_end != 'f' || (*(_end + 1)) != 0))
+			throw std::exception();
+
 		const char		c = static_cast<char>(d);
 		const int		i = static_cast<int>(d);
 		const float		f = static_cast<float>(d);
@@ -54,9 +63,9 @@ void	ScalarConverter::convert(
 	}
 	catch(const std::exception& e)
 	{
-		outl("char:	Impossible")
-		outl("int:	Impossible")
-		outl("float:	Impossible")
-		outl("double:	Impossible")
+		outl("char:	" RED "Impossible" RESET)
+		outl("int:	" RED "Impossible" RESET)
+		outl("float:	" RED "Impossible" RESET)
+		outl("double:	" RED "Impossible" RESET)
 	}
 }
