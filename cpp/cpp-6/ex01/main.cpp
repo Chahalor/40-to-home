@@ -36,4 +36,41 @@ int	main(void)
 
 		outl(_bob);
 	}
+
+	{
+		void		*bob = (void *)0x42;
+
+		uintptr_t	_raw = Serializer::serialize((Data *)bob);
+		void		*_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+		_raw = Serializer::serialize((Data *)_bob);
+		_bob = Serializer::deserialize(_raw);
+
+		outl(_bob);
+	}
 }
