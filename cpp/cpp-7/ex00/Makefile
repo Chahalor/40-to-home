@@ -1,13 +1,13 @@
 NAME		:= baseator2000
 CXX			:= c++
-CXXFLAGS	:= -std=98 -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
+CXXFLAGS	:= -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
 DIR_ALL		:= all/
 
 ALL			:= $(DIR_ALL)/all.a
-SRCS		:= Base.cpp A.cpp B.cpp C.cpp
+SRCS		:= 
 _SRC		:= $(addprefix src/, $(SRCS)) main.cpp
 
 OBJS		:= $(_SRC:.cpp=.o)

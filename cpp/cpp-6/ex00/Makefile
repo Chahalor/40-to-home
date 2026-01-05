@@ -1,6 +1,6 @@
 NAME		:= scalarconverter
 CXX			:= c++
-CXXFLAGS	:= -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
+CXXFLAGS	:= -std=98 -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
