@@ -44,7 +44,7 @@ static void	test_swap(
 		(_a == expected_a && _b == expected_b),
 		_label,
 		"got (" + to_string_value(_a) + ", " + to_string_value(_b)
-			+ ") _expected (" + to_string_value(expected_a) + ", " + to_string_value(expected_b) + ")",
+			+ ") expected (" + to_string_value(expected_a) + ", " + to_string_value(expected_b) + ")",
 		_nb_tests,
 		_total
 	);
@@ -65,7 +65,7 @@ static void	test_min(
 	record_result(
 		(result == _expected),
 		_label,
-		"got " + to_string_value(result) + " _expected " + to_string_value(_expected),
+		"got " + to_string_value(result) + " expected " + to_string_value(_expected),
 		_nb_tests,
 		_total
 	);
@@ -86,7 +86,7 @@ static void	test_max(
 	record_result(
 		(result == _expected),
 		_label,
-		"got " + to_string_value(result) + " _expected " + to_string_value(_expected),
+		"got " + to_string_value(result) + " expected " + to_string_value(_expected),
 		_nb_tests,
 		_total
 	);
