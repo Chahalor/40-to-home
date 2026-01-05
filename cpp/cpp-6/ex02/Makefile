@@ -1,6 +1,6 @@
 NAME		:= baseator2000
 CXX			:= c++
-CXXFLAGS	:= -std=98 -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
+CXXFLAGS	:= -std=c++98 -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
