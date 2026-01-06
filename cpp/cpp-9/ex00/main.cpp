@@ -1,65 +1,36 @@
-#include <iostream>
-#include <stack>
+#include "BitcoinExchange.hpp"
 
-#include "MutantStack.hpp"
-
-static void	print_std_stack(std::stack<int> s)
+int	main(const int argc, const char *argv[])
 {
-	std::cout << "std::stack contents (top -> bottom): ";
-	while (!s.empty())
+	std::string					_filename;
+	std::ifstream				_file;
+	std::ifstream				_db;
+	std::map<std::string, int>	_map;
+
+	if (argc != 2)
 	{
-		std::cout << s.top();
-		s.pop();
-		if (!s.empty())
-			std::cout << ", ";
+		std::cerr << "usage: " << argv[1] << " <filename>" << std::endl;
+		return (EXIT_FAILURE);
 	}
-	std::cout << std::endl;
-}
+	else
+		_filename = argv[1];
 
-static void	print_mutant_stack(const MutantStack<int> &s)
-{
-	MutantStack<int>::const_iterator it = s.begin();
-	MutantStack<int>::const_iterator ite = s.end();
-
-	std::cout << "MutantStack contents (bottom -> top): ";
-	while (it != ite)
+	_db.open("data.csv");
+	if (unlikely(!_db.is_open()))
 	{
-		std::cout << *it;
-		++it;
-		if (it != ite)
-			std::cout << ", ";
+		std::perror("cannot find data.csv");
+		return (EXIT_FAILURE);
 	}
-	std::cout << std::endl;
-}
 
-int	main()
-{
-	std::stack<int>	st;
-	MutantStack<int>	ms;
+	_file.open(_filename);
+	if (unlikely(!_file.is_open()))
+	{
+		_db.close();
+		std::perror("invalid file");
+		return (EXIT_FAILURE);
+	}
 
-	st.push(5);
-	st.push(17);
-	ms.push(5);
-	ms.push(17);
+	_map.insert({"key", 10})
 
-	std::cout << "std::stack top: " << st.top() << ", size: " << st.size() << std::endl;
-	std::cout << "MutantStack top: " << ms.top() << ", size: " << ms.size() << std::endl;
 
-	st.pop();
-	ms.pop();
-
-	st.push(3);
-	st.push(5);
-	st.push(737);
-	st.push(0);
-
-	ms.push(3);
-	ms.push(5);
-	ms.push(737);
-	ms.push(0);
-
-	print_std_stack(st);
-	print_mutant_stack(ms);
-
-	return (0);
 }
