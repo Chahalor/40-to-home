@@ -1,151 +1,116 @@
 #include <cstdlib>
 #include <time.h>
+#include <vector>
+#include <list>
+#include <set>
 
 #include "all.hpp"
-#include "Array.hpp"
+#include "easyfind.hpp"
 
 #define PART(title) do {outl(YELLOW BOLD UNDERLINE << title << RESET)} while (0);
 
-template<typename T>
-static std::string	to_string_value(
-	const T &value
+static inline t_container_type	_get_type(
+	const std::string _type_str
 )
 {
-	std::ostringstream	oss;
+	std::string	_allowed[4] = {
+		"vector", "deque", "list"
+	};
+	int	_i ;
 
-	oss << std::boolalpha << value;
-	return (oss.str());
-}
-
-static void	record_result(
-	const bool ok,
-	const std::string &label,
-	const std::string &detail,
-	int &passed,
-	int &total
-)
-{
-	total++;
-	if (ok)
-		passed++;
-	outl((ok ? GREEN "OK" RESET : RED "KO" RESET) << " " << label << " " << detail);
-}
-
-template<typename T>
-static void	expect_value(
-	const std::string &label,
-	const T &got,
-	const T &expected,
-	int &passed,
-	int &total
-)
-{
-	record_result(
-		(got == expected),
-		label,
-		"got " + to_string_value(got) + " expected " + to_string_value(expected),
-		passed,
-		total
-	);
-}
-
-template<typename T>
-static void	fill_increment(
-	Array<T> &arr,
-	const T &start
-)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < arr.size())
+	_i = 0;
+	while (_i < 4)
 	{
-		arr[i] = static_cast<T>(start + i);
-		i++;
+		if (_type_str == _allowed[_i])
+			return ((t_container_type)_i);
+		_i++;
+	}
+	return ((t_container_type)-1);
+}
+
+template<typename Container>
+static inline void	_fill_container(
+	Container &_container,
+	const int _size
+)
+{
+	int	_i;
+
+	_i = 0;
+	while (_i < _size)
+	{
+		_container.push_back(_i);
+		_i++;
 	}
 }
 
-int	main(void)
+template<typename Container>
+static int	_test(
+	const int _size,
+	const int _target
+)
 {
-	int	passed = 0;
-	int	total = 0;
+	Container	_container(_size);
 
-	PART("default constructor");
+	_fill_container(_container, _size);
+
+	try
 	{
-		Array<int>	a;
-
-		expect_value<unsigned int>("size == 0", a.size(), 0u, passed, total);
-		try
-		{
-			(void)a[0];
-			record_result(false, "access empty", "expected exception", passed, total);
-		}
-		catch (const std::exception &)
-		{
-			record_result(true, "access empty", "threw exception", passed, total);
-		}
+		easyfind(_container, _target);
+		outl("found " << _target << " inside the container")
+		return (0);
 	}
-
-	PART("sized constructor + values");
+	catch(const std::exception& e)
 	{
-		Array<int>	b(5);
+		std::cerr << e.what() << '\n';
+		return (1);
+	}
+}
 
-		expect_value<unsigned int>("size == 5", b.size(), 5u, passed, total);
-		fill_increment<int>(b, 10);
-		expect_value<int>("b[0]", b[0], 10, passed, total);
-		expect_value<int>("b[4]", b[4], 14, passed, total);
-		try
+int	main(const int argc, const char *argv[])
+{
+	const int			_dummy = 0;
+	int					_container_size = 100;
+	int					_target = 1;
+	t_container_type	_type = CONTAINER_TYPE_VECTOR;
+
+	if (argc > 4)
+	{
+		std::cerr << "usage: " << argv[0] << " <target> <size> <algo>" << std::endl;
+		return (EXIT_FAILURE);
+	}
+	else if (argc > 1)
+	{
+		_target = std::atoi(argv[1]);
+		if (argc > 2)
+			_container_size = std::atoi(argv[2]);
+		if (argc > 3)
+			_type = _get_type(argv[3]);
+		
+		if (_container_size <= 0)
 		{
-			(void)b[5];
-			record_result(false, "out of bound", "expected exception", passed, total);
+			std::cerr << "<container size> must be a valid unsigned int" << std::endl;
+			return (EXIT_FAILURE);
 		}
-		catch (const std::exception &)
+		else if (_type < 0)
 		{
-			record_result(true, "out of bound", "threw exception", passed, total);
+			std::cerr << "invalid container: " << argv[3] << "\nAllowed container: vector, deque, list" << std::endl;
+			return (EXIT_FAILURE);
 		}
 	}
 
-	PART("copy constructor");
+	SRAND(_dummy);
+
+	switch (_type)
 	{
-		Array<int>	src(3);
-		fill_increment<int>(src, 1);
-		Array<int>	copy(src);
-
-		src[0] = 99;
-		expect_value<int>("copy[0] unchanged", copy[0], 1, passed, total);
+		case (CONTAINER_TYPE_VECTOR):
+			return (_test<std::vector<int> >(_container_size, _target));
+		case (CONTAINER_TYPE_DEQUE):
+			return (_test<std::deque<int> >(_container_size, _target));
+		case (CONTAINER_TYPE_LIST):
+			return (_test<std::list<int> >(_container_size, _target));
+		default:
+			return (EXIT_FAILURE);
 	}
-
-	PART("assignment operator");
-	{
-		Array<int>	src(4);
-		fill_increment<int>(src, 5);
-		Array<int>	dst;
-
-		dst = src;
-		src[1] = 42;
-		expect_value<int>("dst[1] unchanged", dst[1], 6, passed, total);
-	}
-
-	PART("const access");
-	{
-		Array<int>	tmp(2);
-		fill_increment<int>(tmp, 7);
-		const Array<int>	cst(tmp);
-
-		expect_value<int>("cst[1]", cst[1], 8, passed, total);
-	}
-
-	PART("string array");
-	{
-		Array<std::string>	s(3);
-
-		s[0] = "alpha";
-		s[1] = "beta";
-		s[2] = "gamma";
-		expect_value<std::string>("s[0]", s[0], "alpha", passed, total);
-		expect_value<std::string>("s[2]", s[2], "gamma", passed, total);
-	}
-
-	outl(BOLD << "Result: " << passed << "/" << total << RESET);
-	return (passed == total ? 0 : 1);
 }
+

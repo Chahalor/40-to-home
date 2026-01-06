@@ -13,6 +13,8 @@
 #define outl(_expr) {std::cout << _expr << std::endl;}
 #define out(_expr) {std::cout << _expr;}
 
+#define SRAND(var)		srand(time(NULL) + (long)(&var));
+
 // colors
 
 # define BLACK			"\033[30m"
@@ -97,9 +99,14 @@ namespace all
 	std::string	trunc(const std::string &s, size_t max_chars);
 	std::string	pad(const std::string &s, size_t width);
 	std::string	itoa(int _value);
+
 	bool		readline(const std::string prompt, std::string *const input);
 	bool		readAscii(const std::string prompt, std::string *const input);
+
 	int			atoi(const char *);
 	int			atoi(const std::string);
 	void		logs(const std::string &_str);
+
+	int			randint(const int _val1, const int _val2);
+	size_t		randint(const size_t _val1, const size_t _val2);
 }
