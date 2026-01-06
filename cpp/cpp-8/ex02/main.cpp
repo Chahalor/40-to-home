@@ -1,115 +1,65 @@
-#include <cstdlib>
-#include <time.h>
-#include <vector>
-#include <list>
-#include <set>
+#include <iostream>
+#include <stack>
 
-#include "all.hpp"
 #include "MutantStack.hpp"
 
-#define PART(title) do {outl(YELLOW BOLD UNDERLINE << title << RESET)} while (0);
-
-
-int main()
+static void	print_std_stack(std::stack<int> s)
 {
-	MutantStack<int> mstack;
-	mstack.push(5);
-	mstack.push(17);
-	std::cout << mstack.top() << std::endl;
-	mstack.pop();
-	std::cout << mstack.size() << std::endl;
-	mstack.push(3);
-	mstack.push(5);
-	mstack.push(737);
-	//[...]
-	mstack.push(0);
-	MutantStack<int>::iterator it = mstack.begin();
-	MutantStack<int>::iterator ite = mstack.end();
-	++it;
-	--it;
-	while (it != ite)
+	std::cout << "std::stack contents (top -> bottom): ";
+	while (!s.empty())
 	{
-		std::cout << *it << std::endl;
-		++it;
+		std::cout << s.top();
+		s.pop();
+		if (!s.empty())
+			std::cout << ", ";
 	}
-	std::stack<int> s(mstack);
-	return 0;
+	std::cout << std::endl;
 }
 
-// int	main(const int argc, const char *argv[])
-// {
-// 	const int			_dummy = 0;
-// 	int					_size = 0;
+static void	print_mutant_stack(const MutantStack<int> &s)
+{
+	MutantStack<int>::const_iterator it = s.begin();
+	MutantStack<int>::const_iterator ite = s.end();
 
-// 	if (argc > 2)
-// 	{
-// 		std::cerr << "usage: " << argv[0] << " <size>" << std::endl;
-// 		return (EXIT_FAILURE);
-// 	}
-// 	else if (argc > 1)
-// 	{
-// 		_size = std::atoi(argv[1]);
-// 		if (_size <= 0)
-// 		{
-// 			std::cerr << "<size> must be a valid unsigned int" << std::endl;
-// 			return (EXIT_FAILURE);
-// 		}
-// 	}
+	std::cout << "MutantStack contents (bottom -> top): ";
+	while (it != ite)
+	{
+		std::cout << *it;
+		++it;
+		if (it != ite)
+			std::cout << ", ";
+	}
+	std::cout << std::endl;
+}
 
-// 	SRAND(_dummy);
+int	main()
+{
+	std::stack<int>	st;
+	MutantStack<int>	ms;
 
-// 	if (_size)
-// 	{
-// 		try
-// 		{
-// 			Span	_span = Span(_size);
-// 			_span.fillRandom(_size - 1);
+	st.push(5);
+	st.push(17);
+	ms.push(5);
+	ms.push(17);
 
-// 			outl(_span << "\nshortest Span: " << _span.shortestSpan() << "\nlongest Span: " << _span.longestSpan());
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << e.what() << '\n';
-// 		}
-// 	}
-// 	else
-// 	{
-// 		Span	span(10);
+	std::cout << "std::stack top: " << st.top() << ", size: " << st.size() << std::endl;
+	std::cout << "MutantStack top: " << ms.top() << ", size: " << ms.size() << std::endl;
 
-// 		PART("10 numbers Span")
-// 		span.addNumber(1);
-// 		span.addNumber(8);
-// 		span.addNumber(5);
-// 		span.addNumber(11);
-// 		span.addNumber(88);
-// 		span.addNumber(55);
-// 		span.addNumber(23);
-// 		span.addNumber(27);
-// 		span.addNumber(42);
-// 		span.addNumber(15);
+	st.pop();
+	ms.pop();
 
-// 		outl(span << "\nshortest Span: " << span.shortestSpan() << "\nlongest Span: " << span.longestSpan());
+	st.push(3);
+	st.push(5);
+	st.push(737);
+	st.push(0);
 
-// 		PART("no more space in Span")
-// 		try
-// 		{
-// 			span.addNumber(69);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << e.what() << '\n';
-// 		}
+	ms.push(3);
+	ms.push(5);
+	ms.push(737);
+	ms.push(0);
 
-// 		PART("Empty Span")
-// 		Span	empty(0);
-// 		try
-// 		{
-// 			empty.shortestSpan();
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << e.what() <<'\n';
-// 		}
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
+	print_std_stack(st);
+	print_mutant_stack(ms);
+
+	return (0);
+}

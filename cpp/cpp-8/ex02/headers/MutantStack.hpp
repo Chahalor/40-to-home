@@ -2,6 +2,8 @@
 
 #include <stack>
 
+#include "all.hpp"
+
 #define	MUTANT_STACK_ALLOC_SIZE	16
 
 template<typename T>
@@ -13,8 +15,8 @@ class MutantStack: public std::stack<T>
 		size_t	_nb_elt;
 
 	public:
-		typedef int *		iterator;
-		typedef const int *	const_iterator;
+		typedef T *			iterator;
+		typedef const T *	const_iterator;
 
 	/* -Constructors- */
 		MutantStack();
@@ -48,6 +50,14 @@ class MutantStack: public std::stack<T>
 
 		const_iterator	cbegin() const;
 		const_iterator	cend() const;
+
+	/*  -Exeptions-   */
+		class MutantStackEmptyExeption: virtual public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+
 };
 
 #include "MutantStack.tpp"

@@ -36,13 +36,16 @@ MutantStack<T>::~MutantStack(void)
 template<typename T>
 const T	&MutantStack<T>::top(void) const
 {
-	return (this->_stack[0]);
+	if (unlikely(!this->_nb_elt))
+		throw MutantStack::MutantStackEmptyExeption();
+
+	return (this->_stack[this->_nb_elt - 1]);
 }
 
 template<typename T>
 T	&MutantStack<T>::top(void)
 {
-	return (this->_stack[0]);
+	return (this->_stack[this->_nb_elt - 1]);
 }
 
 template<typename T>
@@ -69,7 +72,7 @@ MutantStack<T>	&MutantStack<T>::operator=(
 	size_t	_i;
 
 	_i = 0;
-	while (_i < _other->_nb_elt)
+	while (_i < _other._nb_elt)
 	{
 		_new[_i] = _other._stack[_i];
 		_i++;
@@ -88,7 +91,7 @@ void	MutantStack<T>::push(
 	const T &_value
 )
 {
-	if (unlikely(this->_nb_elt + 1 >= this->_capacity))
+	if (unlikely(this->_nb_elt >= this->_capacity))
 	{
 		T		*_new = new T[this->_capacity * 2];
 		size_t	_i;
@@ -112,6 +115,9 @@ void	MutantStack<T>::push(
 template<typename T>
 void	MutantStack<T>::pop(void)
 {
+	if (unlikely(!this->_nb_elt))
+		throw MutantStack::MutantStackEmptyExeption();
+
 	this->_nb_elt--;
 }
 
@@ -148,4 +154,10 @@ template<typename T>
 typename MutantStack<T>::const_iterator	MutantStack<T>::cend() const
 {
 	return (this->_stack + this->_nb_elt);
+}
+
+template<typename T>
+const char	*MutantStack<T>::MutantStackEmptyExeption::what() const throw()
+{
+	return ("Stack empty");
 }
