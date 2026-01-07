@@ -5,11 +5,11 @@ int	main(const int argc, const char *argv[])
 	std::string					_filename;
 	std::ifstream				_file;
 	std::ifstream				_db;
-	std::map<std::string, int>	_map;
+	std::map<std::string, float>	_map;
 
 	if (argc != 2)
 	{
-		std::cerr << "usage: " << argv[1] << " <filename>" << std::endl;
+		std::cerr << "usage: " << argv[0] << " <filename>" << std::endl;
 		return (EXIT_FAILURE);
 	}
 	else
@@ -22,15 +22,21 @@ int	main(const int argc, const char *argv[])
 		return (EXIT_FAILURE);
 	}
 
-	_file.open(_filename);
+	_file.open(_filename.c_str());
 	if (unlikely(!_file.is_open()))
 	{
 		_db.close();
-		std::perror("invalid file");
+		std::perror("invalid DB file");
 		return (EXIT_FAILURE);
 	}
 
-	_map.insert({"key", 10})
+	if (loadDB(_map, _db))
+	{
+		std::cerr << RED "Error: " RESET "invalid db" << std::endl;
+		return (EXIT_FAILURE);
+	}
 
-
+	return (BitcoinExchange(_map, _file));
 }
+
+//97.05

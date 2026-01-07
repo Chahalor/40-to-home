@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <fstream>
+#include <stddef.h>
 
 #define unlikely(_expr)	__builtin_expect(!!(_expr), 0)
 #define likely(_expr)	__builtin_expect(!!(_expr), 1)
@@ -99,9 +101,12 @@ namespace all
 	std::string	trunc(const std::string &s, size_t max_chars);
 	std::string	pad(const std::string &s, size_t width);
 	std::string	itoa(int _value);
+	void		trim(std::string &_target);
 
 	bool		readline(const std::string prompt, std::string *const input);
 	bool		readAscii(const std::string prompt, std::string *const input);
+	std::string	gnl(std::ifstream &_file);
+	std::string	gnl(std::ifstream &_file, const char _delim);
 
 	int			atoi(const char *);
 	int			atoi(const std::string);
