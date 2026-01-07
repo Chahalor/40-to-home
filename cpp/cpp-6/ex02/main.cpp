@@ -48,7 +48,33 @@ void	identify(
 	Base& p
 )
 {
-	identify(&p);
+	try
+	{
+		(void)dynamic_cast<A &>(p);
+		out(GREEN "A" RESET)
+	}
+	catch(const std::exception& e)
+	{
+		try
+		{
+			(void)dynamic_cast<B &>(p);
+			out(YELLOW "B" RESET)
+		}
+		catch(const std::exception& e)
+		{
+			try
+			{
+				(void)dynamic_cast<C &>(p);
+				out(BLUE "C" RESET)
+			}
+			catch(const std::exception& e)
+			{
+				out(RED "unknown type" RESET)
+			}
+			
+		}
+		
+	}
 }
 
 int	main(const int argc, const char *argv[])
