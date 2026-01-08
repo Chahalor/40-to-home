@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 08:43:16 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/04/04 13:48:16 by nduvoid          ###   ########.fr       */
+/*   Updated: 2026/01/08 10:56:23 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_instruct	*read_instructions(void)
 	line = get_next_line(STDIN_FILENO);
 	nb_alloc = 1;
 	i = -1;
-	while (line)
+	while (line && ft_strncmp(line, "\n", 2))
 	{
 		inst[++i] = str_to_instruction(line);
 		if (inst[i] == NONE)
