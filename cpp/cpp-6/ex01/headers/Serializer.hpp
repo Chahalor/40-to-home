@@ -12,6 +12,7 @@ struct s_Data
 class Serializer
 {
 	private:
+		Serializer(void);
 		//...
 
 	public:
