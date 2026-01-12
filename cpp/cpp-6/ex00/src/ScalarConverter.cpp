@@ -42,13 +42,13 @@ static bool is_inf(double d)
 }
 
 
-static bool is_special_literal(const std::string& s)
-{
-	return s == "nan" || s == "nanf"
-		|| s == "+inf" || s == "-inf"
-		|| s == "inf"  || s == "inff"
-		|| s == "+inff" || s == "-inff";
-}
+// static bool is_special_literal(const std::string& s)
+// {
+// 	return s == "nan" || s == "nanf"
+// 		|| s == "+inf" || s == "-inf"
+// 		|| s == "inf"  || s == "inff"
+// 		|| s == "+inff" || s == "-inff";
+// }
 
 void	ScalarConverter::convert(
 	const std::string &_input
@@ -74,17 +74,16 @@ void	ScalarConverter::convert(
 
 		if (is_nan(d))
 		{
-			outl("char: impossible");
-			outl("int: impossible");
+			outl("char:	" RED "impossible" RESET);
+			outl("int:	" RED "impossible" RESET);
 			outl("float: nanf");
 			outl("double: nan");
 			return;
 		}
-
-		if (is_inf(d))
+		else if (is_inf(d))
 		{
-			outl("char: impossible");
-			outl("int: impossible");
+			outl("char:	" RED "impossible" RESET);
+			outl("int:	" RED "impossible" RESET);
 
 			if (d > 0)
 			{
@@ -109,7 +108,7 @@ void	ScalarConverter::convert(
 			outl("char:" YELLOW "	Non displayable" RESET)
 		outl("int:	" << i);
 		outl("float:	" << f << "f");
-		outl("double:	" << d << "f");
+		outl("double:	" << d);
 	}
 	catch(const std::exception& e)
 	{
