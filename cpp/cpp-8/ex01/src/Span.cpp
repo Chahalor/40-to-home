@@ -74,18 +74,26 @@ void	Span::fillRandom(
 	const int &_nb_values
 )
 {
-	int	_i;
-
 	if (unlikely(_nb_values + this->_idx > this->_capacity))
 		throw Span::SpanFullExeption();
 
-	_i = 0;
-	while (_i < _nb_values)
-	{
-		this->addNumber(all::randint(0, this->_capacity));
-		_i++;
-	}
+	const int			_range_size = this->_capacity + (this->_capacity / 5);
+	std::vector<int>	_pool;
+
+	if (unlikely(_nb_values > _range_size))
+		throw Span::SpanFullExeption();
+
+	_pool.reserve(_range_size);
+
+	for (int i = 0; i < _range_size; ++i)
+		_pool.push_back(i);
+
+	std::random_shuffle(_pool.begin(), _pool.end());
+
+	for (int i = 0; i < _nb_values; ++i)
+		this->addNumber(_pool[i]);
 }
+
 
 Span	&Span::operator=(
 	const Span &_other
@@ -171,7 +179,11 @@ std::ostream	&operator<<(
 )
 {
 	const unsigned int	_max = _target.getIdx();
-	unsigned int		_i;
+	int					_short_a = 0;
+	int					_short_b = 0;
+	int					_long_min = 0;
+	int					_long_max = 0;
+	bool				_has_spans = false;
 
 	if (!_max)
 	{
@@ -179,13 +191,54 @@ std::ostream	&operator<<(
 		return (os);
 	}
 
-	os << "{";
-	_i = 0;
-	while (_i < _max - 1)
+	if (_max >= 2)
 	{
-		os << _target.getStorage()[_i] << ", ";
-		_i++;
+		std::vector<int> sorted = _target.getStorage();
+		std::sort(sorted.begin(), sorted.end());
+
+		_long_min = sorted.front();
+		_long_max = sorted.back();
+
+		int	best = std::abs(sorted[1] - sorted[0]);
+		_short_a = sorted[0];
+		_short_b = sorted[1];
+
+		for (size_t i = 2; i < sorted.size(); ++i)
+		{
+			int diff = std::abs(sorted[i] - sorted[i - 1]);
+			if (diff < best)
+			{
+				best = diff;
+				_short_a = sorted[i - 1];
+				_short_b = sorted[i];
+			}
+		}
+		_has_spans = true;
 	}
-	os << _target.getStorage()[_i] << "}";
+
+	os << "{";
+	for (unsigned int i = 0; i < _max; ++i)
+	{
+		int val = _target.getStorage()[i];
+
+		bool is_short =
+			_has_spans && (val == _short_a || val == _short_b);
+		bool is_long =
+			_has_spans && (val == _long_min || val == _long_max);
+
+		if (is_short && is_long)
+			os << ORANGE;
+		else if (is_short)
+			os << GREEN;
+		else if (is_long)
+			os << RED;
+
+		os << val << RESET;
+
+		if (i + 1 < _max)
+			os << ", ";
+	}
+	os << "}";
+
 	return (os);
 }
