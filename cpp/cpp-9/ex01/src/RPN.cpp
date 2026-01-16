@@ -6,7 +6,6 @@ static inline void	addNumber(
 	std::stack<int> &_stack
 )
 {
-	// outl("_it='" << static_cast<char>(*_it) << "' _it + 1='" << static_cast<char>(*(_it + 1)) << "'")	// rm
 	if (unlikely(std::isdigit(*_it) && std::isdigit(*(_it + 1))))
 		throw RPN::InvalidNumberExeption(std::string(_it, _end));
 	else if (unlikely(!std::isdigit(*_it) || *(_it + 1) != ' '))
@@ -36,7 +35,6 @@ static inline void	doOperation(
 			_op2 = _stack.top();
 			_result = _op2 / _op1;
 			_stack.pop();
-			// outl("doing '" << _op2 << " / " << _op1 <<"'=" << _result);	//rm
 			break ;
 
 		case ('*'):
@@ -45,7 +43,6 @@ static inline void	doOperation(
 			_op2 = _stack.top();
 			_result = _op2 * _op1;
 			_stack.pop();
-			// outl("doing '" << _op2 << " * " << _op1 <<"'=" << _result);	//rm
 			break ;
 
 		case ('+'):
@@ -54,7 +51,6 @@ static inline void	doOperation(
 			_op2 = _stack.top();
 			_result = _op2 + _op1;
 			_stack.pop();
-			// outl("doing '" << _op2 << " + " << _op1 <<"'=" << _result);	//rm
 			break ;
 
 		case ('-'):
@@ -63,7 +59,6 @@ static inline void	doOperation(
 			_op2 = _stack.top();
 			_result = _op2 - _op1;
 			_stack.pop();
-			// outl("doing '" << _op1 << " - " << _op1 <<"'=" << _result);	//rm
 			break ;
 
 		default:
@@ -86,8 +81,10 @@ int	RPN::evaluate(
 	addNumber(_it, _end, _stack);
 	while (_it != _end && *_it)
 	{
-		addNumber(_it, _end, _stack);
-		doOperation(_it, _stack);
+		if (std::isdigit(*_it))
+			addNumber(_it, _end, _stack);
+		else
+			doOperation(_it, _stack);
 	}
 	return (_stack.top());
 }
