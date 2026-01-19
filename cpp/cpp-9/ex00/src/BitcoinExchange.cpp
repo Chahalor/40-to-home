@@ -84,19 +84,6 @@ int	loadDB(
 	return (_nb_errors);
 }
 
-float	getValueByDate(
-	const std::map<std::string, float> &_map,
-	const std::string &_date
-)
-{
-	std::map<std::string, float>::const_iterator	_it = _map.find(_date);
-
-	if (likely(_it != _map.end()))
-		return (_it->second);
-	else
-		return (_map.lower_bound(_date)->second);
-}
-
 int	BitcoinExchange(
 	const std::map<std::string, float> &_map,
 	std::ifstream &_file
@@ -124,7 +111,6 @@ int	BitcoinExchange(
 		if (unlikely(!_buff.size() && _file.eof()))
 			break ;
 
-		// outl("buff(" << _nb_lines <<") " << _buff << " '" << static_cast<char>(_buff[10]) << "'")
 		_date = _buff.substr(0, 10);
 		if (unlikely(!is_date(_date)))
 		{
@@ -148,10 +134,26 @@ int	BitcoinExchange(
 			continue ;
 		}
 
-		// std::map<std::string, float>::const_iterator	_it = _map.find(_date);
+		// std::map<std::string, float>::const_iterator	_data = _map.lower_bound(_date);
+		std::map<std::string, float>::const_iterator _it = _map.lower_bound(_date);
+
+		if (_it == _map.end() || _it->first != _date)
+		{
+			if (unlikely(_it == _map.begin()))
+			{
+				std::cerr << RED "Error: " RESET
+						<< "no earlier data available" << std::endl;
+				_nb_errors++;
+				continue;
+			}
+			--_it;
+		}
+
 		outl(BLUE << _date << RESET
 				" => " YELLOW << _value << RESET
-				" = " GREEN << getValueByDate(_map, _date) * _value << RESET);
+				" = " GREEN << _it->second * _value << RESET
+				" (" GREEN << _it->first << RESET ")"
+			);
 	}
 	return (!_nb_errors && !_map.empty());
 }
