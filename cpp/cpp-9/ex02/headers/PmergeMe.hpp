@@ -9,7 +9,6 @@
 #include <deque>
 #include <vector>
 #include <time.h>
-#include <tuple>
 
 /* -----| Globals   |----- */
 #include "all.hpp"
@@ -43,77 +42,37 @@
 /* ************************************************************************** */
 /*                                 Structs                                    */
 /* ************************************************************************** */
-	//...
+
+struct s_pair
+{
+	long	big;
+	long	small;
+
+	s_pair(const long a, const long b) : big(a >= b ? a : b), small(a > b ? b : a) {}
+};
 
 /* ************************************************************************** */
 /*                                 Class                                      */
 /* ************************************************************************** */
-
-#pragma once
-
-class RPN
-{
-	private:
-		//...
-	public:
-	/* -Constructors- */
-		//...
-
-	/* -Destructors-  */
-		//...
-
-	/*    -Getter-    */
-		//...
-
-	/*    -Setter-    */
-		//...
-
-	/*  -Operators-   */
-		//...
-
-	/*  -Methode-     */
-		static int	evaluate(const std::string &_expr);
-
-	/*  -Exeptions-   */
-
-	class	InvalidCharExeption: virtual public std::exception
-	{
-		private:
-			std::string	_msg;
-
-		public:
-			InvalidCharExeption();
-			InvalidCharExeption(const char _c);
-			virtual ~InvalidCharExeption() throw() {}
-			const char	*what(void) const throw();
-	};
-
-	class	InvalidOperatorExeption: virtual public std::exception
-	{
-		private:
-			std::string	_msg;
-
-		public:
-			InvalidOperatorExeption(void);
-			InvalidOperatorExeption(const char _c);
-			virtual ~InvalidOperatorExeption() throw() {}
-			const char	*what(void) const throw();
-	};
-
-	class	InvalidNumberExeption: virtual public std::exception
-	{
-		private:
-			std::string	_msg;
-
-		public:
-			InvalidNumberExeption(void);
-			InvalidNumberExeption(const std::string &_s);
-			virtual ~InvalidNumberExeption(void) throw() {}
-			const char	*what(void) const throw();
-	};
-};
+	//...
 
 /* ************************************************************************** */
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
+template<typename T>
+T	Sortator2000(
+	T &_deque
+);
+
+template<typename T>
+std::deque<T>	PMergeMe(std::deque<T> &_list)
+{
+	return (Sortator2000<std::deque<T> >(_list));
+}
+
+template<typename T>
+std::vector<T>	PMergeMe(std::vector<T> &_list)
+{
+	return (Sortator2000<std::vector<long> >(_list));
+}

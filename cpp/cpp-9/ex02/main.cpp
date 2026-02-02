@@ -36,9 +36,19 @@ int	main(const int argc, const char *argv[])
 		_i++;
 	}
 
-
-	test_deque(_deque);
-	test_vector(_vector);
+	try
+	{
+		// TODO: delta time
+		Sortator2000<std::deque<long> >(_deque);
+		Sortator2000<std::vector<long> >(_vector);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << RED << e.what() << "\n" RESET;
+	}
+	
+	// PMergeMe<long>(_deque);
+	// PMergeMe<long>(_vector);
 	
 	return (EXIT_SUCCESS);
 }
