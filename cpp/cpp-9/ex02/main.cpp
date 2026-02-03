@@ -4,8 +4,8 @@
 
 int	main(const int argc, const char *argv[])
 {
-	std::deque<long>	_deque;
-	std::vector<long>	_vector;
+	std::deque<uint>	_deque;
+	std::vector<uint>	_vector;
 	int					_i;
 
 	if (unlikely(argc < 2))
@@ -19,7 +19,7 @@ int	main(const int argc, const char *argv[])
 	while (_i < argc)
 	{
 		char	*_end;
-		long	_value;
+		uint	_value;
 
 		_value = strtol(argv[_i], &_end, 10);
 		if (unlikely(*_end != '\0'))
@@ -31,7 +31,7 @@ int	main(const int argc, const char *argv[])
 		{
 			_deque.push_back(_value);
 			_vector.push_back(_value);
-			out(argv[_i] << " ")	// TODO: show a "..." if to many elements
+			out(argv[_i] << " ")	// TODO: dgrader de couleurs
 		}
 		_i++;
 	}
@@ -39,16 +39,13 @@ int	main(const int argc, const char *argv[])
 	try
 	{
 		// TODO: delta time
-		Sortator2000<std::deque<long> >(_deque);
-		Sortator2000<std::vector<long> >(_vector);
+		PMergeMe<std::deque>(_deque);
+		PMergeMe<std::vector>(_vector);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << RED << e.what() << "\n" RESET;
 	}
-	
-	// PMergeMe<long>(_deque);
-	// PMergeMe<long>(_vector);
-	
+
 	return (EXIT_SUCCESS);
 }

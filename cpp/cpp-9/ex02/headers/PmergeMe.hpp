@@ -45,10 +45,10 @@
 
 struct s_pair
 {
-	long	big;
-	long	small;
+	uint	big;
+	uint	small;
 
-	s_pair(const long a, const long b) : big(a >= b ? a : b), small(a > b ? b : a) {}
+	s_pair(const uint a, const uint b) : big(a >= b ? a : b), small(a > b ? b : a) {}
 };
 
 /* ************************************************************************** */
@@ -60,19 +60,13 @@ struct s_pair
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-template<typename T>
-T	Sortator2000(
-	T &_deque
+uint	_jacobsthal(
+	uint _n
 );
 
-template<typename T>
-std::deque<T>	PMergeMe(std::deque<T> &_list)
-{
-	return (Sortator2000<std::deque<T> >(_list));
-}
+template<template<typename> class C>
+C<uint>	PMergeMe(
+	C<uint> _input
+);
 
-template<typename T>
-std::vector<T>	PMergeMe(std::vector<T> &_list)
-{
-	return (Sortator2000<std::vector<long> >(_list));
-}
+#include "PmergeMe.tpp"

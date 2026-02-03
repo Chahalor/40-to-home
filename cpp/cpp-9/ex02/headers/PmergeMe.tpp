@@ -1,36 +1,7 @@
 #include "PmergeMe.hpp"
 
-/**
- *			{0						if n == 0;
- * J(n) =	{1						if n == 1;
- *			{J(n - 1) + 2J(n - 2);	if n > 1;
- */
-uint	_jacobsthal(
-	uint _n
-)
-{
-	uint	_a = 0;
-	uint	_b = 1;
-	uint	_c;
 
-	if (_n == 0)
-		return (0);
-	else if (_n == 1)
-		return (1);
-
-	for (uint	_i = 2;
-		_i <= _n;
-		++_i
-	)
-	{
-		_c = _b + 2 * _a;
-		_a = _b;
-		_b = _c;
-	}
-	return (_b);
-}
-
-/* template<template<typename> class C>
+template<template<typename> class C>
 C<uint>	_build_insert_order(
 	const uint _size
 )
@@ -133,16 +104,14 @@ void _bin_insert(
 	_maximus.insert(_pos, static_cast<uint>(_left_over));
 }
 
-
-
-template<template<typename, typename> class C>
-C<uint, std::allocator<uint> >	PMergeMe(
-	C<uint, std::allocator<uint> > _input
+template<template<typename> class C>
+C<uint>	PMergeMe(
+	C<uint> _input
 )
 {
-	C<s_pair, std::allocator<s_pair> >	_pairs;
+	C<s_pair>	_pairs;
 	long		_left_over = -1;
-	C<uint, std::allocator<s_pair> >		maximus;
+	C<uint >		maximus;
 
 	if (_input.size() < 3)
 		return (_input);
@@ -165,4 +134,5 @@ C<uint, std::allocator<uint> >	PMergeMe(
 
 	return (maximus);
 }
- */
+
+// , std::allocator<uint> 
