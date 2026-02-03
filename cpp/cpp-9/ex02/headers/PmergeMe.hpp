@@ -8,6 +8,8 @@
 #include <exception>
 #include <deque>
 #include <vector>
+#include <algorithm>
+#include <memory>
 #include <time.h>
 
 /* -----| Globals   |----- */
@@ -60,13 +62,11 @@ struct s_pair
 /*                                 Prototypes                                 */
 /* ************************************************************************** */
 
-uint	_jacobsthal(
-	uint _n
-);
+void print_duration(clock_t start, clock_t end, const char* label, size_t n_elem);
+void color_shade(int value, int max_value, int &r, int &g, int &b);
+void print_array(const char *label, const std::vector<uint> &v);
 
-template<template<typename> class C>
-C<uint>	PMergeMe(
-	C<uint> _input
-);
+std::vector<uint>	PMergeMe(const std::vector<uint> &input);
+std::deque<uint>	PMergeMe(const std::deque<uint> &input);
 
 #include "PmergeMe.tpp"

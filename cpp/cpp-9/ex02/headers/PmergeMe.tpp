@@ -1,138 +1,298 @@
-#include "PmergeMe.hpp"
+#pragma once
 
+#include <vector>
+#include <deque>
+#include <algorithm>
+#include <cstddef>
 
-template<template<typename> class C>
-C<uint>	_build_insert_order(
-	const uint _size
+static inline uint _jacobsthal(
+	const uint n
 )
 {
-	uint	_val;
-	uint	_last;
-	uint	_start;
-	uint	_current = 1;
-	C<uint>	result;
+	uint	_a = 0;
+	uint	_b = 1;
 
-	_val = _jacobsthal(_current);
-	_last = 0;
-	while (_current < _size)
-	{
-		_start = _val;
-		while (_val > _last)
-		{
-			result.push_back(_val--);
-		}
-		_last = _start;
-		_current++;
-	}
+	if (n == 0)
+		return (0);
+	else if (n == 1)
+		return (1);
 
-	return (result);
-}
-
-template<template<typename> class C>
-void	_do_pairs(
-	C<s_pair> &_pairs,
-	C<uint> &_input
-)
-{
-	while (_input.size())
-	{
-		uint	_val1;
-		uint	_val2;
-
-		_val1 = _input.front();
-		_input.pop_front();
-		_val2 = _input.front();
-		_input.pop_front();
-
-		s_pair	_pair = s_pair(_val1, _val2);
-		_pairs.push_back(_pair);
-	}
-}
-
-template<template<typename> class C>
-C<uint>	_extract_max(
-	C<s_pair> &_pairs
-)
-{
-	size_t	_i;
-	C<uint>	result;
-
-	_i = 0;
-	while (_i < _pairs.size())
-	{
-		result.push_back(_pairs.at(_i));
-		_i++;
-	}
-
-	return (result);
-}
-
-template<template<typename> class C>
-C<uint>	_insert(
-	C<s_pair> &_min,
-	C<uint> &_max
-)
-{
-	C<uint>	_jack;
-	C<uint>	result = _max;
-
-	_jack = _build_insert_order(_min.size());
-
-	for (uint	_pos = _jack.front();
-		_jack.size();
-		_pos = _jack.front()
+	for (uint	_i = 2;
+		_i <= n;
+		++_i
 	)
 	{
-		typename C<uint>::iterator	_pos_max = std::lower_bound(_max.begin(), _max.end(), _min.at(_pos).big);
+		uint	_c = _b + 2 * _a;
+		_a = _b;
+		_b = _c;
+	}
 
-		result.insert(_pos_max, _min.at(_pos).small);
+	return (_b);
+}
 
-		_jack.pop_front();
+template<template<typename, typename> class C, typename T>
+struct _container_of
+{
+	typedef C<T, std::allocator<T> > type;
+};
+
+template<template<typename, typename> class C>
+typename _container_of<C, uint>::type	_build_insert_order(
+	uint m
+)
+{
+	typedef typename _container_of<C, uint>::type	t_uint_container;
+	typedef typename _container_of<C, char>::type	t_char_container;
+
+	t_uint_container	order;
+
+	if (m <= 1)
+		return (order);
+
+	t_char_container	_used(m, 0);
+	uint				_curr;
+	uint				_prev;
+	uint				_k;
+
+	order.push_back(1);
+	_used[1] = 1;
+
+	_prev = 1;
+	_k = 3;
+	while (_prev < m - 1)
+	{
+		_curr = _jacobsthal(_k++);
+		if (_curr >= m)
+			_curr = m - 1;
+
+		for (
+			uint	_i = _curr;
+			_i > _prev;
+			--_i
+		)
+		{
+			if (!_used[_i])
+			{
+				order.push_back(_i);
+				_used[_i] = 1;
+			}
+		}
+		_prev = _curr;
+		if (_curr == m - 1)
+			break;
+	}
+
+	for (uint	_i = 2;
+		_i < m;
+		++_i
+	)
+	{
+		if (!_used[_i])
+			order.push_back(_i);
+	}
+
+	return (order);
+}
+
+
+template<template<typename, typename> class C>
+void	_do_pairs(
+	typename _container_of<C, s_pair>::type &pairs,
+	const typename _container_of<C, uint>::type &input
+)
+{
+	for (std::size_t	_i = 0;
+		_i + 1 < input.size();
+		_i += 2
+	)
+	{
+		pairs.push_back(s_pair(input[_i], input[_i + 1]));
+	}
+}
+
+template<template<typename, typename> class C>
+typename _container_of<C, uint>::type	_extract_max(
+	const typename _container_of<C, s_pair>::type &pairs
+)
+{
+	typedef typename _container_of<C, uint>::type	t_uint_container;
+
+	t_uint_container	maxs;
+
+	for (std::size_t	_i = 0;
+		_i < pairs.size();
+		++_i
+	)
+	{
+		maxs.push_back(pairs[_i].big);
+	}
+
+	return (maxs);
+}
+
+template<template<typename, typename> class C>
+typename _container_of<C, s_pair>::type	_pairs_in_max_order(
+	const typename _container_of<C, s_pair>::type &pairs,
+	const typename _container_of<C, uint>::type &sorted_max
+)
+{
+	typedef typename _container_of<C, s_pair>::type pair_container;
+
+	std::vector<char>	_used(pairs.size(), 0);
+	pair_container		ordered;
+
+	for (std::size_t	_i = 0;
+		_i < sorted_max.size();
+		++_i
+	)
+	{
+		uint	_mx = sorted_max[_i];
+
+		for (std::size_t	_j = 0;
+			_j < pairs.size();
+			++_j
+		)
+		{
+			if (!_used[_j] && pairs[_j].big == _mx)
+			{
+				ordered.push_back(pairs[_j]);
+				_used[_j] = 1;
+				break;
+			}
+		}
+	}
+	return (ordered);
+}
+
+template<typename Cont>
+static inline typename Cont::iterator	_find_value_it(
+	Cont &c,
+	uint v
+)
+{
+	typename Cont::iterator it = std::lower_bound(c.begin(), c.end(), v);
+
+	return (it);
+}
+
+template<template<typename, typename> class C>
+typename _container_of<C, uint>::type	_insert_minima(
+	const typename _container_of<C, s_pair>::type &pairs_ordered,
+	const typename _container_of<C, uint>::type &max_sorted
+)
+{
+	typedef typename _container_of<C, uint>::type	t_uint_container;
+
+	uint								_mn;
+	uint								_mx;
+	typename t_uint_container::iterator	_ub;
+	typename t_uint_container::iterator	_pos;
+	uint								_idx;
+	t_uint_container					_order;
+	t_uint_container					result = max_sorted;
+
+
+	if (pairs_ordered.empty())
+		return (result);
+
+	{
+		_mn = pairs_ordered[0].small;
+		_mx = pairs_ordered[0].big;
+
+		_ub = _find_value_it(result, _mx);
+		_pos = std::lower_bound(result.begin(), _ub, _mn);
+		result.insert(_pos, _mn);
+	}
+
+	_order = _build_insert_order<C>((uint)pairs_ordered.size());
+
+	for (std::size_t	_k = 0;
+		_k < _order.size();
+		++_k
+	)
+	{
+		_idx = _order[_k];
+		if (_idx >= pairs_ordered.size())
+			continue;
+
+		_mn = pairs_ordered[_idx].small;
+		_mx = pairs_ordered[_idx].big;
+
+		_ub = _find_value_it(result, _mx);
+		_pos = std::lower_bound(result.begin(), _ub, _mn);
+		result.insert(_pos, _mn);
 	}
 
 	return (result);
 }
 
-template<template<typename> class C>
-void _bin_insert(
-	const long _left_over,
-	C<uint> &_maximus
+template<template<typename, typename> class C>
+void	_bin_insert(
+	long left_over,
+	typename _container_of<C, uint>::type &sorted
 )
 {
-	typename C<uint>::iterator	_pos = std::lower_bound(_maximus.begin(), _maximus.end(), _left_over);
+	uint	_v;
 
-	_maximus.insert(_pos, static_cast<uint>(_left_over));
+	if (left_over < 0)
+		return ;
+
+	_v = static_cast<uint>(left_over);
+	typename _container_of<C, uint>::type::iterator	_pos = std::lower_bound(
+																			sorted.begin(),
+																			sorted.end(),
+																			_v
+																		);
+
+	sorted.insert(_pos, _v);
 }
 
-template<template<typename> class C>
-C<uint>	PMergeMe(
-	C<uint> _input
+template<template<typename, typename> class C>
+typename _container_of<C, uint>::type	_PMergeMe_impl(
+	typename _container_of<C, uint>::type input
 )
 {
-	C<s_pair>	_pairs;
-	long		_left_over = -1;
-	C<uint >		maximus;
+	typedef typename _container_of<C, s_pair>::type	t_pair_container;
+	typedef typename _container_of<C, uint>::type	t_uint_container;
 
-	if (_input.size() < 3)
-		return (_input);
-	else if (_input.size() % 2)
+	long				_left_over = -1;
+	t_pair_container	_pairs;
+	t_uint_container	_maxs;
+	t_pair_container	_pairs_ordered;
+	t_uint_container	_result;
+
+	if (input.size() <= 1)
+		return (input);
+	else if (input.size() % 2)
 	{
-		_left_over = _input.back();
-		_input.pop_back();
+		_left_over = input.back();
+		input.pop_back();
 	}
 
-	_do_pairs(_pairs, _input);
+	_do_pairs<C>(_pairs, input);
 
-	maximus = extract_max(_pairs);
+	_maxs = _extract_max<C>(_pairs);
+	_maxs = _PMergeMe_impl<C>(_maxs);
 
-	maximus = PMergeMe(maximus);
+	_pairs_ordered = _pairs_in_max_order<C>(_pairs, _maxs);
 
-	_insert(_pairs, maximus);
+	_result = _insert_minima<C>(_pairs_ordered, _maxs);
 
-	if (_left_over >= 0)
-		_bin_insert(_left_over, maximus);
+	_bin_insert<C>(_left_over, _result);
 
-	return (maximus);
+	return (_result);
 }
 
-// , std::allocator<uint> 
+inline std::vector<uint>	PMergeMe(
+	const std::vector<uint> &input
+)
+{
+	return (_PMergeMe_impl<std::vector>(input));
+}
+
+inline std::deque<uint>		PMergeMe(
+	const std::deque<uint> &input
+)
+{
+	return (_PMergeMe_impl<std::deque>(input));
+}

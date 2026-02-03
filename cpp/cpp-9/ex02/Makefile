@@ -1,13 +1,13 @@
 NAME		:= PmergeMe
 CXX			:= c++
-CXXFLAGS	:= -std=c++98  -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders
+CXXFLAGS	:= -std=c++98  -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders -Ofast
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
 DIR_ALL		:= all/
 
 ALL			:= $(DIR_ALL)/all.a
-SRCS		:= PmergeMe.cpp
+SRCS		:= PmergeMe.cpp visual.cpp
 _SRC		:= $(addprefix src/, $(SRCS)) main.cpp
 
 OBJS		:= $(_SRC:.cpp=.o)
