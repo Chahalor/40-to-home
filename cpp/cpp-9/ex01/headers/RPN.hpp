@@ -69,7 +69,7 @@ class RPN
 		//...
 
 	/*  -Methode-     */
-		static int	evaluate(const std::string &_expr);
+		static long	evaluate(const std::string &_expr);
 
 	/*  -Exeptions-   */
 

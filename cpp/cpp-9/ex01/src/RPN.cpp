@@ -3,7 +3,7 @@
 static inline void	addNumber(
 	std::string::const_iterator	&_it,
 	std::string::const_iterator	&_end,
-	std::stack<int> &_stack
+	std::stack<long> &_stack
 )
 {
 	if (unlikely(std::isdigit(*_it) && std::isdigit(*(_it + 1))))
@@ -17,12 +17,12 @@ static inline void	addNumber(
 
 static inline void	doOperation(
 	std::string::const_iterator	&_it,
-	std::stack<int> &_stack
+	std::stack<long> &_stack
 )
 {
-	int	_op1;
-	int	_op2;
-	int	_result;
+	long	_op1;
+	long	_op2;
+	long	_result;
 
 	if (_stack.size() < 2)
 		throw RPN::InvalidNumberExeption();
@@ -68,11 +68,11 @@ static inline void	doOperation(
 	do {_it++;} while (std::isspace(*_it));
 }
 
-int	RPN::evaluate(
+long	RPN::evaluate(
 	const std::string &_expr
 )
 {
-	std::stack<int>				_stack;
+	std::stack<long>				_stack;
 	std::string::const_iterator	_it;
 	std::string::const_iterator	_end;
 
