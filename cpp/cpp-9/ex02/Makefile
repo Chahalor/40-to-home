@@ -1,6 +1,6 @@
 NAME		:= PmergeMe
 CXX			:= c++
-CXXFLAGS	:= -std=c++98  -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders -Ofast
+CXXFLAGS	:= -std=c++98  -Wall -Wextra -Werror -Wno-deprecated -MMD -g3 -Iall -Iheaders -O1
 
 DIR_SRC		:= .
 DIR_BUILD	:= .build/
