@@ -1,0 +1,5 @@
+*.o
+**/*fdf
+*.out
+.vscode/
+.obj/
