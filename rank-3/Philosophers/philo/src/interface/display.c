@@ -6,7 +6,7 @@
 /*   By: nduvoid <nduvoid@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:10:26 by nduvoid           #+#    #+#             */
-/*   Updated: 2025/05/02 15:29:19 by nduvoid          ###   ########.fr       */
+/*   Updated: 2026/02/10 10:53:59 by nduvoid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ __attribute__((hot)) void	display_philo(
 	lock(&print_lock);
 	if (info < init)
 	{
-		printf("\033[%d;%dH %s+----------------------+\n"
-			"\033[%d;%dH %s| Philo: %-3d %9s |\n"
-			"\033[%d;%dH %s| Meals: %s%-14d%s|\n"
-			"\033[%d;%dH %s+----------------------+\n" RESET,
+		printf("\033[%d;%dH %s┼──────────────────────┼\n"
+			"\033[%d;%dH %s│ Philo: %-3d %9s │\n"
+			"\033[%d;%dH %s│ Meals: %s%-14d%s│\n"
+			"\033[%d;%dH %s┼──────────────────────┼\n" RESET,
 			row, col, color,
 			row + 1, col, color, philo->id, status_str[philo->status],
 			row + 2, col, color, YELLOW, philo->nb_meals, color,
@@ -162,3 +162,10 @@ __attribute__((hot)) void	display_philo(
 }
 
 #pragma endregion Functions
+
+/*
+┌ ┬ ┐
+├ ┼ ┤
+└ ┴ ┘
+│ ─
+*/
