@@ -22,3 +22,6 @@
 [submodule "rank-5/inception"]
 	path = rank-5/inception
 	url = https://github.com/Chahalor/Inception.git
+[submodule "rank-5/webServ"]
+	path = rank-5/webServ
+	url = git@github.com:40-to-steroide/webserv.git

@@ -27,19 +27,19 @@
 | [philosopher](https://github.com/Chahalor/40-to-home/tree/main/rank-3/Philosophers)			| The discovery of the multi threading and how fun it is							| yes		| 116		| 🌟 🌟 🌟			|
 | [miniShell](https://github.com/Chahalor/40-to-home/tree/main/rank-3/minishell)				| Creating our own shell															| yes		| 101		| 🌟 🔴 🔴			|
 
-## 🐚 Circle 4
+## 🔅 Circle 4
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| ???																				| 	🔴		| ???		| 0					|
+| [Net Practice](https://github.com/Chahalor/40-to-home/tree/main/rank-4/Net-practice)			| learning the basic of with an iinteractive interface								| none 		| 100		| 0					|
 | [miniRT](https://github.com/Chahalor/40-to-home/tree/main/rank-4/miniRT)						| learning math around ray tracing and graphic optimisations						| no		| 100		| 🌟 🔴 🔴			|
-| [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| learning the basic pf cpp prgraming and object oriented programming				| yes		| 98		| 4 🌟 / 15			|
+| [cpp 0-4](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| learning the basic of cpp programing and object oriented programming				| yes		| 98		| 4 🌟 / 15			|
 
-## 🐚 Circle 5
+## 💻 Circle 5
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
 |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------:|:---------:|:-----------------:|
-| [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/inception)				| ???																				| yes		| ???		| 0					|
-| [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/webServ)					| ???																				| yes		| ???		| 0					|
-| [cpp 5-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| ???																				| ???		| ???		| 0					|
+| [Inception](https://github.com/Chahalor/40-to-home/tree/main/rank-5/inception)				| understanding the usage of docker by building a multi service docker environement	| yes		| 125		| 🌟 🌟 🔴			|
+| [Webserv](https://github.com/Chahalor/40-to-home/tree/main/rank-5/webServ)					| Building a basic HTTP server that can serve static website						| yes		| 110		| 🌟 🌟 🔴			|
+| [cpp 5-9](https://github.com/Chahalor/40-to-home/tree/main/cpp)								| continuing the cpp journay by learning exeption, templates and the STL			| yes		| 100		| 5 🌟 / 15			|
 
 ## 🐚 Circle 6
 |										 🪪 Name												|										🎯 Goals									| 🆙 Bonus	| 💯 Score	| 🌟 Outstanding	|
